@@ -21,13 +21,13 @@ export default class SpriteDirectionSystem extends System {
             }
 
             if (rigidBody.direction.y < 0) {
-                sprite.srcRect.y = sprite.height * 0;
+                sprite.srcRect.y = rigidBody.velocity.y < 0 ? sprite.height * 4 : sprite.height * 0;
             } else if (rigidBody.direction.x > 0) {
-                sprite.srcRect.y = sprite.height * 1;
+                sprite.srcRect.y = rigidBody.velocity.x > 0 ? sprite.height * 5 : sprite.height * 1;
             } else if (rigidBody.direction.y > 0) {
-                sprite.srcRect.y = sprite.height * 2;
+                sprite.srcRect.y = rigidBody.velocity.y > 0 ? sprite.height * 6 : sprite.height * 2;
             } else if (rigidBody.direction.x < 0) {
-                sprite.srcRect.y = sprite.height * 3;
+                sprite.srcRect.y = rigidBody.velocity.x < 0 ? sprite.height * 7 : sprite.height * 3;
             }
         }
     }

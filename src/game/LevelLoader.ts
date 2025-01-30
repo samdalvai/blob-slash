@@ -30,7 +30,6 @@ export default class LevelLoader {
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
 
         await assetStore.addTexture('slime-texture', './assets/images/slime.png');
-        await assetStore.addTexture('slime-big-texture', './assets/images/slime_big.png');
         await assetStore.addTexture('bullet-texture', './assets/images/bullet.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
@@ -74,12 +73,12 @@ export default class LevelLoader {
         console.log('Loading entities');
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
-        player.addComponent(SpriteComponent, 'slime-big-texture', 32, 32, 1, 0, 0);
-        player.addComponent(ShadowComponent, 20, 10, 0, -8);
+        player.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        player.addComponent(ShadowComponent, 30, 10, 0, -8);
         player.addComponent(AnimationComponent, 2, 4);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
-        player.addComponent(KeyboardControlComponent, -300, 300, 300, -300);
+        player.addComponent(KeyboardControlComponent, -200, 200, 200, -200);
         player.addComponent(ProjectileEmitterComponent, { x: 200, y: 200 }, 50, 3000, 10, true);
         player.addComponent(BoxColliderComponent, 32, 25, { x: 0, y: 5 });
         player.addComponent(HealthComponent, 100);
@@ -91,7 +90,7 @@ export default class LevelLoader {
         enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
         enemy.addComponent(ShadowComponent, 20, 10, 0, -8);
-        enemy.addComponent(AnimationComponent, 5, 10);
+        enemy.addComponent(AnimationComponent, 2, 4);
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
