@@ -60,6 +60,7 @@ export default class DamageSystem extends System {
             }
 
             health.healthPercentage -= projectileComponent.hitPercentDamage;
+            health.lastDamageTime = performance.now();
 
             if (health.healthPercentage <= 0) {
                 this.eventBus.emitEvent(EntityKilledEvent, player);
@@ -105,6 +106,7 @@ export default class DamageSystem extends System {
             }
 
             health.healthPercentage -= projectileComponent.hitPercentDamage;
+            health.lastDamageTime = performance.now();
 
             if (health.healthPercentage <= 0) {
                 this.eventBus.emitEvent(EntityKilledEvent, enemy);

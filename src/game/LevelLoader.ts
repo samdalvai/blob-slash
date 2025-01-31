@@ -29,7 +29,7 @@ export default class LevelLoader {
         await assetStore.addJson('tile-map', '/assets/tilemaps/tilemap.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
 
-        await assetStore.addTexture('slime-texture', './assets/images/slime.png');
+        await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
         await assetStore.addTexture('bullet-texture', './assets/images/bullet.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
@@ -74,6 +74,7 @@ export default class LevelLoader {
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
         player.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        player.addComponent(SpriteDirectionComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -8);
         player.addComponent(AnimationComponent, 2, 4);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
@@ -83,19 +84,18 @@ export default class LevelLoader {
         player.addComponent(BoxColliderComponent, 32, 25, { x: 0, y: 5 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
-        player.addComponent(SpriteDirectionComponent);
         player.tag('player');
 
         const enemy = registry.createEntity();
         enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        enemy.addComponent(SpriteDirectionComponent);
         enemy.addComponent(ShadowComponent, 20, 10, 0, -8);
         enemy.addComponent(AnimationComponent, 2, 4);
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
         enemy.addComponent(ProjectileEmitterComponent, { x: 100, y: 100 }, 500, 2000, 20, false);
-        enemy.addComponent(SpriteDirectionComponent);
         enemy.addComponent(EntityFollowComponent, 250, 100, 50, { x: 16, y: 16 }, 5000);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },
