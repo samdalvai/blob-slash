@@ -31,6 +31,7 @@ export default class LevelLoader {
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
+        await assetStore.addTexture('player-texture', './assets/images/player_full.png');
         await assetStore.addTexture('bullet-texture', './assets/images/bullet.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
@@ -73,11 +74,11 @@ export default class LevelLoader {
         console.log('Loading entities');
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
-        player.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0);
         player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteDirectionComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -8);
-        player.addComponent(AnimationComponent, 2, 4);
+        player.addComponent(AnimationComponent, 4, 6);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(KeyboardControlComponent, -200, 200, 200, -200);
