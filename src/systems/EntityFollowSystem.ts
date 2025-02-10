@@ -4,6 +4,8 @@ import ScriptComponent from '../components/ScriptComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
+import EventBus from '../event-bus/EventBus';
+import EntityKilledEvent from '../events/EntityKilledEvent';
 
 const ALIGNMENT_THRESHOLD = 5;
 const FOLLOW_PADDING = 50;
@@ -41,6 +43,24 @@ export default class EntityFollowSystem extends System {
         this.requireComponent(EntityFollowComponent);
         this.requireComponent(RigidBodyComponent);
     }
+
+    subscribeToEvents(eventBus: EventBus) {
+        eventBus.subscribeToEvent(EntityKilledEvent, this, this.onEntityDeath);
+    }
+
+    onEntityDeath = (event: EntityKilledEvent) => {
+        for (const entity of this.getSystemEntities()) {
+            const entityFollow = entity.getComponent(EntityFollowComponent);
+
+            if (!entityFollow) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            if (entityFollow.followedEntity?.getId() === event.entity.getId()) {
+                entityFollow.followedEntity = null;
+            }
+        }
+    };
 
     update() {
         for (const entity of this.getSystemEntities()) {

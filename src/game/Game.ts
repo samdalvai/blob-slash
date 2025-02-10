@@ -205,6 +205,7 @@ export default class Game {
         this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);

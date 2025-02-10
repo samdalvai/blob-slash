@@ -44,7 +44,7 @@ export default class PlayerDetectionSystem extends System {
         const player = registry.getEntityByTag('player');
 
         if (!player) {
-            throw new Error('Player entity not found');
+            return;
         }
 
         const playerTransform = player.getComponent(TransformComponent);
