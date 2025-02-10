@@ -10,6 +10,7 @@ import CameraMovementSystem from '../systems/CameraMovementSystem';
 import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
 import DamageSystem from '../systems/DamageSystem';
+import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import KeyboardControlSystem from '../systems/KeyboardControlSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
@@ -129,6 +130,7 @@ export default class Game {
         this.registry.addSystem(PlayerDetectionSystem);
         this.registry.addSystem(SpriteDirectionSystem);
         this.registry.addSystem(ScriptingSystem);
+        this.registry.addSystem(DeadBodyOnDeathSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -202,6 +204,7 @@ export default class Game {
         this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);

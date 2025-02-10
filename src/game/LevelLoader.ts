@@ -3,6 +3,7 @@ import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
+import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import KeyboardControlComponent from '../components/KeyboardControlComponent';
@@ -14,7 +15,7 @@ import SpriteComponent from '../components/SpriteComponent';
 import SpriteDirectionComponent from '../components/SpriteDirectionComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
-import {  TileMap } from '../types';
+import { TileMap } from '../types';
 import Game from './Game';
 
 export default class LevelLoader {
@@ -33,7 +34,6 @@ export default class LevelLoader {
         await assetStore.addTexture('bullet-texture', './assets/images/bullet.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
-
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
@@ -74,6 +74,7 @@ export default class LevelLoader {
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
         player.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteDirectionComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -8);
         player.addComponent(AnimationComponent, 2, 4);
@@ -90,6 +91,7 @@ export default class LevelLoader {
         enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
         enemy.addComponent(SpriteDirectionComponent);
+        enemy.addComponent(DeadBodyOnDeathComponent);
         enemy.addComponent(ShadowComponent, 20, 10, 0, -8);
         enemy.addComponent(AnimationComponent, 2, 4);
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });

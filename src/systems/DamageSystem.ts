@@ -115,44 +115,6 @@ export default class DamageSystem extends System {
             if (health.healthPercentage <= 0) {
                 this.eventBus.emitEvent(EntityKilledEvent, enemy);
                 enemy.kill();
-
-                const sprite = enemy.getComponent(SpriteComponent);
-                const transform = enemy.getComponent(TransformComponent);
-                const rigidBody = enemy.getComponent(RigidBodyComponent);
-
-                if (sprite && transform && rigidBody) {
-                    const registry = enemy.registry;
-
-                    const deadBody = registry.createEntity();
-                    deadBody.addComponent(
-                        TransformComponent,
-                        { ...transform.position },
-                        { ...transform.scale },
-                        transform.rotation,
-                    );
-                    deadBody.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { ...rigidBody.direction });
-
-                    let spriteOffset = 0;
-
-                    if (rigidBody.direction.x > 0) {
-                        spriteOffset = 1;
-                    } else if (rigidBody.direction.y > 0) {
-                        spriteOffset = 2;
-                    } else if (rigidBody.direction.x < 0) {
-                        spriteOffset = 3;
-                    }
-
-                    deadBody.addComponent(
-                        SpriteComponent,
-                        sprite.assetId,
-                        sprite.width,
-                        sprite.height,
-                        sprite.zIndex,
-                        0,
-                        sprite.height * 12 + sprite.height * spriteOffset,
-                    );
-                    deadBody.addComponent(LifetimeComponent, 5000);
-                }
             }
 
             projectile.kill();
