@@ -77,7 +77,7 @@ export default class LevelLoader {
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0);
         player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteDirectionComponent);
-        player.addComponent(ShadowComponent, 30, 10, 0, -8);
+        player.addComponent(ShadowComponent, 30, 10, 0, -3);
         player.addComponent(AnimationComponent, 4, 6);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
