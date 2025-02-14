@@ -30,8 +30,8 @@ export default class RenderParticleSourceSystem extends System {
                 continue;
             }
 
-            const circleX = transform.position.x - camera.x;
-            const circleY = transform.position.y - camera.y;
+            const circleX = transform.position.x - camera.x + particleEmit.offsetX;
+            const circleY = transform.position.y - camera.y + particleEmit.offsetY;
 
             ctx.beginPath();
             ctx.arc(circleX, circleY, particleEmit.emitRadius, 0, Math.PI * 2);

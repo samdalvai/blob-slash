@@ -32,5 +32,3 @@ export enum GameStatus {
     WON,
     LOST,
 }
-
-export type ParticleColor = 'black' | 'white';

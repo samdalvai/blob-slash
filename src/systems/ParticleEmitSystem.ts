@@ -22,8 +22,8 @@ export default class ParticleEmitSystem extends System {
             }
 
             const particlePosition = this.getRandomPointInCircle(
-                transform.position.x,
-                transform.position.y,
+                transform.position.x + particleEmit.offsetX,
+                transform.position.y + particleEmit.offsetY,
                 particleEmit.emitRadius,
             );
 
