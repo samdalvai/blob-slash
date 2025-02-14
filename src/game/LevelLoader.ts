@@ -111,6 +111,6 @@ export default class LevelLoader {
 
         const particleSource = registry.createEntity();
         particleSource.addComponent(TransformComponent, { x: 500, y: 500 });
-        particleSource.addComponent(ParticleEmitComponent, 1, 1000, 'white', 100, 20);
+        particleSource.addComponent(ParticleEmitComponent, 2, 1000, 'white', 100, 20);
     }
 }

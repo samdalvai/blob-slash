@@ -7,6 +7,7 @@ export default class ParticleEmitComponent extends Component {
     color: ParticleColor;
     emitFrequency: number;
     emitRadius: number;
+    lastEmission = 0;
 
     constructor(
         dimension = 1,
