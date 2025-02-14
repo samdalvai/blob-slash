@@ -110,7 +110,7 @@ export default class LevelLoader {
         enemy.group('enemies');
 
         const particleSource = registry.createEntity();
-        particleSource.addComponent(TransformComponent, { x: 0, y: 0 });
+        particleSource.addComponent(TransformComponent, { x: 500, y: 500 });
         particleSource.addComponent(ParticleEmitComponent, 1, 1000, 100);
     }
 }
