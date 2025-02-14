@@ -13,8 +13,9 @@ export default class RenderParticleSourceSystem extends System {
     update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
+            const particleEmit = entity.getComponent(ParticleEmitComponent);
 
-            if (!transform) {
+            if (!transform || !particleEmit) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -33,7 +34,7 @@ export default class RenderParticleSourceSystem extends System {
             const circleY = transform.position.y - camera.y;
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, 20, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, particleEmit.emitRadius, 0, Math.PI * 2);
             ctx.strokeStyle = 'blue';
             ctx.stroke();
         }
