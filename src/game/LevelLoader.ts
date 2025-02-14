@@ -7,6 +7,7 @@ import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import KeyboardControlComponent from '../components/KeyboardControlComponent';
+import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -107,5 +108,9 @@ export default class LevelLoader {
             { movement: { x: 0, y: -50 }, duration: 2000 },
         ]);
         enemy.group('enemies');
+
+        const particleSource = registry.createEntity();
+        particleSource.addComponent(TransformComponent, { x: 0, y: 0 });
+        particleSource.addComponent(ParticleEmitComponent, 1, 1000, 100);
     }
 }
