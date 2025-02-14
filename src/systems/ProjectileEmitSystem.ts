@@ -1,3 +1,4 @@
+import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
@@ -69,17 +70,6 @@ export default class ProjectileEmitSystem extends System {
     ) {
         // Check if its time to re-emit a new projectile
         if (performance.now() - projectileEmitter.lastEmissionTime > projectileEmitter.repeatFrequency) {
-            const projectilePosition = { ...transform.position };
-            if (entity.hasComponent(SpriteComponent)) {
-                const sprite = entity.getComponent(SpriteComponent);
-
-                if (!sprite) {
-                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                }
-                projectilePosition.x += (transform.scale.x * sprite.width) / 2;
-                projectilePosition.y += (transform.scale.y * sprite.height) / 2;
-            }
-
             // Modify the direction of the projectile according to the rigid body direction
             const projectileVelocity = { ...projectileEmitter.projectileVelocity };
 
@@ -104,10 +94,10 @@ export default class ProjectileEmitSystem extends System {
             // Add a new projectile entity to the registry
             const projectile = registry.createEntity();
             projectile.group('projectiles');
-            projectile.addComponent(TransformComponent, projectilePosition, { x: 1.0, y: 1.0 }, 0.0);
+            projectile.addComponent(TransformComponent, { ...transform.position }, { x: 1.0, y: 1.0 }, 0.0);
             projectile.addComponent(RigidBodyComponent, projectileVelocity);
-            projectile.addComponent(SpriteComponent, 'bullet-texture', 4, 4, 4);
-            projectile.addComponent(BoxColliderComponent, 4, 4);
+            projectile.addComponent(SpriteComponent, 'magic-missile-texture', 32, 32, 4);
+            projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
             projectile.addComponent(
                 ProjectileComponent,
                 projectileEmitter.isFriendly,
