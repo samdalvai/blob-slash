@@ -32,7 +32,7 @@ export default class LevelLoader {
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
         await assetStore.addTexture('player-texture', './assets/images/player_full.png');
-        await assetStore.addTexture('bullet-texture', './assets/images/bullet.png');
+        await assetStore.addTexture('magic-missile-texture', './assets/images/magic_missile.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
     }
