@@ -46,6 +46,7 @@ export default class Game {
     private millisecsPreviousFrame = 0;
     private millisecondsLastFPSUpdate = 0;
     private currentFPS = 0;
+    private currentTickTime = 0;
     private registry: Registry;
     private assetStore: AssetStore;
     private eventBus: EventBus;
@@ -194,12 +195,11 @@ export default class Game {
             if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
                 this.currentFPS = 1000 / (millisecsCurrentFrame - this.millisecsPreviousFrame);
                 this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
+                this.currentTickTime = timeToWait;
             }
         }
 
         this.millisecsPreviousFrame = performance.now();
-
-        // console.log(timeToWait)
 
         // Reset all event handlers for the current frame
         this.eventBus.reset();
@@ -249,7 +249,9 @@ export default class Game {
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
 
         if (this.isDebug) {
-            this.registry.getSystem(RenderDebugInfoSystem)?.update(this.ctx, this.currentFPS, this.inputManager);
+            this.registry
+                .getSystem(RenderDebugInfoSystem)
+                ?.update(this.ctx, this.currentFPS, this.currentTickTime, this.inputManager, this.registry);
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderPlayerFollowRadius)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);

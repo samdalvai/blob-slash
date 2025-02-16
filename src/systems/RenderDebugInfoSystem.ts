@@ -1,3 +1,4 @@
+import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import Game from '../game/Game';
 import InputManager from '../input-manager/InputManager';
@@ -7,7 +8,13 @@ export default class RenderDebugInfoSystem extends System {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D, currentFPS: number, inputManager: InputManager) {
+    update(
+        ctx: CanvasRenderingContext2D,
+        currentFPS: number,
+        currentTickTime: number,
+        inputManager: InputManager,
+        registry: Registry,
+    ) {
         const x = Game.windowWidth - 400;
         const y = 50;
 
@@ -15,13 +22,14 @@ export default class RenderDebugInfoSystem extends System {
 
         ctx.font = '24px Arial';
         ctx.fillStyle = 'white';
-        ctx.fillText(`Current FPS: (${currentFPS.toFixed(2)})`, x, y);
-
+        ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)}`, x, y);
+        ctx.fillText(`Tick time: ${currentTickTime.toFixed(2)} s`, x, y + 50);
         ctx.fillText(
-            `Mouse coordinates: (x: ${inputManager.mousePosition.x}, y: ${inputManager.mousePosition.y})`,
+            `Mouse coordinates: {x: ${inputManager.mousePosition.x}, y: ${inputManager.mousePosition.y}}`,
             x,
-            y + 50,
+            y + 100,
         );
+        ctx.fillText(`Number of entities: ${registry.numEntities}`, x, y + 150);
 
         ctx.restore();
     }
