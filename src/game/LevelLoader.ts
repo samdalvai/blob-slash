@@ -37,6 +37,7 @@ export default class LevelLoader {
         await assetStore.addTexture('magic-sphere-texture', './assets/images/magic_sphere.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
+        await assetStore.addTexture('torch-texture', './assets/images/torch.png');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
@@ -110,5 +111,11 @@ export default class LevelLoader {
             { movement: { x: 0, y: -50 }, duration: 2000 },
         ]);
         enemy.group('enemies');
+
+        const torch = registry.createEntity();
+        torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 1);
+        torch.addComponent(TransformComponent, { x: 500, y: 500 });
+        torch.addComponent(AnimationComponent, 4, 10);
+        torch.addComponent(LightEmitComponent, 100);
     }
 }
