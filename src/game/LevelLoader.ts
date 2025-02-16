@@ -118,6 +118,7 @@ export default class LevelLoader {
         torch.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 1, y: 1 });
         torch.addComponent(AnimationComponent, 4, 10);
         torch.addComponent(LightEmitComponent, 100);
+        torch.addComponent(ShadowComponent, 10,5, -0.5, -5)
         torch.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
     }
 }
