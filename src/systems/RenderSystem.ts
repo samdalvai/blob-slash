@@ -13,6 +13,7 @@ export default class RenderSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle) {
+        const start = performance.now();
         const renderableEntities: {
             sprite: SpriteComponent;
             transform: TransformComponent;
@@ -45,6 +46,10 @@ export default class RenderSystem extends System {
         }
 
         renderableEntities.sort((entityA, entityB) => {
+            if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
+                return entityA.transform.position.y - entityB.transform.position.y;
+            }
+
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
@@ -122,5 +127,8 @@ export default class RenderSystem extends System {
 
             ctx.restore();
         }
+
+        const end = performance.now();
+        console.log('rendering took: ', end - start);
     }
 }
