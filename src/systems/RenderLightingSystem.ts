@@ -9,17 +9,26 @@ export default class RenderLightingSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
-        ctx.fillStyle = 'black';
-        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
 
-        ctx.globalCompositeOperation = 'destination-out';
+        if (!tempCtx) {
+            return;
+        }
+
+        tempCtx.fillStyle = 'black';
+        tempCtx.fillRect(0, 0, camera.width, camera.height);
+
+        tempCtx.globalCompositeOperation = 'destination-out';
 
         // Draw the transparent circle
-        ctx.beginPath();
-        ctx.arc(200, 200, 100, 0, Math.PI * 2);
-        ctx.fill();
+        tempCtx.beginPath();
+        tempCtx.arc(200, 200, 100, 0, Math.PI * 2);
+        tempCtx.fill();
 
         // Reset composite operation for further drawing
-        ctx.globalCompositeOperation = 'source-over';
+        tempCtx.globalCompositeOperation = 'source-over';
+
+        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
     }
 }
