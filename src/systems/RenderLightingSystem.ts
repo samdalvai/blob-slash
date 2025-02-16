@@ -9,17 +9,17 @@ export default class RenderLightingSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Semi-transparent black
-        ctx.fillRect(0, 0, camera.width, camera.height);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(camera.x, camera.y, camera.width, camera.height);
 
-        // Use destination-out to create a transparent circle (visibility area)
         ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+
+        // Draw the transparent circle
         ctx.beginPath();
-        ctx.arc(200, 150, 50, 0, Math.PI * 2); // Circle at (200, 150) with radius 50
+        ctx.arc(200, 200, 100, 0, Math.PI * 2);
         ctx.fill();
 
-        // Reset the composite operation to default
+        // Reset composite operation for further drawing
         ctx.globalCompositeOperation = 'source-over';
     }
 }
