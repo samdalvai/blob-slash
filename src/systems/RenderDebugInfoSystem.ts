@@ -23,7 +23,7 @@ export default class RenderDebugInfoSystem extends System {
         ctx.font = '24px Arial';
         ctx.fillStyle = 'white';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)}`, x, y);
-        ctx.fillText(`Tick time: ${currentTickTime.toFixed(2)} s`, x, y + 50);
+        ctx.fillText(`Tick time: ${currentTickTime.toFixed(2)} ms`, x, y + 50);
         ctx.fillText(
             `Mouse coordinates: {x: ${inputManager.mousePosition.x}, y: ${inputManager.mousePosition.y}}`,
             x,
