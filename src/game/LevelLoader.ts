@@ -115,7 +115,7 @@ export default class LevelLoader {
 
         const torch = registry.createEntity();
         torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 1);
-        torch.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 1, y: 1 });
+        torch.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 });
         torch.addComponent(AnimationComponent, 4, 10);
         torch.addComponent(LightEmitComponent, 100);
         torch.addComponent(ShadowComponent, 10, 5, -0.5, -5);
