@@ -91,10 +91,23 @@ export default class ProjectileEmitSystem extends System {
                 projectileVelocity.y = projectileEmitter.projectileVelocity.y * directionY + rigidBody.velocity.y;
             }
 
+            const projectilePosition = { x: transform.position.x - 16, y: transform.position.y - 16 };
+
+            if (entity.hasComponent(SpriteComponent)) {
+                const sprite = entity.getComponent(SpriteComponent);
+
+                if (!sprite) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                projectilePosition.x += (sprite.width / 2) * transform.scale.x;
+                projectilePosition.y += (sprite.height / 2) * transform.scale.y;
+            }
+
             // Add a new projectile entity to the registry
             const projectile = registry.createEntity();
             projectile.group('projectiles');
-            projectile.addComponent(TransformComponent, { ...transform.position }, { x: 1.0, y: 1.0 }, 0.0);
+            projectile.addComponent(TransformComponent, projectilePosition, { x: 1.0, y: 1.0 }, 0.0);
             projectile.addComponent(RigidBodyComponent, projectileVelocity);
             projectile.addComponent(SpriteComponent, 'magic-sphere-texture', 32, 32, 4);
             projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });

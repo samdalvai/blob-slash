@@ -199,7 +199,7 @@ export default class Game {
 
         this.millisecsPreviousFrame = performance.now();
 
-        console.log(timeToWait)
+        // console.log(timeToWait)
 
         // Reset all event handlers for the current frame
         this.eventBus.reset();
