@@ -7,7 +7,6 @@ import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import KeyboardControlComponent from '../components/KeyboardControlComponent';
-import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -30,6 +29,7 @@ export default class LevelLoader {
         console.log('Loading assets');
         await assetStore.addJson('tile-map', '/assets/tilemaps/tilemap.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
+        await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
         await assetStore.addTexture('player-texture', './assets/images/player_full.png');
@@ -62,7 +62,7 @@ export default class LevelLoader {
                     { x: mapScale, y: mapScale },
                     0,
                 );
-                tile.addComponent(SpriteComponent, 'desert-texture', tileSize, tileSize, 0, srcRectX, srcRectY);
+                tile.addComponent(SpriteComponent, 'tiles-dark-texture', tileSize, tileSize, 0, srcRectX, srcRectY);
                 columnNumber++;
             }
             rowNumber++;
