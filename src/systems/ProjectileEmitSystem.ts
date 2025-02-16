@@ -4,6 +4,7 @@ import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
 import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
+import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
@@ -118,6 +119,7 @@ export default class ProjectileEmitSystem extends System {
             );
             projectile.addComponent(LifetimeComponent, projectileEmitter.projectileDuration);
             projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5, 16, 16);
+            projectile.addComponent(ShadowComponent, 8, 4);
 
             // Update the projectile emitter component last emission to the current milliseconds
             projectileEmitter.lastEmissionTime = performance.now();

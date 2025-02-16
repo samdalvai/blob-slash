@@ -16,11 +16,11 @@ export default class ParticleEmitComponent extends Component {
         dimension = 1,
         duration = 1000,
         color = 'black',
-        emitFrequency = 1000,
-        emitRadius = 1000,
+        emitFrequency = 100,
+        emitRadius = 100,
         offsetX = 0,
         offsetY = 0,
-        particleVelocity: { x: 0; y: 0 },
+        particleVelocity = { x: 0, y: 0 },
     ) {
         super();
         this.dimension = dimension;
