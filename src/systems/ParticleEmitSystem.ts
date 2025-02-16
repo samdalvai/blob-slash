@@ -1,6 +1,7 @@
 import LifetimeComponent from '../components/LifetimeComponent';
 import ParticleComponent from '../components/ParticleComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
+import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Vector } from '../types';
@@ -35,6 +36,7 @@ export default class ParticleEmitSystem extends System {
             particle.addComponent(ParticleComponent, particleEmit.dimension, particleEmit.color);
             particle.addComponent(TransformComponent, particlePosition);
             particle.addComponent(LifetimeComponent, particleEmit.duration);
+            particle.addComponent(RigidBodyComponent, { ...particleEmit.particleVelocity });
 
             particleEmit.lastEmission = performance.now();
         }

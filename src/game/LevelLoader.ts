@@ -8,6 +8,7 @@ import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import KeyboardControlComponent from '../components/KeyboardControlComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
+import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -114,8 +115,9 @@ export default class LevelLoader {
 
         const torch = registry.createEntity();
         torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 1);
-        torch.addComponent(TransformComponent, { x: 500, y: 500 });
+        torch.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 1, y: 1 });
         torch.addComponent(AnimationComponent, 4, 10);
         torch.addComponent(LightEmitComponent, 100);
+        torch.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
     }
 }
