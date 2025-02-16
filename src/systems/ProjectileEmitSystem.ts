@@ -1,4 +1,3 @@
-import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
