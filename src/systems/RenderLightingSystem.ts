@@ -1,4 +1,5 @@
-import ParticleComponent from '../components/ParticleComponent';
+import LightEmitComponent from '../components/LightEmitComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Rectangle } from '../types';
@@ -6,29 +7,50 @@ import { Rectangle } from '../types';
 export default class RenderLightingSystem extends System {
     constructor() {
         super();
+        this.requireComponent(LightEmitComponent);
+        this.requireComponent(TransformComponent);
+        this.requireComponent(SpriteComponent);
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
         const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = camera.width;
+        tempCanvas.height = camera.height;
+
         const tempCtx = tempCanvas.getContext('2d');
 
         if (!tempCtx) {
             return;
         }
 
-        tempCtx.fillStyle = 'black';
+        tempCtx.fillStyle = 'rgba(0,0,0,0.5)';
         tempCtx.fillRect(0, 0, camera.width, camera.height);
 
         tempCtx.globalCompositeOperation = 'destination-out';
+        tempCtx.shadowColor = 'black';
+        tempCtx.shadowBlur = 15;
 
-        // Draw the transparent circle
-        tempCtx.beginPath();
-        tempCtx.arc(200, 200, 100, 0, Math.PI * 2);
-        tempCtx.fill();
+        for (const entity of this.getSystemEntities()) {
+            const lightEmit = entity.getComponent(LightEmitComponent);
+            const transform = entity.getComponent(TransformComponent);
+            const sprite = entity.getComponent(SpriteComponent);
 
-        // Reset composite operation for further drawing
+            if (!lightEmit || !transform || !sprite) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            tempCtx.beginPath();
+            tempCtx.arc(
+                transform.position.x - camera.x + (sprite.width / 2) * transform.scale.x,
+                transform.position.y - camera.y + (sprite.height / 2) * transform.scale.y,
+                lightEmit.lightRadius,
+                0,
+                Math.PI * 2,
+            );
+            tempCtx.fill();
+        }
+
         tempCtx.globalCompositeOperation = 'source-over';
-
-        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        ctx.drawImage(tempCanvas, 0, 0);
     }
 }

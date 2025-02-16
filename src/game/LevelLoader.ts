@@ -7,6 +7,7 @@ import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import KeyboardControlComponent from '../components/KeyboardControlComponent';
+import LightEmitComponent from '../components/LightEmitComponent';
 import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -87,6 +88,7 @@ export default class LevelLoader {
         player.addComponent(BoxColliderComponent, 32, 25, { x: 0, y: 5 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
+        player.addComponent(LightEmitComponent, 200);
         player.tag('player');
 
         const enemy = registry.createEntity();
