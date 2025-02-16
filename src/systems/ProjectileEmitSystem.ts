@@ -97,7 +97,7 @@ export default class ProjectileEmitSystem extends System {
             projectile.group('projectiles');
             projectile.addComponent(TransformComponent, { ...transform.position }, { x: 1.0, y: 1.0 }, 0.0);
             projectile.addComponent(RigidBodyComponent, projectileVelocity);
-            projectile.addComponent(SpriteComponent, 'magic-missile-texture', 32, 32, 4);
+            projectile.addComponent(SpriteComponent, 'magic-sphere-texture', 32, 32, 4);
             projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
             projectile.addComponent(
                 ProjectileComponent,
@@ -105,7 +105,7 @@ export default class ProjectileEmitSystem extends System {
                 projectileEmitter.hitPercentDamage,
             );
             projectile.addComponent(LifetimeComponent, projectileEmitter.projectileDuration);
-            projectile.addComponent(ParticleEmitComponent, 2, 300, 'white', 100, 5, 16, 16);
+            projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5, 16, 16);
 
             // Update the projectile emitter component last emission to the current milliseconds
             projectileEmitter.lastEmissionTime = performance.now();
