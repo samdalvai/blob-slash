@@ -219,8 +219,7 @@ export default class Registry {
         }
 
         const newComponent = new ComponentClass(...args);
-        const componentPool = this.componentPools[componentId] as Pool<T>;
-        componentPool?.set(entityId, newComponent);
+        (this.componentPools[componentId] as Pool<T>).set(entityId, newComponent);
 
         this.entityComponentSignatures[entityId].set(componentId);
         // console.log('Component with id ' + componentId + ' was added to entity with id ' + entityId);
@@ -241,17 +240,11 @@ export default class Registry {
     };
 
     hasComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>): boolean => {
-        const componentId = ComponentClass.getComponentId();
-        const entityId = entity.getId();
-        return this.entityComponentSignatures[entityId].test(componentId);
+        return this.entityComponentSignatures[entity.getId()].test(ComponentClass.getComponentId());
     };
 
     getComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>): T | undefined => {
-        const componentId = ComponentClass.getComponentId();
-        const entityId = entity.getId();
-
-        const componentPool = this.componentPools[componentId] as Pool<T>;
-        return componentPool?.get(entityId);
+        return (this.componentPools[ComponentClass.getComponentId()] as Pool<T>)?.get(entity.getId());
     };
 
     ////////////////////////////////////////////////////////////////////////////////
