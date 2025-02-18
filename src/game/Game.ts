@@ -46,6 +46,7 @@ export default class Game {
     private millisecsPreviousFrame = 0;
     private millisecondsLastFPSUpdate = 0;
     private currentFPS = 0;
+    private maxFPS = 0;
     private currentTickTime = 0;
     private registry: Registry;
     private assetStore: AssetStore;
@@ -196,6 +197,9 @@ export default class Game {
                 this.currentFPS = 1000 / (millisecsCurrentFrame - this.millisecsPreviousFrame);
                 this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
                 this.currentTickTime = timeToWait;
+                if (this.maxFPS < this.currentFPS) {
+                    this.maxFPS = this.currentFPS;
+                }
             }
         }
 
@@ -251,7 +255,7 @@ export default class Game {
         if (this.isDebug) {
             this.registry
                 .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.currentTickTime, this.inputManager, this.registry);
+                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.currentTickTime, this.inputManager, this.registry);
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderPlayerFollowRadius)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
