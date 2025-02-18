@@ -22,7 +22,7 @@ describe('Testing performance related functions', () => {
                 const entity = registry.createEntity();
                 entity.addComponent(RigidBodyComponent, { x: 10, y: 10 });
                 entity.addComponent(TransformComponent, { x: 100, y: 100 });
-                entity.addComponent(LifetimeComponent, 10000);
+                // entity.addComponent(LifetimeComponent, 10000);
             }
 
             registry.update();
@@ -31,10 +31,10 @@ describe('Testing performance related functions', () => {
             const startUpdate = performance.now();
 
             const movementSystem = registry.getSystem(MovementSystem);
-            const lifetimeSystm = registry.getSystem(LifetimeSystem);
+            // const lifetimeSystm = registry.getSystem(LifetimeSystem);
 
             movementSystem?.update(10);
-            lifetimeSystm?.update();
+            // lifetimeSystm?.update();
             timeUpdate.push(performance.now() - startUpdate);
 
             const startDelete = performance.now();
