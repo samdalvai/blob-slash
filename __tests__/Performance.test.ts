@@ -1,6 +1,8 @@
+import LifetimeComponent from '../src/components/LifetimeComponent';
 import RigidBodyComponent from '../src/components/RigidBodyComponent';
 import TransformComponent from '../src/components/TransformComponent';
 import Registry from '../src/ecs/Registry';
+import LifetimeSystem from '../src/systems/LifeTimeSystem';
 import MovementSystem from '../src/systems/MovementSystem';
 
 describe('Testing performance related functions', () => {
@@ -14,11 +16,13 @@ describe('Testing performance related functions', () => {
             const start = performance.now();
             const registry = new Registry();
             registry.addSystem(MovementSystem);
+            registry.addSystem(LifetimeSystem);
 
             for (let i = 0; i < 10000; i++) {
                 const entity = registry.createEntity();
                 entity.addComponent(RigidBodyComponent, { x: 10, y: 10 });
                 entity.addComponent(TransformComponent, { x: 100, y: 100 });
+                entity.addComponent(LifetimeComponent, 10000);
             }
 
             registry.update();
@@ -26,21 +30,23 @@ describe('Testing performance related functions', () => {
             timeAdd.push(performance.now() - start);
             const startUpdate = performance.now();
 
-            const system = registry.getSystem(MovementSystem);
+            const movementSystem = registry.getSystem(MovementSystem);
+            const lifetimeSystm = registry.getSystem(LifetimeSystem);
 
-            system?.update(10);
+            movementSystem?.update(10);
+            lifetimeSystm?.update();
             timeUpdate.push(performance.now() - startUpdate);
 
             const startDelete = performance.now();
 
-            system?.getSystemEntities().forEach(entity => entity.kill());
+            movementSystem?.getSystemEntities().forEach(entity => entity.kill());
             registry.update();
 
             timeDelete.push(performance.now() - startDelete);
 
             timesTotal.push(performance.now() - start);
 
-            expect(system?.getSystemEntities().length).toBe(0);
+            expect(movementSystem?.getSystemEntities().length).toBe(0);
         }
 
         let sum = 0;
