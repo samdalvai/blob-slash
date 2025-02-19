@@ -138,7 +138,7 @@ describe('Testing System related functions', () => {
         expect(system?.getSystemEntities().length).toBe(0);
     });
 
-    test('Adding the same entity multiple times to a system should not add the entity multiple times', () => {
+    test('Adding the same entity multiple times to a system should throw an error', () => {
         class MyComponent extends Component {}
         class MySystem extends System {
             constructor() {
@@ -153,12 +153,9 @@ describe('Testing System related functions', () => {
         const entity = registry.createEntity();
         registry.update();
 
-        const system = registry.getSystem(MySystem);
         entity.addComponent(MyComponent);
         entity.addToSystem(MySystem);
-        entity.addToSystem(MySystem);
 
-        expect(system?.getSystemEntities().length).toBe(1);
-        expect(system?.getSystemEntities()[0]).toEqual(entity);
+        expect(() => entity.addToSystem(MySystem)).toThrowError();
     });
 });

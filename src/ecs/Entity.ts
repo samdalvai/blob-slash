@@ -54,7 +54,11 @@ export default class Entity {
         return this.registry.getComponent<T>(this, ComponentClass);
     }
 
-    addToSystem<T extends System>(SystemClass: SystemClass<T>) {}
+    addToSystem<T extends System>(SystemClass: SystemClass<T>) {
+        this.registry.addEntityToSystem(this, SystemClass);
+    }
 
-    removeFromSystem<T extends System>(SystemClass: SystemClass<T>) {}
+    removeFromSystem<T extends System>(SystemClass: SystemClass<T>) {
+        this.registry.removeEntityFromSystem(this, SystemClass);
+    }
 }
