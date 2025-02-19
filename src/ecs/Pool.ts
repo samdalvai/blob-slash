@@ -16,22 +16,22 @@ export default class Pool<T extends Component> extends IPool {
         this.indexToEntityId = new Map<number, number>();
     }
 
-    isEmpty() {
+    isEmpty = () => {
         return this.size == 0;
-    }
+    };
 
-    getSize() {
+    getSize = () => {
         return this.size;
-    }
+    };
 
-    clear() {
+    clear = () => {
         this.data = [];
         this.size = 0;
         this.entityIdToIndex.clear();
         this.indexToEntityId.clear();
-    }
+    };
 
-    set(entityId: number, component: T) {
+    set = (entityId: number, component: T) => {
         const index = this.entityIdToIndex.get(entityId);
 
         if (index !== undefined) {
@@ -44,9 +44,9 @@ export default class Pool<T extends Component> extends IPool {
             this.data[index] = component;
             this.size++;
         }
-    }
+    };
 
-    remove(entityId: number) {
+    remove = (entityId: number) => {
         // Copy the last element to the deleted position to keep the array packed
         const indexOfRemoved = this.entityIdToIndex.get(entityId);
 
@@ -74,15 +74,15 @@ export default class Pool<T extends Component> extends IPool {
         this.indexToEntityId.delete(indexOfLast);
 
         this.size--;
-    }
+    };
 
-    removeEntityFromPool(entityId: number) {
+    removeEntityFromPool = (entityId: number) => {
         if (this.entityIdToIndex.get(entityId) !== undefined) {
             this.remove(entityId);
         }
-    }
+    };
 
-    get(entityId: number): T | undefined {
+    get = (entityId: number): T | undefined => {
         const componentIndex = this.entityIdToIndex.get(entityId);
 
         if (componentIndex === undefined) {
@@ -91,5 +91,5 @@ export default class Pool<T extends Component> extends IPool {
         }
 
         return this.data[componentIndex];
-    }
+    };
 }
