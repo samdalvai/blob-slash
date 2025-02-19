@@ -274,7 +274,7 @@ export default class Registry {
         return system as T;
     }
 
-    addEntityToSystem<T extends System>(entity: Entity, SystemClass: SystemClass<T>) {
+    addEntityToSystem = <T extends System>(entity: Entity, SystemClass: SystemClass<T>) => {
         const entityId = entity.getId();
         const entityComponentSignature = this.entityComponentSignatures[entityId];
 
@@ -307,9 +307,9 @@ export default class Registry {
         }
 
         system.addEntityToSystem(entity);
-    }
+    };
 
-    removeEntityFromSystem<T extends System>(entity: Entity, SystemClass: SystemClass<T>) {
+    removeEntityFromSystem = <T extends System>(entity: Entity, SystemClass: SystemClass<T>) => {
         const system = this.systems.get(SystemClass.getSystemId());
 
         if (!system) {
@@ -317,7 +317,7 @@ export default class Registry {
         }
 
         system.removeEntityFromSystem(entity);
-    }
+    };
 
     addEntityToSystems = (entity: Entity) => {
         const entityId = entity.getId();
