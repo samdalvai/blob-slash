@@ -1,5 +1,6 @@
 import Component, { ComponentClass } from './Component';
 import Registry from './Registry';
+import System, { SystemClass } from './System';
 
 export default class Entity {
     private id: number;
@@ -52,4 +53,8 @@ export default class Entity {
     getComponent<T extends Component>(ComponentClass: ComponentClass<T>): T | undefined {
         return this.registry.getComponent<T>(this, ComponentClass);
     }
+
+    addToSystem<T extends System>(SystemClass: SystemClass<T>) {}
+
+    removeFromSystem<T extends System>(SystemClass: SystemClass<T>) {}
 }
