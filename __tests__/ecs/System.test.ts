@@ -91,4 +91,50 @@ describe('Testing System related functions', () => {
         const system = registry.getSystem(MySystem);
         expect(system?.getSystemEntities().length).toBe(0);
     });
+
+    test('Adding a component to an entity after the entity has been initialized and updated should add the entity to the related system', () => {
+        class MyComponent extends Component {}
+        class MySystem extends System {
+            constructor() {
+                super();
+                this.requireComponent(MyComponent);
+            }
+        }
+
+        const registry = new Registry();
+        registry.addSystem(MySystem);
+
+        const entity = registry.createEntity();
+        registry.update();
+
+        entity.addComponent(MyComponent);
+        registry.update();
+
+        const system = registry.getSystem(MySystem);
+        expect(system?.getSystemEntities().length).toBe(1);
+        expect(system?.getSystemEntities()[0]).toEqual(entity);
+    });
+
+    test('Removing a component from an entity after the entity has been initialized and updated should remove the entity to the related system', () => {
+        class MyComponent extends Component {}
+        class MySystem extends System {
+            constructor() {
+                super();
+                this.requireComponent(MyComponent);
+            }
+        }
+
+        const registry = new Registry();
+        registry.addSystem(MySystem);
+
+        const entity = registry.createEntity();
+        entity.addComponent(MyComponent);
+        registry.update();
+
+        entity.removeComponent(MyComponent);
+        registry.update();
+
+        const system = registry.getSystem(MySystem);
+        expect(system?.getSystemEntities().length).toBe(0);
+    });
 });
