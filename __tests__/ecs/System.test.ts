@@ -107,10 +107,10 @@ describe('Testing System related functions', () => {
         const entity = registry.createEntity();
         registry.update();
 
-        entity.addComponent(MyComponent);
-        registry.update();
-
         const system = registry.getSystem(MySystem);
+        entity.addComponent(MyComponent);
+        system?.addEntityToSystem(entity);
+
         expect(system?.getSystemEntities().length).toBe(1);
         expect(system?.getSystemEntities()[0]).toEqual(entity);
     });
@@ -131,10 +131,10 @@ describe('Testing System related functions', () => {
         entity.addComponent(MyComponent);
         registry.update();
 
-        entity.removeComponent(MyComponent);
-        registry.update();
-
         const system = registry.getSystem(MySystem);
+        entity.removeComponent(MyComponent);
+        system?.removeEntityFromSystem(entity);
+
         expect(system?.getSystemEntities().length).toBe(0);
     });
 });
