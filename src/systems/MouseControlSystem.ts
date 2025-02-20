@@ -1,3 +1,4 @@
+import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import MouseControlComponent from '../components/MouseControlComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -6,6 +7,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import MouseClickEvent from '../events/MouseClickEvent';
 import { Rectangle, Vector } from '../types';
+import RenderEntityDestinationSystem from './RenderEntityDestinationSystem';
 
 export default class MouseControlSystem extends System {
     constructor() {
@@ -24,8 +26,8 @@ export default class MouseControlSystem extends System {
         const coordinatesX = event.coordinates.x;
         const coordinatesY = event.coordinates.y;
 
-        console.log(coordinatesX);
-        console.log(coordinatesY);
+        console.log('x: ', coordinatesX);
+        console.log('y: ', coordinatesY);
 
         for (const entity of this.getSystemEntities()) {
             const mouseControl = entity.getComponent(MouseControlComponent);
@@ -37,15 +39,13 @@ export default class MouseControlSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // const directionVector = this.computeDirectionVector(
-            //     transform.position.x + (sprite.width / 2) * transform.scale.x,
-            //     transform.position.y + (sprite.height / 2) * transform.scale.y,
-            //     coordinatesX + camera.x,
-            //     coordinatesY + camera.y,
-            //     mouseControl.velocity,
-            // );
+            if (entity.hasComponent(EntityDestinationComponent)) {
+                entity.removeComponent(EntityDestinationComponent);
+                entity.removeFromSystem(RenderEntityDestinationSystem);
+            }
 
-            // rigidBody.velocity = directionVector;
+            entity.addComponent(EntityDestinationComponent, coordinatesX + camera.x, coordinatesY + camera.y);
+            entity.addToSystem(RenderEntityDestinationSystem);
         }
     }
 

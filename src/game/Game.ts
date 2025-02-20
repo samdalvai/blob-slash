@@ -1,4 +1,5 @@
 import AssetStore from '../asset-store/AssetStore';
+import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import Registry from '../ecs/Registry';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
@@ -14,17 +15,19 @@ import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import KeyboardControlSystem from '../systems/KeyboardControlSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
+import MouseControlSystem from '../systems/MouseControlSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
 import ProjectileEmitSystem from '../systems/ProjectileEmitSystem';
 import RenderColliderSystem from '../systems/RenderColliderSystem';
 import RenderDebugInfoSystem from '../systems/RenderDebugInfoSystem';
+import RenderEntityDestinationSystem from '../systems/RenderEntityDestinationSystem';
 import RenderHealthBarSystem from '../systems/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/RenderLightingSystem';
 import RenderParticleSourceSystem from '../systems/RenderParticleSourceSystem';
 import RenderParticleSystem from '../systems/RenderParticleSystem';
-import RenderPlayerFollowRadius from '../systems/RenderPlayerFollowRadius';
+import RenderPlayerFollowRadiusSystem from '../systems/RenderPlayerFollowRadiusSystem';
 import RenderSystem from '../systems/RenderSystem';
 import RenderTextSystem from '../systems/RenderTextSystem';
 import ScriptingSystem from '../systems/ScriptingSystem';
@@ -123,6 +126,7 @@ export default class Game {
         this.registry.addSystem(RenderParticleSystem);
         this.registry.addSystem(RenderParticleSourceSystem);
         this.registry.addSystem(RenderLightingSystem);
+        this.registry.addSystem(RenderEntityDestinationSystem);
 
         this.registry.addSystem(MovementSystem);
         this.registry.addSystem(CameraMovementSystem);
@@ -134,13 +138,14 @@ export default class Game {
         this.registry.addSystem(LifetimeSystem);
         this.registry.addSystem(CameraShakeSystem);
         this.registry.addSystem(SoundSystem, this.assetStore);
-        this.registry.addSystem(RenderPlayerFollowRadius);
+        this.registry.addSystem(RenderPlayerFollowRadiusSystem);
         this.registry.addSystem(EntityFollowSystem);
         this.registry.addSystem(PlayerDetectionSystem);
         this.registry.addSystem(SpriteDirectionSystem);
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
+        this.registry.addSystem(MouseControlSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -220,6 +225,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(MouseControlSystem)?.subscribeToEvents(this.eventBus, this.camera);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
@@ -255,10 +261,18 @@ export default class Game {
         if (this.isDebug) {
             this.registry
                 .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.currentTickTime, this.inputManager, this.registry);
+                ?.update(
+                    this.ctx,
+                    this.currentFPS,
+                    this.maxFPS,
+                    this.currentTickTime,
+                    this.inputManager,
+                    this.registry,
+                );
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderPlayerFollowRadius)?.update(this.ctx, this.camera);
+            this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         }
     };
 

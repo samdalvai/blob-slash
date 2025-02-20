@@ -3,7 +3,7 @@ import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Rectangle } from '../types';
 
-export default class RenderPlayerFollowRadius extends System {
+export default class RenderPlayerFollowRadiusSystem extends System {
     constructor() {
         super();
         this.requireComponent(TransformComponent);
