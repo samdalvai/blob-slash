@@ -49,6 +49,74 @@ export default class EntityDestinationSystem extends System {
             );
 
             rigidBody.velocity = directionVector;
+
+            const x = rigidBody.velocity.x;
+            const y = rigidBody.velocity.y;
+
+            /**
+             * Case 1
+             * x > 0 && y > 0
+             * --------------
+             * abs
+             * x > y -> move right
+             * x < y -> move down
+             *
+             * Case 2
+             * x > 0 && y < 0
+             * --------------
+             * abs
+             * x > y -> move right
+             * x < y -> move up
+             *
+             * Case 3
+             * x < 0 && y > 0
+             * --------------
+             * abs
+             * x > y -> move left
+             * x < y -> move down
+             *
+             * Case 4
+             * x < 0 && y < 0
+             * --------------
+             * abs
+             * x > y -> move left
+             * x < y -> move up
+             *
+             */
+
+            if (x > 0 && y > 0) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    // move right
+                    rigidBody.direction = { x: 1, y: 0 };
+                } else {
+                    // move down
+                    rigidBody.direction = { x: 0, y: 1 };
+                }
+            } else if (x > 0 && y < 0) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    // move right
+                    rigidBody.direction = { x: 1, y: 0 };
+                } else {
+                    // move up
+                    rigidBody.direction = { x: 0, y: -1 };
+                }
+            } else if (x < 0 && y > 0) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    // move left
+                    rigidBody.direction = { x: -1, y: 0 };
+                } else {
+                    // move down
+                    rigidBody.direction = { x: 0, y: 1 };
+                }
+            } else if (x < 0 && y < 0) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    // move left
+                    rigidBody.direction = { x: -1, y: 0 };
+                } else {
+                    // move up
+                    rigidBody.direction = { x: 0, y: -1 };
+                }
+            }
         }
     }
 
