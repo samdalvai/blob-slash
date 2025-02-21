@@ -1,6 +1,6 @@
 import Component from '../ecs/Component';
 
-export default class MovementDestinationComponent extends Component {
+export default class EntityDestinationComponent extends Component {
     destinationX: number;
     destinationY: number;
 
