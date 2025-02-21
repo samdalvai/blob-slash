@@ -97,22 +97,10 @@ export default class EntityDestinationSystem extends System {
          *
          */
 
-        if (x > 0) {
-            if (Math.abs(x) > Math.abs(y)) {
-                // move right
-                rigidBody.direction = { x: 1, y: 0 };
-            } else {
-                // move down
-                y > 0 ? (rigidBody.direction = { x: 0, y: 1 }) : (rigidBody.direction = { x: 0, y: -1 });
-            }
+        if (Math.abs(x) > Math.abs(y)) {
+            x > 0 ? (rigidBody.direction = { x: 1, y: 0 }) : (rigidBody.direction = { x: -1, y: 0 });
         } else {
-            if (Math.abs(x) > Math.abs(y)) {
-                // move right
-                rigidBody.direction = { x: -1, y: 0 };
-            } else {
-                // move down
-                y > 0 ? (rigidBody.direction = { x: 0, y: 1 }) : (rigidBody.direction = { x: 0, y: -1 });
-            }
+            y > 0 ? (rigidBody.direction = { x: 0, y: 1 }) : (rigidBody.direction = { x: 0, y: -1 });
         }
     };
 }
