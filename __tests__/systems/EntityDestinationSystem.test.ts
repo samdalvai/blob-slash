@@ -8,8 +8,60 @@ describe('Testing EntityDestination system related functions', () => {
         const system = new EntityDestinationSystem();
 
         const rigidBody = new RigidBodyComponent();
-
         system.updateRigidBodyDirection(0, 0, rigidBody);
         expect(rigidBody.direction).toEqual({ x: 0, y: 0 });
+
+        /**
+         * Case 1
+         * x > 0 && y > 0
+         * --------------
+         * abs
+         * x > y -> move right
+         * x < y -> move down
+         *
+         */
+        system.updateRigidBodyDirection(100, 50, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 1, y: 0 });
+        system.updateRigidBodyDirection(50, 100, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 0, y: 1 });
+
+        /*
+         * Case 2
+         * x > 0 && y < 0
+         * --------------
+         * abs
+         * x > y -> move right
+         * x < y -> move up
+         */
+        system.updateRigidBodyDirection(100, -50, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 1, y: 0 });
+        system.updateRigidBodyDirection(50, -100, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 0, y: -1 });
+
+        /*
+         * Case 3
+         * x < 0 && y > 0
+         * --------------
+         * abs
+         * x > y -> move left
+         * x < y -> move down
+         */
+        system.updateRigidBodyDirection(-100, 50, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: -1, y: 0 });
+        system.updateRigidBodyDirection(-50, 100, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 0, y: 1 });
+
+        /*
+         * Case 4
+         * x < 0 && y < 0
+         * --------------
+         * abs
+         * x > y -> move left
+         * x < y -> move up
+         */
+        system.updateRigidBodyDirection(-100, -50, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: -1, y: 0 });
+        system.updateRigidBodyDirection(-50, -100, rigidBody);
+        expect(rigidBody.direction).toEqual({ x: 0, y: -1 });
     });
 });
