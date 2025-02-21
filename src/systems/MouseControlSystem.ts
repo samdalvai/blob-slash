@@ -7,6 +7,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import MouseClickEvent from '../events/MouseClickEvent';
 import { Rectangle, Vector } from '../types';
+import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './RenderEntityDestinationSystem';
 
 export default class MouseControlSystem extends System {
@@ -26,9 +27,6 @@ export default class MouseControlSystem extends System {
         const coordinatesX = event.coordinates.x;
         const coordinatesY = event.coordinates.y;
 
-        console.log('x: ', coordinatesX);
-        console.log('y: ', coordinatesY);
-
         for (const entity of this.getSystemEntities()) {
             const mouseControl = entity.getComponent(MouseControlComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
@@ -42,22 +40,17 @@ export default class MouseControlSystem extends System {
             if (entity.hasComponent(EntityDestinationComponent)) {
                 entity.removeComponent(EntityDestinationComponent);
                 entity.removeFromSystem(RenderEntityDestinationSystem);
+                entity.removeFromSystem(EntityDestinationSystem);
             }
 
-            entity.addComponent(EntityDestinationComponent, coordinatesX + camera.x, coordinatesY + camera.y);
+            entity.addComponent(
+                EntityDestinationComponent,
+                coordinatesX + camera.x,
+                coordinatesY + camera.y,
+                mouseControl.velocity,
+            );
             entity.addToSystem(RenderEntityDestinationSystem);
+            entity.addToSystem(EntityDestinationSystem);
         }
     }
-
-    private computeDirectionVector = (x1: number, y1: number, x2: number, y2: number, length: number): Vector => {
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        const unitDx = dx / distance;
-        const unitDy = dy / distance;
-
-        return { x: unitDx * length, y: unitDy * length };
-    };
 }

@@ -12,6 +12,7 @@ import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
 import DamageSystem from '../systems/DamageSystem';
 import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
+import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import KeyboardControlSystem from '../systems/KeyboardControlSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
@@ -146,6 +147,7 @@ export default class Game {
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
         this.registry.addSystem(MouseControlSystem);
+        this.registry.addSystem(EntityDestinationSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -240,6 +242,7 @@ export default class Game {
         this.registry.getSystem(SoundSystem)?.update(this.assetStore);
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(SpriteDirectionSystem)?.update();
+        this.registry.getSystem(EntityDestinationSystem)?.update();
     };
 
     private render = () => {
