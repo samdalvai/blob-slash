@@ -83,7 +83,7 @@ export default class ProjectileEmitSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                
+                this.updateRigidBodyDirection(projectileDirection.x, projectileDirection.y, rigidBody);
             }
 
             const projectilePosition = { x: transform.position.x - 16, y: transform.position.y - 16 };
@@ -130,5 +130,44 @@ export default class ProjectileEmitSystem extends System {
         const unitDy = dy / distance;
 
         return { x: unitDx * velocity, y: unitDy * velocity };
+    };
+
+    updateRigidBodyDirection = (x: number, y: number, rigidBody: RigidBodyComponent) => {
+        /**
+         * Case 1
+         * x > 0 && y > 0
+         * --------------
+         * abs
+         * x > y -> move right
+         * x < y -> move down
+         *
+         * Case 2
+         * x > 0 && y < 0
+         * --------------
+         * abs
+         * x > y -> move right
+         * x < y -> move up
+         *
+         * Case 3
+         * x < 0 && y > 0
+         * --------------
+         * abs
+         * x > y -> move left
+         * x < y -> move down
+         *
+         * Case 4
+         * x < 0 && y < 0
+         * --------------
+         * abs
+         * x > y -> move left
+         * x < y -> move up
+         *
+         */
+
+        if (Math.abs(x) > Math.abs(y)) {
+            x > 0 ? (rigidBody.direction = { x: 1, y: 0 }) : (rigidBody.direction = { x: -1, y: 0 });
+        } else {
+            y > 0 ? (rigidBody.direction = { x: 0, y: 1 }) : (rigidBody.direction = { x: 0, y: -1 });
+        }
     };
 }
