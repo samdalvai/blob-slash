@@ -86,7 +86,7 @@ export default class LevelLoader {
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(KeyboardControlComponent, 200);
-        player.addComponent(ProjectileEmitterComponent, { x: 200, y: 200 }, 250, 3000, 10, true);
+        player.addComponent(ProjectileEmitterComponent, 200, 250, 3000, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
@@ -103,7 +103,7 @@ export default class LevelLoader {
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(ProjectileEmitterComponent, { x: 100, y: 100 }, 500, 2000, 20, false);
+        enemy.addComponent(ProjectileEmitterComponent, 200, 500, 2000, 20, false);
         enemy.addComponent(EntityFollowComponent, 250, 100, 50, { x: 16, y: 16 }, 5000);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },

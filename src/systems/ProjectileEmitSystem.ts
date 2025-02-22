@@ -11,7 +11,8 @@ import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
-import KeyPressedEvent from '../events/KeyPressedEvent';
+import MouseClickEvent from '../events/MouseClickEvent';
+import { Vector } from '../types';
 
 export default class ProjectileEmitSystem extends System {
     registry: Registry;
@@ -24,56 +25,57 @@ export default class ProjectileEmitSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(KeyPressedEvent, this, this.onKeyPressed);
+        eventBus.subscribeToEvent(MouseClickEvent, this, this.onKeyPressed);
     }
 
-    onKeyPressed(event: KeyPressedEvent) {
-        if (event.keyCode === 'Space') {
-            const player = this.registry.getEntityByTag('player');
+    onKeyPressed(event: MouseClickEvent) {
+        const player = this.registry.getEntityByTag('player');
 
-            if (!player) {
-                throw new Error('Could not find entity with tag "Player"');
-            }
-            const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
-            const transform = player.getComponent(TransformComponent);
-
-            if (!projectileEmitter || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + player.getId());
-            }
-
-            this.emitProjectile(projectileEmitter, transform, player, this.registry);
+        if (!player) {
+            throw new Error('Could not find entity with tag "Player"');
         }
+        const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
+        const transform = player.getComponent(TransformComponent);
+
+        if (!projectileEmitter || !transform) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        const directionVector = this.computeDirectionVector(
+            transform.position.x,
+            transform.position.y,
+            event.coordinates.x,
+            event.coordinates.y,
+            projectileEmitter.projectileVelocity,
+        );
+
+        this.emitProjectile(projectileEmitter, directionVector, transform, player, this.registry);
     }
 
     update(registry: Registry) {
         for (const entity of this.getSystemEntities()) {
-            const projectileEmitter = entity.getComponent(ProjectileEmitterComponent);
-            const transform = entity.getComponent(TransformComponent);
-
-            if (!projectileEmitter || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            // If entity is player, skip automatic emission
-            if (entity.hasTag('player')) {
-                continue;
-            }
-
-            this.emitProjectile(projectileEmitter, transform, entity, registry);
+            // const projectileEmitter = entity.getComponent(ProjectileEmitterComponent);
+            // const transform = entity.getComponent(TransformComponent);
+            // if (!projectileEmitter || !transform) {
+            //     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            // }
+            // // If entity is player, skip automatic emission
+            // if (entity.hasTag('player')) {
+            //     continue;
+            // }
+            // this.emitProjectile(projectileEmitter, transform, entity, registry);
         }
     }
 
     private emitProjectile(
         projectileEmitter: ProjectileEmitterComponent,
+        projectileDirection: Vector,
         transform: TransformComponent,
         entity: Entity,
         registry: Registry,
     ) {
         // Check if its time to re-emit a new projectile
         if (performance.now() - projectileEmitter.lastEmissionTime > projectileEmitter.repeatFrequency) {
-            // Modify the direction of the projectile according to the rigid body direction
-            const projectileVelocity = { ...projectileEmitter.projectileVelocity };
-
             if (entity.hasComponent(RigidBodyComponent)) {
                 const rigidBody = entity.getComponent(RigidBodyComponent);
 
@@ -81,15 +83,7 @@ export default class ProjectileEmitSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                let directionX = 0;
-                let directionY = 0;
-
-                if (rigidBody.direction.x > 0) directionX = +1;
-                if (rigidBody.direction.x < 0) directionX = -1;
-                if (rigidBody.direction.y > 0) directionY = +1;
-                if (rigidBody.direction.y < 0) directionY = -1;
-                projectileVelocity.x = projectileEmitter.projectileVelocity.x * directionX + rigidBody.velocity.x;
-                projectileVelocity.y = projectileEmitter.projectileVelocity.y * directionY + rigidBody.velocity.y;
+                
             }
 
             const projectilePosition = { x: transform.position.x - 16, y: transform.position.y - 16 };
@@ -109,7 +103,7 @@ export default class ProjectileEmitSystem extends System {
             const projectile = registry.createEntity();
             projectile.group('projectiles');
             projectile.addComponent(TransformComponent, projectilePosition, { x: 1.0, y: 1.0 }, 0.0);
-            projectile.addComponent(RigidBodyComponent, projectileVelocity);
+            projectile.addComponent(RigidBodyComponent, projectileDirection);
             projectile.addComponent(SpriteComponent, 'magic-sphere-texture', 32, 32, 4);
             projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
             projectile.addComponent(
@@ -125,4 +119,16 @@ export default class ProjectileEmitSystem extends System {
             projectileEmitter.lastEmissionTime = performance.now();
         }
     }
+
+    computeDirectionVector = (x1: number, y1: number, x2: number, y2: number, velocity: number): Vector => {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const unitDx = dx / distance;
+        const unitDy = dy / distance;
+
+        return { x: unitDx * velocity, y: unitDy * velocity };
+    };
 }
