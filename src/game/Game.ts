@@ -177,7 +177,10 @@ export default class Game {
                 return;
             }
 
-            this.eventBus.emitEvent(MouseClickEvent, { x: inputEvent.x, y: inputEvent.y });
+            this.eventBus.emitEvent(MouseClickEvent, {
+                x: inputEvent.x + this.camera.x,
+                y: inputEvent.y + this.camera.y,
+            });
         }
     };
 
@@ -255,7 +258,14 @@ export default class Game {
         if (this.isDebug) {
             this.registry
                 .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.currentTickTime, this.inputManager, this.registry);
+                ?.update(
+                    this.ctx,
+                    this.currentFPS,
+                    this.maxFPS,
+                    this.currentTickTime,
+                    this.inputManager,
+                    this.registry,
+                );
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderPlayerFollowRadius)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
