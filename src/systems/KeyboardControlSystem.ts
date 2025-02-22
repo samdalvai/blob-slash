@@ -41,20 +41,26 @@ export default class KeyboardControlSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            console.log(this.keysPressed);
-
             if (this.keysPressed.length == 0) {
                 rigidBody.velocity = { x: 0, y: 0 };
             } else {
-                console.log('direction: ', this.getMovementDirection(keyboardControl.velocity));
+                const velocity = this.getVelocity(keyboardControl.velocity);
+                rigidBody.velocity = velocity;
 
-                rigidBody.velocity = this.getMovementDirection(keyboardControl.velocity);
-                //this.updateEntityMovement(rigidBody, keyboardControl, this.keysPressed[this.keysPressed.length - 1]);
+                if (velocity.x < 0) {
+                    rigidBody.direction = { x: -1, y: 0 };
+                } else if (velocity.x > 0) {
+                    rigidBody.direction = { x: 1, y: 0 };
+                } else if (velocity.y < 0) {
+                    rigidBody.direction = { x: 0, y: -1 };
+                } else if (velocity.y > 0) {
+                    rigidBody.direction = { x: 0, y: 1 };
+                }
             }
         }
     };
 
-    getMovementDirection = (velocity: number) => {
+    getVelocity = (velocity: number) => {
         const keyMap: { [key: string]: { x: number; y: number } } = {
             ArrowUp: { x: 0, y: -velocity },
             KeyW: { x: 0, y: -velocity },
@@ -66,8 +72,8 @@ export default class KeyboardControlSystem extends System {
             KeyD: { x: velocity, y: 0 },
         };
 
-        let x = 0,
-            y = 0;
+        let x = 0;
+        let y = 0;
 
         const recentKeys = this.keysPressed.slice(-2);
 
@@ -78,37 +84,12 @@ export default class KeyboardControlSystem extends System {
             }
         });
 
+        if (x !== 0 && y !== 0) {
+            const magnitude = Math.sqrt(x ** 2 + y ** 2);
+            if (magnitude === 0) return { x, y };
+            return { x: (x / magnitude) * velocity, y: (y / magnitude) * velocity };
+        }
+
         return { x, y };
     };
-
-    // updateEntityMovement = (
-    //     rigidBody: RigidBodyComponent,
-    //     keyboardControl: KeyboardControlComponent,
-    //     movementDirection: Direction,
-    // ) => {
-    //     switch (movementDirection) {
-    //         case Direction.UP:
-    //             rigidBody.velocity.x = 0;
-    //             rigidBody.velocity.y = -1 * keyboardControl.velocity;
-    //             rigidBody.direction = { x: 0, y: -1 };
-    //             break;
-    //         case Direction.RIGHT:
-    //             rigidBody.velocity.y = 0;
-    //             rigidBody.velocity.x = keyboardControl.velocity;
-    //             rigidBody.direction = { x: 1, y: 0 };
-    //             break;
-    //         case Direction.DOWN:
-    //             rigidBody.velocity.x = 0;
-    //             rigidBody.velocity.y = keyboardControl.velocity;
-    //             rigidBody.direction = { x: 0, y: 1 };
-    //             break;
-    //         case Direction.LEFT:
-    //             rigidBody.velocity.y = 0;
-    //             rigidBody.velocity.x = -1 * keyboardControl.velocity;
-    //             rigidBody.direction = { x: -1, y: 0 };
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // };
 }
