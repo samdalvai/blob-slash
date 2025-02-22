@@ -89,22 +89,22 @@ export default class KeyboardControlSystem extends System {
         switch (movementDirection) {
             case Direction.UP:
                 rigidBody.velocity.x = 0;
-                rigidBody.velocity.y = keyboardControl.upVelocity;
+                rigidBody.velocity.y = -1 * keyboardControl.velocity;
                 rigidBody.direction = { x: 0, y: -1 };
                 break;
             case Direction.RIGHT:
                 rigidBody.velocity.y = 0;
-                rigidBody.velocity.x = keyboardControl.rightVelocity;
+                rigidBody.velocity.x = keyboardControl.velocity;
                 rigidBody.direction = { x: 1, y: 0 };
                 break;
             case Direction.DOWN:
                 rigidBody.velocity.x = 0;
-                rigidBody.velocity.y = keyboardControl.downVelocity;
+                rigidBody.velocity.y = keyboardControl.velocity;
                 rigidBody.direction = { x: 0, y: 1 };
                 break;
             case Direction.LEFT:
                 rigidBody.velocity.y = 0;
-                rigidBody.velocity.x = keyboardControl.leftVelocity;
+                rigidBody.velocity.x = -1 * keyboardControl.velocity;
                 rigidBody.direction = { x: -1, y: 0 };
                 break;
             default:
