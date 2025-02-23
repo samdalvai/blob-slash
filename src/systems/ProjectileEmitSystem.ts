@@ -1,4 +1,5 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
+import EntityFollowComponent from '../components/EntityFollowComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
@@ -22,6 +23,7 @@ export default class ProjectileEmitSystem extends System {
         super();
         this.requireComponent(ProjectileEmitterComponent);
         this.requireComponent(TransformComponent);
+        this.requireComponent(SpriteComponent);
         this.registry = registry;
     }
 
@@ -35,6 +37,7 @@ export default class ProjectileEmitSystem extends System {
         if (!player) {
             throw new Error('Could not find entity with tag "Player"');
         }
+
         const transform = player.getComponent(TransformComponent);
         const sprite = player.getComponent(SpriteComponent);
         const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
@@ -54,18 +57,51 @@ export default class ProjectileEmitSystem extends System {
         this.emitProjectile(projectileEmitter, directionVector, transform, player, this.registry);
     }
 
-    update(registry: Registry) {
+    update() {
         for (const entity of this.getSystemEntities()) {
-            // const projectileEmitter = entity.getComponent(ProjectileEmitterComponent);
-            // const transform = entity.getComponent(TransformComponent);
-            // if (!projectileEmitter || !transform) {
-            //     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            // }
-            // // If entity is player, skip automatic emission
-            // if (entity.hasTag('player')) {
-            //     continue;
-            // }
-            // this.emitProjectile(projectileEmitter, transform, entity, registry);
+            // If entity is player, skip automatic emission
+            if (entity.hasTag('player')) {
+                continue;
+            }
+
+            const transform = entity.getComponent(TransformComponent);
+            const sprite = entity.getComponent(SpriteComponent);
+            const projectileEmitter = entity.getComponent(ProjectileEmitterComponent);
+
+            if (!projectileEmitter || !transform || !sprite) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            if (entity.hasComponent(EntityFollowComponent)) {
+                const entityFollow = entity.getComponent(EntityFollowComponent);
+
+                if (!entityFollow) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                const followedEntity = entityFollow.followedEntity;
+
+                if (followedEntity) {
+                    const followedEntityTransform = followedEntity.getComponent(TransformComponent);
+                    const followedEntitySprite = followedEntity.getComponent(SpriteComponent);
+
+                    if (!followedEntityTransform || !followedEntitySprite) {
+                        throw new Error('Could not find player transform and/or sprite component');
+                    }
+
+                    const directionVector = computeDirectionVector(
+                        transform.position.x + (sprite.width / 2) * transform.scale.x,
+                        transform.position.y + (sprite.height / 2) * transform.scale.y,
+                        followedEntityTransform.position.x +
+                            (followedEntitySprite.width / 2) * followedEntityTransform.scale.x,
+                        followedEntityTransform.position.y +
+                            (followedEntitySprite.height / 2) * followedEntityTransform.scale.y,
+                        projectileEmitter.projectileVelocity,
+                    );
+
+                    this.emitProjectile(projectileEmitter, directionVector, transform, entity, this.registry);
+                }
+            }
         }
     }
 

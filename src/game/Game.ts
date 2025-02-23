@@ -232,7 +232,7 @@ export default class Game {
         this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
         this.registry.getSystem(KeyboardControlSystem)?.update();
-        this.registry.getSystem(ProjectileEmitSystem)?.update(this.registry);
+        this.registry.getSystem(ProjectileEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
         this.registry.getSystem(SoundSystem)?.update(this.assetStore);
         this.registry.getSystem(ParticleEmitSystem)?.update();
