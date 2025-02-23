@@ -39,26 +39,26 @@ export default class SpriteDirectionSystem extends System {
                 sprite.srcRect.y = hurtSprite
                     ? sprite.height * 8
                     : rigidBody.velocity.y < 0
-                        ? sprite.height * 4
-                        : sprite.height * 0;
+                      ? sprite.height * 4
+                      : sprite.height * 0;
             } else if (rigidBody.direction.x > 0) {
                 sprite.srcRect.y = hurtSprite
                     ? sprite.height * 9
                     : rigidBody.velocity.x > 0
-                        ? sprite.height * 5
-                        : sprite.height * 1;
+                      ? sprite.height * 5
+                      : sprite.height * 1;
             } else if (rigidBody.direction.y > 0) {
                 sprite.srcRect.y = hurtSprite
                     ? sprite.height * 10
                     : rigidBody.velocity.y > 0
-                        ? sprite.height * 6
-                        : sprite.height * 2;
+                      ? sprite.height * 6
+                      : sprite.height * 2;
             } else if (rigidBody.direction.x < 0) {
                 sprite.srcRect.y = hurtSprite
                     ? sprite.height * 11
                     : rigidBody.velocity.x < 0
-                        ? sprite.height * 7
-                        : sprite.height * 3;
+                      ? sprite.height * 7
+                      : sprite.height * 3;
             }
         }
     }
