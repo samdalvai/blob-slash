@@ -1,13 +1,13 @@
 import HealthComponent from '../components/HealthComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
-import SpriteDirectionComponent from '../components/SpriteDirectionComponent';
+import SpriteStateComponent from '../components/SpriteStateComponent';
 import System from '../ecs/System';
 
-export default class SpriteDirectionSystem extends System {
+export default class SpriteStateSystem extends System {
     constructor() {
         super();
-        this.requireComponent(SpriteDirectionComponent);
+        this.requireComponent(SpriteStateComponent);
         this.requireComponent(SpriteComponent);
         this.requireComponent(RigidBodyComponent);
     }

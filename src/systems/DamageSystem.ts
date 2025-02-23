@@ -5,7 +5,7 @@ import LifetimeComponent from '../components/LifetimeComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
-import SpriteDirectionComponent from '../components/SpriteDirectionComponent';
+import SpriteStateComponent from '../components/SpriteStateComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
 import System from '../ecs/System';
