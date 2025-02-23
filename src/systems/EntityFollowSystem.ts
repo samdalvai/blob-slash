@@ -6,35 +6,7 @@ import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import EntityKilledEvent from '../events/EntityKilledEvent';
-
-const ALIGNMENT_THRESHOLD = 5;
-const FOLLOW_PADDING = 50;
-
-/*
-How the follow system works:
-
-                |
-      P         |         P
-                |
---------------------------------
-                                    FOLLOW PADDING
----------       E      ---------
-                                    FOLLOW PADDING
---------------------------------
-                |
-      P         |          P
-                |
-
-1. If player is outside visibility circle, nothing will happen
-2. If player is inside visibility circle but outside min distance
-the entity will move on the x axis to align with the player
-3. If player is on the same axis but outside min distance 
-the enity will move towards the player
-4. If player is inside min distance but outside follow padding
-for y, the entity will move on the x axis to align
-5. If player is inside min distance and inside follow padding
-the entity will move on the y axis to align
-*/
+import { computeDirectionVector, computeDistanceBetweenPoints, computeUnitVector } from '../utils/vector';
 
 export default class EntityFollowSystem extends System {
     constructor() {
@@ -42,6 +14,7 @@ export default class EntityFollowSystem extends System {
         this.requireComponent(TransformComponent);
         this.requireComponent(EntityFollowComponent);
         this.requireComponent(RigidBodyComponent);
+        this.requireComponent(SpriteComponent);
     }
 
     subscribeToEvents(eventBus: EventBus) {
@@ -67,8 +40,9 @@ export default class EntityFollowSystem extends System {
             const transform = entity.getComponent(TransformComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const entityFollow = entity.getComponent(EntityFollowComponent);
+            const sprite = entity.getComponent(SpriteComponent);
 
-            if (!rigidBody || !transform || !entityFollow) {
+            if (!rigidBody || !transform || !entityFollow || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -88,7 +62,31 @@ export default class EntityFollowSystem extends System {
                 throw new Error('Could not find player transform and/or sprite component');
             }
 
+            const entityX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+            const entityY = transform.position.y + (sprite.height / 2) * transform.scale.y;
 
+            const followedEntityX =
+                followedEntityTransform.position.x + (followedEntitySprite.width / 2) * followedEntityTransform.scale.x;
+            const followedEntityY =
+                followedEntityTransform.position.y +
+                (followedEntitySprite.height / 2) * followedEntityTransform.scale.y;
+
+            const distance = computeDistanceBetweenPoints(entityX, entityY, followedEntityX, followedEntityY);
+            const directionVector = computeDirectionVector(
+                entityX,
+                entityY,
+                followedEntityX,
+                followedEntityY,
+                entityFollow.followVelocity,
+            );
+
+            if (distance > entityFollow.minFollowDistance) {
+                rigidBody.velocity = directionVector;
+            } else {
+                rigidBody.velocity = { x: 0, y: 0 };
+            }
+
+            rigidBody.direction = computeUnitVector(directionVector.x, directionVector.y);
 
             // const playerFollowX = transform.position.x + entityFollow.offset.x;
             // const playerFollowY = transform.position.y + entityFollow.offset.y;
