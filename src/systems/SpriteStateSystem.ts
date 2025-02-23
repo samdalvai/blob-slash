@@ -1,5 +1,3 @@
-import { transform } from '@babel/core';
-
 import HealthComponent from '../components/HealthComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -42,30 +40,22 @@ export default class SpriteStateSystem extends System {
     }
 
     updateSpriteState = (sprite: SpriteComponent, rigidBody: RigidBodyComponent, isHurt: boolean) => {
+        let directionOffset = 0;
+
         if (rigidBody.direction.y < 0) {
-            sprite.srcRect.y = isHurt
-                ? sprite.height * 8
-                : rigidBody.velocity.y < 0
-                  ? sprite.height * 4
-                  : sprite.height * 0;
+            directionOffset = 0;
         } else if (rigidBody.direction.x > 0) {
-            sprite.srcRect.y = isHurt
-                ? sprite.height * 9
-                : rigidBody.velocity.x > 0
-                  ? sprite.height * 5
-                  : sprite.height * 1;
+            directionOffset = 1;
         } else if (rigidBody.direction.y > 0) {
-            sprite.srcRect.y = isHurt
-                ? sprite.height * 10
-                : rigidBody.velocity.y > 0
-                  ? sprite.height * 6
-                  : sprite.height * 2;
+            directionOffset = 2;
         } else if (rigidBody.direction.x < 0) {
-            sprite.srcRect.y = isHurt
-                ? sprite.height * 11
-                : rigidBody.velocity.x < 0
-                  ? sprite.height * 7
-                  : sprite.height * 3;
+            directionOffset = 3;
         }
+
+        const movementOffset = Math.abs(rigidBody.velocity.x) > 0 || Math.abs(rigidBody.velocity.y) > 0 ? 4 : 0;
+        const hurtOffset = isHurt ? (movementOffset !== 0 ? 4 : 8) : 0;
+        const totalOffset = directionOffset + movementOffset + hurtOffset;
+
+        sprite.srcRect.y = totalOffset * sprite.height;
     };
 }

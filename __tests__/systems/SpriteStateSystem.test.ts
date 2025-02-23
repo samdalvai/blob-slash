@@ -71,34 +71,54 @@ describe('Testing SpriteState system related functions', () => {
         expect(sprite.srcRect).toEqual({ x: 0, y: 224, width: 32, height: 32 });
     });
 
-    test('Hurt entity facing up should show moving sprite facing up (1st row)', () => {
+    test('Hurt entity facing up should show moving sprite facing up (1st row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.srcRect).toEqual({ x: 0, y: 256, width: 32, height: 32 });
+
+        rigidBody.velocity.x = 0;
+        rigidBody.velocity.y = 0;
+        system.updateSpriteState(sprite, rigidBody, true);
+        expect(sprite.srcRect).toEqual({ x: 0, y: 256, width: 32, height: 32 });
     });
 
-    test('Hurt entity facing right should show moving sprite facing right (2nd row)', () => {
+    test('Hurt entity facing right should show moving sprite facing right (2nd row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
         const rigidBody = new RigidBodyComponent({ x: 100, y: 0 }, { x: 1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.srcRect).toEqual({ x: 0, y: 288, width: 32, height: 32 });
+
+        rigidBody.velocity.x = 0;
+        rigidBody.velocity.y = 0;
+        system.updateSpriteState(sprite, rigidBody, true);
+        expect(sprite.srcRect).toEqual({ x: 0, y: 288, width: 32, height: 32 });
     });
 
-    test('Hurt entity facing down should show moving sprite facing down (3rd row)', () => {
+    test('Hurt entity facing down should show moving sprite facing down (3rd row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.srcRect).toEqual({ x: 0, y: 320, width: 32, height: 32 });
+
+        rigidBody.velocity.x = 0;
+        rigidBody.velocity.y = 0;
+        system.updateSpriteState(sprite, rigidBody, true);
+        expect(sprite.srcRect).toEqual({ x: 0, y: 320, width: 32, height: 32 });
     });
 
-    test('Hurt entity facing left should show moving sprite facing left (4th row)', () => {
+    test('Hurt entity facing left should show moving sprite facing left (4th row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
         const rigidBody = new RigidBodyComponent({ x: -100, y: 0 }, { x: -1, y: 0 });
 
+        system.updateSpriteState(sprite, rigidBody, true);
+        expect(sprite.srcRect).toEqual({ x: 0, y: 352, width: 32, height: 32 });
+
+        rigidBody.velocity.x = 0;
+        rigidBody.velocity.y = 0;
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.srcRect).toEqual({ x: 0, y: 352, width: 32, height: 32 });
     });
