@@ -52,8 +52,10 @@ export default class SpriteStateSystem extends System {
             directionOffset = 3;
         }
 
-        const movementOffset = Math.abs(rigidBody.velocity.x) > 0 || Math.abs(rigidBody.velocity.y) > 0 ? 4 : 0;
-        const hurtOffset = isHurt ? (movementOffset !== 0 ? 4 : 8) : 0;
+        const isMoving = Math.abs(rigidBody.velocity.x) > 0 || Math.abs(rigidBody.velocity.y) > 0;
+        const movementOffset = isMoving ? 4 : 0;
+        const hurtOffset = isHurt ? (isMoving ? 4 : 8) : 0;
+
         const totalOffset = directionOffset + movementOffset + hurtOffset;
 
         sprite.srcRect.y = totalOffset * sprite.height;
