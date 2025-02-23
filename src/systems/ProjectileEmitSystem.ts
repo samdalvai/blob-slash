@@ -35,16 +35,17 @@ export default class ProjectileEmitSystem extends System {
         if (!player) {
             throw new Error('Could not find entity with tag "Player"');
         }
-        const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
         const transform = player.getComponent(TransformComponent);
+        const sprite = player.getComponent(SpriteComponent);
+        const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
 
-        if (!projectileEmitter || !transform) {
+        if (!projectileEmitter || !transform || !sprite) {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
         }
 
         const directionVector = computeDirectionVector(
-            transform.position.x,
-            transform.position.y,
+            transform.position.x + (sprite.width / 2) * transform.scale.x,
+            transform.position.y + (sprite.height / 2) * transform.scale.y,
             event.coordinates.x,
             event.coordinates.y,
             projectileEmitter.projectileVelocity,
