@@ -1,3 +1,5 @@
+import { transform } from '@babel/core';
+
 import HealthComponent from '../components/HealthComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -21,7 +23,7 @@ export default class SpriteStateSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            let hurtSprite = false;
+            let isHurt = false;
 
             if (entity.hasComponent(HealthComponent)) {
                 const health = entity.getComponent(HealthComponent);
@@ -31,35 +33,39 @@ export default class SpriteStateSystem extends System {
                 }
 
                 if (health.lastDamageTime !== 0 && performance.now() - health.lastDamageTime <= 500) {
-                    hurtSprite = true;
+                    isHurt = true;
                 }
             }
 
-            if (rigidBody.direction.y < 0) {
-                sprite.srcRect.y = hurtSprite
-                    ? sprite.height * 8
-                    : rigidBody.velocity.y < 0
-                      ? sprite.height * 4
-                      : sprite.height * 0;
-            } else if (rigidBody.direction.x > 0) {
-                sprite.srcRect.y = hurtSprite
-                    ? sprite.height * 9
-                    : rigidBody.velocity.x > 0
-                      ? sprite.height * 5
-                      : sprite.height * 1;
-            } else if (rigidBody.direction.y > 0) {
-                sprite.srcRect.y = hurtSprite
-                    ? sprite.height * 10
-                    : rigidBody.velocity.y > 0
-                      ? sprite.height * 6
-                      : sprite.height * 2;
-            } else if (rigidBody.direction.x < 0) {
-                sprite.srcRect.y = hurtSprite
-                    ? sprite.height * 11
-                    : rigidBody.velocity.x < 0
-                      ? sprite.height * 7
-                      : sprite.height * 3;
-            }
+            this.updateSpriteState(sprite, rigidBody, isHurt);
         }
     }
+
+    updateSpriteState = (sprite: SpriteComponent, rigidBody: RigidBodyComponent, isHurt: boolean) => {
+        if (rigidBody.direction.y < 0) {
+            sprite.srcRect.y = isHurt
+                ? sprite.height * 8
+                : rigidBody.velocity.y < 0
+                  ? sprite.height * 4
+                  : sprite.height * 0;
+        } else if (rigidBody.direction.x > 0) {
+            sprite.srcRect.y = isHurt
+                ? sprite.height * 9
+                : rigidBody.velocity.x > 0
+                  ? sprite.height * 5
+                  : sprite.height * 1;
+        } else if (rigidBody.direction.y > 0) {
+            sprite.srcRect.y = isHurt
+                ? sprite.height * 10
+                : rigidBody.velocity.y > 0
+                  ? sprite.height * 6
+                  : sprite.height * 2;
+        } else if (rigidBody.direction.x < 0) {
+            sprite.srcRect.y = isHurt
+                ? sprite.height * 11
+                : rigidBody.velocity.x < 0
+                  ? sprite.height * 7
+                  : sprite.height * 3;
+        }
+    };
 }
