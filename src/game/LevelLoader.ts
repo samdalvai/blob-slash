@@ -104,7 +104,7 @@ export default class LevelLoader {
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
         enemy.addComponent(ProjectileEmitterComponent, 200, 500, 2000, 20, false);
-        enemy.addComponent(EntityFollowComponent, 250, 100, 50, { x: 16, y: 16 }, 5000);
+        enemy.addComponent(EntityFollowComponent, 250, 100, 50, 5000);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },
             { movement: { x: 0, y: 50 }, duration: 2000 },
