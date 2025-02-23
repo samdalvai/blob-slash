@@ -13,6 +13,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import MouseClickEvent from '../events/MouseClickEvent';
 import { Vector } from '../types';
+import { computeDirectionVector } from '../utils/vector';
 
 export default class ProjectileEmitSystem extends System {
     registry: Registry;
@@ -41,7 +42,7 @@ export default class ProjectileEmitSystem extends System {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
         }
 
-        const directionVector = this.computeDirectionVector(
+        const directionVector = computeDirectionVector(
             transform.position.x,
             transform.position.y,
             event.coordinates.x,
@@ -119,18 +120,6 @@ export default class ProjectileEmitSystem extends System {
             projectileEmitter.lastEmissionTime = performance.now();
         }
     }
-
-    computeDirectionVector = (x1: number, y1: number, x2: number, y2: number, velocity: number): Vector => {
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        const unitDx = dx / distance;
-        const unitDy = dy / distance;
-
-        return { x: unitDx * velocity, y: unitDy * velocity };
-    };
 
     updateRigidBodyDirection = (x: number, y: number, rigidBody: RigidBodyComponent) => {
         /**
