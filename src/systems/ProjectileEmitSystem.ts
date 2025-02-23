@@ -83,6 +83,7 @@ export default class ProjectileEmitSystem extends System {
                 if (!rigidBody) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
+
                 rigidBody.direction = computeUnitVector(projectileDirection.x, projectileDirection.y);
             }
 

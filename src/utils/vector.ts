@@ -18,7 +18,7 @@ export const computeDirectionVector = (x1: number, y1: number, x2: number, y2: n
 /**
  * Computes the direction vector on horizontal/vertical axis normalized to length 1
  */
-export const computeDirection = (x: number, y: number): Vector => {
+export const computeUnitVector = (x: number, y: number): Vector => {
     /**
      * Case 1
      * x > 0 && y > 0
