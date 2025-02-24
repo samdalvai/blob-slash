@@ -82,7 +82,6 @@ export default class PlayerDetectionSystem extends System {
             if (isPlayerInsideCircle) {
                 entityFollow.followedEntity = player;
                 entityFollow.startFollowTime = performance.now();
-                console.log('Following');
             } else if (
                 entityFollow.followedEntity &&
                 performance.now() - entityFollow.startFollowTime > entityFollow.followDuration
