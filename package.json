@@ -4,7 +4,7 @@
   "description": "A 2D adventure game for the browser",
   "scripts": {
     "start": "parcel index.html",
-    "clear": "rm -rf .parcel-cache",
+    "clean": "rm -rf .parcel-cache",
     "test": "jest __tests__/**/*",
     "test:perf": "jest __tests__/Performance.test.ts",
     "lint": "eslint . --ext .js,.ts",
