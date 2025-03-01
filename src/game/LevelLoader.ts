@@ -36,7 +36,9 @@ export default class LevelLoader {
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
         await assetStore.addTexture('player-texture', './assets/images/player_full.png');
+
         await assetStore.addTexture('magic-sphere-texture', './assets/images/magic_sphere.png');
+        await assetStore.addTexture('magic-bubble-texture', './assets/images/magic_bubble.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
         await assetStore.addTexture('torch-texture', './assets/images/torch.png');
@@ -130,5 +132,10 @@ export default class LevelLoader {
         torch2.addComponent(LightEmitComponent, 100);
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
+
+        const bubble = registry.createEntity();
+        bubble.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 2, y: 2 }, 0);
+        bubble.addComponent(SpriteComponent, 'magic-bubble-texture', 64, 64, 1, 0, 0);
+        bubble.addComponent(AnimationComponent, 4, 10, false);
     }
 }
