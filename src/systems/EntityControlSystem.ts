@@ -1,5 +1,5 @@
-import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import EntityControlComponent from '../components/EntityControlComponent';
+import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -27,12 +27,12 @@ export default class EntityControlSystem extends System {
         const coordinatesY = event.coordinates.y;
 
         for (const entity of this.getSystemEntities()) {
-            const mouseControl = entity.getComponent(EntityControlComponent);
+            const entityControl = entity.getComponent(EntityControlComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
 
-            if (!mouseControl || !rigidBody || !transform || !sprite) {
+            if (!entityControl || !rigidBody || !transform || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -42,7 +42,7 @@ export default class EntityControlSystem extends System {
                 entity.removeFromSystem(EntityDestinationSystem);
             }
 
-            entity.addComponent(EntityDestinationComponent, coordinatesX, coordinatesY, mouseControl.velocity);
+            entity.addComponent(EntityDestinationComponent, coordinatesX, coordinatesY, entityControl.velocity);
             entity.addToSystem(RenderEntityDestinationSystem);
             entity.addToSystem(EntityDestinationSystem);
         }
