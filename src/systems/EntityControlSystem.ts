@@ -1,5 +1,6 @@
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
+import HighlightableComponent from '../components/HighlightableComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -52,8 +53,25 @@ export default class EntityControlSystem extends System {
                 entity.removeFromSystem(EntityDestinationSystem);
             }
 
+            let enemyHighlighted = false;
+
+            for (const enemy of entity.registry.getEntitiesByGroup('enemies')) {
+                if (enemy.hasComponent(HighlightableComponent)) {
+                    const highlight = enemy.getComponent(HighlightableComponent);
+
+                    if (!highlight) {
+                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                    }
+
+                    if (highlight.isHighlighted) {
+                        enemyHighlighted = true;
+                        break;
+                    }
+                }
+            }
+
             // Avoid moving if left shift is pressed
-            if (this.keysPressed.includes('ShiftLeft')) {
+            if (this.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
                 if (entity.hasComponent(RangedAttackEmitterComponent)) {
                     this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
                 }
