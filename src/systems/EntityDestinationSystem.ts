@@ -3,7 +3,7 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
-import { Vector } from '../types';
+import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class EntityDestinationSystem extends System {
@@ -41,7 +41,7 @@ export default class EntityDestinationSystem extends System {
                 continue;
             }
 
-            const directionVector = this.computeDirectionVector(
+            const directionVector = computeDirectionVector(
                 transform.position.x + (sprite.width / 2) * transform.scale.x,
                 transform.position.y + (sprite.height / 2) * transform.scale.y,
                 entityDestination.destinationX,
@@ -54,54 +54,7 @@ export default class EntityDestinationSystem extends System {
         }
     }
 
-    computeDirectionVector = (x1: number, y1: number, x2: number, y2: number, length: number): Vector => {
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        const unitDx = dx / distance;
-        const unitDy = dy / distance;
-
-        return { x: unitDx * length, y: unitDy * length };
-    };
-
     updateRigidBodyDirection = (x: number, y: number, rigidBody: RigidBodyComponent) => {
-        /**
-         * Case 1
-         * x > 0 && y > 0
-         * --------------
-         * abs
-         * x > y -> move right
-         * x < y -> move down
-         *
-         * Case 2
-         * x > 0 && y < 0
-         * --------------
-         * abs
-         * x > y -> move right
-         * x < y -> move up
-         *
-         * Case 3
-         * x < 0 && y > 0
-         * --------------
-         * abs
-         * x > y -> move left
-         * x < y -> move down
-         *
-         * Case 4
-         * x < 0 && y < 0
-         * --------------
-         * abs
-         * x > y -> move left
-         * x < y -> move up
-         *
-         */
-
-        if (Math.abs(x) > Math.abs(y)) {
-            x > 0 ? (rigidBody.direction = { x: 1, y: 0 }) : (rigidBody.direction = { x: -1, y: 0 });
-        } else {
-            y > 0 ? (rigidBody.direction = { x: 0, y: 1 }) : (rigidBody.direction = { x: 0, y: -1 });
-        }
+        rigidBody.direction = computeUnitVector(x, y);
     };
 }
