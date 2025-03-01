@@ -11,11 +11,10 @@ import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
 import DamageSystem from '../systems/DamageSystem';
 import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
+import EntityControlSystem from '../systems/EntityControlSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
-import KeyboardControlSystem from '../systems/KeyboardControlSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
-import EntityControlSystem from '../systems/EntityControlSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
@@ -130,7 +129,6 @@ export default class Game {
 
         this.registry.addSystem(MovementSystem);
         this.registry.addSystem(CameraMovementSystem);
-        this.registry.addSystem(KeyboardControlSystem);
         this.registry.addSystem(AnimationSystem);
         this.registry.addSystem(CollisionSystem);
         this.registry.addSystem(ProjectileEmitSystem, this.registry);
@@ -221,7 +219,6 @@ export default class Game {
 
         // Perform the subscription of the events for all systems
         this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(KeyboardControlSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(ProjectileEmitSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
@@ -238,7 +235,6 @@ export default class Game {
         this.registry.getSystem(MovementSystem)?.update(deltaTime);
         this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
-        this.registry.getSystem(KeyboardControlSystem)?.update();
         this.registry.getSystem(ProjectileEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
         this.registry.getSystem(SoundSystem)?.update(this.assetStore);
