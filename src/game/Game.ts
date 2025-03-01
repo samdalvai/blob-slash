@@ -14,6 +14,7 @@ import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityControlSystem from '../systems/EntityControlSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
+import EntityHighlightSystem from '../systems/EntityHighlightSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
@@ -142,6 +143,7 @@ export default class Game {
         this.registry.addSystem(ParticleEmitSystem);
         this.registry.addSystem(EntityControlSystem, this.eventBus);
         this.registry.addSystem(EntityDestinationSystem);
+        this.registry.addSystem(EntityHighlightSystem);
 
         // Debug systems
         this.registry.addSystem(RenderColliderSystem);
@@ -245,6 +247,7 @@ export default class Game {
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
+        this.registry.getSystem(EntityHighlightSystem)?.update(this.inputManager.mousePosition, this.camera);
     };
 
     private render = () => {

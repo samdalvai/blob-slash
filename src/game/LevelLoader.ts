@@ -7,6 +7,7 @@ import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
+import HighlightableComponent from '../components/HighlightableComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
@@ -97,6 +98,7 @@ export default class LevelLoader {
         const enemy = registry.createEntity();
         enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        enemy.addComponent(HighlightableComponent);
         enemy.addComponent(SpriteStateComponent);
         enemy.addComponent(DeadBodyOnDeathComponent);
         enemy.addComponent(ShadowComponent, 30, 10, 0, -8);
