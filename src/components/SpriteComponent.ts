@@ -9,7 +9,8 @@ export default class SpriteComponent extends Component {
     srcRect: Rectangle;
     flip: Flip;
     isFixed: boolean;
-    
+    transparency: number;
+
     constructor(
         assetId = '',
         width = 0,
@@ -19,7 +20,12 @@ export default class SpriteComponent extends Component {
         srcRectY = 0,
         flip: Flip = Flip.NONE,
         isFixed = false,
+        transparency = 1,
     ) {
+        if (transparency < 0 || transparency > 1) {
+            throw new Error('Transparency must be between 0 and 1');
+        }
+
         super();
         this.assetId = assetId;
         this.width = width;
@@ -28,5 +34,6 @@ export default class SpriteComponent extends Component {
         this.srcRect = { x: srcRectX, y: srcRectY, width, height };
         this.flip = flip;
         this.isFixed = isFixed;
+        this.transparency = transparency;
     }
 }

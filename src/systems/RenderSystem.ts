@@ -132,6 +132,10 @@ export default class RenderSystem extends System {
                 ctx.rotate(rotationAngle);
             }
 
+            if (sprite.transparency !== 1) {
+                ctx.globalAlpha = sprite.transparency;
+            }
+
             ctx.drawImage(
                 assetStore.getTexture(sprite.assetId),
                 srcRect.x,
