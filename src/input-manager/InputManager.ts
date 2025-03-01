@@ -11,7 +11,7 @@ export default class InputManager {
         window.addEventListener('keydown', this.handleKeyboardEvent);
         window.addEventListener('keyup', this.handleKeyboardEvent);
         window.addEventListener('mousemove', this.handleMouseMove);
-        window.addEventListener('click', this.handleMouseClick);
+        window.addEventListener('mousedown', this.handleMouseClick);
     }
 
     handleKeyboardEvent = (event: KeyboardEvent) => {

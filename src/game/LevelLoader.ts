@@ -15,7 +15,7 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
-import SpriteDirectionComponent from '../components/SpriteDirectionComponent';
+import SpriteStateComponent from '../components/SpriteStateComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import { TileMap } from '../types';
@@ -81,14 +81,14 @@ export default class LevelLoader {
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0);
         player.addComponent(DeadBodyOnDeathComponent);
-        player.addComponent(SpriteDirectionComponent);
+        player.addComponent(SpriteStateComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -2);
         player.addComponent(AnimationComponent, 4, 6);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
-        player.addComponent(KeyboardControlComponent, -200, 200, 200, -200);
         player.addComponent(MouseControlComponent, 150);
-        player.addComponent(ProjectileEmitterComponent, { x: 200, y: 200 }, 250, 3000, 10, true);
+        player.addComponent(KeyboardControlComponent, 200);
+        player.addComponent(ProjectileEmitterComponent, 200, 250, 3000, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
@@ -98,15 +98,15 @@ export default class LevelLoader {
         const enemy = registry.createEntity();
         enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
-        enemy.addComponent(SpriteDirectionComponent);
+        enemy.addComponent(SpriteStateComponent);
         enemy.addComponent(DeadBodyOnDeathComponent);
         enemy.addComponent(ShadowComponent, 30, 10, 0, -8);
         enemy.addComponent(AnimationComponent, 2, 4);
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(ProjectileEmitterComponent, { x: 100, y: 100 }, 500, 2000, 20, false);
-        enemy.addComponent(EntityFollowComponent, 250, 100, 50, { x: 16, y: 16 }, 5000);
+        enemy.addComponent(ProjectileEmitterComponent, 200, 500, 2000, 20, false);
+        enemy.addComponent(EntityFollowComponent, 250, 100, 50, 5000);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },
             { movement: { x: 0, y: 50 }, duration: 2000 },

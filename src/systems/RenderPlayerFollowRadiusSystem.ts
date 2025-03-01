@@ -1,4 +1,5 @@
 import EntityFollowComponent from '../components/EntityFollowComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Rectangle } from '../types';
@@ -8,14 +9,16 @@ export default class RenderPlayerFollowRadiusSystem extends System {
         super();
         this.requireComponent(TransformComponent);
         this.requireComponent(EntityFollowComponent);
+        this.requireComponent(SpriteComponent);
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
-            const playerFollow = entity.getComponent(EntityFollowComponent);
+            const entityFollow = entity.getComponent(EntityFollowComponent);
+            const sprite = entity.getComponent(SpriteComponent);
 
-            if (!playerFollow || !transform) {
+            if (!entityFollow || !transform || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -30,16 +33,16 @@ export default class RenderPlayerFollowRadiusSystem extends System {
                 continue;
             }
 
-            const circleX = transform.position.x + playerFollow.offset.x - camera.x;
-            const circleY = transform.position.y + playerFollow.offset.y - camera.y;
+            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x - camera.x;
+            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y - camera.y;
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, playerFollow.detectionRadius, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, entityFollow.detectionRadius, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, playerFollow.minFollowDistance, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, entityFollow.minFollowDistance, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }

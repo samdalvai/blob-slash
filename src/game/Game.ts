@@ -33,7 +33,7 @@ import RenderSystem from '../systems/RenderSystem';
 import RenderTextSystem from '../systems/RenderTextSystem';
 import ScriptingSystem from '../systems/ScriptingSystem';
 import SoundSystem from '../systems/SoundSystem';
-import SpriteDirectionSystem from '../systems/SpriteDirectionSystem';
+import SpriteStateSystem from '../systems/SpriteStateSystem';
 import { GameStatus, Rectangle } from '../types';
 import { sleep } from '../utils/time';
 import LevelLoader from './LevelLoader';
@@ -142,7 +142,7 @@ export default class Game {
         this.registry.addSystem(RenderPlayerFollowRadiusSystem);
         this.registry.addSystem(EntityFollowSystem);
         this.registry.addSystem(PlayerDetectionSystem);
-        this.registry.addSystem(SpriteDirectionSystem);
+        this.registry.addSystem(SpriteStateSystem);
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
@@ -184,7 +184,10 @@ export default class Game {
                 return;
             }
 
-            this.eventBus.emitEvent(MouseClickEvent, { x: inputEvent.x, y: inputEvent.y });
+            this.eventBus.emitEvent(MouseClickEvent, {
+                x: inputEvent.x + this.camera.x,
+                y: inputEvent.y + this.camera.y,
+            });
         }
     };
 
@@ -237,12 +240,12 @@ export default class Game {
         this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
         this.registry.getSystem(KeyboardControlSystem)?.update();
-        this.registry.getSystem(ProjectileEmitSystem)?.update(this.registry);
+        this.registry.getSystem(ProjectileEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
         this.registry.getSystem(SoundSystem)?.update(this.assetStore);
         this.registry.getSystem(ParticleEmitSystem)?.update();
-        this.registry.getSystem(SpriteDirectionSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
+        this.registry.getSystem(SpriteStateSystem)?.update();
     };
 
     private render = () => {

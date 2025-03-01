@@ -1,8 +1,7 @@
 import Component from '../ecs/Component';
-import { Vector } from '../types';
 
 export default class ProjectileEmitterComponent extends Component {
-    projectileVelocity: Vector;
+    projectileVelocity: number;
     repeatFrequency: number;
     projectileDuration: number;
     hitPercentDamage: number;
@@ -10,7 +9,7 @@ export default class ProjectileEmitterComponent extends Component {
     lastEmissionTime: number;
 
     constructor(
-        projectileVelocity = { x: 0, y: 0 },
+        projectileVelocity = 200,
         repeatFrequency = 0,
         projectileDuration = 10000,
         hitPercentDamage = 10,
