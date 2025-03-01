@@ -1,7 +1,7 @@
-import BoxColliderComponent from '../components/BoxColliderComponent';
-import TransformComponent from '../components/TransformComponent';
-import System from '../ecs/System';
-import { Rectangle } from '../types';
+import BoxColliderComponent from '../../components/BoxColliderComponent';
+import TransformComponent from '../../components/TransformComponent';
+import System from '../../ecs/System';
+import { Rectangle } from '../../types';
 
 export default class RenderColliderSystem extends System {
     constructor() {

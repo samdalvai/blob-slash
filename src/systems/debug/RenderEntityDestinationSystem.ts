@@ -1,6 +1,6 @@
-import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import System from '../ecs/System';
-import { Rectangle } from '../types';
+import EntityDestinationComponent from '../../components/EntityDestinationComponent';
+import System from '../../ecs/System';
+import { Rectangle } from '../../types';
 
 export default class RenderEntityDestinationSystem extends System {
     constructor() {

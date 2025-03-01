@@ -7,7 +7,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import MouseClickEvent from '../events/MouseClickEvent';
 import EntityDestinationSystem from './EntityDestinationSystem';
-import RenderEntityDestinationSystem from './RenderEntityDestinationSystem';
+import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class MouseControlSystem extends System {
     constructor() {
