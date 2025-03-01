@@ -1,6 +1,6 @@
 import Component from '../ecs/Component';
 
-export default class ProjectileEmitterComponent extends Component {
+export default class RangedAttackEmitterComponent extends Component {
     projectileVelocity: number;
     repeatFrequency: number;
     projectileDuration: number;
