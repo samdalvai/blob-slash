@@ -1,4 +1,5 @@
 import AssetStore from '../asset-store/AssetStore';
+import HighlightableComponent from '../components/HighlightableComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -17,6 +18,7 @@ export default class RenderSystem extends System {
             sprite: SpriteComponent;
             transform: TransformComponent;
             shadow?: ShadowComponent;
+            highlighted: boolean;
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
@@ -41,7 +43,23 @@ export default class RenderSystem extends System {
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
 
-            renderableEntities.push({ sprite, transform, shadow });
+            let highlighted = false;
+            let assetId = sprite.assetId;
+
+            if (entity.hasComponent(HighlightableComponent)) {
+                const highlight = entity.getComponent(HighlightableComponent);
+
+                if (!highlight) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                if (highlight.isHighlighted) {
+                    highlighted = highlight.isHighlighted;
+                    assetId = highlight.assetId;
+                }
+            }
+
+            renderableEntities.push({ sprite: { ...sprite, assetId }, transform, shadow, highlighted });
         }
 
         renderableEntities.sort((entityA, entityB) => {

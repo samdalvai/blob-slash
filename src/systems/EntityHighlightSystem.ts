@@ -32,7 +32,6 @@ export default class EntityHighlightSystem extends System {
             const maxY = transform.position.y + collider.offset.y + collider.height * transform.scale.y;
 
             if (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY) {
-                console.log('Is highlighted');
                 highlight.isHighlighted = true;
             } else {
                 highlight.isHighlighted = false;
