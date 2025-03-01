@@ -3,7 +3,7 @@ import EntityFollowComponent from '../components/EntityFollowComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
-import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
+import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -16,12 +16,12 @@ import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import { Vector } from '../types';
 import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 
-export default class ProjectileEmitSystem extends System {
+export default class RangedAttackEmitSystem extends System {
     registry: Registry;
 
     constructor(registry: Registry) {
         super();
-        this.requireComponent(ProjectileEmitterComponent);
+        this.requireComponent(RangedAttackEmitterComponent);
         this.requireComponent(TransformComponent);
         this.requireComponent(SpriteComponent);
         this.registry = registry;
@@ -40,7 +40,7 @@ export default class ProjectileEmitSystem extends System {
 
         const transform = player.getComponent(TransformComponent);
         const sprite = player.getComponent(SpriteComponent);
-        const projectileEmitter = player.getComponent(ProjectileEmitterComponent);
+        const projectileEmitter = player.getComponent(RangedAttackEmitterComponent);
 
         if (!projectileEmitter || !transform || !sprite) {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
@@ -54,7 +54,7 @@ export default class ProjectileEmitSystem extends System {
             projectileEmitter.projectileVelocity,
         );
 
-        this.emitProjectile(projectileEmitter, directionVector, transform, player, this.registry);
+        this.emitRangedAttack(projectileEmitter, directionVector, transform, player, this.registry);
     }
 
     update() {
@@ -66,7 +66,7 @@ export default class ProjectileEmitSystem extends System {
 
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
-            const projectileEmitter = entity.getComponent(ProjectileEmitterComponent);
+            const projectileEmitter = entity.getComponent(RangedAttackEmitterComponent);
 
             if (!projectileEmitter || !transform || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
@@ -99,21 +99,21 @@ export default class ProjectileEmitSystem extends System {
                         projectileEmitter.projectileVelocity,
                     );
 
-                    this.emitProjectile(projectileEmitter, directionVector, transform, entity, this.registry);
+                    this.emitRangedAttack(projectileEmitter, directionVector, transform, entity, this.registry);
                 }
             }
         }
     }
 
-    private emitProjectile(
-        projectileEmitter: ProjectileEmitterComponent,
+    private emitRangedAttack = (
+        rangedAttackEmitter: RangedAttackEmitterComponent,
         projectileDirection: Vector,
         transform: TransformComponent,
         entity: Entity,
         registry: Registry,
-    ) {
+    ) => {
         // Check if its time to re-emit a new projectile
-        if (performance.now() - projectileEmitter.lastEmissionTime > projectileEmitter.repeatFrequency) {
+        if (performance.now() - rangedAttackEmitter.lastEmissionTime > rangedAttackEmitter.repeatFrequency) {
             if (entity.hasComponent(RigidBodyComponent)) {
                 const rigidBody = entity.getComponent(RigidBodyComponent);
 
@@ -146,15 +146,15 @@ export default class ProjectileEmitSystem extends System {
             projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
             projectile.addComponent(
                 ProjectileComponent,
-                projectileEmitter.isFriendly,
-                projectileEmitter.hitPercentDamage,
+                rangedAttackEmitter.isFriendly,
+                rangedAttackEmitter.hitPercentDamage,
             );
-            projectile.addComponent(LifetimeComponent, projectileEmitter.projectileDuration);
+            projectile.addComponent(LifetimeComponent, rangedAttackEmitter.projectileDuration);
             projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5, 16, 16);
             projectile.addComponent(ShadowComponent, 8, 4);
 
             // Update the projectile emitter component last emission to the current milliseconds
-            projectileEmitter.lastEmissionTime = performance.now();
+            rangedAttackEmitter.lastEmissionTime = performance.now();
         }
-    }
+    };
 }

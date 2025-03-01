@@ -18,7 +18,7 @@ import LifetimeSystem from '../systems/LifeTimeSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
-import ProjectileEmitSystem from '../systems/ProjectileEmitSystem';
+import RangedAttackEmitSystem from '../systems/RangedAttackEmitSystem';
 import RenderHealthBarSystem from '../systems/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/RenderLightingSystem';
 import RenderParticleSystem from '../systems/RenderParticleSystem';
@@ -128,7 +128,7 @@ export default class Game {
         this.registry.addSystem(CameraMovementSystem);
         this.registry.addSystem(AnimationSystem);
         this.registry.addSystem(CollisionSystem);
-        this.registry.addSystem(ProjectileEmitSystem, this.registry);
+        this.registry.addSystem(RangedAttackEmitSystem, this.registry);
         this.registry.addSystem(DamageSystem, this.eventBus);
         this.registry.addSystem(LifetimeSystem);
         this.registry.addSystem(CameraShakeSystem);
@@ -223,7 +223,7 @@ export default class Game {
 
         // Perform the subscription of the events for all systems
         this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(ProjectileEmitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
@@ -239,7 +239,7 @@ export default class Game {
         this.registry.getSystem(MovementSystem)?.update(deltaTime);
         this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
-        this.registry.getSystem(ProjectileEmitSystem)?.update();
+        this.registry.getSystem(RangedAttackEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
         this.registry.getSystem(SoundSystem)?.update(this.assetStore);
         this.registry.getSystem(ParticleEmitSystem)?.update();

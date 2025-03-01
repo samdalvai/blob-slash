@@ -1,6 +1,6 @@
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
+import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -55,7 +55,7 @@ export default class EntityControlSystem extends System {
 
             // Avoid moving if left shift is pressed
             if (this.keysPressed.includes('ShiftLeft')) {
-                if (entity.hasComponent(ProjectileEmitterComponent)) {
+                if (entity.hasComponent(RangedAttackEmitterComponent)) {
                     this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
                 }
 
