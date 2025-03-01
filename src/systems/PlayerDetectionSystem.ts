@@ -13,6 +13,7 @@ export default class PlayerDetectionSystem extends System {
         this.requireComponent(TransformComponent);
         this.requireComponent(EntityFollowComponent);
         this.requireComponent(RigidBodyComponent);
+        this.requireComponent(SpriteComponent);
     }
 
     subscribeToEvents(eventBus: EventBus) {
@@ -58,13 +59,14 @@ export default class PlayerDetectionSystem extends System {
             const transform = entity.getComponent(TransformComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const entityFollow = entity.getComponent(EntityFollowComponent);
+            const sprite = entity.getComponent(SpriteComponent);
 
-            if (!rigidBody || !transform || !entityFollow) {
+            if (!rigidBody || !transform || !entityFollow || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const playerFollowX = transform.position.x + entityFollow.offset.x;
-            const playerFollowY = transform.position.y + entityFollow.offset.y;
+            const entityX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+            const entityY = transform.position.y + (sprite.height / 2) * transform.scale.y;
 
             const playerX = playerTransform.position.x + (playerTransform.scale.x * playerSprite.width) / 2;
             const playerY = playerTransform.position.y + (playerTransform.scale.y * playerSprite.height) / 2;
@@ -72,8 +74,8 @@ export default class PlayerDetectionSystem extends System {
             const isPlayerInsideCircle = this.isEntityInsideCircle(
                 playerX,
                 playerY,
-                playerFollowX,
-                playerFollowY,
+                entityX,
+                entityY,
                 entityFollow.detectionRadius,
             );
 

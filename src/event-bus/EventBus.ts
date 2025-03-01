@@ -23,7 +23,6 @@ export default class EventBus {
 
     constructor() {
         this.subscribers = new Map();
-        console.log('EventBus constructor called!');
     }
 
     reset(): void {
