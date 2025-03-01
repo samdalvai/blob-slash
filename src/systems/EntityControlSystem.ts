@@ -5,11 +5,15 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
+import KeyPressedEvent from '../events/KeyPressedEvent';
+import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseClickEvent from '../events/MouseClickEvent';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class EntityControlSystem extends System {
+    keysPressed: string[] = [];
+
     constructor() {
         super();
         this.requireComponent(EntityControlComponent);
@@ -20,9 +24,14 @@ export default class EntityControlSystem extends System {
 
     subscribeToEvents(eventBus: EventBus) {
         eventBus.subscribeToEvent(MouseClickEvent, this, this.onMousePressed);
+        eventBus.subscribeToEvent(KeyPressedEvent, this, this.onKeyPressed);
+        eventBus.subscribeToEvent(KeyReleasedEvent, this, this.onKeyReleased);
     }
 
-    onMousePressed(event: MouseClickEvent) {
+    onMousePressed = (event: MouseClickEvent) => {
+        // Avoid moving if left shift is pressed
+        if (this.keysPressed.includes('ShiftLeft')) return;
+
         const coordinatesX = event.coordinates.x;
         const coordinatesY = event.coordinates.y;
 
@@ -46,5 +55,16 @@ export default class EntityControlSystem extends System {
             entity.addToSystem(RenderEntityDestinationSystem);
             entity.addToSystem(EntityDestinationSystem);
         }
-    }
+    };
+
+    onKeyPressed = (event: KeyPressedEvent) => {
+        const validKeys = ['ShiftLeft'];
+        if (validKeys.includes(event.keyCode) && !this.keysPressed.includes(event.keyCode)) {
+            this.keysPressed.push(event.keyCode);
+        }
+    };
+
+    onKeyReleased = (event: KeyReleasedEvent) => {
+        this.keysPressed = this.keysPressed.filter(key => key !== event.keyCode);
+    };
 }
