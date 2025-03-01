@@ -1,5 +1,5 @@
 import AssetStore from '../asset-store/AssetStore';
-import HighlightableComponent from '../components/HighlightableComponent';
+import HighlightComponent from '../components/HighlightComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -18,7 +18,7 @@ export default class RenderSystem extends System {
             sprite: SpriteComponent;
             transform: TransformComponent;
             shadow?: ShadowComponent;
-            highlighted: boolean;
+            highlight?: HighlightComponent;
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
@@ -43,23 +43,11 @@ export default class RenderSystem extends System {
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
 
-            let highlighted = false;
-            let assetId = sprite.assetId;
+            const highlight = entity.hasComponent(HighlightComponent)
+                ? entity.getComponent(HighlightComponent)
+                : undefined;
 
-            if (entity.hasComponent(HighlightableComponent)) {
-                const highlight = entity.getComponent(HighlightableComponent);
-
-                if (!highlight) {
-                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                }
-
-                if (highlight.isHighlighted) {
-                    highlighted = highlight.isHighlighted;
-                    assetId = highlight.assetId;
-                }
-            }
-
-            renderableEntities.push({ sprite: { ...sprite, assetId }, transform, shadow, highlighted });
+            renderableEntities.push({ sprite, transform, shadow, highlight });
         }
 
         renderableEntities.sort((entityA, entityB) => {
@@ -75,23 +63,37 @@ export default class RenderSystem extends System {
             const transform = entity.transform;
 
             if (entity.shadow) {
-                ctx.save();
-
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)'; // Semi-transparent black
-
-                // Position the shadow below the entity
-                const shadowX =
-                    transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x;
-                const shadowY =
-                    transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y;
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
 
                 // Draw an ellipse as the shadow
                 ctx.beginPath();
-                ctx.ellipse(shadowX, shadowY, entity.shadow.width / 2, entity.shadow.height / 2, 0, 0, 2 * Math.PI);
+                ctx.ellipse(
+                    transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x,
+                    transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y,
+                    entity.shadow.width / 2,
+                    entity.shadow.height / 2,
+                    0,
+                    0,
+                    2 * Math.PI,
+                );
                 ctx.fill();
+            }
 
-                // Restore the canvas state
-                ctx.restore();
+            if (entity.highlight && entity.highlight.isHighlighted) {
+                ctx.strokeStyle = 'rgb(255, 0, 0)';
+
+                // Draw an ellipse as the highlight
+                ctx.beginPath();
+                ctx.ellipse(
+                    transform.position.x + entity.highlight.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x,
+                    transform.position.y + entity.highlight.offsetY + sprite.height * transform.scale.y - camera.y,
+                    entity.highlight.width / 2,
+                    entity.highlight.height / 2,
+                    0,
+                    0,
+                    2 * Math.PI,
+                );
+                ctx.stroke();
             }
 
             const srcRect: Rectangle = sprite.srcRect;

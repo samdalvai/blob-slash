@@ -1,6 +1,6 @@
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import HighlightableComponent from '../components/HighlightableComponent';
+import HighlightComponent from '../components/HighlightComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -56,8 +56,8 @@ export default class EntityControlSystem extends System {
             let enemyHighlighted = false;
 
             for (const enemy of entity.registry.getEntitiesByGroup('enemies')) {
-                if (enemy.hasComponent(HighlightableComponent)) {
-                    const highlight = enemy.getComponent(HighlightableComponent);
+                if (enemy.hasComponent(HighlightComponent)) {
+                    const highlight = enemy.getComponent(HighlightComponent);
 
                     if (!highlight) {
                         throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
