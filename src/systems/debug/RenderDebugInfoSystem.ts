@@ -1,7 +1,7 @@
-import Registry from '../ecs/Registry';
-import System from '../ecs/System';
-import Game from '../game/Game';
-import InputManager from '../input-manager/InputManager';
+import Registry from '../../ecs/Registry';
+import System from '../../ecs/System';
+import Game from '../../game/Game';
+import InputManager from '../../input-manager/InputManager';
 
 export default class RenderDebugInfoSystem extends System {
     constructor() {

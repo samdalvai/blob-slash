@@ -4,7 +4,7 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Vector } from '../types';
-import RenderEntityDestinationSystem from './RenderEntityDestinationSystem';
+import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class EntityDestinationSystem extends System {
     constructor() {
