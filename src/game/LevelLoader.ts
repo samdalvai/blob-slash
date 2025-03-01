@@ -93,7 +93,7 @@ export default class LevelLoader {
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
-        player.addComponent(LightEmitComponent, 250);
+        player.addComponent(LightEmitComponent, 400);
         player.tag('player');
 
         const enemy = registry.createEntity();
@@ -108,7 +108,7 @@ export default class LevelLoader {
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
         enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 2000, 20, false);
-        enemy.addComponent(EntityFollowComponent, 250, 100, 50, 5000);
+        enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },
             { movement: { x: 0, y: 50 }, duration: 2000 },
