@@ -4,6 +4,7 @@ import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
+import Entity from '../ecs/Entity';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
@@ -37,15 +38,6 @@ export default class EntityControlSystem extends System {
         const y = event.coordinates.y;
 
         for (const entity of this.getSystemEntities()) {
-            // Avoid moving if left shift is pressed
-            if (this.keysPressed.includes('ShiftLeft')) {
-                if (entity.hasComponent(ProjectileEmitterComponent)) {
-                    this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
-                }
-
-                return;
-            }
-
             const entityControl = entity.getComponent(EntityControlComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -59,6 +51,16 @@ export default class EntityControlSystem extends System {
                 entity.removeComponent(EntityDestinationComponent);
                 entity.removeFromSystem(RenderEntityDestinationSystem);
                 entity.removeFromSystem(EntityDestinationSystem);
+            }
+
+            // Avoid moving if left shift is pressed
+            if (this.keysPressed.includes('ShiftLeft')) {
+                if (entity.hasComponent(ProjectileEmitterComponent)) {
+                    this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
+                }
+
+                rigidBody.velocity = { x: 0, y: 0 };
+                return;
             }
 
             entity.addComponent(EntityDestinationComponent, x, y, entityControl.velocity);
