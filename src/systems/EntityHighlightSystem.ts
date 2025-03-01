@@ -1,5 +1,5 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
-import HighlightableComponent from '../components/HighlightableComponent';
+import HighlightComponent from '../components/HighlightComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Rectangle, Vector } from '../types';
@@ -7,7 +7,7 @@ import { Rectangle, Vector } from '../types';
 export default class EntityHighlightSystem extends System {
     constructor() {
         super();
-        this.requireComponent(HighlightableComponent);
+        this.requireComponent(HighlightComponent);
         this.requireComponent(TransformComponent);
         this.requireComponent(BoxColliderComponent);
     }
@@ -17,7 +17,7 @@ export default class EntityHighlightSystem extends System {
         const mouseY = mousePosition.y + camera.y;
 
         for (const entity of this.getSystemEntities()) {
-            const highlight = entity.getComponent(HighlightableComponent);
+            const highlight = entity.getComponent(HighlightComponent);
             const transform = entity.getComponent(TransformComponent);
             const collider = entity.getComponent(BoxColliderComponent);
 

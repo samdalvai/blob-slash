@@ -7,7 +7,7 @@ import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
-import HighlightableComponent from '../components/HighlightableComponent';
+import HighlightComponent from '../components/HighlightComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
@@ -35,7 +35,6 @@ export default class LevelLoader {
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
-        await assetStore.addTexture('slime-texture-highlighted', './assets/images/slime_big_full_highlighted.png');
         await assetStore.addTexture('player-texture', './assets/images/player_full.png');
         await assetStore.addTexture('magic-sphere-texture', './assets/images/magic_sphere.png');
 
@@ -93,13 +92,13 @@ export default class LevelLoader {
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
-        player.addComponent(LightEmitComponent, 400);
+        player.addComponent(LightEmitComponent, 250);
         player.tag('player');
 
         const enemy = registry.createEntity();
-        enemy.addComponent(TransformComponent, { x: 300, y: 600 }, { x: 1, y: 1 }, 0);
+        enemy.addComponent(TransformComponent, { x: 300, y: 400 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
-        enemy.addComponent(HighlightableComponent, 'slime-texture-highlighted');
+        enemy.addComponent(HighlightComponent, 40, 20, 0, -10);
         enemy.addComponent(SpriteStateComponent);
         enemy.addComponent(DeadBodyOnDeathComponent);
         enemy.addComponent(ShadowComponent, 30, 10, 0, -8);
