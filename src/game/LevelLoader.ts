@@ -18,7 +18,7 @@ import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
-import { TileMap } from '../types';
+import { Flip, TileMap } from '../types';
 import Game from './Game';
 
 export default class LevelLoader {
@@ -79,7 +79,7 @@ export default class LevelLoader {
         console.log('Loading entities');
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
-        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0);
+        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0, Flip.NONE, false, 1);
         player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteStateComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -2);
@@ -87,7 +87,6 @@ export default class LevelLoader {
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(EntityControlComponent, 150);
-        // player.addComponent(KeyboardControlComponent, 200);
         player.addComponent(RangedAttackEmitterComponent, 200, 250, 3000, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
