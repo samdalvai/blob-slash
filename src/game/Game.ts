@@ -15,7 +15,7 @@ import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import KeyboardControlSystem from '../systems/KeyboardControlSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
-import MouseControlSystem from '../systems/MouseControlSystem';
+import EntityControlSystem from '../systems/EntityControlSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
@@ -145,7 +145,7 @@ export default class Game {
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(MouseControlSystem);
+        this.registry.addSystem(EntityControlSystem);
         this.registry.addSystem(EntityDestinationSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
@@ -229,7 +229,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(MouseControlSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EntityControlSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);

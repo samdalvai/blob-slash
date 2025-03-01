@@ -1,5 +1,5 @@
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import MouseControlComponent from '../components/MouseControlComponent';
+import EntityControlComponent from '../components/EntityControlComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -9,10 +9,10 @@ import MouseClickEvent from '../events/MouseClickEvent';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
-export default class MouseControlSystem extends System {
+export default class EntityControlSystem extends System {
     constructor() {
         super();
-        this.requireComponent(MouseControlComponent);
+        this.requireComponent(EntityControlComponent);
         this.requireComponent(RigidBodyComponent);
         this.requireComponent(TransformComponent);
         this.requireComponent(SpriteComponent);
@@ -27,7 +27,7 @@ export default class MouseControlSystem extends System {
         const coordinatesY = event.coordinates.y;
 
         for (const entity of this.getSystemEntities()) {
-            const mouseControl = entity.getComponent(MouseControlComponent);
+            const mouseControl = entity.getComponent(EntityControlComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
