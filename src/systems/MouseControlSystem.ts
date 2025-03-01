@@ -6,7 +6,6 @@ import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import MouseClickEvent from '../events/MouseClickEvent';
-import { Rectangle, Vector } from '../types';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './RenderEntityDestinationSystem';
 
@@ -19,11 +18,11 @@ export default class MouseControlSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, camera: Rectangle) {
-        eventBus.subscribeToEvent(MouseClickEvent, this, event => this.onMousePressed(event, camera));
+    subscribeToEvents(eventBus: EventBus) {
+        eventBus.subscribeToEvent(MouseClickEvent, this, this.onMousePressed);
     }
 
-    onMousePressed(event: MouseClickEvent, camera: Rectangle) {
+    onMousePressed(event: MouseClickEvent) {
         const coordinatesX = event.coordinates.x;
         const coordinatesY = event.coordinates.y;
 
@@ -43,12 +42,7 @@ export default class MouseControlSystem extends System {
                 entity.removeFromSystem(EntityDestinationSystem);
             }
 
-            entity.addComponent(
-                EntityDestinationComponent,
-                coordinatesX + camera.x,
-                coordinatesY + camera.y,
-                mouseControl.velocity,
-            );
+            entity.addComponent(EntityDestinationComponent, coordinatesX, coordinatesY, mouseControl.velocity);
             entity.addToSystem(RenderEntityDestinationSystem);
             entity.addToSystem(EntityDestinationSystem);
         }

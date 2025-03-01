@@ -230,7 +230,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(MouseControlSystem)?.subscribeToEvents(this.eventBus, this.camera);
+        this.registry.getSystem(MouseControlSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
