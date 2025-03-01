@@ -37,6 +37,7 @@ export default class EntityDestinationSystem extends System {
                 entity.removeComponent(EntityDestinationComponent);
                 entity.removeFromSystem(RenderEntityDestinationSystem);
                 entity.removeFromSystem(EntityDestinationSystem);
+                rigidBody.velocity = { x: 0, y: 0 };
                 continue;
             }
 
