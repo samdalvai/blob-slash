@@ -27,7 +27,9 @@ export default class PlayerDetectionSystem extends System {
             const player = entity.registry.getEntityByTag('player');
 
             if (!player) {
-                throw new Error('Player entity not found');
+                // Avoid throwing error, player might have been killed after launching attack
+                console.warn('Player entity not found');
+                return;
             }
 
             const entityFollow = entity.getComponent(EntityFollowComponent);
