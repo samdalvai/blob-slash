@@ -117,16 +117,13 @@ export default class Game {
     };
 
     private setup = async () => {
+        // Rendering systems
         this.registry.addSystem(RenderSystem);
-        this.registry.addSystem(RenderColliderSystem);
-        this.registry.addSystem(RenderHealthBarSystem);
         this.registry.addSystem(RenderTextSystem);
-        this.registry.addSystem(RenderDebugInfoSystem);
         this.registry.addSystem(RenderParticleSystem);
-        this.registry.addSystem(RenderParticleSourceSystem);
         this.registry.addSystem(RenderLightingSystem);
-        this.registry.addSystem(RenderEntityDestinationSystem);
 
+        // Other entities related systems
         this.registry.addSystem(MovementSystem);
         this.registry.addSystem(CameraMovementSystem);
         this.registry.addSystem(AnimationSystem);
@@ -143,8 +140,15 @@ export default class Game {
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(EntityControlSystem);
+        this.registry.addSystem(EntityControlSystem, this.eventBus);
         this.registry.addSystem(EntityDestinationSystem);
+
+        // Debug systems
+        this.registry.addSystem(RenderColliderSystem);
+        this.registry.addSystem(RenderHealthBarSystem);
+        this.registry.addSystem(RenderEntityDestinationSystem);
+        this.registry.addSystem(RenderParticleSourceSystem);
+        this.registry.addSystem(RenderDebugInfoSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;

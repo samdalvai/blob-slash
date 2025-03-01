@@ -12,7 +12,7 @@ import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
-import MouseClickEvent from '../events/MouseClickEvent';
+import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import { Vector } from '../types';
 import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 
@@ -28,10 +28,10 @@ export default class ProjectileEmitSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MouseClickEvent, this, this.onKeyPressed);
+        eventBus.subscribeToEvent(RangedAttackEmitEvent, this, this.onRangedAttackEmitEvent);
     }
 
-    onKeyPressed(event: MouseClickEvent) {
+    onRangedAttackEmitEvent(event: RangedAttackEmitEvent) {
         const player = this.registry.getEntityByTag('player');
 
         if (!player) {

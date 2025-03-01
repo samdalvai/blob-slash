@@ -1,5 +1,6 @@
 import EntityControlComponent from '../components/EntityControlComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
+import ProjectileEmitterComponent from '../components/ProjectileEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -8,14 +9,17 @@ import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
 import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseClickEvent from '../events/MouseClickEvent';
+import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class EntityControlSystem extends System {
+    eventBus: EventBus;
     keysPressed: string[] = [];
 
-    constructor() {
+    constructor(eventBus: EventBus) {
         super();
+        this.eventBus = eventBus;
         this.requireComponent(EntityControlComponent);
         this.requireComponent(RigidBodyComponent);
         this.requireComponent(TransformComponent);
@@ -29,13 +33,19 @@ export default class EntityControlSystem extends System {
     }
 
     onMousePressed = (event: MouseClickEvent) => {
-        // Avoid moving if left shift is pressed
-        if (this.keysPressed.includes('ShiftLeft')) return;
-
-        const coordinatesX = event.coordinates.x;
-        const coordinatesY = event.coordinates.y;
+        const x = event.coordinates.x;
+        const y = event.coordinates.y;
 
         for (const entity of this.getSystemEntities()) {
+            // Avoid moving if left shift is pressed
+            if (this.keysPressed.includes('ShiftLeft')) {
+                if (entity.hasComponent(ProjectileEmitterComponent)) {
+                    this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
+                }
+
+                return;
+            }
+
             const entityControl = entity.getComponent(EntityControlComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -51,7 +61,7 @@ export default class EntityControlSystem extends System {
                 entity.removeFromSystem(EntityDestinationSystem);
             }
 
-            entity.addComponent(EntityDestinationComponent, coordinatesX, coordinatesY, entityControl.velocity);
+            entity.addComponent(EntityDestinationComponent, x, y, entityControl.velocity);
             entity.addToSystem(RenderEntityDestinationSystem);
             entity.addToSystem(EntityDestinationSystem);
         }
