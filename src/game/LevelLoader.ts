@@ -14,6 +14,7 @@ import RangedAttackEmitterComponent from '../components/RangedAttackEmitterCompo
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
 import ShadowComponent from '../components/ShadowComponent';
+import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -142,5 +143,6 @@ export default class LevelLoader {
         bubbleTop.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 1.5, y: 1.5 }, 0);
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 10, false);
+        bubbleTop.addComponent(SlowTimeComponent, 90, 0.5);
     }
 }

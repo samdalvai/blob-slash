@@ -33,6 +33,7 @@ import RenderDebugInfoSystem from '../systems/debug/RenderDebugInfoSystem';
 import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinationSystem';
 import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
 import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
+import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
 import { GameStatus, Rectangle } from '../types';
 import { sleep } from '../utils/time';
 import LevelLoader from './LevelLoader';
@@ -151,6 +152,7 @@ export default class Game {
         this.registry.addSystem(RenderEntityDestinationSystem);
         this.registry.addSystem(RenderParticleSourceSystem);
         this.registry.addSystem(RenderDebugInfoSystem);
+        this.registry.addSystem(RenderSlowTimeRadiusSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -281,6 +283,7 @@ export default class Game {
             this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
         }
     };
 
