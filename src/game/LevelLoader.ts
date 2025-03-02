@@ -97,7 +97,7 @@ export default class LevelLoader {
         player.tag('player');
 
         const enemy = registry.createEntity();
-        enemy.addComponent(TransformComponent, { x: 300, y: 400 }, { x: 1, y: 1 }, 0);
+        enemy.addComponent(TransformComponent, { x: 300, y: 500 }, { x: 1, y: 1 }, 0);
         enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
         enemy.addComponent(HighlightComponent, 40, 20, 0, -10);
         enemy.addComponent(SpriteStateComponent);
@@ -133,9 +133,14 @@ export default class LevelLoader {
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
 
-        const bubble = registry.createEntity();
-        bubble.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 1.5, y: 1.5 }, 0);
-        bubble.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 0, Flip.NONE, false, 0.6);
-        bubble.addComponent(AnimationComponent, 4, 10, false);
+        const bubbleFloor = registry.createEntity();
+        bubbleFloor.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 1.5, y: 1.5 }, 0);
+        bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
+        bubbleFloor.addComponent(AnimationComponent, 4, 10, false);
+
+        const bubbleTop = registry.createEntity();
+        bubbleTop.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 1.5, y: 1.5 }, 0);
+        bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
+        bubbleTop.addComponent(AnimationComponent, 4, 10, false);
     }
 }
