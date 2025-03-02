@@ -26,6 +26,7 @@ import RenderParticleSystem from '../systems/RenderParticleSystem';
 import RenderSystem from '../systems/RenderSystem';
 import RenderTextSystem from '../systems/RenderTextSystem';
 import ScriptingSystem from '../systems/ScriptingSystem';
+import SlowTimeSystem from '../systems/SlowTimeSystem';
 import SoundSystem from '../systems/SoundSystem';
 import SpriteStateSystem from '../systems/SpriteStateSystem';
 import RenderColliderSystem from '../systems/debug/RenderColliderSystem';
@@ -145,6 +146,7 @@ export default class Game {
         this.registry.addSystem(EntityControlSystem, this.eventBus);
         this.registry.addSystem(EntityDestinationSystem);
         this.registry.addSystem(EntityHighlightSystem);
+        this.registry.addSystem(SlowTimeSystem);
 
         // Debug systems
         this.registry.addSystem(RenderColliderSystem);
@@ -249,6 +251,7 @@ export default class Game {
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
+        this.registry.getSystem(SlowTimeSystem)?.update(this.registry);
         this.registry.getSystem(EntityHighlightSystem)?.update(this.inputManager.mousePosition, this.camera);
     };
 
