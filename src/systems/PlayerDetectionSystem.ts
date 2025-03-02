@@ -6,6 +6,7 @@ import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import EntityHitEvent from '../events/EntityHitEvent';
+import { isPointInsideCircle } from '../utils/circle';
 
 export default class PlayerDetectionSystem extends System {
     constructor() {
@@ -73,7 +74,7 @@ export default class PlayerDetectionSystem extends System {
             const playerX = playerTransform.position.x + (playerTransform.scale.x * playerSprite.width) / 2;
             const playerY = playerTransform.position.y + (playerTransform.scale.y * playerSprite.height) / 2;
 
-            const isPlayerInsideCircle = this.isEntityInsideCircle(
+            const isPlayerInsideCircle = isPointInsideCircle(
                 playerX,
                 playerY,
                 entityX,
@@ -91,15 +92,5 @@ export default class PlayerDetectionSystem extends System {
                 entityFollow.followedEntity = null;
             }
         }
-    }
-
-    private isEntityInsideCircle(
-        entityX: number,
-        entityY: number,
-        circleX: number,
-        circleY: number,
-        circleRadius: number,
-    ) {
-        return Math.pow(entityX - circleX, 2) + Math.pow(entityY - circleY, 2) <= circleRadius * circleRadius;
     }
 }

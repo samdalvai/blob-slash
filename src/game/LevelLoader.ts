@@ -144,5 +144,6 @@ export default class LevelLoader {
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 10, false);
         bubbleTop.addComponent(SlowTimeComponent, 90, 0.5);
+        bubbleTop.group('slow-time');
     }
 }
