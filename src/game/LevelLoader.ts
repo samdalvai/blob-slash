@@ -134,8 +134,8 @@ export default class LevelLoader {
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
 
         const bubble = registry.createEntity();
-        bubble.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 2, y: 2 }, 0);
-        bubble.addComponent(SpriteComponent, 'magic-bubble-texture', 64, 64, 1, 0, 0);
+        bubble.addComponent(TransformComponent, { x: 300, y: 100 }, { x: 1.5, y: 1.5 }, 0);
+        bubble.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 0, Flip.NONE, false, 0.6);
         bubble.addComponent(AnimationComponent, 4, 10, false);
     }
 }
