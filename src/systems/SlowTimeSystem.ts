@@ -26,7 +26,7 @@ export default class SlowTimeSystem extends System {
             return;
         }
 
-        const slowTimeCircles: { x: number; y: number; radius: number }[] = [];
+        const slowTimeCircles: { x: number; y: number; radius: number; slowTimePercentage: number }[] = [];
 
         for (const entity of slowTimeEntities) {
             const slowTime = entity.getComponent(SlowTimeComponent);
@@ -40,7 +40,12 @@ export default class SlowTimeSystem extends System {
             const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
             const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
 
-            slowTimeCircles.push({ x: circleX, y: circleY, radius: slowTime.radius });
+            slowTimeCircles.push({
+                x: circleX,
+                y: circleY,
+                radius: slowTime.radius,
+                slowTimePercentage: slowTime.slowTimePercentage,
+            });
         }
 
         for (const entity of this.getSystemEntities()) {
@@ -56,10 +61,14 @@ export default class SlowTimeSystem extends System {
             const entityY = transform.position.y + (transform.scale.y * sprite.height) / 2;
 
             let isInSlowTimeCircle = false;
+            let slowTimePercentage = 1.0;
 
             for (const circle of slowTimeCircles) {
                 if (isPointInsideCircle(entityX, entityY, circle.x, circle.y, circle.radius)) {
                     isInSlowTimeCircle = true;
+                    if (circle.slowTimePercentage < slowTimePercentage) {
+                        slowTimePercentage = circle.slowTimePercentage;
+                    }
                 }
             }
 
@@ -69,7 +78,10 @@ export default class SlowTimeSystem extends System {
                 }
 
                 this.previousEntitiesVelocity.set(entity.getId(), { x: rigidBody.velocity.x, y: rigidBody.velocity.y });
-                rigidBody.velocity = { x: rigidBody.velocity.x * 0.3, y: rigidBody.velocity.y * 0.3 };
+                rigidBody.velocity = {
+                    x: rigidBody.velocity.x * slowTimePercentage,
+                    y: rigidBody.velocity.y * slowTimePercentage,
+                };
             } else {
                 const previousVelocity = this.previousEntitiesVelocity.get(entity.getId());
                 if (previousVelocity === undefined) {
