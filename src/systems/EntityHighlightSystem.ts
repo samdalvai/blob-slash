@@ -1,5 +1,6 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import HighlightComponent from '../components/HighlightComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import { Rectangle, Vector } from '../types';
@@ -9,7 +10,7 @@ export default class EntityHighlightSystem extends System {
         super();
         this.requireComponent(HighlightComponent);
         this.requireComponent(TransformComponent);
-        this.requireComponent(BoxColliderComponent);
+        this.requireComponent(SpriteComponent);
     }
 
     update = (mousePosition: Vector, camera: Rectangle) => {
@@ -19,17 +20,17 @@ export default class EntityHighlightSystem extends System {
         for (const entity of this.getSystemEntities()) {
             const highlight = entity.getComponent(HighlightComponent);
             const transform = entity.getComponent(TransformComponent);
-            const collider = entity.getComponent(BoxColliderComponent);
+            const sprite = entity.getComponent(SpriteComponent);
 
-            if (!highlight || !transform || !transform || !collider) {
+            if (!highlight || !transform || !transform || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const minX = transform.position.x + collider.offset.x;
-            const minY = transform.position.y + collider.offset.y;
+            const minX = transform.position.x;
+            const minY = transform.position.y;
 
-            const maxX = transform.position.x + collider.offset.x + collider.width * transform.scale.x;
-            const maxY = transform.position.y + collider.offset.y + collider.height * transform.scale.y;
+            const maxX = transform.position.x + sprite.width * transform.scale.x;
+            const maxY = transform.position.y + sprite.height * transform.scale.y;
 
             if (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY) {
                 highlight.isHighlighted = true;
