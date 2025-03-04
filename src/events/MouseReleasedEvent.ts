@@ -1,7 +1,7 @@
 import GameEvent from '../event-bus/GameEvent';
 import { Vector } from '../types';
 
-export default class MouseClickEvent extends GameEvent {
+export default class MouseReleasedEvent extends GameEvent {
     coordinates: Vector;
 
     constructor(coordinates: Vector) {

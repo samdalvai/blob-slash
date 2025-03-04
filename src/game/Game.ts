@@ -4,7 +4,9 @@ import Registry from '../ecs/Registry';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
 import KeyReleasedEvent from '../events/KeyReleasedEvent';
-import MouseClickEvent from '../events/MouseClickEvent';
+import MouseMoveEvent from '../events/MouseMoveEvent';
+import MousePressedEvent from '../events/MousePressedEvent';
+import MouseReleasedEvent from '../events/MouseReleasedEvent';
 import InputManager from '../input-manager/InputManager';
 import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
@@ -36,7 +38,7 @@ import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinat
 import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
 import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
 import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
-import { GameStatus, Rectangle } from '../types';
+import { GameStatus, Rectangle, Vector } from '../types';
 import { sleep } from '../utils/time';
 import LevelLoader from './LevelLoader';
 
@@ -58,6 +60,7 @@ export default class Game {
     private assetStore: AssetStore;
     private eventBus: EventBus;
     private inputManager: InputManager;
+    private mousePosition: Vector;
 
     static mapWidth: number;
     static mapHeight: number;
@@ -75,6 +78,7 @@ export default class Game {
         this.assetStore = new AssetStore();
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
+        this.mousePosition = { x: 0, y: 0 };
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
@@ -192,10 +196,30 @@ export default class Game {
                 return;
             }
 
-            this.eventBus.emitEvent(MouseClickEvent, {
-                x: inputEvent.x + this.camera.x,
-                y: inputEvent.y + this.camera.y,
-            });
+            switch (inputEvent.type) {
+                case 'mousemove':
+                    this.mousePosition = {
+                        x: inputEvent.x + this.camera.x,
+                        y: inputEvent.y + this.camera.y,
+                    };
+                    this.eventBus.emitEvent(MouseMoveEvent, {
+                        x: inputEvent.x + this.camera.x,
+                        y: inputEvent.y + this.camera.y,
+                    });
+                    break;
+                case 'mousedown':
+                    this.eventBus.emitEvent(MousePressedEvent, {
+                        x: inputEvent.x + this.camera.x,
+                        y: inputEvent.y + this.camera.y,
+                    });
+                    break;
+                case 'mouseup':
+                    this.eventBus.emitEvent(MouseReleasedEvent, {
+                        x: inputEvent.x + this.camera.x,
+                        y: inputEvent.y + this.camera.y,
+                    });
+                    break;
+            }
         }
     };
 
@@ -237,12 +261,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry
-            .getSystem(EntityControlSystem)
-            ?.subscribeToEvents(this.eventBus, {
-                x: this.inputManager.mousePosition.x + this.camera.x,
-                y: this.inputManager.mousePosition.y + this.camera.y,
-            });
+        this.registry.getSystem(EntityControlSystem)?.subscribeToEvents(this.eventBus, this.mousePosition);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
@@ -258,7 +277,7 @@ export default class Game {
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
         this.registry.getSystem(SlowTimeSystem)?.update(this.registry);
-        this.registry.getSystem(EntityHighlightSystem)?.update(this.inputManager.mousePosition, this.camera);
+        this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
     };
 
     private render = () => {
@@ -285,7 +304,7 @@ export default class Game {
                     this.currentFPS,
                     this.maxFPS,
                     this.currentTickTime,
-                    this.inputManager,
+                    this.mousePosition,
                     this.registry,
                 );
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
