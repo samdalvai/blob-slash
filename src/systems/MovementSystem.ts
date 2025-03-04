@@ -1,4 +1,5 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -130,8 +131,22 @@ export default class MovementSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            transform.position.x += rigidBody.velocity.x * deltaTime;
-            transform.position.y += rigidBody.velocity.y * deltaTime;
+            let slowedPercentage = 1;
+
+            if (entity.hasComponent(EntityEffectComponent)) {
+                const entityEffect = entity.getComponent(EntityEffectComponent);
+
+                if (!entityEffect) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                if (entityEffect.slowed) {
+                    slowedPercentage = entityEffect.slowedPercentage;
+                }
+            }
+
+            transform.position.x += rigidBody.velocity.x * deltaTime * slowedPercentage;
+            transform.position.y += rigidBody.velocity.y * deltaTime * slowedPercentage;
 
             if (entity.hasTag('player')) {
                 const paddingLeft = 10;

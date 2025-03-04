@@ -5,6 +5,7 @@ import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityControlComponent from '../components/EntityControlComponent';
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import HighlightComponent from '../components/HighlightComponent';
@@ -90,11 +91,12 @@ export default class LevelLoader {
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(EntityControlComponent, 150);
-        player.addComponent(RangedAttackEmitterComponent, 200, 250, 3000, 10, true);
+        player.addComponent(RangedAttackEmitterComponent, 200, 250, 5000, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
         player.addComponent(LightEmitComponent, 250);
+        player.addComponent(EntityEffectComponent);
         player.tag('player');
 
         const enemy = registry.createEntity();
@@ -108,8 +110,9 @@ export default class LevelLoader {
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 2000, 20, false);
+        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 5000, 20, false);
         enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
+        enemy.addComponent(EntityEffectComponent);
         enemy.addComponent(ScriptComponent, [
             { movement: { x: 50, y: 0 }, duration: 2000 },
             { movement: { x: 0, y: 50 }, duration: 2000 },

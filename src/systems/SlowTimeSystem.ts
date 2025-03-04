@@ -1,22 +1,19 @@
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import System from '../ecs/System';
-import { Vector } from '../types';
 import { isPointInsideCircle } from '../utils/circle';
 
 export default class SlowTimeSystem extends System {
-    previousEntitiesVelocity: Map<number, Vector>;
-
     constructor() {
         super();
         this.requireComponent(RigidBodyComponent);
         this.requireComponent(TransformComponent);
         this.requireComponent(SpriteComponent);
-
-        this.previousEntitiesVelocity = new Map();
+        this.requireComponent(EntityEffectComponent);
     }
 
     update(registry: Registry) {
@@ -52,8 +49,9 @@ export default class SlowTimeSystem extends System {
             const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
+            const entityEffect = entity.getComponent(EntityEffectComponent);
 
-            if (!rigidBody || !transform || !sprite) {
+            if (!rigidBody || !transform || !sprite || !entityEffect) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -73,23 +71,11 @@ export default class SlowTimeSystem extends System {
             }
 
             if (isInSlowTimeCircle) {
-                if (this.previousEntitiesVelocity.get(entity.getId()) !== undefined) {
-                    continue;
-                }
-
-                this.previousEntitiesVelocity.set(entity.getId(), { x: rigidBody.velocity.x, y: rigidBody.velocity.y });
-                rigidBody.velocity = {
-                    x: rigidBody.velocity.x * slowTimePercentage,
-                    y: rigidBody.velocity.y * slowTimePercentage,
-                };
+                entityEffect.slowed = true;
+                entityEffect.slowedPercentage = slowTimePercentage;
             } else {
-                const previousVelocity = this.previousEntitiesVelocity.get(entity.getId());
-                if (previousVelocity === undefined) {
-                    continue;
-                }
-
-                rigidBody.velocity = { x: previousVelocity.x, y: previousVelocity.y };
-                this.previousEntitiesVelocity.delete(entity.getId());
+                entityEffect.slowed = false;
+                entityEffect.slowedPercentage = slowTimePercentage;
             }
         }
     }
