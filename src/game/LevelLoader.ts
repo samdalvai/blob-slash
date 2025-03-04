@@ -4,7 +4,6 @@ import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
-import EntityControlComponent from '../components/PlayerControlComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
@@ -12,6 +11,7 @@ import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
+import EntityControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -137,19 +137,5 @@ export default class LevelLoader {
         torch2.addComponent(LightEmitComponent, 100);
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
-
-        const bubbleFloor = registry.createEntity();
-        bubbleFloor.addComponent(TransformComponent, { x: 400, y: 100 }, { x: 1.5, y: 1.5 }, 0);
-        bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
-        bubbleFloor.addComponent(AnimationComponent, 4, 10, false);
-        bubbleFloor.addComponent(LifetimeComponent, 30000);
-
-        const bubbleTop = registry.createEntity();
-        bubbleTop.addComponent(TransformComponent, { x: 400, y: 100 }, { x: 1.5, y: 1.5 }, 0);
-        bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
-        bubbleTop.addComponent(AnimationComponent, 4, 10, false);
-        bubbleTop.addComponent(SlowTimeComponent, 90, 0.2);
-        bubbleTop.addComponent(LifetimeComponent, 30000);
-        bubbleTop.group('slow-time');
     }
 }

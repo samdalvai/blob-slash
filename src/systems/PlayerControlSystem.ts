@@ -13,6 +13,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
 import KeyReleasedEvent from '../events/KeyReleasedEvent';
+import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import { Flip, Vector } from '../types';
@@ -22,6 +23,7 @@ import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem
 export default class PlayerControlSystem extends System {
     eventBus: EventBus;
     registry: Registry;
+    mousePosition: Vector = { x: 0, y: 0 };
     keysPressed: string[] = [];
 
     constructor(eventBus: EventBus, registry: Registry) {
@@ -30,9 +32,10 @@ export default class PlayerControlSystem extends System {
         this.registry = registry;
     }
 
-    subscribeToEvents(eventBus: EventBus, mousePosition: Vector) {
+    subscribeToEvents(eventBus: EventBus) {
         eventBus.subscribeToEvent(MousePressedEvent, this, this.onMousePressed);
-        eventBus.subscribeToEvent(KeyPressedEvent, this, event => this.onKeyPressed(event, mousePosition));
+        eventBus.subscribeToEvent(MouseMoveEvent, this, this.onMouseMove);
+        eventBus.subscribeToEvent(KeyPressedEvent, this, this.onKeyPressed);
         eventBus.subscribeToEvent(KeyReleasedEvent, this, this.onKeyReleased);
     }
 
@@ -94,13 +97,17 @@ export default class PlayerControlSystem extends System {
         player.addToSystem(EntityDestinationSystem);
     };
 
-    onKeyPressed = (event: KeyPressedEvent, mousePosition: Vector) => {
+    onMouseMove = (event: MouseMoveEvent) => {
+        this.mousePosition = event.coordinates;
+    };
+
+    onKeyPressed = (event: KeyPressedEvent) => {
         switch (event.keyCode) {
             case 'ShiftLeft':
                 this.keysPressed.push(event.keyCode);
                 break;
             case 'Digit1':
-                this.emitMagicBubble(mousePosition);
+                this.emitMagicBubble(this.mousePosition);
                 break;
         }
     };
