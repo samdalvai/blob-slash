@@ -4,7 +4,7 @@ import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
-import EntityControlComponent from '../components/EntityControlComponent';
+import EntityControlComponent from '../components/PlayerControlComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
