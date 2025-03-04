@@ -14,7 +14,7 @@ import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
 import DamageSystem from '../systems/DamageSystem';
 import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
-import EntityControlSystem from '../systems/EntityControlSystem';
+import PlayerControlSystem from '../systems/PlayerControlSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import EntityHighlightSystem from '../systems/EntityHighlightSystem';
@@ -148,7 +148,7 @@ export default class Game {
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(EntityControlSystem, this.eventBus, this.registry);
+        this.registry.addSystem(PlayerControlSystem, this.eventBus, this.registry);
         this.registry.addSystem(EntityDestinationSystem);
         this.registry.addSystem(EntityHighlightSystem);
         this.registry.addSystem(SlowTimeSystem);
@@ -261,7 +261,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EntityControlSystem)?.subscribeToEvents(this.eventBus, this.mousePosition);
+        this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus, this.mousePosition);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);

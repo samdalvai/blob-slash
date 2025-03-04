@@ -1,8 +1,8 @@
 import AnimationComponent from '../components/AnimationComponent';
-import EntityControlComponent from '../components/EntityControlComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
+import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
@@ -19,7 +19,7 @@ import { Flip, Vector } from '../types';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
-export default class EntityControlSystem extends System {
+export default class PlayerControlSystem extends System {
     eventBus: EventBus;
     registry: Registry;
     keysPressed: string[] = [];
@@ -28,10 +28,6 @@ export default class EntityControlSystem extends System {
         super();
         this.eventBus = eventBus;
         this.registry = registry;
-        this.requireComponent(EntityControlComponent);
-        this.requireComponent(RigidBodyComponent);
-        this.requireComponent(TransformComponent);
-        this.requireComponent(SpriteComponent);
     }
 
     subscribeToEvents(eventBus: EventBus, mousePosition: Vector) {
@@ -44,53 +40,58 @@ export default class EntityControlSystem extends System {
         const x = event.coordinates.x;
         const y = event.coordinates.y;
 
-        for (const entity of this.getSystemEntities()) {
-            const entityControl = entity.getComponent(EntityControlComponent);
-            const rigidBody = entity.getComponent(RigidBodyComponent);
-            const transform = entity.getComponent(TransformComponent);
-            const sprite = entity.getComponent(SpriteComponent);
+        const player = this.registry.getEntityByTag('player');
 
-            if (!entityControl || !rigidBody || !transform || !sprite) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            if (entity.hasComponent(EntityDestinationComponent)) {
-                entity.removeComponent(EntityDestinationComponent);
-                entity.removeFromSystem(RenderEntityDestinationSystem);
-                entity.removeFromSystem(EntityDestinationSystem);
-            }
-
-            let enemyHighlighted = false;
-
-            for (const enemy of entity.registry.getEntitiesByGroup('enemies')) {
-                if (enemy.hasComponent(HighlightComponent)) {
-                    const highlight = enemy.getComponent(HighlightComponent);
-
-                    if (!highlight) {
-                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                    }
-
-                    if (highlight.isHighlighted) {
-                        enemyHighlighted = true;
-                        break;
-                    }
-                }
-            }
-
-            // Avoid moving if left shift is pressed
-            if (this.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
-                if (entity.hasComponent(RangedAttackEmitterComponent)) {
-                    this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
-                }
-
-                rigidBody.velocity = { x: 0, y: 0 };
-                return;
-            }
-
-            entity.addComponent(EntityDestinationComponent, x, y, entityControl.velocity);
-            entity.addToSystem(RenderEntityDestinationSystem);
-            entity.addToSystem(EntityDestinationSystem);
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
         }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+        const rigidBody = player.getComponent(RigidBodyComponent);
+        const transform = player.getComponent(TransformComponent);
+        const sprite = player.getComponent(SpriteComponent);
+
+        if (!playerControl || !rigidBody || !transform || !sprite) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        if (player.hasComponent(EntityDestinationComponent)) {
+            player.removeComponent(EntityDestinationComponent);
+            player.removeFromSystem(RenderEntityDestinationSystem);
+            player.removeFromSystem(EntityDestinationSystem);
+        }
+
+        let enemyHighlighted = false;
+
+        for (const enemy of player.registry.getEntitiesByGroup('enemies')) {
+            if (enemy.hasComponent(HighlightComponent)) {
+                const highlight = enemy.getComponent(HighlightComponent);
+
+                if (!highlight) {
+                    throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+                }
+
+                if (highlight.isHighlighted) {
+                    enemyHighlighted = true;
+                    break;
+                }
+            }
+        }
+
+        // Avoid moving if left shift is pressed
+        if (this.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
+            if (player.hasComponent(RangedAttackEmitterComponent)) {
+                this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
+            }
+
+            rigidBody.velocity = { x: 0, y: 0 };
+            return;
+        }
+
+        player.addComponent(EntityDestinationComponent, x, y, playerControl.velocity);
+        player.addToSystem(RenderEntityDestinationSystem);
+        player.addToSystem(EntityDestinationSystem);
     };
 
     onKeyPressed = (event: KeyPressedEvent, mousePosition: Vector) => {
@@ -110,7 +111,6 @@ export default class EntityControlSystem extends System {
 
     private emitMagicBubble = (coordinates: Vector) => {
         const scale = 1.0;
-
 
         const bubbleFloor = this.registry.createEntity();
         bubbleFloor.addComponent(

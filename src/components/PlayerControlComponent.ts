@@ -1,6 +1,6 @@
 import Component from '../ecs/Component';
 
-export default class EntityControlComponent extends Component {
+export default class PlayerControlComponent extends Component {
     velocity: number;
 
     constructor(velocity = 0) {
