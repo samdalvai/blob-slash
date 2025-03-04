@@ -9,6 +9,7 @@ import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import HighlightComponent from '../components/HighlightComponent';
+import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
@@ -91,7 +92,7 @@ export default class LevelLoader {
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(EntityControlComponent, 150);
-        player.addComponent(RangedAttackEmitterComponent, 200, 250, 5000, 10, true);
+        player.addComponent(RangedAttackEmitterComponent, 200, 250, 7500, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);
@@ -110,7 +111,7 @@ export default class LevelLoader {
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 5000, 20, false);
+        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 20, false);
         enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
         enemy.addComponent(EntityEffectComponent);
         enemy.addComponent(ScriptComponent, [
@@ -141,12 +142,14 @@ export default class LevelLoader {
         bubbleFloor.addComponent(TransformComponent, { x: 400, y: 100 }, { x: 1.5, y: 1.5 }, 0);
         bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
         bubbleFloor.addComponent(AnimationComponent, 4, 10, false);
+        bubbleFloor.addComponent(LifetimeComponent, 5000);
 
         const bubbleTop = registry.createEntity();
         bubbleTop.addComponent(TransformComponent, { x: 400, y: 100 }, { x: 1.5, y: 1.5 }, 0);
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 10, false);
         bubbleTop.addComponent(SlowTimeComponent, 90, 0.2);
+        bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
     }
 }
