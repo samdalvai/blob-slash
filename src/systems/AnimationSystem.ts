@@ -20,7 +20,7 @@ export default class AnimationSystem extends System {
             }
 
             if (!animation.isLoop && animation.currentFrame === animation.numFrames - 1) {
-                return;
+                continue;
             }
 
             let slowedPercentage = 1;
