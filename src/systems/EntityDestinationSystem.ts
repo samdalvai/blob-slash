@@ -3,6 +3,7 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
+import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class EntityDestinationSystem extends System {
@@ -39,6 +40,21 @@ export default class EntityDestinationSystem extends System {
                 rigidBody.velocity = { x: 0, y: 0 };
                 continue;
             }
+
+            const directionVector = computeDirectionVector(
+                transform.position.x + (sprite.width / 2) * transform.scale.x,
+                transform.position.y + (sprite.height / 2) * transform.scale.y,
+                entityDestination.destinationX,
+                entityDestination.destinationY,
+                entityDestination.velocity,
+            );
+
+            rigidBody.velocity = directionVector;
+            this.updateRigidBodyDirection(rigidBody.velocity.x, rigidBody.velocity.y, rigidBody);
         }
     }
+
+    updateRigidBodyDirection = (x: number, y: number, rigidBody: RigidBodyComponent) => {
+        rigidBody.direction = computeUnitVector(x, y);
+    };
 }

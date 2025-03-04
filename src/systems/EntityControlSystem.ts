@@ -11,7 +11,6 @@ import KeyPressedEvent from '../events/KeyPressedEvent';
 import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseClickEvent from '../events/MouseClickEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
-import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
@@ -81,18 +80,7 @@ export default class EntityControlSystem extends System {
                 return;
             }
 
-            const directionVector = computeDirectionVector(
-                transform.position.x + (sprite.width / 2) * transform.scale.x,
-                transform.position.y + (sprite.height / 2) * transform.scale.y,
-                x,
-                y,
-                entityControl.velocity,
-            );
-
-            rigidBody.velocity = directionVector;
-            rigidBody.direction = computeUnitVector(x, y);
-
-            entity.addComponent(EntityDestinationComponent, x, y);
+            entity.addComponent(EntityDestinationComponent, x, y, entityControl.velocity);
             entity.addToSystem(RenderEntityDestinationSystem);
             entity.addToSystem(EntityDestinationSystem);
         }
