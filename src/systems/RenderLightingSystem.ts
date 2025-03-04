@@ -2,6 +2,7 @@ import LightEmitComponent from '../components/LightEmitComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
+import Game from '../game/Game';
 import { Rectangle } from '../types';
 
 export default class RenderLightingSystem extends System {
@@ -49,6 +50,10 @@ export default class RenderLightingSystem extends System {
             );
             tempCtx.fill();
         }
+
+        // Render light where we have the skills menu
+        // const padding = 25;
+        // tempCtx.fillRect(padding, Game.windowHeight - 64 - padding, 192, 64);
 
         tempCtx.globalCompositeOperation = 'source-over';
         ctx.drawImage(tempCanvas, 0, 0);
