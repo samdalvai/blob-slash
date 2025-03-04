@@ -1,4 +1,5 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
@@ -152,6 +153,7 @@ export default class RangedAttackEmitSystem extends System {
             projectile.addComponent(LifetimeComponent, rangedAttackEmitter.projectileDuration);
             projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5, 16, 16);
             projectile.addComponent(ShadowComponent, 8, 4);
+            projectile.addComponent(EntityEffectComponent);
 
             // Update the projectile emitter component last emission to the current milliseconds
             rangedAttackEmitter.lastEmissionTime = performance.now();
