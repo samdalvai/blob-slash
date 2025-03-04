@@ -13,7 +13,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
 import KeyReleasedEvent from '../events/KeyReleasedEvent';
-import MouseClickEvent from '../events/MouseClickEvent';
+import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import { Flip, Vector } from '../types';
 import EntityDestinationSystem from './EntityDestinationSystem';
@@ -35,12 +35,12 @@ export default class EntityControlSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus, mousePosition: Vector) {
-        eventBus.subscribeToEvent(MouseClickEvent, this, this.onMousePressed);
+        eventBus.subscribeToEvent(MousePressedEvent, this, this.onMousePressed);
         eventBus.subscribeToEvent(KeyPressedEvent, this, event => this.onKeyPressed(event, mousePosition));
         eventBus.subscribeToEvent(KeyReleasedEvent, this, this.onKeyReleased);
     }
 
-    onMousePressed = (event: MouseClickEvent) => {
+    onMousePressed = (event: MousePressedEvent) => {
         const x = event.coordinates.x;
         const y = event.coordinates.y;
 

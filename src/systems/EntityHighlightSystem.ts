@@ -1,4 +1,3 @@
-import BoxColliderComponent from '../components/BoxColliderComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
