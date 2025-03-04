@@ -118,7 +118,7 @@ export default class EntityControlSystem extends System {
         );
         bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
         bubbleFloor.addComponent(AnimationComponent, 4, 10, false);
-        bubbleFloor.addComponent(LifetimeComponent, 10000);
+        bubbleFloor.addComponent(LifetimeComponent, 5000);
 
         const bubbleTop = this.registry.createEntity();
         bubbleTop.addComponent(
@@ -130,7 +130,7 @@ export default class EntityControlSystem extends System {
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 10, false);
         bubbleTop.addComponent(SlowTimeComponent, 90, 0.2);
-        bubbleTop.addComponent(LifetimeComponent, 10000);
+        bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
     };
 }
