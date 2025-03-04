@@ -148,5 +148,13 @@ export default class LevelLoader {
             { x: 2, y: 2 },
         );
         skillsMenu.addComponent(SpriteComponent, 'skills-menu-texture', 96, 64, 3, 0, 0, Flip.NONE, true);
+
+        const magicBubbleSkill = registry.createEntity();
+        magicBubbleSkill.addComponent(
+            TransformComponent,
+            { x: padding, y: Game.windowHeight - 64 - padding },
+            { x: 0.5, y: 0.5 },
+        );
+        magicBubbleSkill.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 3, 128, 0, Flip.NONE, true);
     }
 }
