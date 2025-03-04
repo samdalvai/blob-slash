@@ -18,11 +18,6 @@ export default class SlowTimeSystem extends System {
 
     update(registry: Registry) {
         const slowTimeEntities = registry.getEntitiesByGroup('slow-time');
-
-        if (slowTimeEntities.length === 0) {
-            return;
-        }
-
         const slowTimeCircles: { x: number; y: number; radius: number; slowTimePercentage: number }[] = [];
 
         for (const entity of slowTimeEntities) {
