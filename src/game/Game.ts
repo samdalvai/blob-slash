@@ -1,4 +1,5 @@
 import AssetStore from '../asset-store/AssetStore';
+import AnimationComponent from '../components/AnimationComponent';
 import Registry from '../ecs/Registry';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
@@ -143,7 +144,7 @@ export default class Game {
         this.registry.addSystem(ScriptingSystem);
         this.registry.addSystem(DeadBodyOnDeathSystem);
         this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(EntityControlSystem, this.eventBus);
+        this.registry.addSystem(EntityControlSystem, this.eventBus, this.registry);
         this.registry.addSystem(EntityDestinationSystem);
         this.registry.addSystem(EntityHighlightSystem);
         this.registry.addSystem(SlowTimeSystem);
@@ -236,7 +237,7 @@ export default class Game {
         this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EntityControlSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EntityControlSystem)?.subscribeToEvents(this.eventBus, this.inputManager.mousePosition);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
