@@ -1,5 +1,4 @@
 import EntityEffectComponent from '../components/EntityEffectComponent';
-import RigidBodyComponent from '../components/RigidBodyComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -10,7 +9,6 @@ import { isPointInsideCircle } from '../utils/circle';
 export default class SlowTimeSystem extends System {
     constructor() {
         super();
-        this.requireComponent(RigidBodyComponent);
         this.requireComponent(TransformComponent);
         this.requireComponent(SpriteComponent);
         this.requireComponent(EntityEffectComponent);
@@ -41,12 +39,11 @@ export default class SlowTimeSystem extends System {
         }
 
         for (const entity of this.getSystemEntities()) {
-            const rigidBody = entity.getComponent(RigidBodyComponent);
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
             const entityEffect = entity.getComponent(EntityEffectComponent);
 
-            if (!rigidBody || !transform || !sprite || !entityEffect) {
+            if (!transform || !sprite || !entityEffect) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
