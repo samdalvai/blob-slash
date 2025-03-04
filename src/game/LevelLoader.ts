@@ -8,7 +8,6 @@ import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import HealthComponent from '../components/HealthComponent';
 import HighlightComponent from '../components/HighlightComponent';
-import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import EntityControlComponent from '../components/PlayerControlComponent';
@@ -16,7 +15,6 @@ import RangedAttackEmitterComponent from '../components/RangedAttackEmitterCompo
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
 import ShadowComponent from '../components/ShadowComponent';
-import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -45,6 +43,8 @@ export default class LevelLoader {
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
         await assetStore.addTexture('torch-texture', './assets/images/torch.png');
+
+        await assetStore.addTexture('skills-menu-texture', './assets/images/skills_menu.png');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
@@ -139,5 +139,14 @@ export default class LevelLoader {
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
         torch2.addComponent(EntityEffectComponent);
+
+        const padding = 25;
+        const skillsMenu = registry.createEntity();
+        skillsMenu.addComponent(
+            TransformComponent,
+            { x: padding, y: Game.windowHeight - 64 - padding },
+            { x: 2, y: 2 },
+        );
+        skillsMenu.addComponent(SpriteComponent, 'skills-menu-texture', 96, 64, 3, 0, 0, Flip.NONE, true);
     }
 }
