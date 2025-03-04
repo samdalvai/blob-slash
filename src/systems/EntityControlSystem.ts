@@ -109,11 +109,14 @@ export default class EntityControlSystem extends System {
     };
 
     private emitMagicBubble = (coordinates: Vector) => {
+        const scale = 1.0;
+
+
         const bubbleFloor = this.registry.createEntity();
         bubbleFloor.addComponent(
             TransformComponent,
-            { x: coordinates.x - 64 * 1.5, y: coordinates.y - 64 * 1.5 },
-            { x: 1.5, y: 1.5 },
+            { x: coordinates.x - 64 * scale, y: coordinates.y - 64 * scale },
+            { x: scale, y: scale },
             0,
         );
         bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
@@ -123,13 +126,13 @@ export default class EntityControlSystem extends System {
         const bubbleTop = this.registry.createEntity();
         bubbleTop.addComponent(
             TransformComponent,
-            { x: coordinates.x - 64 * 1.5, y: coordinates.y - 64 * 1.5 },
-            { x: 1.5, y: 1.5 },
+            { x: coordinates.x - 64 * scale, y: coordinates.y - 64 * scale },
+            { x: scale, y: scale },
             0,
         );
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 10, false);
-        bubbleTop.addComponent(SlowTimeComponent, 90, 0.2);
+        bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2);
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
     };
