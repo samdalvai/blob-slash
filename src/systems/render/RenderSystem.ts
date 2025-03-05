@@ -1,10 +1,10 @@
-import AssetStore from '../asset-store/AssetStore';
-import HighlightComponent from '../components/HighlightComponent';
-import ShadowComponent from '../components/ShadowComponent';
-import SpriteComponent from '../components/SpriteComponent';
-import TransformComponent from '../components/TransformComponent';
-import System from '../ecs/System';
-import { Flip, Rectangle } from '../types';
+import AssetStore from '../../asset-store/AssetStore';
+import HighlightComponent from '../../components/HighlightComponent';
+import ShadowComponent from '../../components/ShadowComponent';
+import SpriteComponent from '../../components/SpriteComponent';
+import TransformComponent from '../../components/TransformComponent';
+import System from '../../ecs/System';
+import { Flip, Rectangle } from '../../types';
 
 export default class RenderSystem extends System {
     constructor() {
