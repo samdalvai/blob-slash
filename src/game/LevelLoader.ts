@@ -139,22 +139,5 @@ export default class LevelLoader {
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
         torch2.addComponent(EntityEffectComponent);
-
-        const padding = 25;
-        const skillsMenu = registry.createEntity();
-        skillsMenu.addComponent(
-            TransformComponent,
-            { x: padding, y: Game.windowHeight - 64 - padding },
-            { x: 2, y: 2 },
-        );
-        skillsMenu.addComponent(SpriteComponent, 'skills-menu-texture', 96, 64, 3, 0, 0, Flip.NONE, true);
-
-        const magicBubbleSkill = registry.createEntity();
-        magicBubbleSkill.addComponent(
-            TransformComponent,
-            { x: padding, y: Game.windowHeight - 64 - padding },
-            { x: 0.5, y: 0.5 },
-        );
-        magicBubbleSkill.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 3, 128, 0, Flip.NONE, true);
     }
 }
