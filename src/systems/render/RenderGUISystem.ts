@@ -9,6 +9,7 @@ export default class RenderGUISystem extends System {
 
     update(ctx: CanvasRenderingContext2D, assetStore: AssetStore) {
         const padding = 25;
+
         const skillsMenuScale = 2.0;
         const skillsMenuWidth = 32 * 3;
         const skillsMenuHeight = 32;
@@ -19,7 +20,7 @@ export default class RenderGUISystem extends System {
             0,
             skillsMenuWidth,
             skillsMenuHeight,
-            25,
+            padding,
             Game.windowHeight - 64 - padding,
             skillsMenuWidth * skillsMenuScale,
             skillsMenuHeight * skillsMenuScale,
@@ -35,10 +36,42 @@ export default class RenderGUISystem extends System {
             0,
             magicBubbleWidth,
             magicBubbleHeight,
-            25,
+            padding,
             Game.windowHeight - 64 - padding,
             magicBubbleWidth * magicBubbleScale,
             magicBubbleWidth * magicBubbleScale,
+        );
+
+        const mouseMenuScale = 2.0;
+        const mouseMenuWidth = 32 * 1;
+        const mouseMenuHeight = 32;
+
+        ctx.drawImage(
+            assetStore.getTexture('mouse-menu-texture'),
+            0,
+            0,
+            mouseMenuWidth,
+            mouseMenuHeight,
+            2 * padding + skillsMenuWidth * skillsMenuScale,
+            Game.windowHeight - 64 - padding,
+            mouseMenuWidth * mouseMenuScale,
+            mouseMenuHeight * mouseMenuScale,
+        );
+
+        const magicSphereScale = 2;
+        const magicSphereWidth = 32;
+        const magicSphereHeight = 32;
+
+        ctx.drawImage(
+            assetStore.getTexture('magic-sphere-texture'),
+            0,
+            0,
+            magicSphereWidth,
+            magicSphereHeight,
+            2 * padding + skillsMenuWidth * skillsMenuScale,
+            Game.windowHeight - 64 - padding,
+            magicSphereWidth * magicSphereScale,
+            magicSphereWidth * magicSphereScale,
         );
     }
 }
