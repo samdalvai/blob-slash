@@ -1,9 +1,9 @@
-import LightEmitComponent from '../components/LightEmitComponent';
-import SpriteComponent from '../components/SpriteComponent';
-import TransformComponent from '../components/TransformComponent';
-import System from '../ecs/System';
-import Game from '../game/Game';
-import { Rectangle } from '../types';
+import LightEmitComponent from '../../components/LightEmitComponent';
+import SpriteComponent from '../../components/SpriteComponent';
+import TransformComponent from '../../components/TransformComponent';
+import System from '../../ecs/System';
+import Game from '../../game/Game';
+import { Rectangle } from '../../types';
 
 export default class RenderLightingSystem extends System {
     constructor() {

@@ -1,6 +1,6 @@
-import AssetStore from '../asset-store/AssetStore';
-import System from '../ecs/System';
-import Game from '../game/Game';
+import AssetStore from '../../asset-store/AssetStore';
+import System from '../../ecs/System';
+import Game from '../../game/Game';
 
 export default class RenderGUISystem extends System {
     constructor() {
