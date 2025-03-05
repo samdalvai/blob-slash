@@ -127,7 +127,7 @@ export default class PlayerControlSystem extends System {
             0,
         );
         bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
-        bubbleFloor.addComponent(AnimationComponent, 4, 10, false);
+        bubbleFloor.addComponent(AnimationComponent, 4, 20, false);
         bubbleFloor.addComponent(LifetimeComponent, 5000);
 
         const bubbleTop = this.registry.createEntity();
@@ -138,7 +138,7 @@ export default class PlayerControlSystem extends System {
             0,
         );
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
-        bubbleTop.addComponent(AnimationComponent, 4, 10, false);
+        bubbleTop.addComponent(AnimationComponent, 4, 20, false);
         bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2);
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
