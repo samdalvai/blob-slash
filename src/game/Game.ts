@@ -23,6 +23,7 @@ import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerControlSystem from '../systems/PlayerControlSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
 import RangedAttackEmitSystem from '../systems/RangedAttackEmitSystem';
+import RenderGUISystem from '../systems/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/RenderLightingSystem';
 import RenderParticleSystem from '../systems/RenderParticleSystem';
@@ -130,6 +131,7 @@ export default class Game {
         this.registry.addSystem(RenderTextSystem);
         this.registry.addSystem(RenderParticleSystem);
         this.registry.addSystem(RenderLightingSystem);
+        this.registry.addSystem(RenderGUISystem);
 
         // Other entities related systems
         this.registry.addSystem(MovementSystem);
@@ -295,6 +297,7 @@ export default class Game {
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
 
         if (this.isDebug) {
             this.registry
