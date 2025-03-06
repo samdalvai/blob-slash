@@ -24,7 +24,6 @@ export default class PlayerControlSystem extends System {
     eventBus: EventBus;
     registry: Registry;
     mousePosition: Vector = { x: 0, y: 0 };
-    keysPressed: string[] = [];
 
     constructor(eventBus: EventBus, registry: Registry) {
         super();
@@ -83,7 +82,7 @@ export default class PlayerControlSystem extends System {
         }
 
         // Avoid moving if left shift is pressed
-        if (this.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
+        if (playerControl.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
             if (player.hasComponent(RangedAttackEmitterComponent)) {
                 this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
             }
@@ -102,9 +101,22 @@ export default class PlayerControlSystem extends System {
     };
 
     onKeyPressed = (event: KeyPressedEvent) => {
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+
+        if (!playerControl) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
         switch (event.keyCode) {
             case 'ShiftLeft':
-                this.keysPressed.push(event.keyCode);
+                playerControl.keysPressed.push(event.keyCode);
                 break;
             case 'Digit1':
                 this.emitMagicBubble(this.mousePosition);
@@ -113,7 +125,20 @@ export default class PlayerControlSystem extends System {
     };
 
     onKeyReleased = (event: KeyReleasedEvent) => {
-        this.keysPressed = this.keysPressed.filter(key => key !== event.keyCode);
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+
+        if (!playerControl) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        playerControl.keysPressed = playerControl.keysPressed.filter(key => key !== event.keyCode);
     };
 
     private emitMagicBubble = (coordinates: Vector) => {
