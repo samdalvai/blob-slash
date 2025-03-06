@@ -46,6 +46,7 @@ export default class LevelLoader {
 
         await assetStore.addTexture('skills-menu-texture', './assets/images/skills_menu.png');
         await assetStore.addTexture('mouse-menu-texture', './assets/images/mouse_menu.png');
+        await assetStore.addTexture('cursor-texture', './assets/images/cursor.png');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
