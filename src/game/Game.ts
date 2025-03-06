@@ -230,22 +230,14 @@ export default class Game {
         }
     };
 
-    private update = async () => {
-        // If we are too fast, waste some time until we reach the MILLISECS_PER_FRAME
-        const timeToWait = MILLISECS_PER_FRAME - (performance.now() - this.millisecsPreviousFrame);
-        if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
-            await sleep(timeToWait);
-        }
-
-        // The difference in milliseconds since the last frame, converted to seconds
-        const deltaTime = (performance.now() - this.millisecsPreviousFrame) / 1000.0;
-
+    private update = (deltaTime: number) => {
         if (this.isDebug) {
             const millisecsCurrentFrame = performance.now();
             if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-                this.currentFPS = 1000 / (millisecsCurrentFrame - this.millisecsPreviousFrame);
+                this.currentTickTime = deltaTime * 1000;
+                this.currentFPS = 1000 / this.currentTickTime;
                 this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
-                this.currentTickTime = timeToWait;
+
                 if (this.maxFPS < this.currentFPS) {
                     this.maxFPS = this.currentFPS;
                 }
@@ -330,13 +322,24 @@ export default class Game {
     run = async () => {
         await this.setup();
         console.log('Running game');
-        const loop = async () => {
-            while (this.isRunning) {
+
+        let lastTime = performance.now();
+
+        const loop = () => {
+            if (this.isRunning) {
+                const currentTime = performance.now();
+                const deltaTime = (currentTime - lastTime) / 1000.0;
+
                 this.processInput();
-                await this.update();
+                this.update(deltaTime);
                 this.render();
+
+                lastTime = currentTime;
+
+                requestAnimationFrame(loop);
             }
         };
-        loop();
+
+        requestAnimationFrame(loop);
     };
 }
