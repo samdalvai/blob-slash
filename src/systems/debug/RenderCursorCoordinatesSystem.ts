@@ -1,4 +1,3 @@
-import AssetStore from '../../asset-store/AssetStore';
 import System from '../../ecs/System';
 import { Vector } from '../../types';
 
