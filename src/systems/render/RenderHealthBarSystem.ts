@@ -28,7 +28,11 @@ export default class RenderHealthBarSystem extends System {
                 transform.position.y + transform.scale.y * sprite.height < camera.y ||
                 transform.position.y > camera.y + camera.height;
 
-            if (isOutsideCameraView) {
+            if (
+                isOutsideCameraView ||
+                health.lastDamageTime === 0 ||
+                performance.now() - health.lastDamageTime >= 5000
+            ) {
                 continue;
             }
 
