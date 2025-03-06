@@ -72,7 +72,7 @@ export default class PlayerControlSystem extends System {
                 const highlight = enemy.getComponent(HighlightComponent);
 
                 if (!highlight) {
-                    throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+                    throw new Error('Could not find some component(s) of entity with id ' + enemy.getId());
                 }
 
                 if (highlight.isHighlighted) {
