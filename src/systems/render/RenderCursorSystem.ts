@@ -14,10 +14,22 @@ export default class RenderCursorSystem extends System {
             0,
             32,
             32,
-            mousePosition.x - 10,
-            mousePosition.y - 10,
-            32 * 2,
-            32 * 2,
+            mousePosition.x - 14,
+            mousePosition.y - 5,
+            32,
+            32,
         );
+
+        // ctx.drawImage(
+        //     assetStore.getTexture('cursor-texture'),
+        //     32,
+        //     0,
+        //     32,
+        //     32,
+        //     mousePosition.x - 10,
+        //     mousePosition.y - 10,
+        //     32,
+        //     32,
+        // );
     }
 }
