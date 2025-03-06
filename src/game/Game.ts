@@ -23,22 +23,24 @@ import ParticleEmitSystem from '../systems/ParticleEmitSystem';
 import PlayerControlSystem from '../systems/PlayerControlSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
 import RangedAttackEmitSystem from '../systems/RangedAttackEmitSystem';
+import ScriptingSystem from '../systems/ScriptingSystem';
+import SlowTimeSystem from '../systems/SlowTimeSystem';
+import SoundSystem from '../systems/SoundSystem';
+import SpriteStateSystem from '../systems/SpriteStateSystem';
+import RenderColliderSystem from '../systems/debug/RenderColliderSystem';
+import RenderCursorCoordinatesSystem from '../systems/debug/RenderCursorCoordinatesSystem';
+import RenderDebugInfoSystem from '../systems/debug/RenderDebugInfoSystem';
+import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinationSystem';
+import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
+import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
+import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
+import RenderCursorSystem from '../systems/render/RenderCursorSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/render/RenderLightingSystem';
 import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
-import ScriptingSystem from '../systems/ScriptingSystem';
-import SlowTimeSystem from '../systems/SlowTimeSystem';
-import SoundSystem from '../systems/SoundSystem';
-import SpriteStateSystem from '../systems/SpriteStateSystem';
-import RenderColliderSystem from '../systems/debug/RenderColliderSystem';
-import RenderDebugInfoSystem from '../systems/debug/RenderDebugInfoSystem';
-import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinationSystem';
-import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
-import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
-import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
 import { GameStatus, Rectangle, Vector } from '../types';
 import { sleep } from '../utils/time';
 import LevelLoader from './LevelLoader';
@@ -113,6 +115,7 @@ export default class Game {
         }
 
         this.resize(canvas, this.camera);
+        canvas.style.cursor = 'none';
 
         this.canvas = canvas;
         this.ctx = ctx;
@@ -132,6 +135,7 @@ export default class Game {
         this.registry.addSystem(RenderParticleSystem);
         this.registry.addSystem(RenderLightingSystem);
         this.registry.addSystem(RenderGUISystem);
+        this.registry.addSystem(RenderCursorSystem);
 
         // Other entities related systems
         this.registry.addSystem(MovementSystem);
@@ -162,6 +166,7 @@ export default class Game {
         this.registry.addSystem(RenderParticleSourceSystem);
         this.registry.addSystem(RenderDebugInfoSystem);
         this.registry.addSystem(RenderSlowTimeRadiusSystem);
+        this.registry.addSystem(RenderCursorCoordinatesSystem);
 
         await LevelLoader.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -298,6 +303,7 @@ export default class Game {
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
+        this.registry.getSystem(RenderCursorSystem)?.update(this.ctx, this.assetStore, this.mousePosition);
 
         if (this.isDebug) {
             this.registry
@@ -315,6 +321,7 @@ export default class Game {
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
         }
     };
 
