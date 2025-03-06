@@ -1,5 +1,4 @@
 import AssetStore from '../asset-store/AssetStore';
-import AnimationComponent from '../components/AnimationComponent';
 import Registry from '../ecs/Registry';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
@@ -42,11 +41,7 @@ import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
 import { GameStatus, Rectangle, Vector } from '../types';
-import { sleep } from '../utils/time';
 import LevelLoader from './LevelLoader';
-
-const FPS = 60;
-const MILLISECS_PER_FRAME = 1000 / FPS;
 
 export default class Game {
     private isRunning: boolean;
