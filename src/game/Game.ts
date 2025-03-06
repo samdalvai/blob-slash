@@ -303,7 +303,9 @@ export default class Game {
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
-        this.registry.getSystem(RenderCursorSystem)?.update(this.ctx, this.assetStore, this.mousePosition);
+        this.registry
+            .getSystem(RenderCursorSystem)
+            ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
         if (this.isDebug) {
             this.registry
@@ -321,7 +323,7 @@ export default class Game {
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition, this.camera);
+            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
         }
     };
 
