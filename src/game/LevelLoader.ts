@@ -141,5 +141,11 @@ export default class LevelLoader {
         torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
         torch2.addComponent(EntityEffectComponent);
+
+        const tree = registry.createEntity();
+        tree.addComponent(SpriteComponent, 'tree-texture', 32, 32, 1);
+        tree.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 1, y: 1 });
+        tree.addComponent(BoxColliderComponent, 18, 30);
+        tree.group('obstacles');
     }
 }
