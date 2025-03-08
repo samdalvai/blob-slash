@@ -1,7 +1,6 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
-import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
 import System from '../ecs/System';
@@ -45,29 +44,7 @@ export default class MovementSystem extends System {
         }
     }
 
-    onEnemyHitsObstacleOrPlayer(enemy: Entity) {
-        if (enemy.hasComponent(RigidBodyComponent) && enemy.hasComponent(SpriteComponent)) {
-            const rigidbody = enemy.getComponent(RigidBodyComponent);
-            const sprite = enemy.getComponent(SpriteComponent);
-
-            if (!rigidbody || !sprite) {
-                throw new Error('Could not find some component(s) of entity with id ' + enemy.getId());
-            }
-
-            if (rigidbody.velocity.x != 0) {
-                rigidbody.velocity.x *= -1;
-                rigidbody.direction.x *= -1;
-            }
-
-            if (rigidbody.velocity.y != 0) {
-                rigidbody.velocity.y *= -1;
-                rigidbody.direction.y *= -1;
-            }
-        }
-    }
-
-    // Invert collision to ensure that the vector direction is always related
-    // to the "non obstacle" entity
+    // Invert collision to ensure that the vector direction is always related to the "non obstacle" entity
     invertCollisionNormal(collisionNormal: Vector) {
         collisionNormal.x *= -1;
         collisionNormal.y *= -1;

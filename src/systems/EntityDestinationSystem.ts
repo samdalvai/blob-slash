@@ -29,10 +29,9 @@ export default class EntityDestinationSystem extends System {
             if (
                 Math.abs(
                     entityDestination.destinationX - (transform.position.x + (sprite.width / 2) * transform.scale.x),
-                ) <= 10 &&
-                Math.abs(
-                    entityDestination.destinationY - (transform.position.y + (sprite.height / 2) * transform.scale.y),
-                ) <= 10
+                ) <= 5 &&
+                Math.abs(entityDestination.destinationY - (transform.position.y + sprite.height * transform.scale.y)) <=
+                    5
             ) {
                 entity.removeComponent(EntityDestinationComponent);
                 entity.removeFromSystem(RenderEntityDestinationSystem);
@@ -43,7 +42,7 @@ export default class EntityDestinationSystem extends System {
 
             const directionVector = computeDirectionVector(
                 transform.position.x + (sprite.width / 2) * transform.scale.x,
-                transform.position.y + (sprite.height / 2) * transform.scale.y,
+                transform.position.y + sprite.height * transform.scale.y,
                 entityDestination.destinationX,
                 entityDestination.destinationY,
                 entityDestination.velocity,
