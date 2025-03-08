@@ -113,7 +113,7 @@ export default class LevelLoader {
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 20, false);
+        // enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 20, false);
         enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
         enemy.addComponent(EntityEffectComponent);
         enemy.addComponent(ScriptComponent, [
