@@ -73,8 +73,6 @@ export default class CollisionSystem extends System {
                     };
 
                     const collisionNormal = this.computeCollisionNormal(boxAMin, boxAMax, boxBMin, boxBMax);
-
-                    console.log('collision between ' + a.getId() + ' and ' + b.getId());
                     eventBus.emitEvent(CollisionEvent, a, b, collisionNormal);
                 }
             }
