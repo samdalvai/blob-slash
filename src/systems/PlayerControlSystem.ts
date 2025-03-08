@@ -94,6 +94,20 @@ export default class PlayerControlSystem extends System {
         player.addComponent(EntityDestinationComponent, x, y, playerControl.velocity);
         player.addToSystem(RenderEntityDestinationSystem);
         player.addToSystem(EntityDestinationSystem);
+
+        const currentDestination = this.registry.getEntityByTag('player-destination');
+
+        if (currentDestination) {
+            this.registry.removeEntityTag(currentDestination);
+            currentDestination.kill();
+        }
+
+        const destinationAntimation = this.registry.createEntity();
+        destinationAntimation.addComponent(SpriteComponent, 'destination-circle-texture', 32, 32, 1);
+        destinationAntimation.addComponent(TransformComponent, { x: x - 16, y: y - 16 });
+        destinationAntimation.addComponent(AnimationComponent, 8, 10);
+        destinationAntimation.addComponent(LifetimeComponent, 1000);
+        destinationAntimation.tag('player-destination');
     };
 
     onMouseMove = (event: MouseMoveEvent) => {
