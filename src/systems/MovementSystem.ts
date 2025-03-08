@@ -1,4 +1,5 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
+import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -8,6 +9,8 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
 import Game from '../game/Game';
+import EntityDestinationSystem from './EntityDestinationSystem';
+import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class MovementSystem extends System {
     constructor() {
@@ -75,6 +78,12 @@ export default class MovementSystem extends System {
 
             if (!obstacleTransform || !obstacleCollider) {
                 throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+            }
+
+            if (player.hasComponent(EntityDestinationComponent)) {
+                player.removeComponent(EntityDestinationComponent);
+                player.removeFromSystem(RenderEntityDestinationSystem);
+                player.removeFromSystem(EntityDestinationSystem);
             }
 
             // Shift player back based on the collider dimension and position of the two entities
