@@ -1,5 +1,4 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
-import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -10,8 +9,6 @@ import EventBus from '../event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
 import Game from '../game/Game';
 import { Vector } from '../types';
-import EntityDestinationSystem from './EntityDestinationSystem';
-import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 
 export default class MovementSystem extends System {
     constructor() {
@@ -92,14 +89,6 @@ export default class MovementSystem extends System {
             if (!obstacleTransform || !obstacleCollider) {
                 throw new Error('Could not find some component(s) of entity with id ' + obstacle.getId());
             }
-
-            // if (entity.hasComponent(EntityDestinationComponent)) {
-            //     entity.removeComponent(EntityDestinationComponent);
-            //     entity.removeFromSystem(RenderEntityDestinationSystem);
-            //     entity.removeFromSystem(EntityDestinationSystem);
-            // }
-
-            console.log('collisionNormal: ', collisionNormal);
 
             // Entity is colliding downwards, shift up by the height of the player entityCollider
             if (collisionNormal.y < 0) {
