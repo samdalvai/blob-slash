@@ -164,7 +164,7 @@ export default class PlayerControlSystem extends System {
         );
         bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 2, 0, 256, Flip.NONE, false, 0.3);
         bubbleTop.addComponent(AnimationComponent, 4, 20, false);
-        bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2);
+        bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2, true);
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
     };

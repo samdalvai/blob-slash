@@ -1,4 +1,5 @@
 import EntityEffectComponent from '../components/EntityEffectComponent';
+import EntityFollowComponent from '../components/EntityFollowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -16,7 +17,13 @@ export default class SlowTimeSystem extends System {
 
     update(registry: Registry) {
         const slowTimeEntities = registry.getEntitiesByGroup('slow-time');
-        const slowTimeCircles: { x: number; y: number; radius: number; slowTimePercentage: number }[] = [];
+        const slowTimeCircles: {
+            x: number;
+            y: number;
+            radius: number;
+            slowTimePercentage: number;
+            isFriendly: boolean;
+        }[] = [];
 
         for (const entity of slowTimeEntities) {
             const slowTime = entity.getComponent(SlowTimeComponent);
@@ -35,6 +42,7 @@ export default class SlowTimeSystem extends System {
                 y: circleY,
                 radius: slowTime.radius,
                 slowTimePercentage: slowTime.slowTimePercentage,
+                isFriendly: slowTime.isFriendly,
             });
         }
 
@@ -52,10 +60,12 @@ export default class SlowTimeSystem extends System {
 
             let isInSlowTimeCircle = false;
             let slowTimePercentage = 1.0;
+            let isFriendly = false;
 
             for (const circle of slowTimeCircles) {
                 if (isPointInsideCircle(entityX, entityY, circle.x, circle.y, circle.radius)) {
                     isInSlowTimeCircle = true;
+                    isFriendly = circle.isFriendly;
                     if (circle.slowTimePercentage < slowTimePercentage) {
                         slowTimePercentage = circle.slowTimePercentage;
                     }
@@ -65,6 +75,25 @@ export default class SlowTimeSystem extends System {
             if (isInSlowTimeCircle) {
                 entityEffect.slowed = true;
                 entityEffect.slowedPercentage = slowTimePercentage;
+
+                if (entity.hasComponent(EntityFollowComponent)) {
+                    const entityFollow = entity.getComponent(EntityFollowComponent);
+                    if (!entityFollow) {
+                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                    }
+                    
+                    if (isFriendly) {
+                        const player = entity.registry.getEntityByTag('player');
+
+                        if (!player) {
+                            console.warn('Player entity not found');
+                            return;
+                        }
+
+                        entityFollow.followedEntity = player;
+                        entityFollow.startFollowTime = performance.now();
+                    }
+                }
             } else {
                 entityEffect.slowed = false;
                 entityEffect.slowedPercentage = slowTimePercentage;
