@@ -47,6 +47,7 @@ export default class LevelLoader {
         await assetStore.addTexture('skills-menu-texture', './assets/images/skills_menu.png');
         await assetStore.addTexture('mouse-menu-texture', './assets/images/mouse_menu.png');
         await assetStore.addTexture('cursor-texture', './assets/images/cursor.png');
+        await assetStore.addTexture('destination-circle-texture', './assets/images/destination_circle.png');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
@@ -86,7 +87,7 @@ export default class LevelLoader {
         console.log('Loading entities');
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
-        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, 0, 0, Flip.NONE, false, 1);
+        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 2, 0, 0, Flip.NONE, false, 1);
         player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteStateComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -2);
@@ -104,7 +105,7 @@ export default class LevelLoader {
 
         const enemy = registry.createEntity();
         enemy.addComponent(TransformComponent, { x: 300, y: 500 }, { x: 1, y: 1 }, 0);
-        enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 1, 0, 0);
+        enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 2, 0, 0);
         enemy.addComponent(HighlightComponent, 40, 20, 0, -10);
         enemy.addComponent(SpriteStateComponent);
         enemy.addComponent(DeadBodyOnDeathComponent);
@@ -113,7 +114,7 @@ export default class LevelLoader {
         enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy.addComponent(HealthComponent, 50);
-        // enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 20, false);
+        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 20, false);
         enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
         enemy.addComponent(EntityEffectComponent);
         enemy.addComponent(ScriptComponent, [
@@ -125,7 +126,7 @@ export default class LevelLoader {
         enemy.group('enemies');
 
         const torch = registry.createEntity();
-        torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 1);
+        torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
         torch.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 });
         torch.addComponent(AnimationComponent, 4, 10);
         torch.addComponent(LightEmitComponent, 100);
@@ -134,7 +135,7 @@ export default class LevelLoader {
         torch.addComponent(EntityEffectComponent);
 
         const torch2 = registry.createEntity();
-        torch2.addComponent(SpriteComponent, 'torch-texture', 32, 32, 1);
+        torch2.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
         torch2.addComponent(TransformComponent, { x: 500, y: 200 }, { x: 1, y: 1 });
         torch2.addComponent(AnimationComponent, 4, 10);
         torch2.addComponent(LightEmitComponent, 100);
@@ -143,7 +144,7 @@ export default class LevelLoader {
         torch2.addComponent(EntityEffectComponent);
 
         const tree = registry.createEntity();
-        tree.addComponent(SpriteComponent, 'tree-texture', 32, 32, 1);
+        tree.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
         tree.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 1, y: 1 });
         tree.addComponent(BoxColliderComponent, 18, 30);
         tree.group('obstacles');
