@@ -49,7 +49,7 @@ export default class LevelLoader {
         await assetStore.addTexture('cursor-texture', './assets/images/cursor.png');
         await assetStore.addTexture('destination-circle-texture', './assets/images/destination_circle.png');
 
-        await assetStore.addTexture('explosion-small-texture', './assets/images/explosion-small.png');
+        await assetStore.addTexture('explosion-small-blue-texture', './assets/images/explosion_small_blue.png');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
