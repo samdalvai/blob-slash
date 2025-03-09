@@ -36,7 +36,7 @@ export default class ExplosionOnHitSystem extends System {
                 { x: 1, y: 1 },
                 0,
             );
-            explosionAnimation.addComponent(SpriteComponent, 'explosion-small-texture', 32, 32, 2, 0);
+            explosionAnimation.addComponent(SpriteComponent, 'explosion-small-blue-texture', 32, 32, 3, 0);
             explosionAnimation.addComponent(AnimationComponent, 7, 10, false);
             explosionAnimation.addComponent(LifetimeComponent, 500);
         }
