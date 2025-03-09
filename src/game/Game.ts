@@ -53,7 +53,7 @@ export default class Game {
     private millisecondsLastFPSUpdate = 0;
     private currentFPS = 0;
     private maxFPS = 0;
-    private currentTickTime = 0;
+    private frameDuration = 0;
     private registry: Registry;
     private assetStore: AssetStore;
     private eventBus: EventBus;
@@ -229,8 +229,8 @@ export default class Game {
         if (this.isDebug) {
             const millisecsCurrentFrame = performance.now();
             if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-                this.currentTickTime = deltaTime * 1000;
-                this.currentFPS = 1000 / this.currentTickTime;
+                this.frameDuration = deltaTime * 1000;
+                this.currentFPS = 1000 / this.frameDuration;
                 this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
 
                 if (this.maxFPS < this.currentFPS) {
@@ -301,7 +301,7 @@ export default class Game {
                     this.ctx,
                     this.currentFPS,
                     this.maxFPS,
-                    this.currentTickTime,
+                    this.frameDuration,
                     this.mousePosition,
                     this.registry,
                 );
