@@ -2,6 +2,7 @@ import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import HealthComponent from '../components/HealthComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
 import System from '../ecs/System';
@@ -79,14 +80,18 @@ export default class DamageSystem extends System {
                 this.eventBus.emitEvent(CameraShakeEvent, cameraShake.shakeDuration);
             }
 
-            if (projectile.hasComponent(TransformComponent)) {
+            if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
                 const transform = projectile.getComponent(TransformComponent);
+                const sprite = projectile.getComponent(SpriteComponent);
 
-                if (!transform) {
+                if (!transform || !sprite) {
                     throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
                 }
 
-                this.eventBus.emitEvent(EntityHitEvent, player, transform.position);
+                this.eventBus.emitEvent(EntityHitEvent, player, {
+                    x: transform.position.x + (sprite.width / 2) * transform.scale.x,
+                    y: transform.position.y + (sprite.height / 2) * transform.scale.y,
+                });
             }
         }
     }
@@ -115,14 +120,18 @@ export default class DamageSystem extends System {
 
             projectile.kill();
 
-            if (projectile.hasComponent(TransformComponent)) {
+            if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
                 const transform = projectile.getComponent(TransformComponent);
+                const sprite = projectile.getComponent(SpriteComponent);
 
-                if (!transform) {
+                if (!transform || !sprite) {
                     throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
                 }
 
-                this.eventBus.emitEvent(EntityHitEvent, enemy, transform.position);
+                this.eventBus.emitEvent(EntityHitEvent, enemy, {
+                    x: transform.position.x + (sprite.width / 2) * transform.scale.x,
+                    y: transform.position.y + (sprite.height / 2) * transform.scale.y,
+                });
             }
         }
     }
