@@ -116,9 +116,7 @@ export default class MovementSystem extends System {
 
             if (!rigidBody || !transform) {
                 console.error('Could not find some component(s) of entity: ', entity);
-                // TODO: enable when this bug is solved
-                // throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                continue;
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
             let slowedPercentage = 1;
