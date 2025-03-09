@@ -14,7 +14,6 @@ export default class RenderCursorSystem extends System {
         const player = registry.getEntityByTag('player');
 
         if (!player) {
-            console.warn('Player entity not found');
             this.renderDefaultCursor(ctx, assetStore, mousePosition);
             return;
         }
