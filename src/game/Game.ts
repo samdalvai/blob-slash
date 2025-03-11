@@ -7,6 +7,7 @@ import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
 import InputManager from '../input-manager/InputManager';
+import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
 import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
 import CameraShakeSystem from '../systems/CameraShakeSystem';
@@ -16,7 +17,6 @@ import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import EntityHighlightSystem from '../systems/EntityHighlightSystem';
-import ExplosionOnHitSystem from '../systems/ExplosionOnHitSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
 import MovementSystem from '../systems/MovementSystem';
 import ParticleEmitSystem from '../systems/ParticleEmitSystem';
@@ -154,7 +154,7 @@ export default class Game {
         this.registry.addSystem(EntityDestinationSystem);
         this.registry.addSystem(EntityHighlightSystem);
         this.registry.addSystem(SlowTimeSystem);
-        this.registry.addSystem(ExplosionOnHitSystem);
+        this.registry.addSystem(AnimationOnHitSystem);
 
         // Debug systems
         this.registry.addSystem(RenderColliderSystem);
@@ -258,7 +258,7 @@ export default class Game {
         this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(ExplosionOnHitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
