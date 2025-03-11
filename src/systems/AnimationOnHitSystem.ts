@@ -6,7 +6,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import EntityHitEvent from '../events/EntityHitEvent';
 
-export default class ExplosionOnHitSystem extends System {
+export default class AnimationOnHitSystem extends System {
     constructor() {
         super();
     }
