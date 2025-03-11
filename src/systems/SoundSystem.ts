@@ -18,8 +18,19 @@ export default class SoundSystem extends System {
         eventBus.subscribeToEvent(EntityHitEvent, this, this.onEntityHit);
     };
 
-    onEntityHit = (event: EntityHitEvent) => {
-        // TODO: reproduce entity hit sound
+    onEntityHit = () => {
+        const hitSound = this.assetStore.getSound('entity-hit-sound');
+
+        if (!hitSound) {
+            throw new Error('Could not find explosion sound');
+        }
+
+        if (hitSound.currentTime !== 0) {
+            hitSound.currentTime = 0;
+        }
+
+        hitSound.volume = 0.25;
+        hitSound.play().catch(error => console.error(`Failed to play sound: ${error}`));
     };
 
     async update(assetStore: AssetStore) {
