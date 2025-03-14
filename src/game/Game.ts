@@ -291,7 +291,7 @@ export default class Game {
         this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
+        // this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
         this.registry
             .getSystem(RenderCursorSystem)
