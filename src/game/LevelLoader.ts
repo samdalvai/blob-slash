@@ -37,7 +37,7 @@ export default class LevelLoader {
 
         await assetStore.addTexture('slime-texture', './assets/images/slime_big_full.png');
         await assetStore.addTexture('player-texture', './assets/images/player_full.png');
-        await assetStore.addTexture('skeleton-texture', './assets/images/skeleton.png');
+        await assetStore.addTexture('skeleton-texture', './assets/images/skeleton_full.png');
 
         await assetStore.addTexture('magic-sphere-texture', './assets/images/magic_sphere.png');
         await assetStore.addTexture('magic-bubble-texture', './assets/images/magic_bubble.png');
@@ -134,10 +134,10 @@ export default class LevelLoader {
         enemy2.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 2, y: 2 }, 0);
         enemy2.addComponent(SpriteComponent, 'skeleton-texture', 32, 32, 2, 0, 32);
         enemy2.addComponent(HighlightComponent, 40, 20, 0, -10);
-        // enemy2.addComponent(SpriteStateComponent);
+        enemy2.addComponent(SpriteStateComponent);
         enemy2.addComponent(DeadBodyOnDeathComponent);
         enemy2.addComponent(ShadowComponent, 30, 10, 0, -8);
-        // enemy2.addComponent(AnimationComponent, 2, 4);
+        enemy2.addComponent(AnimationComponent, 2, 4);
         enemy2.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
         enemy2.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
         enemy2.addComponent(HealthComponent, 50);
