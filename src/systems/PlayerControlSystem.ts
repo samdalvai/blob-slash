@@ -5,6 +5,7 @@ import LifetimeComponent from '../components/LifetimeComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
+import ShadowComponent from '../components/ShadowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TeleportComponent from '../components/TeleportComponent';
@@ -20,6 +21,7 @@ import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import { Flip, Vector } from '../types';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
+import RenderSystem from './render/RenderSystem';
 
 export default class PlayerControlSystem extends System {
     eventBus: EventBus;
@@ -159,13 +161,13 @@ export default class PlayerControlSystem extends System {
         playerControl.keysPressed = playerControl.keysPressed.filter(key => key !== event.keyCode);
     };
 
-    private emitMagicBubble = (coordinates: Vector) => {
+    private emitMagicBubble = (mousePosition: Vector) => {
         const scale = 1.0;
 
         const bubbleFloor = this.registry.createEntity();
         bubbleFloor.addComponent(
             TransformComponent,
-            { x: coordinates.x - 64 * scale, y: coordinates.y - 64 * scale },
+            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
             { x: scale, y: scale },
             0,
         );
@@ -176,7 +178,7 @@ export default class PlayerControlSystem extends System {
         const bubbleTop = this.registry.createEntity();
         bubbleTop.addComponent(
             TransformComponent,
-            { x: coordinates.x - 64 * scale, y: coordinates.y - 64 * scale },
+            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
             { x: scale, y: scale },
             0,
         );
@@ -208,15 +210,60 @@ export default class PlayerControlSystem extends System {
         playerTeleport.isTeleporting = true;
 
         const playerTransform = player.getComponent(TransformComponent);
+        const playerSprite = player.getComponent(SpriteComponent);
 
-        if (!playerTransform) {
+        if (!playerTransform || !playerSprite) {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
         }
 
+        player.removeFromSystem(RenderSystem);
+
+        const teleportSpriteWidth = 32;
+        const teleportSpriteHeight = 64;
+
+        const teleportStart = this.registry.createEntity();
+        teleportStart.addComponent(TransformComponent, {
+            x:
+                playerTransform.position.x +
+                (playerSprite.width * playerTransform.scale.x) / 2 -
+                teleportSpriteWidth +
+                16,
+            y: playerTransform.position.y + playerSprite.height * playerTransform.scale.y - teleportSpriteHeight + 10,
+        });
+        teleportStart.addComponent(
+            SpriteComponent,
+            'teleport-texture',
+            teleportSpriteWidth,
+            teleportSpriteHeight,
+            3,
+            0,
+            0,
+        );
+        teleportStart.addComponent(AnimationComponent, 4, 8, false);
+        teleportStart.addComponent(LifetimeComponent, 500);
+
         setTimeout(() => {
-            playerTransform.position.x = mousePosition.x;
-            playerTransform.position.y = mousePosition.y;
+            playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
+            playerTransform.position.y = mousePosition.y - playerSprite.height * playerTransform.scale.y;
             playerTeleport.isTeleporting = false;
+            player.addToSystem(RenderSystem);
+
+            const teleportDestination = this.registry.createEntity();
+            teleportDestination.addComponent(TransformComponent, {
+                x: mousePosition.x - teleportSpriteWidth + 16,
+                y: mousePosition.y - teleportSpriteHeight + 10,
+            });
+            teleportDestination.addComponent(
+                SpriteComponent,
+                'teleport-texture',
+                teleportSpriteWidth,
+                teleportSpriteHeight,
+                3,
+                0,
+                0,
+            );
+            teleportDestination.addComponent(AnimationComponent, 4, 8, false);
+            teleportDestination.addComponent(LifetimeComponent, 500);
         }, playerTeleport.teleportDelay);
     }
 }
