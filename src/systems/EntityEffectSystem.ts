@@ -32,14 +32,15 @@ export default class EntityEffectSystem extends System {
             const entityX = transform.position.x + (transform.scale.x * sprite.width) / 2;
             const entityY = transform.position.y + (transform.scale.y * sprite.height) / 2;
 
+            // Handle slow time effects
             let isInSlowTimeCircle = false;
             let slowTimePercentage = 1.0;
-            let isFriendly = false;
+            let isFriendlySlowTime = false;
 
             for (const circle of slowTimeCircles) {
                 if (isPointInsideCircle(entityX, entityY, circle.x, circle.y, circle.radius)) {
                     isInSlowTimeCircle = true;
-                    isFriendly = circle.isFriendly;
+                    isFriendlySlowTime = circle.isFriendly;
                     if (circle.slowTimePercentage < slowTimePercentage) {
                         slowTimePercentage = circle.slowTimePercentage;
                     }
@@ -56,7 +57,7 @@ export default class EntityEffectSystem extends System {
                         throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                     }
 
-                    if (isFriendly) {
+                    if (isFriendlySlowTime) {
                         const player = entity.registry.getEntityByTag('player');
 
                         if (!player) {
@@ -71,6 +72,48 @@ export default class EntityEffectSystem extends System {
             } else {
                 entityEffect.slowed = false;
                 entityEffect.slowedPercentage = slowTimePercentage;
+            }
+
+            // Handle damage over time effects
+            let isInDamageRadiusCircle = false;
+            let damagePerSecond = 0;
+            let isFriendlyDamageRadius = false;
+
+            for (const circle of damageRadiusCircles) {
+                if (isPointInsideCircle(entityX, entityY, circle.x, circle.y, circle.radius)) {
+                    isInDamageRadiusCircle = true;
+                    isFriendlyDamageRadius = circle.isFriendly;
+                    if (circle.damagePerSecond > damagePerSecond) {
+                        damagePerSecond = circle.damagePerSecond;
+                    }
+                }
+            }
+
+            if (isInDamageRadiusCircle) {
+                entityEffect.hasDamageOverTime = true;
+                entityEffect.damagePerSecond = damagePerSecond;
+
+                if (entity.hasComponent(EntityFollowComponent)) {
+                    const entityFollow = entity.getComponent(EntityFollowComponent);
+                    if (!entityFollow) {
+                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                    }
+
+                    if (isFriendlyDamageRadius) {
+                        const player = entity.registry.getEntityByTag('player');
+
+                        if (!player) {
+                            console.warn('Player entity not found');
+                            return;
+                        }
+
+                        entityFollow.followedEntity = player;
+                        entityFollow.startFollowTime = performance.now();
+                    }
+                }
+            } else {
+                entityEffect.hasDamageOverTime = false;
+                entityEffect.damagePerSecond = 0;
             }
         }
     }
