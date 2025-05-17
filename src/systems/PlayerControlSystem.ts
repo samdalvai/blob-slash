@@ -5,9 +5,7 @@ import LifetimeComponent from '../components/LifetimeComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
-import ShadowComponent from '../components/ShadowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
-import SoundComponent from '../components/SoundComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -19,6 +17,7 @@ import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
+import SoundEmitEvent from '../events/SoundEmitEvent';
 import { Flip, Vector } from '../types';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
@@ -243,9 +242,7 @@ export default class PlayerControlSystem extends System {
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
 
-        const teleportSound = this.registry.createEntity();
-        teleportSound.addComponent(SoundComponent, 'teleport-sound');
-        teleportSound.addComponent(LifetimeComponent, 1000);
+        this.eventBus.emitEvent(SoundEmitEvent, 'teleport-sound');
 
         setTimeout(() => {
             playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;

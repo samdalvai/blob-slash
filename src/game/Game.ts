@@ -269,7 +269,6 @@ export default class Game {
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
         this.registry.getSystem(RangedAttackEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
-        this.registry.getSystem(SoundSystem)?.update(this.assetStore);
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
