@@ -1,3 +1,4 @@
+import DamageRadiusComponent from '../components/DamageRadiusComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
@@ -7,7 +8,7 @@ import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import { isPointInsideCircle } from '../utils/circle';
 
-export default class SlowTimeSystem extends System {
+export default class EntityEffectSystem extends System {
     constructor() {
         super();
         this.requireComponent(TransformComponent);
@@ -17,6 +18,7 @@ export default class SlowTimeSystem extends System {
 
     update(registry: Registry) {
         const slowTimeCircles = this.getSlowTimeCircles(registry);
+        const damageRadiusCircles = this.getDamageRadiusCircles(registry);
 
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
@@ -105,5 +107,39 @@ export default class SlowTimeSystem extends System {
         }
 
         return slowTimeCircles;
+    };
+
+    getDamageRadiusCircles = (registry: Registry) => {
+        const damageRadiusEntities = registry.getEntitiesByGroup('damage-radius');
+        const damareRadiusCircles: {
+            x: number;
+            y: number;
+            radius: number;
+            damagePerSecond: number;
+            isFriendly: boolean;
+        }[] = [];
+
+        for (const entity of damageRadiusEntities) {
+            const damageRadius = entity.getComponent(DamageRadiusComponent);
+            const transform = entity.getComponent(TransformComponent);
+            const sprite = entity.getComponent(SpriteComponent);
+
+            if (!damageRadius || !transform || !sprite) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+
+            damareRadiusCircles.push({
+                x: circleX,
+                y: circleY,
+                radius: damageRadius.radius,
+                damagePerSecond: damageRadius.damagePerSecond,
+                isFriendly: damageRadius.isFriendly,
+            });
+        }
+
+        return damareRadiusCircles;
     };
 }
