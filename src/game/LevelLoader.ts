@@ -42,6 +42,7 @@ export default class LevelLoader {
 
         await assetStore.addTexture('magic-sphere-texture', './assets/images/magic_sphere.png');
         await assetStore.addTexture('magic-bubble-texture', './assets/images/magic_bubble.png');
+        await assetStore.addTexture('fire-circle-texture', './assets/images/fire_circle.png');
         await assetStore.addTexture('teleport-texture', './assets/images/teleport.png');
 
         await assetStore.addTexture('tree-texture', './assets/images/tree.png');
