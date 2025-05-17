@@ -7,6 +7,7 @@ import RangedAttackEmitterComponent from '../components/RangedAttackEmitterCompo
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
+import SoundComponent from '../components/SoundComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -241,6 +242,10 @@ export default class PlayerControlSystem extends System {
         );
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
+
+        const teleportSound = this.registry.createEntity();
+        teleportSound.addComponent(SoundComponent, 'teleport-sound');
+        teleportSound.addComponent(LifetimeComponent, 1000);
 
         setTimeout(() => {
             playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
