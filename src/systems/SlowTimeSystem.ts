@@ -16,35 +16,7 @@ export default class SlowTimeSystem extends System {
     }
 
     update(registry: Registry) {
-        const slowTimeEntities = registry.getEntitiesByGroup('slow-time');
-        const slowTimeCircles: {
-            x: number;
-            y: number;
-            radius: number;
-            slowTimePercentage: number;
-            isFriendly: boolean;
-        }[] = [];
-
-        for (const entity of slowTimeEntities) {
-            const slowTime = entity.getComponent(SlowTimeComponent);
-            const transform = entity.getComponent(TransformComponent);
-            const sprite = entity.getComponent(SpriteComponent);
-
-            if (!slowTime || !transform || !sprite) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
-
-            slowTimeCircles.push({
-                x: circleX,
-                y: circleY,
-                radius: slowTime.radius,
-                slowTimePercentage: slowTime.slowTimePercentage,
-                isFriendly: slowTime.isFriendly,
-            });
-        }
+        const slowTimeCircles = this.getSlowTimeCircles(registry);
 
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
@@ -81,7 +53,7 @@ export default class SlowTimeSystem extends System {
                     if (!entityFollow) {
                         throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                     }
-                    
+
                     if (isFriendly) {
                         const player = entity.registry.getEntityByTag('player');
 
@@ -100,4 +72,38 @@ export default class SlowTimeSystem extends System {
             }
         }
     }
+
+    getSlowTimeCircles = (registry: Registry) => {
+        const slowTimeEntities = registry.getEntitiesByGroup('slow-time');
+        const slowTimeCircles: {
+            x: number;
+            y: number;
+            radius: number;
+            slowTimePercentage: number;
+            isFriendly: boolean;
+        }[] = [];
+
+        for (const entity of slowTimeEntities) {
+            const slowTime = entity.getComponent(SlowTimeComponent);
+            const transform = entity.getComponent(TransformComponent);
+            const sprite = entity.getComponent(SpriteComponent);
+
+            if (!slowTime || !transform || !sprite) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+
+            slowTimeCircles.push({
+                x: circleX,
+                y: circleY,
+                radius: slowTime.radius,
+                slowTimePercentage: slowTime.slowTimePercentage,
+                isFriendly: slowTime.isFriendly,
+            });
+        }
+
+        return slowTimeCircles;
+    };
 }
