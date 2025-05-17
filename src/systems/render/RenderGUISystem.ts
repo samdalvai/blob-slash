@@ -42,6 +42,27 @@ export default class RenderGUISystem extends System {
             magicBubbleWidth * magicBubbleScale,
         );
 
+        const teleportScale = 1;
+        const teleportWidth = 32;
+        const teleportHeight = 64;
+
+        const firstSkillPosition = padding + magicBubbleWidth * magicBubbleScale;
+
+        ctx.drawImage(
+            assetStore.getTexture('teleport-texture'),
+            64,
+            0,
+            teleportWidth,
+            teleportHeight,
+            firstSkillPosition + teleportWidth / 2,
+            Game.windowHeight - teleportHeight * teleportScale - padding,
+            teleportWidth * teleportScale,
+            teleportHeight * teleportScale,
+        );
+
+        // To be used when adding third skill
+        // const secondSkillPosition = Game.windowHeight - teleportHeight * teleportScale - padding;
+
         const mouseMenuScale = 2.0;
         const mouseMenuWidth = 32 * 1;
         const mouseMenuHeight = 32;
