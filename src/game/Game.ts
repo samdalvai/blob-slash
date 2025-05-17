@@ -274,6 +274,7 @@ export default class Game {
         this.registry.getSystem(SpriteStateSystem)?.update();
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
         this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
+        this.registry.getSystem(DamageSystem)?.update();
     };
 
     private render = () => {
