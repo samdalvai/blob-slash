@@ -21,6 +21,7 @@ import SoundEmitEvent from '../events/SoundEmitEvent';
 import { Flip, Vector } from '../types';
 import CollisionSystem from './CollisionSystem';
 import EntityDestinationSystem from './EntityDestinationSystem';
+import MovementSystem from './MovementSystem';
 import RenderEntityDestinationSystem from './debug/RenderEntityDestinationSystem';
 import RenderSystem from './render/RenderSystem';
 
@@ -219,6 +220,7 @@ export default class PlayerControlSystem extends System {
 
         player.removeFromSystem(RenderSystem);
         player.removeFromSystem(CollisionSystem);
+        player.removeFromSystem(MovementSystem);
 
         const teleportSpriteWidth = 32;
         const teleportSpriteHeight = 64;
@@ -253,6 +255,7 @@ export default class PlayerControlSystem extends System {
 
             player.addToSystem(RenderSystem);
             player.addToSystem(CollisionSystem);
+            player.addToSystem(MovementSystem);
 
             const teleportDestination = this.registry.createEntity();
             teleportDestination.addComponent(TransformComponent, {
