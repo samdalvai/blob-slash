@@ -294,11 +294,39 @@ export default class PlayerControlSystem extends System {
         );
         fireCircleFloor.addComponent(SpriteComponent, 'fire-circle-texture', 128, 128, 1, 0, 0, Flip.NONE, false, 0.5);
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
-        fireCircleFloor.addComponent(LifetimeComponent, 5000);
-        fireCircleFloor.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
+        fireCircleFloor.addComponent(LifetimeComponent, 250);
 
-        fireCircleFloor.addComponent(LightEmitComponent, 80);
-        fireCircleFloor.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 50, 64, 64, 64, { x: 0, y: -50 });
-        fireCircleFloor.group('damage-radius');
+        setTimeout(() => {
+            const fireCircleFlames = this.registry.createEntity();
+            fireCircleFlames.addComponent(
+                TransformComponent,
+                { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+                { x: scale, y: scale },
+                0,
+            );
+            fireCircleFlames.addComponent(
+                SpriteComponent,
+                'fire-circle-texture',
+                128,
+                128,
+                2,
+                0,
+                128,
+                Flip.NONE,
+                false,
+                1,
+            );
+            fireCircleFlames.addComponent(AnimationComponent, 4, 10, true);
+            fireCircleFlames.addComponent(LifetimeComponent, 5000);
+            fireCircleFlames.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
+
+            fireCircleFlames.addComponent(LightEmitComponent, 150);
+            fireCircleFlames.addComponent(ParticleEmitComponent, 3, 1000, 'rgba(255,0,0,1)', 50, 64, 64, 64, {
+                x: 0,
+                y: -50,
+            });
+
+            fireCircleFlames.group('damage-radius');
+        }, 250);
     }
 }
