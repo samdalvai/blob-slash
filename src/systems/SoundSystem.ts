@@ -3,7 +3,7 @@ import SoundComponent from '../components/SoundComponent';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import EntityHitEvent from '../events/EntityHitEvent';
-import EntityKilledEvent from '../events/EntityKilledEvent';
+import SoundEmitEvent from '../events/SoundEmitEvent';
 
 export default class SoundSystem extends System {
     assetStore: AssetStore;
@@ -16,45 +16,30 @@ export default class SoundSystem extends System {
 
     subscribeToEvents = (eventBus: EventBus) => {
         eventBus.subscribeToEvent(EntityHitEvent, this, this.onEntityHit);
+        eventBus.subscribeToEvent(SoundEmitEvent, this, this.onSoundEmit);
+    };
+
+    onSoundEmit = (event: SoundEmitEvent) => {
+        const soundTrack = this.assetStore.getSound(event.soundAssetId);
+
+        if (!soundTrack) {
+            throw new Error(`Sound asset with ID ${event.soundAssetId} not found.`);
+        }
+
+        soundTrack.currentTime = 0;
+        soundTrack.volume = event.volume;
+        soundTrack.play().catch(error => console.error(`Failed to play sound: ${error}`));
     };
 
     onEntityHit = () => {
-        // const hitSound = this.assetStore.getSound('entity-hit-sound');
-
-        // if (!hitSound) {
-        //     throw new Error('Could not find explosion sound');
-        // }
-
-        // if (hitSound.currentTime !== 0) {
-        //     hitSound.currentTime = 0;
-        // }
-
-        // hitSound.volume = 0.25;
-        // hitSound.play().catch(error => console.error(`Failed to play sound: ${error}`));
-    };
-
-    async update(assetStore: AssetStore) {
-        for (const entity of this.getSystemEntities()) {
-            const sound = entity.getComponent(SoundComponent);
-
-            if (!sound) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            const soundTrack = assetStore.getSound(sound.assetId);
-
-            if (!soundTrack) {
-                throw new Error(`Sound asset with ID ${sound.assetId} not found.`);
-            }
-
-            if (soundTrack.currentTime === 0) {
-                soundTrack.volume = sound.volume;
-                soundTrack.play().catch(error => console.error(`Failed to play sound: ${error}`));
-            }
-
-            if (soundTrack.currentTime >= soundTrack.duration - sound.offsetBuffer) {
-                soundTrack.currentTime = 0;
-            }
+        const hitSound = this.assetStore.getSound('entity-hit-sound');
+        if (!hitSound) {
+            throw new Error('Could not find explosion sound');
         }
-    }
+        if (hitSound.currentTime !== 0) {
+            hitSound.currentTime = 0;
+        }
+        hitSound.volume = 0.25;
+        hitSound.play().catch(error => console.error(`Failed to play sound: ${error}`));
+    };
 }
