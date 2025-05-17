@@ -143,6 +143,9 @@ export default class PlayerControlSystem extends System {
             case 'Digit2':
                 this.teleportPlayer(this.mousePosition);
                 break;
+            case 'Digit3':
+                this.emitFireCircle(this.mousePosition);
+                break;
         }
     };
 
@@ -274,5 +277,31 @@ export default class PlayerControlSystem extends System {
             teleportDestination.addComponent(AnimationComponent, 4, 8, false);
             teleportDestination.addComponent(LifetimeComponent, 500);
         }, playerTeleport.teleportDelay);
+    }
+
+    emitFireCircle(mousePosition: Vector) {
+        const scale = 1.0;
+
+        const fireCircleFloor = this.registry.createEntity();
+        fireCircleFloor.addComponent(
+            TransformComponent,
+            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+            { x: scale, y: scale },
+            0,
+        );
+        fireCircleFloor.addComponent(
+            SpriteComponent,
+            'fire-circle-texture',
+            128,
+            128,
+            1,
+            0,
+            0,
+            Flip.NONE,
+            false,
+            0.5,
+        );
+        fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
+        fireCircleFloor.addComponent(LifetimeComponent, 5000);
     }
 }
