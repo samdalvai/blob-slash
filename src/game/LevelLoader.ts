@@ -55,6 +55,7 @@ export default class LevelLoader {
         await assetStore.addTexture('explosion-small-blue-texture', './assets/images/explosion_small_blue.png');
 
         await assetStore.addSound('entity-hit-sound', './assets/sounds/entity_hit.wav');
+        await assetStore.addSound('teleport-sound', './assets/sounds/teleport.wav');
     }
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
