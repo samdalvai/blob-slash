@@ -1,5 +1,5 @@
-import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import HealthComponent from '../components/HealthComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -18,7 +18,7 @@ export default class DamageSystem extends System {
     constructor(eventBus: EventBus) {
         super();
         this.eventBus = eventBus;
-        this.requireComponent(BoxColliderComponent);
+        this.requireComponent(HealthComponent);
     }
 
     subscribeToEvents(eventBus: EventBus) {
@@ -62,11 +62,6 @@ export default class DamageSystem extends System {
 
             health.healthPercentage -= projectileComponent.hitPercentDamage;
             health.lastDamageTime = performance.now();
-
-            if (health.healthPercentage <= 0) {
-                this.eventBus.emitEvent(EntityKilledEvent, player);
-                player.kill();
-            }
 
             projectile.kill();
 
@@ -113,11 +108,6 @@ export default class DamageSystem extends System {
             health.healthPercentage -= projectileComponent.hitPercentDamage;
             health.lastDamageTime = performance.now();
 
-            if (health.healthPercentage <= 0) {
-                this.eventBus.emitEvent(EntityKilledEvent, enemy);
-                enemy.kill();
-            }
-
             projectile.kill();
 
             if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
@@ -135,4 +125,38 @@ export default class DamageSystem extends System {
             }
         }
     }
+
+    update = () => {
+        for (const entity of this.getSystemEntities()) {
+            const health = entity.getComponent(HealthComponent);
+
+            if (!health) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            if (entity.hasComponent(EntityEffectComponent)) {
+                const entityEffect = entity.getComponent(EntityEffectComponent);
+
+                if (!entityEffect) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                if (!entityEffect.hasDamageOverTime) {
+                    continue;
+                }
+
+                if (performance.now() - entityEffect.lastDamageTime >= 1000) {
+                    health.healthPercentage -= entityEffect.damagePerSecond;
+                    health.lastDamageTime = performance.now();
+
+                    entityEffect.lastDamageTime = performance.now();
+                }
+            }
+
+            if (health.healthPercentage <= 0) {
+                this.eventBus.emitEvent(EntityKilledEvent, entity);
+                entity.kill();
+            }
+        }
+    };
 }

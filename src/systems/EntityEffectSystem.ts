@@ -32,7 +32,9 @@ export default class EntityEffectSystem extends System {
             const entityX = transform.position.x + (transform.scale.x * sprite.width) / 2;
             const entityY = transform.position.y + (transform.scale.y * sprite.height) / 2;
 
-            // Handle slow time effects
+            /******************************/
+            /** Handle slow time effects **/
+            /******************************/
             let isInSlowTimeCircle = false;
             let slowTimePercentage = 1.0;
             let isFriendlySlowTime = false;
@@ -74,7 +76,9 @@ export default class EntityEffectSystem extends System {
                 entityEffect.slowedPercentage = slowTimePercentage;
             }
 
-            // Handle damage over time effects
+            /*************************************/
+            /** Handle damage over time effects **/
+            /*************************************/
             let isInDamageRadiusCircle = false;
             let damagePerSecond = 0;
             let isFriendlyDamageRadius = false;
