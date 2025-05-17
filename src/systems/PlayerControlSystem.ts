@@ -3,6 +3,8 @@ import DamageRadiusComponent from '../components/DamageRadiusComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
+import LightEmitComponent from '../components/LightEmitComponent';
+import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
@@ -294,6 +296,9 @@ export default class PlayerControlSystem extends System {
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
         fireCircleFloor.addComponent(LifetimeComponent, 5000);
         fireCircleFloor.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
+
+        fireCircleFloor.addComponent(LightEmitComponent, 80);
+        fireCircleFloor.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 50, 64, 64, 64, { x: 0, y: -50 });
         fireCircleFloor.group('damage-radius');
     }
 }
