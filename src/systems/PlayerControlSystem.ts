@@ -7,6 +7,7 @@ import RangedAttackEmitterComponent from '../components/RangedAttackEmitterCompo
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
+import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import System from '../ecs/System';
@@ -135,6 +136,9 @@ export default class PlayerControlSystem extends System {
             case 'Digit1':
                 this.emitMagicBubble(this.mousePosition);
                 break;
+            case 'Digit2':
+                this.teleportPlayer(this.mousePosition);
+                break;
         }
     };
 
@@ -182,4 +186,37 @@ export default class PlayerControlSystem extends System {
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
     };
+
+    teleportPlayer(mousePosition: Vector) {
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerTeleport = player.getComponent(TeleportComponent);
+
+        if (!playerTeleport) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        if (playerTeleport.isTeleporting) {
+            return;
+        }
+
+        playerTeleport.isTeleporting = true;
+
+        const playerTransform = player.getComponent(TransformComponent);
+
+        if (!playerTransform) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        setTimeout(() => {
+            playerTransform.position.x = mousePosition.x;
+            playerTransform.position.y = mousePosition.y;
+            playerTeleport.isTeleporting = false;
+        }, playerTeleport.teleportDelay);
+    }
 }

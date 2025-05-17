@@ -17,6 +17,7 @@ import ScriptComponent from '../components/ScriptComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
+import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import { Flip, TileMap } from '../types';
@@ -106,6 +107,7 @@ export default class LevelLoader {
         player.addComponent(CameraShakeComponent, 100);
         player.addComponent(LightEmitComponent, 250);
         player.addComponent(EntityEffectComponent);
+        player.addComponent(TeleportComponent, 500);
         player.tag('player');
 
         const enemy = registry.createEntity();
