@@ -63,7 +63,7 @@ export default class RenderGUISystem extends System {
         // To be used when adding third skill
         const secondSkillPosition = firstSkillPosition + (teleportWidth * teleportScale) / 2;
 
-        const fireCircleScale = 0.5;
+        const fireCircleScale = 0.45;
         const fireCircleWidth = 128;
         const fireCircleleHeight = 128;
 
@@ -73,8 +73,8 @@ export default class RenderGUISystem extends System {
             128,
             fireCircleWidth,
             fireCircleleHeight,
-            secondSkillPosition + (fireCircleWidth * fireCircleScale) / 2 + padding / 2,
-            Game.windowHeight - 64 - padding,
+            secondSkillPosition + (fireCircleWidth * fireCircleScale) / 2 + padding - 4,
+            Game.windowHeight - 64 - padding + 4,
             fireCircleWidth * fireCircleScale,
             fireCircleleHeight * fireCircleScale,
         );
