@@ -39,7 +39,7 @@ export default class RenderGUISystem extends System {
             padding,
             Game.windowHeight - 64 - padding,
             magicBubbleWidth * magicBubbleScale,
-            magicBubbleWidth * magicBubbleScale,
+            magicBubbleHeight * magicBubbleScale,
         );
 
         const teleportScale = 1;
@@ -54,14 +54,30 @@ export default class RenderGUISystem extends System {
             0,
             teleportWidth,
             teleportHeight,
-            firstSkillPosition + teleportWidth / 2,
+            firstSkillPosition + (teleportWidth * teleportScale) / 2,
             Game.windowHeight - teleportHeight * teleportScale - padding,
             teleportWidth * teleportScale,
             teleportHeight * teleportScale,
         );
 
         // To be used when adding third skill
-        // const secondSkillPosition = Game.windowHeight - teleportHeight * teleportScale - padding;
+        const secondSkillPosition = firstSkillPosition + (teleportWidth * teleportScale) / 2;
+
+        const fireCircleScale = 0.5;
+        const fireCircleWidth = 128;
+        const fireCircleleHeight = 128;
+
+        ctx.drawImage(
+            assetStore.getTexture('fire-circle-texture'),
+            256,
+            128,
+            fireCircleWidth,
+            fireCircleleHeight,
+            secondSkillPosition + (fireCircleWidth * fireCircleScale) / 2 + padding / 2,
+            Game.windowHeight - 64 - padding,
+            fireCircleWidth * fireCircleScale,
+            fireCircleleHeight * fireCircleScale,
+        );
 
         const mouseMenuScale = 2.0;
         const mouseMenuWidth = 32 * 1;
