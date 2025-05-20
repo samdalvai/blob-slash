@@ -12,7 +12,6 @@ import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
 import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
-import CooldownSystem from '../systems/CooldownSystem';
 import DamageSystem from '../systems/DamageSystem';
 import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
@@ -155,7 +154,6 @@ export default class Game {
         this.registry.addSystem(EntityHighlightSystem);
         this.registry.addSystem(EntityEffectSystem);
         this.registry.addSystem(AnimationOnHitSystem);
-        this.registry.addSystem(CooldownSystem);
 
         // Debug systems
         this.registry.addSystem(RenderColliderSystem);
@@ -274,7 +272,6 @@ export default class Game {
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
         this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
         this.registry.getSystem(DamageSystem)?.update();
-        this.registry.getSystem(CooldownSystem)?.update();
     };
 
     private render = () => {
