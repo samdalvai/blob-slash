@@ -12,9 +12,11 @@ import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
 import CameraShakeSystem from '../systems/CameraShakeSystem';
 import CollisionSystem from '../systems/CollisionSystem';
+import CooldownSystem from '../systems/CooldownSystem';
 import DamageSystem from '../systems/DamageSystem';
 import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
 import EntityDestinationSystem from '../systems/EntityDestinationSystem';
+import EntityEffectSystem from '../systems/EntityEffectSystem';
 import EntityFollowSystem from '../systems/EntityFollowSystem';
 import EntityHighlightSystem from '../systems/EntityHighlightSystem';
 import LifetimeSystem from '../systems/LifeTimeSystem';
@@ -24,7 +26,6 @@ import PlayerControlSystem from '../systems/PlayerControlSystem';
 import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
 import RangedAttackEmitSystem from '../systems/RangedAttackEmitSystem';
 import ScriptingSystem from '../systems/ScriptingSystem';
-import EntityEffectSystem from '../systems/EntityEffectSystem';
 import SoundSystem from '../systems/SoundSystem';
 import SpriteStateSystem from '../systems/SpriteStateSystem';
 import RenderColliderSystem from '../systems/debug/RenderColliderSystem';
@@ -154,6 +155,7 @@ export default class Game {
         this.registry.addSystem(EntityHighlightSystem);
         this.registry.addSystem(EntityEffectSystem);
         this.registry.addSystem(AnimationOnHitSystem);
+        this.registry.addSystem(CooldownSystem);
 
         // Debug systems
         this.registry.addSystem(RenderColliderSystem);
@@ -272,6 +274,7 @@ export default class Game {
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
         this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
         this.registry.getSystem(DamageSystem)?.update();
+        this.registry.getSystem(CooldownSystem)?.update();
     };
 
     private render = () => {
