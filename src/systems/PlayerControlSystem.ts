@@ -277,6 +277,9 @@ export default class PlayerControlSystem extends System {
             player.removeFromSystem(EntityDestinationSystem);
         }
 
+        playerControl.teleportLastEmissionTime = performance.now();
+        this.emitCooldownAnimation(playerControl.teleportCooldown, 1);
+
         setTimeout(() => {
             playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
             playerTransform.position.y = mousePosition.y - playerSprite.height * playerTransform.scale.y;
@@ -302,10 +305,6 @@ export default class PlayerControlSystem extends System {
             );
             teleportDestination.addComponent(AnimationComponent, 4, 8, false);
             teleportDestination.addComponent(LifetimeComponent, 500);
-
-            playerControl.teleportLastEmissionTime = performance.now();
-
-            this.emitCooldownAnimation(playerControl.teleportCooldown, 1);
         }, playerTeleport.teleportDelay);
     }
 
@@ -327,6 +326,9 @@ export default class PlayerControlSystem extends System {
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
         fireCircleFloor.addComponent(LifetimeComponent, 250);
         fireCircleFloor.addComponent(LightEmitComponent, 100);
+
+        playerControl.fireCircleLastEmissionTime = performance.now();
+        this.emitCooldownAnimation(playerControl.fireCircleCooldown, 2);
 
         setTimeout(() => {
             const fireCircleFlames = this.registry.createEntity();
@@ -360,10 +362,6 @@ export default class PlayerControlSystem extends System {
             fireCircleFlames.addComponent(EntityEffectComponent);
 
             fireCircleFlames.group('damage-radius');
-
-            playerControl.fireCircleLastEmissionTime = performance.now();
-
-            this.emitCooldownAnimation(playerControl.fireCircleCooldown, 2);
         }, 250);
     }
 
