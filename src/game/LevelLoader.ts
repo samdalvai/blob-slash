@@ -105,7 +105,7 @@ export default class LevelLoader {
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(PlayerControlComponent, 150, 2000, 1000, 5000);
-        player.addComponent(RangedAttackEmitterComponent, 200, 250, 7500, 10, true);
+        player.addComponent(RangedAttackEmitterComponent, 200, 400, 7500, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
         player.addComponent(CameraShakeComponent, 100);

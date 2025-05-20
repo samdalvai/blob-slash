@@ -1,3 +1,4 @@
+import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
@@ -14,7 +15,8 @@ import Registry from '../ecs/Registry';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
-import { Vector } from '../types';
+import Game from '../game/Game';
+import { Flip, Vector } from '../types';
 import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 
 export default class RangedAttackEmitSystem extends System {
@@ -157,6 +159,29 @@ export default class RangedAttackEmitSystem extends System {
 
             // Update the projectile emitter component last emission to the current milliseconds
             rangedAttackEmitter.lastEmissionTime = performance.now();
+
+            if (entity.hasTag('player')) {
+                const framesPerSecond = 8 / (rangedAttackEmitter.repeatFrequency / 1000);
+                const cooldownAnimation = this.registry.createEntity();
+                cooldownAnimation.addComponent(
+                    SpriteComponent,
+                    'cooldown-skill-texture',
+                    32,
+                    32,
+                    2,
+                    0,
+                    0,
+                    Flip.NONE,
+                    true,
+                );
+                cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
+                cooldownAnimation.addComponent(
+                    TransformComponent,
+                    { x: 2 * 25 + 32 * 3 * 2, y: Game.windowHeight - 64 - 25 },
+                    { x: 2, y: 2 },
+                );
+                cooldownAnimation.addComponent(LifetimeComponent, rangedAttackEmitter.repeatFrequency);
+            }
         }
     };
 }
