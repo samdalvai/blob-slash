@@ -50,7 +50,6 @@ export default class Game {
     private canvas: HTMLCanvasElement | null;
     private ctx: CanvasRenderingContext2D | null;
     private camera: Rectangle;
-    private millisecsPreviousFrame = 0;
     private millisecondsLastFPSUpdate = 0;
     private currentFPS = 0;
     private maxFPS = 0;
@@ -240,8 +239,6 @@ export default class Game {
                 }
             }
         }
-
-        this.millisecsPreviousFrame = performance.now();
 
         // Reset all event handlers for the current frame
         this.eventBus.reset();
