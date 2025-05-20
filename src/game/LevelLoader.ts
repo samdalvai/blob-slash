@@ -49,6 +49,7 @@ export default class LevelLoader {
         await assetStore.addTexture('torch-texture', './assets/images/torch.png');
 
         await assetStore.addTexture('skills-menu-texture', './assets/images/skills_menu.png');
+        await assetStore.addTexture('cooldown-skill-texture', './assets/images/cooldown_skill.png');
         await assetStore.addTexture('mouse-menu-texture', './assets/images/mouse_menu.png');
         await assetStore.addTexture('cursor-texture', './assets/images/cursor.png');
         await assetStore.addTexture('destination-circle-texture', './assets/images/destination_circle.png');
@@ -180,5 +181,20 @@ export default class LevelLoader {
         tree.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 1, y: 1 });
         tree.addComponent(BoxColliderComponent, 18, 30);
         tree.group('obstacles');
+
+        const cooldown1 = registry.createEntity();
+        cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        cooldown1.addComponent(AnimationComponent, 9, 10);
+
+        const cooldown2 = registry.createEntity();
+        cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        cooldown2.addComponent(TransformComponent, { x: 25 + 64, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        cooldown2.addComponent(AnimationComponent, 9, 5);
+
+        const cooldown3 = registry.createEntity();
+        cooldown3.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        cooldown3.addComponent(TransformComponent, { x: 25 + 128, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        cooldown3.addComponent(AnimationComponent, 9, 1);
     }
 }
