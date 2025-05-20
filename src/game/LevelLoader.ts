@@ -3,7 +3,6 @@ import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
-import CooldownComponent from '../components/CooldownComponent';
 import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
@@ -105,7 +104,7 @@ export default class LevelLoader {
         player.addComponent(AnimationComponent, 4, 6);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
-        player.addComponent(EntityControlComponent, 150);
+        player.addComponent(EntityControlComponent, 150, 1000);
         player.addComponent(RangedAttackEmitterComponent, 200, 250, 7500, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
@@ -113,7 +112,6 @@ export default class LevelLoader {
         player.addComponent(LightEmitComponent, 250);
         player.addComponent(EntityEffectComponent);
         player.addComponent(TeleportComponent, 500);
-        player.addComponent(CooldownComponent, 1000);
         player.tag('player');
 
         const enemy = registry.createEntity();
