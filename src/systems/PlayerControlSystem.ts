@@ -233,8 +233,9 @@ export default class PlayerControlSystem extends System {
 
         const playerTransform = player.getComponent(TransformComponent);
         const playerSprite = player.getComponent(SpriteComponent);
+        const playerRigidBody = player.getComponent(RigidBodyComponent);
 
-        if (!playerTransform || !playerSprite) {
+        if (!playerTransform || !playerSprite || !playerRigidBody) {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
         }
 
@@ -267,6 +268,11 @@ export default class PlayerControlSystem extends System {
         teleportStart.addComponent(LifetimeComponent, 500);
 
         this.eventBus.emitEvent(SoundEmitEvent, 'teleport-sound');
+
+        player.removeComponent(EntityDestinationComponent);
+        player.removeFromSystem(RenderEntityDestinationSystem);
+        player.removeFromSystem(EntityDestinationSystem);
+        playerRigidBody.velocity = { x: 0, y: 0 };
 
         setTimeout(() => {
             playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
