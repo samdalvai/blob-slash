@@ -182,10 +182,10 @@ export default class LevelLoader {
         tree.addComponent(BoxColliderComponent, 18, 30);
         tree.group('obstacles');
 
-        // const cooldown1 = registry.createEntity();
-        // cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        // cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        // cooldown1.addComponent(AnimationComponent, 9, 10);
+        const cooldown1 = registry.createEntity();
+        cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 32 * 8, 0);
+        cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        cooldown1.tag('cooldown-magic-bubble');
 
         // const cooldown2 = registry.createEntity();
         // cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
