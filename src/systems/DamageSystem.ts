@@ -134,6 +134,11 @@ export default class DamageSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
+            if (health.healthPercentage <= 0) {
+                this.eventBus.emitEvent(EntityKilledEvent, entity);
+                entity.kill();
+            }
+
             if (entity.hasComponent(EntityEffectComponent)) {
                 const entityEffect = entity.getComponent(EntityEffectComponent);
 
@@ -151,11 +156,6 @@ export default class DamageSystem extends System {
 
                     entityEffect.lastDamageTime = performance.now();
                 }
-            }
-
-            if (health.healthPercentage <= 0) {
-                this.eventBus.emitEvent(EntityKilledEvent, entity);
-                entity.kill();
             }
         }
     };
