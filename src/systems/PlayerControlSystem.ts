@@ -1,6 +1,7 @@
 import AnimationComponent from '../components/AnimationComponent';
 import DamageRadiusComponent from '../components/DamageRadiusComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
+import EntityEffectComponent from '../components/EntityEffectComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
@@ -326,6 +327,7 @@ export default class PlayerControlSystem extends System {
                 x: 0,
                 y: -50,
             });
+            fireCircleFlames.addComponent(EntityEffectComponent);
 
             fireCircleFlames.group('damage-radius');
         }, 250);
