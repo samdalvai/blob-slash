@@ -11,6 +11,10 @@ export default class InputManager {
         window.addEventListener('mousemove', this.handleMouseEvent);
         window.addEventListener('mousedown', this.handleMouseEvent);
         window.addEventListener('mouseup', this.handleMouseEvent);
+
+        window.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
     }
 
     handleKeyboardEvent = (event: KeyboardEvent) => {
