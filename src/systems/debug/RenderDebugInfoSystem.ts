@@ -26,7 +26,7 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 50);
         ctx.fillText(`Mouse coordinates: {x: ${mousePosition.x}, y: ${mousePosition.y}}`, x, y + 100);
-        ctx.fillText(`Number of entities: ${registry.numEntities}`, x, y + 150);
+        ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 150);
 
         ctx.restore();
     }
