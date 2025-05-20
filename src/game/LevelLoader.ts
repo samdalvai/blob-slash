@@ -176,24 +176,34 @@ export default class LevelLoader {
         torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
         torch2.addComponent(EntityEffectComponent);
 
-        const tree = registry.createEntity();
-        tree.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 1, y: 1 });
-        tree.addComponent(BoxColliderComponent, 18, 30);
-        tree.group('obstacles');
+        const tree1 = registry.createEntity();
+        tree1.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        tree1.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 2, y: 2 });
+        tree1.addComponent(BoxColliderComponent, 16, 30);
+        tree1.group('obstacles');
 
-        // const cooldown1 = registry.createEntity();
-        // cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        // cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        const tree2 = registry.createEntity();
+        tree2.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        tree2.addComponent(TransformComponent, { x: 632, y: 200 }, { x: 2, y: 2 });
+        tree2.addComponent(BoxColliderComponent, 16, 30);
+        tree2.group('obstacles');
 
-        // const cooldown2 = registry.createEntity();
-        // cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        // cooldown2.addComponent(TransformComponent, { x: 25 + 64, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        // cooldown2.addComponent(AnimationComponent, 9, 5);
+        const tree3 = registry.createEntity();
+        tree3.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        tree3.addComponent(TransformComponent, { x: 664, y: 200 }, { x: 2, y: 2 });
+        tree3.addComponent(BoxColliderComponent, 16, 30);
+        tree3.group('obstacles');
 
-        // const cooldown3 = registry.createEntity();
-        // cooldown3.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        // cooldown3.addComponent(TransformComponent, { x: 25 + 128, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        // cooldown3.addComponent(AnimationComponent, 9, 1);
+        const tree4 = registry.createEntity();
+        tree4.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        tree4.addComponent(TransformComponent, { x: 600, y: 232 }, { x: 2, y: 2 });
+        tree4.addComponent(BoxColliderComponent, 16, 30);
+        tree4.group('obstacles');
+
+        const tree5 = registry.createEntity();
+        tree5.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        tree5.addComponent(TransformComponent, { x: 600, y: 264 }, { x: 2, y: 2 });
+        tree5.addComponent(BoxColliderComponent, 16, 30);
+        tree5.group('obstacles');
     }
 }
