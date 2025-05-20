@@ -295,6 +295,7 @@ export default class PlayerControlSystem extends System {
         fireCircleFloor.addComponent(SpriteComponent, 'fire-circle-texture', 128, 128, 1, 0, 0, Flip.NONE, false, 0.5);
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
         fireCircleFloor.addComponent(LifetimeComponent, 250);
+        fireCircleFloor.addComponent(LightEmitComponent, 100);
 
         setTimeout(() => {
             const fireCircleFlames = this.registry.createEntity();
@@ -321,7 +322,7 @@ export default class PlayerControlSystem extends System {
             fireCircleFlames.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
 
             fireCircleFlames.addComponent(LightEmitComponent, 150);
-            fireCircleFlames.addComponent(ParticleEmitComponent, 3, 1000, 'rgba(255,0,0,1)', 50, 64, 64, 64, {
+            fireCircleFlames.addComponent(ParticleEmitComponent, 3, 1000, 'rgba(255,0,0,1)', 50, 50, 64, 64, {
                 x: 0,
                 y: -50,
             });
