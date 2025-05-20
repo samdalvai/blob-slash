@@ -171,6 +171,23 @@ export default class PlayerControlSystem extends System {
     };
 
     private emitMagicBubble = (mousePosition: Vector) => {
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+
+        if (!playerControl) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        if (performance.now() - playerControl.lastMagicBubbleEmissionTime < playerControl.magicBubbleCooldown) {
+            return;
+        }
+
         const scale = 1.0;
 
         const bubbleFloor = this.registry.createEntity();
@@ -196,6 +213,8 @@ export default class PlayerControlSystem extends System {
         bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2, true);
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
+
+        playerControl.lastMagicBubbleEmissionTime = performance.now();
     };
 
     teleportPlayer(mousePosition: Vector) {
