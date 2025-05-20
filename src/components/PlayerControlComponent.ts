@@ -5,12 +5,24 @@ export default class PlayerControlComponent extends Component {
     keysPressed: string[] = [];
 
     magicBubbleCooldown: number;
-    lastMagicBubbleEmissionTime: number;
+    magicBubbleLastEmissionTime: number;
 
-    constructor(velocity = 0, magicBubbleCooldown = 0) {
+    teleportCooldown: number;
+    teleportLastEmissionTime: number;
+
+    fireCircleCooldown: number;
+    fireCircleLastEmissionTime: number;
+
+    constructor(velocity = 0, magicBubbleCooldown = 0, teleportCooldown = 0, fireCircleCooldown = 0) {
         super();
         this.velocity = velocity;
         this.magicBubbleCooldown = magicBubbleCooldown;
-        this.lastMagicBubbleEmissionTime = 0;
+        this.magicBubbleLastEmissionTime = 0;
+
+        this.teleportCooldown = teleportCooldown;
+        this.teleportLastEmissionTime = 0;
+
+        this.fireCircleCooldown = fireCircleCooldown;
+        this.fireCircleLastEmissionTime = 0;
     }
 }

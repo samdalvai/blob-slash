@@ -172,7 +172,7 @@ export default class PlayerControlSystem extends System {
     };
 
     private emitMagicBubble = (mousePosition: Vector, playerControl: PlayerControlComponent) => {
-        if (performance.now() - playerControl.lastMagicBubbleEmissionTime < playerControl.magicBubbleCooldown) {
+        if (performance.now() - playerControl.magicBubbleLastEmissionTime < playerControl.magicBubbleCooldown) {
             return;
         }
 
@@ -202,17 +202,16 @@ export default class PlayerControlSystem extends System {
         bubbleTop.addComponent(LifetimeComponent, 5000);
         bubbleTop.group('slow-time');
 
-        playerControl.lastMagicBubbleEmissionTime = performance.now();
+        playerControl.magicBubbleLastEmissionTime = performance.now();
 
-        const framesPerSecond = 9 / (playerControl.magicBubbleCooldown / 1000);
-        const cooldown = this.registry.createEntity();
-        cooldown.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 0, 0, Flip.NONE, true);
-        cooldown.addComponent(AnimationComponent, 9, framesPerSecond, false);
-        cooldown.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        cooldown.addComponent(LifetimeComponent, playerControl.magicBubbleCooldown);
+        this.emitCooldownAnimation(playerControl.magicBubbleCooldown, 0);
     };
 
     teleportPlayer(mousePosition: Vector, playerControl: PlayerControlComponent) {
+        if (performance.now() - playerControl.teleportLastEmissionTime < playerControl.teleportCooldown) {
+            return;
+        }
+
         const player = this.registry.getEntityByTag('player');
 
         if (!player) {
@@ -294,10 +293,18 @@ export default class PlayerControlSystem extends System {
             );
             teleportDestination.addComponent(AnimationComponent, 4, 8, false);
             teleportDestination.addComponent(LifetimeComponent, 500);
+
+            playerControl.teleportLastEmissionTime = performance.now();
+
+            this.emitCooldownAnimation(playerControl.teleportCooldown, 1);
         }, playerTeleport.teleportDelay);
     }
 
     emitFireCircle(mousePosition: Vector, playerControl: PlayerControlComponent) {
+        if (performance.now() - playerControl.fireCircleLastEmissionTime < playerControl.fireCircleCooldown) {
+            return;
+        }
+
         const scale = 1.0;
 
         const fireCircleFloor = this.registry.createEntity();
@@ -344,6 +351,23 @@ export default class PlayerControlSystem extends System {
             fireCircleFlames.addComponent(EntityEffectComponent);
 
             fireCircleFlames.group('damage-radius');
+
+            playerControl.fireCircleLastEmissionTime = performance.now();
+
+            this.emitCooldownAnimation(playerControl.fireCircleCooldown, 2);
         }, 250);
     }
+
+    private emitCooldownAnimation = (cooldown: number, skillPosition: number) => {
+        const framesPerSecond = 8 / (cooldown / 1000);
+        const cooldownAnimation = this.registry.createEntity();
+        cooldownAnimation.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 0, 0, Flip.NONE, true);
+        cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
+        cooldownAnimation.addComponent(
+            TransformComponent,
+            { x: 25 + skillPosition * 64, y: Game.windowHeight - 64 - 25 },
+            { x: 2, y: 2 },
+        );
+        cooldownAnimation.addComponent(LifetimeComponent, cooldown);
+    };
 }
