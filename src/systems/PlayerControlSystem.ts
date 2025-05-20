@@ -22,6 +22,7 @@ import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
+import Game from '../game/Game';
 import { Flip, Vector } from '../types';
 import CollisionSystem from './CollisionSystem';
 import EntityDestinationSystem from './EntityDestinationSystem';
@@ -142,13 +143,13 @@ export default class PlayerControlSystem extends System {
                 playerControl.keysPressed.push(event.keyCode);
                 break;
             case 'Digit1':
-                this.emitMagicBubble(this.mousePosition);
+                this.emitMagicBubble(this.mousePosition, playerControl);
                 break;
             case 'Digit2':
-                this.teleportPlayer(this.mousePosition);
+                this.teleportPlayer(this.mousePosition, playerControl);
                 break;
             case 'Digit3':
-                this.emitFireCircle(this.mousePosition);
+                this.emitFireCircle(this.mousePosition, playerControl);
                 break;
         }
     };
@@ -170,20 +171,7 @@ export default class PlayerControlSystem extends System {
         playerControl.keysPressed = playerControl.keysPressed.filter(key => key !== event.keyCode);
     };
 
-    private emitMagicBubble = (mousePosition: Vector) => {
-        const player = this.registry.getEntityByTag('player');
-
-        if (!player) {
-            console.warn('Player entity not found');
-            return;
-        }
-
-        const playerControl = player.getComponent(PlayerControlComponent);
-
-        if (!playerControl) {
-            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
-        }
-
+    private emitMagicBubble = (mousePosition: Vector, playerControl: PlayerControlComponent) => {
         if (performance.now() - playerControl.lastMagicBubbleEmissionTime < playerControl.magicBubbleCooldown) {
             return;
         }
@@ -215,9 +203,16 @@ export default class PlayerControlSystem extends System {
         bubbleTop.group('slow-time');
 
         playerControl.lastMagicBubbleEmissionTime = performance.now();
+
+        const framesPerSecond = 9 / (playerControl.magicBubbleCooldown / 1000);
+        const cooldown = this.registry.createEntity();
+        cooldown.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 0, 0, Flip.NONE, true);
+        cooldown.addComponent(AnimationComponent, 9, framesPerSecond, false);
+        cooldown.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        cooldown.addComponent(LifetimeComponent, playerControl.magicBubbleCooldown);
     };
 
-    teleportPlayer(mousePosition: Vector) {
+    teleportPlayer(mousePosition: Vector, playerControl: PlayerControlComponent) {
         const player = this.registry.getEntityByTag('player');
 
         if (!player) {
@@ -302,7 +297,7 @@ export default class PlayerControlSystem extends System {
         }, playerTeleport.teleportDelay);
     }
 
-    emitFireCircle(mousePosition: Vector) {
+    emitFireCircle(mousePosition: Vector, playerControl: PlayerControlComponent) {
         const scale = 1.0;
 
         const fireCircleFloor = this.registry.createEntity();

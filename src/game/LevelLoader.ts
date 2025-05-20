@@ -10,7 +10,7 @@ import HealthComponent from '../components/HealthComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
-import EntityControlComponent from '../components/PlayerControlComponent';
+import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
@@ -104,7 +104,7 @@ export default class LevelLoader {
         player.addComponent(AnimationComponent, 4, 6);
         player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
-        player.addComponent(EntityControlComponent, 150, 1000);
+        player.addComponent(PlayerControlComponent, 150, 2000);
         player.addComponent(RangedAttackEmitterComponent, 200, 250, 7500, 10, true);
         player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
         player.addComponent(HealthComponent, 100);
@@ -182,10 +182,9 @@ export default class LevelLoader {
         tree.addComponent(BoxColliderComponent, 18, 30);
         tree.group('obstacles');
 
-        const cooldown1 = registry.createEntity();
-        cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 32 * 8, 0);
-        cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        cooldown1.tag('cooldown-magic-bubble');
+        // const cooldown1 = registry.createEntity();
+        // cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        // cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
 
         // const cooldown2 = registry.createEntity();
         // cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
