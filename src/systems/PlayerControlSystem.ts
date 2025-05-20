@@ -269,10 +269,13 @@ export default class PlayerControlSystem extends System {
 
         this.eventBus.emitEvent(SoundEmitEvent, 'teleport-sound');
 
-        player.removeComponent(EntityDestinationComponent);
-        player.removeFromSystem(RenderEntityDestinationSystem);
-        player.removeFromSystem(EntityDestinationSystem);
         playerRigidBody.velocity = { x: 0, y: 0 };
+
+        if (player.hasComponent(EntityDestinationComponent)) {
+            player.removeComponent(EntityDestinationComponent);
+            player.removeFromSystem(RenderEntityDestinationSystem);
+            player.removeFromSystem(EntityDestinationSystem);
+        }
 
         setTimeout(() => {
             playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
