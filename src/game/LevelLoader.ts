@@ -3,6 +3,7 @@ import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
+import CooldownComponent from '../components/CooldownComponent';
 import DeadBodyOnDeathComponent from '../components/DeadBodyOnDeathComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import EntityFollowComponent from '../components/EntityFollowComponent';
@@ -112,6 +113,7 @@ export default class LevelLoader {
         player.addComponent(LightEmitComponent, 250);
         player.addComponent(EntityEffectComponent);
         player.addComponent(TeleportComponent, 500);
+        player.addComponent(CooldownComponent, 1000);
         player.tag('player');
 
         const enemy = registry.createEntity();
@@ -182,19 +184,19 @@ export default class LevelLoader {
         tree.addComponent(BoxColliderComponent, 18, 30);
         tree.group('obstacles');
 
-        const cooldown1 = registry.createEntity();
-        cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        cooldown1.addComponent(AnimationComponent, 9, 10);
+        // const cooldown1 = registry.createEntity();
+        // cooldown1.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        // cooldown1.addComponent(TransformComponent, { x: 25, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        // cooldown1.addComponent(AnimationComponent, 9, 10);
 
-        const cooldown2 = registry.createEntity();
-        cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        cooldown2.addComponent(TransformComponent, { x: 25 + 64, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        cooldown2.addComponent(AnimationComponent, 9, 5);
+        // const cooldown2 = registry.createEntity();
+        // cooldown2.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        // cooldown2.addComponent(TransformComponent, { x: 25 + 64, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        // cooldown2.addComponent(AnimationComponent, 9, 5);
 
-        const cooldown3 = registry.createEntity();
-        cooldown3.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
-        cooldown3.addComponent(TransformComponent, { x: 25 + 128, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
-        cooldown3.addComponent(AnimationComponent, 9, 1);
+        // const cooldown3 = registry.createEntity();
+        // cooldown3.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2);
+        // cooldown3.addComponent(TransformComponent, { x: 25 + 128, y: Game.windowHeight - 64 - 25 }, { x: 2, y: 2 });
+        // cooldown3.addComponent(AnimationComponent, 9, 1);
     }
 }
