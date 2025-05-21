@@ -19,27 +19,20 @@ files.forEach(file => {
 
 lines.push(''); // Add empty line between imports and type declarations
 
-files.forEach(file => {
-    const componentName = basename(file, '.ts');
-    lines.push(`type ${componentName}Type = InstanceType<typeof ${componentName}>;`);
-});
-
-lines.push(''); // spacing
-
 // Step 2: type declarations
 const typeNames: string[] = [];
 
 files.forEach(file => {
     const componentName = basename(file, '.ts');
     const typeName = `${componentName}Type`;
-    lines.push(`type ${typeName} = InstanceType<typeof ${componentName}>;`);
+    lines.push(`export type ${typeName} = InstanceType<typeof ${componentName}>;`);
     typeNames.push(typeName);
 });
 
 lines.push(''); // spacing
 
 // Step 3: union type
-lines.push(`type ComponentType = ${typeNames.join(' | ')};`);
+lines.push(`export type ComponentType = ${typeNames.join(' | ')};`);
 
 // Write to components.ts
 writeFileSync(outputFile, lines.join('\n') + '\n', 'utf8');
