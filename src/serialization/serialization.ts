@@ -44,7 +44,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'animation',
             properties: {
-                ...animation,
+                ...animation, startTime: 0,
             },
         });
     }
