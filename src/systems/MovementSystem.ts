@@ -21,6 +21,7 @@ export default class MovementSystem extends System {
     }
 
     onCollision(event: CollisionEvent) {
+        console.log("Collision!")
         const a = event.a;
         const b = event.b;
         const collisionNormal = event.collisionNormal;
@@ -32,6 +33,10 @@ export default class MovementSystem extends System {
         if (a.belongsToGroup('obstacles') && (b.hasTag('player') || b.belongsToGroup('enemies'))) {
             this.invertCollisionNormal(collisionNormal);
             this.onEntityHitsObstacle(b, a, collisionNormal);
+        }
+
+        if (a.belongsToGroup('projectiles') && b.belongsToGroup('obstacles')) {
+            a.kill();
         }
 
         if (a.hasTag('player') && b.belongsToGroup('enemies')) {
