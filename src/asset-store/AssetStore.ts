@@ -9,11 +9,6 @@ export default class AssetStore {
         this.jsons = new Map<string, any>();
     }
 
-    clearAssets() {
-        this.textures.clear();
-        this.sounds.clear();
-    }
-
     addTexture(assetId: string, filePath: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const texture = new Image();
@@ -96,5 +91,11 @@ export default class AssetStore {
         }
 
         return json;
+    }
+
+    clearAssets() {
+        this.textures.clear();
+        this.sounds.clear();
+        this.jsons.clear();
     }
 }
