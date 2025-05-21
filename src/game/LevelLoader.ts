@@ -15,8 +15,7 @@ export default class LevelLoader {
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
-        await assetStore.addJson('level-0', '/assets/tilemaps/level_0.json');
-        await assetStore.addJson('entities', '/assets/tilemaps/entities.json');
+        await assetStore.addJson('level', '/assets/tilemaps/level.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -46,17 +45,17 @@ export default class LevelLoader {
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
         console.log('Loading tilemap');
-        const level = assetStore.getJson('level-0') as LevelMap;
-        const tileMap = level.tileMap;
+        const level = assetStore.getJson('level') as LevelMap;
+        const tiles = level.tiles;
 
         const tileSize = 32;
         const mapScale = 2;
         let rowNumber = 0;
         let columnNumber = 0;
-        for (let i = 0; i < tileMap.tiles.length; i++) {
+        for (let i = 0; i < tiles.length; i++) {
             columnNumber = 0;
-            for (let j = 0; j < tileMap.tiles[i].length; j++) {
-                const tileNumber = tileMap.tiles[i][j];
+            for (let j = 0; j < tiles[i].length; j++) {
+                const tileNumber = tiles[i][j];
                 const srcRectX = (tileNumber % 10) * tileSize;
                 const srcRectY = Math.floor(tileNumber / 10) * tileSize;
                 const tile = registry.createEntity();
@@ -80,7 +79,7 @@ export default class LevelLoader {
 
     private static loadEntities(registry: Registry, assetStore: AssetStore) {
         console.log('Loading entities');
-        const level = assetStore.getJson('entities') as LevelMap;
+        const level = assetStore.getJson('level') as LevelMap;
         deserializeEntities(level.entities, registry);
     }
 }
