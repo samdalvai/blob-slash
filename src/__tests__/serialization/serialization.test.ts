@@ -56,4 +56,45 @@ describe('Testing serialization related functions', () => {
 
         expect(serializeEntity(entity)).toEqual(expected);
     });
+
+    test('Should serialize entity having tag', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.tag('test');
+
+        const expected: EntityMap = {
+            tag: 'test',
+            components: [],
+        };
+
+        expect(serializeEntity(entity)).toEqual(expected);
+    });
+
+    test('Should serialize entity having group', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.group('test');
+
+        const expected: EntityMap = {
+            group: 'test',
+            components: [],
+        };
+
+        expect(serializeEntity(entity)).toEqual(expected);
+    });
+
+    test('Should serialize entity having tag and group', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.tag('test');
+        entity.group('test');
+
+        const expected: EntityMap = {
+            tag: 'test',
+            group: 'test',
+            components: [],
+        };
+
+        expect(serializeEntity(entity)).toEqual(expected);
+    });
 });
