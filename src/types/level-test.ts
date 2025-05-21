@@ -1,4 +1,3 @@
-import { AnimationComponentType } from './components';
 import { LevelMap } from './maps';
 
 const level: LevelMap = {
@@ -11,6 +10,7 @@ const level: LevelMap = {
     },
     entities: [
         {
+            tag: 'player',
             components: [
                 {
                     name: 'animation',
