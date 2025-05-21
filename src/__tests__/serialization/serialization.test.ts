@@ -2,8 +2,8 @@ import { expect } from '@jest/globals';
 
 import TransformComponent from '../../components/TransformComponent';
 import Registry from '../../ecs/Registry';
+import { serializeEntity } from '../../serialization/serialization';
 import { EntityMap } from '../../types/map';
-import { serializeEntity } from '../../serialization';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {
