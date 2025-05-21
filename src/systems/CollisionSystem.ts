@@ -3,7 +3,7 @@ import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
-import { Vector } from '../types';
+import { Vector } from '../types/utils';
 
 export default class CollisionSystem extends System {
     constructor() {

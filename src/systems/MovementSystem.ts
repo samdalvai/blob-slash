@@ -7,7 +7,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
 import Game from '../game/Game';
-import { Vector } from '../types';
+import { Vector } from '../types/utils';
 
 export default class MovementSystem extends System {
     constructor() {

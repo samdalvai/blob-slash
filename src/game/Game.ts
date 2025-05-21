@@ -41,7 +41,7 @@ import RenderLightingSystem from '../systems/render/RenderLightingSystem';
 import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
-import { GameStatus, Rectangle, Vector } from '../types';
+import { GameStatus, Rectangle, Vector } from '../types/utils';
 import LevelLoader from './LevelLoader';
 
 export default class Game {

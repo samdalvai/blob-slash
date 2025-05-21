@@ -20,7 +20,8 @@ import SpriteStateComponent from '../components/SpriteStateComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
-import { Flip, LevelMap, TileMap } from '../types';
+import { LevelMap } from '../types/maps';
+import { Flip } from '../types/utils';
 import Game from './Game';
 
 export default class LevelLoader {

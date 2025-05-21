@@ -1,7 +1,7 @@
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
 import Game from '../../game/Game';
-import { Vector } from '../../types';
+import { Vector } from '../../types/utils';
 
 export default class RenderDebugInfoSystem extends System {
     constructor() {

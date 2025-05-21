@@ -1,6 +1,6 @@
 import TextLabelComponent from '../../components/TextLabelComponent';
 import System from '../../ecs/System';
-import { Rectangle } from '../../types';
+import { Rectangle } from '../../types/utils';
 
 export default class RenderTextSystem extends System {
     constructor() {

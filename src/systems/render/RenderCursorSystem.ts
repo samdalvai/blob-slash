@@ -3,7 +3,7 @@ import HighlightComponent from '../../components/HighlightComponent';
 import PlayerControlComponent from '../../components/PlayerControlComponent';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
-import { Vector } from '../../types';
+import { Vector } from '../../types/utils';
 
 export default class RenderCursorSystem extends System {
     constructor() {
