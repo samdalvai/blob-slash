@@ -2,7 +2,7 @@ import CameraFollowComponent from '../components/CameraFollowComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
 import Game from '../game/Game';
-import { Rectangle } from '../types';
+import { Rectangle } from '../types/utils';
 
 export default class CameraMovementSystem extends System {
     constructor() {

@@ -1,4 +1,4 @@
-import { Vector } from '../types';
+import { Vector } from '../types/utils';
 
 /**
  * Computes the direction vector between two points, normalized over the lenght

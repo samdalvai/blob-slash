@@ -1,5 +1,5 @@
 import Component from '../ecs/Component';
-import { Vector } from '../types';
+import { Vector } from '../types/utils';
 
 export default class TransformComponent extends Component {
     position: Vector;

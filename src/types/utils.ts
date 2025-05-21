@@ -10,10 +10,6 @@ export type Rectangle = {
     height: number;
 };
 
-export type TileMap = {
-    tiles: number[][];
-};
-
 export enum Flip {
     NONE,
     HORIZONTAL,

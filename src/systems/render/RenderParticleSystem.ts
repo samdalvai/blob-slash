@@ -1,7 +1,7 @@
 import ParticleComponent from '../../components/ParticleComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
-import { Rectangle } from '../../types';
+import { Rectangle } from '../../types/utils';
 
 export default class RenderParticleSystem extends System {
     constructor() {

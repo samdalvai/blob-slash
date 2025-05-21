@@ -2,7 +2,7 @@ import EntityFollowComponent from '../../components/EntityFollowComponent';
 import SpriteComponent from '../../components/SpriteComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
-import { Rectangle } from '../../types';
+import { Rectangle } from '../../types/utils';
 
 export default class RenderPlayerFollowRadiusSystem extends System {
     constructor() {

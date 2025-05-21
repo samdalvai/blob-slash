@@ -2,7 +2,7 @@ import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
-import { Rectangle, Vector } from '../types';
+import { Rectangle, Vector } from '../types/utils';
 
 export default class EntityHighlightSystem extends System {
     constructor() {

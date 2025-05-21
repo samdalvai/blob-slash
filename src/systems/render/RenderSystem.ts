@@ -4,7 +4,7 @@ import ShadowComponent from '../../components/ShadowComponent';
 import SpriteComponent from '../../components/SpriteComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
-import { Flip, Rectangle } from '../../types';
+import { Flip, Rectangle } from '../../types/utils';
 
 export default class RenderSystem extends System {
     constructor() {

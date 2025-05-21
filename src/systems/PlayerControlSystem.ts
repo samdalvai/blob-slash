@@ -23,7 +23,7 @@ import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
 import Game from '../game/Game';
-import { Flip, Vector } from '../types';
+import { Flip, Vector } from '../types/utils';
 import CollisionSystem from './CollisionSystem';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import MovementSystem from './MovementSystem';

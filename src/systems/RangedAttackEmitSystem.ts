@@ -16,7 +16,7 @@ import System from '../ecs/System';
 import EventBus from '../event-bus/EventBus';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import Game from '../game/Game';
-import { Flip, Vector } from '../types';
+import { Flip, Vector } from '../types/utils';
 import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 
 export default class RangedAttackEmitSystem extends System {

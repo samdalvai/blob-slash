@@ -1,5 +1,5 @@
 import System from '../../ecs/System';
-import { Vector } from '../../types';
+import { Vector } from '../../types/utils';
 
 export default class RenderCursorCoordinatesSystem extends System {
     constructor() {
