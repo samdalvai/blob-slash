@@ -13,8 +13,18 @@ import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
 import ParticleComponent from '../components/ParticleComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
+import PlayerControlComponent from '../components/PlayerControlComponent';
+import ProjectileComponent from '../components/ProjectileComponent';
+import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
+import ScriptComponent from '../components/ScriptComponent';
+import ShadowComponent from '../components/ShadowComponent';
+import SlowTimeComponent from '../components/SlowTimeComponent';
+import SoundComponent from '../components/SoundComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
+import TeleportComponent from '../components/TeleportComponent';
+import TextLabelComponent from '../components/TextLabelComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
 import { ComponentType } from '../types/components';
@@ -34,11 +44,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'animation',
             properties: {
-                numFrames: animation.numFrames,
-                currentFrame: animation.currentFrame,
-                frameSpeedRate: animation.frameSpeedRate,
-                isLoop: animation.isLoop,
-                startTime: animation.startTime,
+                ...animation,
             },
         });
     }
@@ -54,9 +60,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'boxcollider',
             properties: {
-                width: collider.width,
-                height: collider.height,
-                offset: collider.offset,
+                ...collider,
             },
         });
     }
@@ -71,7 +75,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
 
         components.push({
             name: 'camerafollow',
-            properties: {},
+            properties: { ...cameraFollow },
         });
     }
 
@@ -86,7 +90,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'camerashake',
             properties: {
-                shakeDuration: cameraShake.shakeDuration,
+                ...cameraShake,
             },
         });
     }
@@ -102,9 +106,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'damageradius',
             properties: {
-                radius: damageradius.radius,
-                damagePerSecond: damageradius.damagePerSecond,
-                isFriendly: damageradius.isFriendly,
+                ...damageradius,
             },
         });
     }
@@ -134,9 +136,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'entitydestination',
             properties: {
-                destinationX: entityDestination.destinationX,
-                destinationY: entityDestination.destinationY,
-                velocity: entityDestination.velocity,
+                ...entityDestination,
             },
         });
     }
@@ -152,11 +152,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'entityeffect',
             properties: {
-                slowed: entityEffect.slowed,
-                slowedPercentage: entityEffect.slowedPercentage,
-                hasDamageOverTime: entityEffect.hasDamageOverTime,
-                damagePerSecond: entityEffect.damagePerSecond,
-                lastDamageTime: entityEffect.lastDamageTime,
+                ...entityEffect,
             },
         });
     }
@@ -172,12 +168,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'entityfollow',
             properties: {
-                detectionRadius: entityFollow.detectionRadius,
-                minFollowDistance: entityFollow.minFollowDistance,
-                followVelocity: entityFollow.followVelocity,
-                followDuration: entityFollow.followDuration,
-                followedEntity: entityFollow.followedEntity, // TODO: does this work or is it better to use entity id as number???
-                startFollowTime: entityFollow.startFollowTime,
+                ...entityFollow,
             },
         });
     }
@@ -193,8 +184,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'health',
             properties: {
-                healthPercentage: health.healthPercentage,
-                lastDamageTime: health.lastDamageTime,
+                ...health,
             },
         });
     }
@@ -210,11 +200,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'highlight',
             properties: {
-                isHighlighted: highlight.isHighlighted,
-                width: highlight.width,
-                height: highlight.height,
-                offsetX: highlight.offsetX,
-                offsetY: highlight.offsetY,
+                ...highlight,
             },
         });
     }
@@ -230,8 +216,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'lifetime',
             properties: {
-                lifetime: lifeTime.lifetime,
-                startTime: lifeTime.startTime,
+                ...lifeTime,
             },
         });
     }
@@ -247,7 +232,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'lightemit',
             properties: {
-                lightRadius: lightEmit.lightRadius,
+                ...lightEmit,
             },
         });
     }
@@ -263,8 +248,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'particle',
             properties: {
-                dimension: particle.dimension,
-                color: particle.color,
+                ...particle,
             },
         });
     }
@@ -280,22 +264,58 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'particleemit',
             properties: {
-                dimension: particleEmit.dimension,
-                duration: particleEmit.duration,
-                color: particleEmit.color,
-                emitFrequency: particleEmit.emitFrequency,
-                emitRadius: particleEmit.emitRadius,
-                offsetX: particleEmit.offsetX,
-                offsetY: particleEmit.offsetY,
-                particleVelocity: particleEmit.particleVelocity,
-                lastEmission: particleEmit.lastEmission,
+                ...particleEmit,
             },
         });
     }
 
     // case 'playercontrol'
+    if (entity.hasComponent(PlayerControlComponent)) {
+        const playercontrol = entity.getComponent(PlayerControlComponent);
+
+        if (!playercontrol) {
+            throw new Error('Could not find playercontrol component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'playercontrol',
+            properties: {
+                ...playercontrol,
+            },
+        });
+    }
+
     // case 'projectile'
+    if (entity.hasComponent(ProjectileComponent)) {
+        const projectile = entity.getComponent(ProjectileComponent);
+
+        if (!projectile) {
+            throw new Error('Could not find projectile component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'projectile',
+            properties: {
+                ...projectile,
+            },
+        });
+    }
+
     // case 'rangedattackemitter'
+    if (entity.hasComponent(RangedAttackEmitterComponent)) {
+        const rangedattackemitter = entity.getComponent(RangedAttackEmitterComponent);
+
+        if (!rangedattackemitter) {
+            throw new Error('Could not find rangedattackemitter component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'rangedattackemitter',
+            properties: {
+                ...rangedattackemitter,
+            },
+        });
+    }
 
     // case 'rigidbody'
     if (entity.hasComponent(RigidBodyComponent)) {
@@ -308,17 +328,90 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'rigidbody',
             properties: {
-                velocity: rigidbody.velocity,
-                direction: rigidbody.direction,
+                ...rigidbody,
             },
         });
     }
 
     // case 'script'
+    if (entity.hasComponent(ScriptComponent)) {
+        const script = entity.getComponent(ScriptComponent);
+
+        if (!script) {
+            throw new Error('Could not find script component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'script',
+            properties: {
+                ...script,
+            },
+        });
+    }
+
     // case 'shadow'
+    if (entity.hasComponent(ShadowComponent)) {
+        const shadow = entity.getComponent(ShadowComponent);
+
+        if (!shadow) {
+            throw new Error('Could not find shadow component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'shadow',
+            properties: {
+                ...shadow,
+            },
+        });
+    }
+
     // case 'slowtime'
+    if (entity.hasComponent(SlowTimeComponent)) {
+        const slowtime = entity.getComponent(SlowTimeComponent);
+
+        if (!slowtime) {
+            throw new Error('Could not find slowtime component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'slowtime',
+            properties: {
+                ...slowtime,
+            },
+        });
+    }
+
     // case 'sound'
+    if (entity.hasComponent(SoundComponent)) {
+        const sound = entity.getComponent(SoundComponent);
+
+        if (!sound) {
+            throw new Error('Could not find sound component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'sound',
+            properties: {
+                ...sound,
+            },
+        });
+    }
+
     // case 'sprite'
+    if (entity.hasComponent(SpriteComponent)) {
+        const sprite = entity.getComponent(SpriteComponent);
+
+        if (!sprite) {
+            throw new Error('Could not find sprite component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'sprite',
+            properties: {
+                ...sprite,
+            },
+        });
+    }
 
     // case 'spritestate'
     if (entity.hasComponent(SpriteStateComponent)) {
@@ -330,12 +423,41 @@ export const serializeEntity = (entity: Entity): EntityMap => {
 
         components.push({
             name: 'spritestate',
-            properties: {},
+            properties: { ...spritestate },
         });
     }
 
     // case 'teleport'
+    if (entity.hasComponent(TeleportComponent)) {
+        const teleport = entity.getComponent(TeleportComponent);
+
+        if (!teleport) {
+            throw new Error('Could not find teleport component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'teleport',
+            properties: {
+                ...teleport,
+            },
+        });
+    }
+
     // case 'textlabel'
+    if (entity.hasComponent(TextLabelComponent)) {
+        const textLabel = entity.getComponent(TextLabelComponent);
+
+        if (!textLabel) {
+            throw new Error('Could not find textlabel component of entity with id ' + entity.getId());
+        }
+
+        components.push({
+            name: 'textlabel',
+            properties: {
+                ...textLabel,
+            },
+        });
+    }
 
     // case 'transform'
     if (entity.hasComponent(TransformComponent)) {
@@ -348,9 +470,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'transform',
             properties: {
-                position: transform.position,
-                scale: transform.scale,
-                rotation: transform.rotation,
+                ...transform,
             },
         });
     }
