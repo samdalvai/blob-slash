@@ -16639,7 +16639,7 @@
           "name": "animation",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -16747,7 +16747,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 0,
+              "x": 32,
               "y": 32,
               "width": 32,
               "height": 32
@@ -16908,7 +16908,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 643.0999999940395
+            "actionStart": 9808
           }
         },
         {
@@ -16946,8 +16946,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 337.21999999992545,
-              "y": 600
+              "x": 306.4150000002237,
+              "y": 599.9100000001492
             },
             "scale": {
               "x": 1,
@@ -17082,7 +17082,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 643.1999999955297
+            "actionStart": 9808
           }
         },
         {
@@ -17120,8 +17120,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 537.2199999999254,
-              "y": 600
+              "x": 506.4150000002236,
+              "y": 599.9100000001492
             },
             "scale": {
               "x": 2,
@@ -17138,7 +17138,7 @@
           "name": "animation",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -17163,7 +17163,7 @@
         {
           "name": "particleemit",
           "properties": {
-            "lastEmission": 1271.7999999970198,
+            "lastEmission": 9775.10000000149,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -17194,7 +17194,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -17226,7 +17226,7 @@
           "name": "animation",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -17251,7 +17251,7 @@
         {
           "name": "particleemit",
           "properties": {
-            "lastEmission": 1271.7999999970198,
+            "lastEmission": 9775.10000000149,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -17282,7 +17282,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -17554,7 +17554,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 651.1999999955297
+            "startTime": 0
           }
         },
         {
@@ -17581,8 +17581,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 218.17496037182366,
-              "y": 163.90820261951762
+              "x": 514.7746848445137,
+              "y": 157.43233629664903
             },
             "scale": {
               "x": 1,
@@ -17599,7 +17599,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 651.1999999955297
+            "startTime": 0
           }
         },
         {
@@ -17626,8 +17626,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 519.1898512341234,
-              "y": 165.97981038573525
+              "x": 214.92508145493142,
+              "y": 165.47602013083105
             },
             "scale": {
               "x": 1,
@@ -17644,7 +17644,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 858.1999999955297
+            "startTime": 0
           }
         },
         {
@@ -17671,8 +17671,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 215.11884778687707,
-              "y": 171.34480266452732
+              "x": 514.9967381797838,
+              "y": 169.28741040453784
             },
             "scale": {
               "x": 1,
@@ -17689,7 +17689,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 858.1999999955297
+            "startTime": 0
           }
         },
         {
@@ -17716,8 +17716,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 519.6772658783436,
-              "y": 172.99283072386154
+              "x": 218.35739969993008,
+              "y": 169.791296277842
             },
             "scale": {
               "x": 1,
@@ -17734,7 +17734,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 1071.6999999955297
+            "startTime": 0
           }
         },
         {
@@ -17761,8 +17761,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 218.9118254422437,
-              "y": 180.35591922840504
+              "x": 516.1711680526953,
+              "y": 184.0567006128428
             },
             "scale": {
               "x": 1,
@@ -17779,7 +17779,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 1071.7999999970198
+            "startTime": 0
           }
         },
         {
@@ -17806,8 +17806,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 513.1587062294197,
-              "y": 186.30398843539828
+              "x": 212.94175568856096,
+              "y": 182.40020671887885
             },
             "scale": {
               "x": 1,
@@ -17824,7 +17824,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 1271.7999999970198
+            "startTime": 0
           }
         },
         {
@@ -17851,8 +17851,8 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 214.15886822060898,
-              "y": 191.21855668981138
+              "x": 517.3481983039612,
+              "y": 191.9217506789181
             },
             "scale": {
               "x": 1,
@@ -17869,7 +17869,7 @@
           "name": "lifetime",
           "properties": {
             "lifetime": 1000,
-            "startTime": 1271.7999999970198
+            "startTime": 0
           }
         },
         {
@@ -17896,8 +17896,98 @@
           "name": "transform",
           "properties": {
             "position": {
-              "x": 514.7596327246799,
-              "y": 193.43534139305874
+              "x": 214.61469095473743,
+              "y": 196.1907756633318
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "lifetime",
+          "properties": {
+            "lifetime": 1000,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "particle",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
+          "name": "rigidbody",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": -50
+            },
+            "direction": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        },
+        {
+          "name": "transform",
+          "properties": {
+            "position": {
+              "x": 214.73500182489076,
+              "y": 153.7609604795898
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "lifetime",
+          "properties": {
+            "lifetime": 1000,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "particle",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
+          "name": "rigidbody",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": -50
+            },
+            "direction": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        },
+        {
+          "name": "transform",
+          "properties": {
+            "position": {
+              "x": 513.3683815245932,
+              "y": 154.27685807430976
             },
             "scale": {
               "x": 1,
