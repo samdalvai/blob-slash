@@ -9,6 +9,8 @@ import CollisionEvent from '../events/CollisionEvent';
 import Game from '../game/Game';
 import { Vector } from '../types/utils';
 
+// TODO: a bug happens sometimes where Movement system can't find some entity component,
+// to reproduce shoot projectile at obstacle for some time
 export default class MovementSystem extends System {
     constructor() {
         super();
@@ -21,7 +23,7 @@ export default class MovementSystem extends System {
     }
 
     onCollision(event: CollisionEvent) {
-        console.log("Collision!")
+        console.log('Collision!');
         const a = event.a;
         const b = event.b;
         const collisionNormal = event.collisionNormal;
@@ -37,6 +39,10 @@ export default class MovementSystem extends System {
 
         if (a.belongsToGroup('projectiles') && b.belongsToGroup('obstacles')) {
             a.kill();
+        }
+
+        if (a.belongsToGroup('obstacles') && b.belongsToGroup('projectiles')) {
+            b.kill();
         }
 
         if (a.hasTag('player') && b.belongsToGroup('enemies')) {
