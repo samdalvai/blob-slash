@@ -73,6 +73,9 @@ export default class CollisionSystem extends System {
                     };
 
                     const collisionNormal = this.computeCollisionNormal(boxAMin, boxAMax, boxBMin, boxBMax);
+                    aCollider.lastCollision = performance.now();
+                    bCollider.lastCollision = performance.now();
+
                     eventBus.emitEvent(CollisionEvent, a, b, collisionNormal);
                 }
             }

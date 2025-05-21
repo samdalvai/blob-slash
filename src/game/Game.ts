@@ -277,6 +277,8 @@ export default class Game {
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
         this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
         this.registry.getSystem(DamageSystem)?.update();
+        this.registry.getSystem(AnimationSystem)?.update();
+        this.registry.getSystem(SpriteStateSystem)?.update();
     };
 
     private render = () => {
@@ -288,8 +290,6 @@ export default class Game {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
-        this.registry.getSystem(AnimationSystem)?.update();
-        this.registry.getSystem(SpriteStateSystem)?.update();
         this.registry.getSystem(RenderHealthBarSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);

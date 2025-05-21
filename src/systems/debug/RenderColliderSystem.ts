@@ -37,7 +37,7 @@ export default class RenderColliderSystem extends System {
                 height: collider.height * transform.scale.y,
             };
 
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = performance.now() - collider.lastCollision <= 100 ? 'orange' : 'red';
             ctx.strokeRect(colliderRect.x, colliderRect.y, colliderRect.width, colliderRect.height);
         }
     }
