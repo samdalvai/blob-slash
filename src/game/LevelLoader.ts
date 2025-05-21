@@ -20,7 +20,8 @@ import SpriteStateComponent from '../components/SpriteStateComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
-import { LevelMap } from '../types/maps';
+import { level } from '../types/level-test';
+import { LevelMap } from '../types/map';
 import { Flip } from '../types/utils';
 import Game from './Game';
 
@@ -100,11 +101,11 @@ export default class LevelLoader {
         const player = registry.createEntity();
         player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 2, 0, 0, Flip.NONE, false, 1);
+        player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(DeadBodyOnDeathComponent);
         player.addComponent(SpriteStateComponent);
         player.addComponent(ShadowComponent, 30, 10, 0, -2);
         player.addComponent(AnimationComponent, 4, 6);
-        player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
         player.addComponent(CameraFollowComponent);
         player.addComponent(PlayerControlComponent, 150, 2000, 1000, 5000);
         player.addComponent(RangedAttackEmitterComponent, 200, 400, 7500, 10, true);
@@ -207,5 +208,7 @@ export default class LevelLoader {
         tree5.addComponent(TransformComponent, { x: 600, y: 264 }, { x: 2, y: 2 });
         tree5.addComponent(BoxColliderComponent, 16, 30);
         tree5.group('obstacles');
+
+        console.log(JSON.stringify(level));
     }
 }
