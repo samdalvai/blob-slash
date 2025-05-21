@@ -3,6 +3,7 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
+// import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 import Game from './Game';
 
@@ -10,8 +11,17 @@ export default class LevelLoader {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
         await this.loadAssets(assetStore);
         const level = assetStore.getJson('snapshot') as LevelMap;
+
         this.loadTileMap(registry, level);
         this.loadEntities(registry, level);
+
+        // const levelLocal = loadLevelFromLocalStorage();
+        // if (!levelLocal) {
+        //     throw new Error('Could not read level from local storage');
+        // }
+
+        // this.loadTileMap(registry, levelLocal);
+        // this.loadEntities(registry, levelLocal);
     }
 
     private static async loadAssets(assetStore: AssetStore) {

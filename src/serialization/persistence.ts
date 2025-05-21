@@ -1,4 +1,5 @@
 import Registry from '../ecs/Registry';
+import { LevelMap } from '../types/map';
 import { serializeLevel } from './serialization';
 
 export const saveLevelToJson = (registry: Registry): void => {
@@ -19,4 +20,9 @@ export const saveLevelToJson = (registry: Registry): void => {
 export const saveLevelToLocalStorage = (registry: Registry) => {
     const jsonString = JSON.stringify(serializeLevel(registry), null, 2);
     localStorage.setItem('level', jsonString);
+};
+
+export const loadLevelFromLocalStorage = (): LevelMap | undefined => {
+    const jsonString = localStorage.getItem('level') as any;
+    return jsonString ? (JSON.parse(jsonString) as LevelMap) : undefined;
 };
