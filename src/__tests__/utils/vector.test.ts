@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals';
 
-import { computeDirectionVector, computeUnitVector } from '../../src/utils/vector';
+import { computeDirectionVector, computeUnitVector } from '../../utils/vector';
 
 describe('Testing vector utils related functions', () => {
     test('Should correctly compute direction vector normalized to length on vertical axis', () => {
