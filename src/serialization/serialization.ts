@@ -484,3 +484,13 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components: components,
     };
 };
+
+export const serializeEntities = (entities: Entity[]): EntityMap[] => {
+    const entitiesMap: EntityMap[] = [];
+
+    for (const entity of entities) {
+        entitiesMap.push(serializeEntity(entity));
+    }
+
+    return entitiesMap;
+};
