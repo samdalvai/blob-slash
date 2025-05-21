@@ -171,6 +171,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
             name: 'entityfollow',
             properties: {
                 ...entityFollow,
+                followedEntity: null,
             },
         });
     }

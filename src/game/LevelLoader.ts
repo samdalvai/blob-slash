@@ -3,7 +3,7 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
-// import { loadLevelFromLocalStorage } from '../serialization/persistence';
+import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 import Game from './Game';
 
