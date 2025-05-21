@@ -39,10 +39,8 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 entity.addComponent(
                     AnimationComponent,
                     component.properties.numFrames,
-                    component.properties.currentFrame,
                     component.properties.frameSpeedRate,
                     component.properties.isLoop,
-                    component.properties.startTime,
                 );
                 break;
             }
@@ -86,14 +84,7 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 break;
             }
             case 'entityeffect': {
-                entity.addComponent(
-                    EntityEffectComponent,
-                    component.properties.slowed,
-                    component.properties.slowedPercentage,
-                    component.properties.hasDamageOverTime,
-                    component.properties.damagePerSecond,
-                    component.properties.lastDamageTime,
-                );
+                entity.addComponent(EntityEffectComponent);
                 break;
             }
             case 'entityfollow': {
@@ -103,23 +94,16 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                     component.properties.minFollowDistance,
                     component.properties.followVelocity,
                     component.properties.followDuration,
-                    component.properties.followedEntity,
-                    component.properties.startFollowTime,
                 );
                 break;
             }
             case 'health': {
-                entity.addComponent(
-                    HealthComponent,
-                    component.properties.healthPercentage,
-                    component.properties.lastDamageTime,
-                );
+                entity.addComponent(HealthComponent, component.properties.healthPercentage);
                 break;
             }
             case 'highlight': {
                 entity.addComponent(
                     HighlightComponent,
-                    component.properties.isHighlighted,
                     component.properties.width,
                     component.properties.height,
                     component.properties.offsetX,
@@ -128,7 +112,7 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 break;
             }
             case 'lifetime': {
-                entity.addComponent(LifetimeComponent, component.properties.lifetime, component.properties.startTime);
+                entity.addComponent(LifetimeComponent, component.properties.lifetime);
                 break;
             }
             case 'lightemit': {
@@ -150,7 +134,6 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                     component.properties.offsetX,
                     component.properties.offsetY,
                     component.properties.particleVelocity,
-                    component.properties.lastEmission,
                 );
                 break;
             }
@@ -158,13 +141,9 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 entity.addComponent(
                     PlayerControlComponent,
                     component.properties.velocity,
-                    component.properties.keysPressed,
                     component.properties.magicBubbleCooldown,
-                    component.properties.magicBubbleLastEmissionTime,
                     component.properties.teleportCooldown,
-                    component.properties.teleportLastEmissionTime,
                     component.properties.fireCircleCooldown,
-                    component.properties.fireCircleLastEmissionTime,
                 );
                 break;
             }
@@ -184,7 +163,6 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                     component.properties.projectileDuration,
                     component.properties.hitPercentDamage,
                     component.properties.isFriendly,
-                    component.properties.lastEmissionTime,
                 );
                 break;
             }
@@ -193,12 +171,7 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 break;
             }
             case 'script': {
-                entity.addComponent(
-                    ScriptComponent,
-                    component.properties.scripts,
-                    component.properties.currentActionIndex,
-                    component.properties.actionStart,
-                );
+                entity.addComponent(ScriptComponent, component.properties.scripts);
                 break;
             }
             case 'shadow': {
@@ -249,11 +222,7 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 break;
             }
             case 'teleport': {
-                entity.addComponent(
-                    TeleportComponent,
-                    component.properties.isTeleporting,
-                    component.properties.teleportDelay,
-                );
+                entity.addComponent(TeleportComponent, component.properties.teleportDelay);
                 break;
             }
             case 'textlabel': {
@@ -288,4 +257,14 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
     }
 
     return entity;
+};
+
+export const deserializeEntities = (entities: EntityMap[], registry: Registry): Entity[] => {
+    const entitiesList: Entity[] = [];
+
+    for (const entity of entities) {
+        entitiesList.push(deserializeEntity(entity, registry));
+    }
+
+    return entitiesList;
 };
