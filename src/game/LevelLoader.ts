@@ -9,13 +9,15 @@ import Game from './Game';
 export default class LevelLoader {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
         await this.loadAssets(assetStore);
-        this.loadTileMap(registry, assetStore);
-        this.loadEntities(registry, assetStore);
+        const level = assetStore.getJson('snapshot') as LevelMap;
+        this.loadTileMap(registry, level);
+        this.loadEntities(registry, level);
     }
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
         await assetStore.addJson('level', '/assets/tilemaps/level.json');
+        await assetStore.addJson('snapshot', '/assets/tilemaps/snapshot.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -43,10 +45,14 @@ export default class LevelLoader {
         await assetStore.addSound('teleport-sound', './assets/sounds/teleport.wav');
     }
 
-    private static loadTileMap(registry: Registry, assetStore: AssetStore) {
+    private static loadTileMap(registry: Registry, level: LevelMap) {
         console.log('Loading tilemap');
-        const level = assetStore.getJson('level') as LevelMap;
         const tiles = level.tiles;
+
+        if (!tiles) {
+            console.log('No tiles to be loaded, skipping');
+            return;
+        }
 
         const tileSize = 32;
         const mapScale = 2;
@@ -77,9 +83,9 @@ export default class LevelLoader {
         Game.mapHeight = rowNumber * tileSize * mapScale;
     }
 
-    private static loadEntities(registry: Registry, assetStore: AssetStore) {
+    private static loadEntities(registry: Registry, level: LevelMap) {
         console.log('Loading entities');
-        const level = assetStore.getJson('level') as LevelMap;
+        // const level = assetStore.getJson('snapshot') as LevelMap;
         deserializeEntities(level.entities, registry);
     }
 }

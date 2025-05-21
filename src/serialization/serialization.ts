@@ -27,8 +27,9 @@ import TeleportComponent from '../components/TeleportComponent';
 import TextLabelComponent from '../components/TextLabelComponent';
 import TransformComponent from '../components/TransformComponent';
 import Entity from '../ecs/Entity';
+import Registry from '../ecs/Registry';
 import { ComponentType } from '../types/components';
-import { EntityMap } from '../types/map';
+import { EntityMap, LevelMap } from '../types/map';
 
 export const serializeEntity = (entity: Entity): EntityMap => {
     const components: ComponentType[] = [];
@@ -44,7 +45,8 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         components.push({
             name: 'animation',
             properties: {
-                ...animation, startTime: 0,
+                ...animation,
+                startTime: 0,
             },
         });
     }
@@ -493,4 +495,19 @@ export const serializeEntities = (entities: Entity[]): EntityMap[] => {
     }
 
     return entitiesMap;
+};
+
+export const serializeLevel = (registry: Registry): LevelMap => {
+    const entitiesIds = registry.numEntities;
+    const entities: Entity[] = [];
+
+    for (let i = 0; i < entitiesIds; i++) {
+        if (registry.freeIds.includes(i)) {
+            continue;
+        }
+
+        entities.push(new Entity(i, registry));
+    }
+
+    return { entities: serializeEntities(entities) };
 };

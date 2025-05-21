@@ -7,6 +7,7 @@ import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
 import InputManager from '../input-manager/InputManager';
+import { serializeLevel } from '../serialization/serialization';
 import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
 import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
@@ -181,6 +182,21 @@ export default class Game {
                 case 'keydown':
                     if (inputEvent.code === 'F2') {
                         this.isDebug = !this.isDebug;
+                    }
+
+                    if (inputEvent.code === 'F3') {
+                        const jsonString = JSON.stringify(serializeLevel(this.registry), null, 2); // Pretty-print JSON
+                        const blob = new Blob([jsonString], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'snapshot.json';
+                        a.click();
+
+                        URL.revokeObjectURL(url);
+
+                        console.log('Snapshot saved.');
                     }
 
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
