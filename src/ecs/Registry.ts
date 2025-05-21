@@ -99,6 +99,12 @@ export default class Registry {
     };
 
     killEntity = (entity: Entity) => {
+        // TODO: use ids for entitiesToBeKilled, should be more efficient
+        if (this.entitiesToBeKilled.includes(entity)) {
+            console.log('Entity is already sheduled for killing, skipping');
+            return;
+        }
+
         this.entitiesToBeKilled.push(entity);
         // console.log('Entity with id ' + entity.getId() + ' killed');
     };
