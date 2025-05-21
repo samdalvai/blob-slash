@@ -7,7 +7,7 @@ import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
 import InputManager from '../input-manager/InputManager';
-import { saveLevelSnapshot } from '../serialization/serialization';
+import { saveLevelToJson, saveLevelToLocalStorage } from '../serialization/persistence';
 import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
 import AnimationSystem from '../systems/AnimationSystem';
 import CameraMovementSystem from '../systems/CameraMovementSystem';
@@ -185,7 +185,8 @@ export default class Game {
                     }
 
                     if (inputEvent.code === 'F3') {
-                        saveLevelSnapshot(this.registry);
+                        //saveLevelToJson(this.registry);
+                        saveLevelToLocalStorage(this.registry);
                     }
 
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
