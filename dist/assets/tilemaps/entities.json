@@ -9,7 +9,7 @@
                     "currentFrame": 1,
                     "frameSpeedRate": 6,
                     "isLoop": true,
-                    "startTime": 1218.2999999970198
+                    "startTime": 0
                 }
             },
             {
@@ -161,7 +161,7 @@
                     "currentFrame": 1,
                     "frameSpeedRate": 4,
                     "isLoop": true,
-                    "startTime": 1218.699999999255
+                    "startTime": 0
                 }
             },
             {
@@ -275,7 +275,7 @@
                         }
                     ],
                     "currentActionIndex": 0,
-                    "actionStart": 1218.699999999255
+                    "actionStart": 0
                 }
             },
             {
@@ -313,8 +313,8 @@
                 "name": "transform",
                 "properties": {
                     "position": {
-                        "x": 336.99000000003747,
-                        "y": 603.6099999999628
+                        "x": 300,
+                        "y": 600
                     },
                     "scale": {
                         "x": 1,
@@ -335,7 +335,7 @@
                     "currentFrame": 1,
                     "frameSpeedRate": 4,
                     "isLoop": true,
-                    "startTime": 1218.7999999970198
+                    "startTime": 0
                 }
             },
             {
@@ -449,7 +449,7 @@
                         }
                     ],
                     "currentActionIndex": 0,
-                    "actionStart": 1218.7999999970198
+                    "actionStart": 0
                 }
             },
             {
@@ -487,8 +487,8 @@
                 "name": "transform",
                 "properties": {
                     "position": {
-                        "x": 536.9900000000375,
-                        "y": 603.6099999999628
+                        "x": 500,
+                        "y": 600
                     },
                     "scale": {
                         "x": 2,
@@ -508,7 +508,7 @@
                     "currentFrame": 1,
                     "frameSpeedRate": 10,
                     "isLoop": true,
-                    "startTime": 1218.8999999985099
+                    "startTime": 0
                 }
             },
             {
@@ -596,7 +596,7 @@
                     "currentFrame": 1,
                     "frameSpeedRate": 10,
                     "isLoop": true,
-                    "startTime": 1218.8999999985099
+                    "startTime": 0
                 }
             },
             {
