@@ -85,7 +85,6 @@ export default class LevelLoader {
 
     private static loadEntities(registry: Registry, level: LevelMap) {
         console.log('Loading entities');
-        // const level = assetStore.getJson('snapshot') as LevelMap;
         deserializeEntities(level.entities, registry);
     }
 }
