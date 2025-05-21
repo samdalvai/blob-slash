@@ -27,33 +27,88 @@ import TeleportComponent from '../components/TeleportComponent';
 import TextLabelComponent from '../components/TextLabelComponent';
 import TransformComponent from '../components/TransformComponent';
 
-export type AnimationComponentType = InstanceType<typeof AnimationComponent>;
-export type BoxColliderComponentType = InstanceType<typeof BoxColliderComponent>;
-export type CameraFollowComponentType = InstanceType<typeof CameraFollowComponent>;
-export type CameraShakeComponentType = InstanceType<typeof CameraShakeComponent>;
-export type DamageRadiusComponentType = InstanceType<typeof DamageRadiusComponent>;
-export type DeadBodyOnDeathComponentType = InstanceType<typeof DeadBodyOnDeathComponent>;
-export type EntityDestinationComponentType = InstanceType<typeof EntityDestinationComponent>;
-export type EntityEffectComponentType = InstanceType<typeof EntityEffectComponent>;
-export type EntityFollowComponentType = InstanceType<typeof EntityFollowComponent>;
-export type HealthComponentType = InstanceType<typeof HealthComponent>;
-export type HighlightComponentType = InstanceType<typeof HighlightComponent>;
-export type LifetimeComponentType = InstanceType<typeof LifetimeComponent>;
-export type LightEmitComponentType = InstanceType<typeof LightEmitComponent>;
-export type ParticleComponentType = InstanceType<typeof ParticleComponent>;
-export type ParticleEmitComponentType = InstanceType<typeof ParticleEmitComponent>;
-export type PlayerControlComponentType = InstanceType<typeof PlayerControlComponent>;
-export type ProjectileComponentType = InstanceType<typeof ProjectileComponent>;
-export type RangedAttackEmitterComponentType = InstanceType<typeof RangedAttackEmitterComponent>;
-export type RigidBodyComponentType = InstanceType<typeof RigidBodyComponent>;
-export type ScriptComponentType = InstanceType<typeof ScriptComponent>;
-export type ShadowComponentType = InstanceType<typeof ShadowComponent>;
-export type SlowTimeComponentType = InstanceType<typeof SlowTimeComponent>;
-export type SoundComponentType = InstanceType<typeof SoundComponent>;
-export type SpriteComponentType = InstanceType<typeof SpriteComponent>;
-export type SpriteStateComponentType = InstanceType<typeof SpriteStateComponent>;
-export type TeleportComponentType = InstanceType<typeof TeleportComponent>;
-export type TextLabelComponentType = InstanceType<typeof TextLabelComponent>;
-export type TransformComponentType = InstanceType<typeof TransformComponent>;
+export type AnimationComponentType = { name: 'animation'; properties: InstanceType<typeof AnimationComponent> };
+export type BoxColliderComponentType = { name: 'boxcollider'; properties: InstanceType<typeof BoxColliderComponent> };
+export type CameraFollowComponentType = {
+    name: 'camerafollow';
+    properties: InstanceType<typeof CameraFollowComponent>;
+};
+export type CameraShakeComponentType = { name: 'camerashake'; properties: InstanceType<typeof CameraShakeComponent> };
+export type DamageRadiusComponentType = {
+    name: 'damageradius';
+    properties: InstanceType<typeof DamageRadiusComponent>;
+};
+export type DeadBodyOnDeathComponentType = {
+    name: 'deadbodyondeath';
+    properties: InstanceType<typeof DeadBodyOnDeathComponent>;
+};
+export type EntityDestinationComponentType = {
+    name: 'entitydestination';
+    properties: InstanceType<typeof EntityDestinationComponent>;
+};
+export type EntityEffectComponentType = {
+    name: 'entityeffect';
+    properties: InstanceType<typeof EntityEffectComponent>;
+};
+export type EntityFollowComponentType = {
+    name: 'entityfollow';
+    properties: InstanceType<typeof EntityFollowComponent>;
+};
+export type HealthComponentType = { name: 'health'; properties: InstanceType<typeof HealthComponent> };
+export type HighlightComponentType = { name: 'highlight'; properties: InstanceType<typeof HighlightComponent> };
+export type LifetimeComponentType = { name: 'lifetime'; properties: InstanceType<typeof LifetimeComponent> };
+export type LightEmitComponentType = { name: 'lightemit'; properties: InstanceType<typeof LightEmitComponent> };
+export type ParticleComponentType = { name: 'particle'; properties: InstanceType<typeof ParticleComponent> };
+export type ParticleEmitComponentType = {
+    name: 'particleemit';
+    properties: InstanceType<typeof ParticleEmitComponent>;
+};
+export type PlayerControlComponentType = {
+    name: 'playercontrol';
+    properties: InstanceType<typeof PlayerControlComponent>;
+};
+export type ProjectileComponentType = { name: 'projectile'; properties: InstanceType<typeof ProjectileComponent> };
+export type RangedAttackEmitterComponentType = {
+    name: 'rangedattackemitter';
+    properties: InstanceType<typeof RangedAttackEmitterComponent>;
+};
+export type RigidBodyComponentType = { name: 'rigidbody'; properties: InstanceType<typeof RigidBodyComponent> };
+export type ScriptComponentType = { name: 'script'; properties: InstanceType<typeof ScriptComponent> };
+export type ShadowComponentType = { name: 'shadow'; properties: InstanceType<typeof ShadowComponent> };
+export type SlowTimeComponentType = { name: 'slowtime'; properties: InstanceType<typeof SlowTimeComponent> };
+export type SoundComponentType = { name: 'sound'; properties: InstanceType<typeof SoundComponent> };
+export type SpriteComponentType = { name: 'sprite'; properties: InstanceType<typeof SpriteComponent> };
+export type SpriteStateComponentType = { name: 'spritestate'; properties: InstanceType<typeof SpriteStateComponent> };
+export type TeleportComponentType = { name: 'teleport'; properties: InstanceType<typeof TeleportComponent> };
+export type TextLabelComponentType = { name: 'textlabel'; properties: InstanceType<typeof TextLabelComponent> };
+export type TransformComponentType = { name: 'transform'; properties: InstanceType<typeof TransformComponent> };
 
-export type ComponentType = AnimationComponentType | BoxColliderComponentType | CameraFollowComponentType | CameraShakeComponentType | DamageRadiusComponentType | DeadBodyOnDeathComponentType | EntityDestinationComponentType | EntityEffectComponentType | EntityFollowComponentType | HealthComponentType | HighlightComponentType | LifetimeComponentType | LightEmitComponentType | ParticleComponentType | ParticleEmitComponentType | PlayerControlComponentType | ProjectileComponentType | RangedAttackEmitterComponentType | RigidBodyComponentType | ScriptComponentType | ShadowComponentType | SlowTimeComponentType | SoundComponentType | SpriteComponentType | SpriteStateComponentType | TeleportComponentType | TextLabelComponentType | TransformComponentType;
+export type ComponentType =
+    | AnimationComponentType
+    | BoxColliderComponentType
+    | CameraFollowComponentType
+    | CameraShakeComponentType
+    | DamageRadiusComponentType
+    | DeadBodyOnDeathComponentType
+    | EntityDestinationComponentType
+    | EntityEffectComponentType
+    | EntityFollowComponentType
+    | HealthComponentType
+    | HighlightComponentType
+    | LifetimeComponentType
+    | LightEmitComponentType
+    | ParticleComponentType
+    | ParticleEmitComponentType
+    | PlayerControlComponentType
+    | ProjectileComponentType
+    | RangedAttackEmitterComponentType
+    | RigidBodyComponentType
+    | ScriptComponentType
+    | ShadowComponentType
+    | SlowTimeComponentType
+    | SoundComponentType
+    | SpriteComponentType
+    | SpriteStateComponentType
+    | TeleportComponentType
+    | TextLabelComponentType
+    | TransformComponentType;
