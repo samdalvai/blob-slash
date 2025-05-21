@@ -11,6 +11,7 @@ import { Vector } from '../types/utils';
 
 // TODO: a bug happens sometimes where Movement system can't find some entity component,
 // to reproduce shoot projectile at obstacle for some time
+// SOLVED: the same entity was killed twice, this caused an existing entity to be removed from systems
 export default class MovementSystem extends System {
     constructor() {
         super();
@@ -23,11 +24,11 @@ export default class MovementSystem extends System {
     }
 
     onCollision(event: CollisionEvent) {
-        console.log('Collision!');
         const a = event.a;
         const b = event.b;
         const collisionNormal = event.collisionNormal;
 
+        // TODO: avoid same entity being killed twice
         if ((a.hasTag('player') || a.belongsToGroup('enemies')) && b.belongsToGroup('obstacles')) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
@@ -42,6 +43,7 @@ export default class MovementSystem extends System {
         }
 
         if (a.belongsToGroup('obstacles') && b.belongsToGroup('projectiles')) {
+            console.log('killing: ', b.getId());
             b.kill();
         }
 
