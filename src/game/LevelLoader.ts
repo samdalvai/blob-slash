@@ -20,8 +20,10 @@ import SpriteStateComponent from '../components/SpriteStateComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
+import { deserializeEntities } from '../serialization/deserialization';
+import { serializeEntities } from '../serialization/serialization';
 import { level } from '../types/level-test';
-import { LevelMap } from '../types/map';
+import { EntityMap, LevelMap } from '../types/map';
 import { Flip } from '../types/utils';
 import Game from './Game';
 
@@ -29,12 +31,13 @@ export default class LevelLoader {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
         await this.loadAssets(assetStore);
         this.loadTileMap(registry, assetStore);
-        this.loadEntities(registry);
+        this.loadEntities(registry, assetStore);
     }
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
         await assetStore.addJson('level-0', '/assets/tilemaps/level_0.json');
+        await assetStore.addJson('entities', '/assets/tilemaps/entities.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -96,119 +99,122 @@ export default class LevelLoader {
         Game.mapHeight = rowNumber * tileSize * mapScale;
     }
 
-    private static loadEntities(registry: Registry) {
+    private static loadEntities(registry: Registry, assetStore: AssetStore) {
         console.log('Loading entities');
-        const player = registry.createEntity();
-        player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
-        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 2, 0, 0, Flip.NONE, false, 1);
-        player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
-        player.addComponent(DeadBodyOnDeathComponent);
-        player.addComponent(SpriteStateComponent);
-        player.addComponent(ShadowComponent, 30, 10, 0, -2);
-        player.addComponent(AnimationComponent, 4, 6);
-        player.addComponent(CameraFollowComponent);
-        player.addComponent(PlayerControlComponent, 150, 2000, 1000, 5000);
-        player.addComponent(RangedAttackEmitterComponent, 200, 400, 7500, 10, true);
-        player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
-        player.addComponent(HealthComponent, 100);
-        player.addComponent(CameraShakeComponent, 100);
-        player.addComponent(LightEmitComponent, 250);
-        player.addComponent(EntityEffectComponent);
-        player.addComponent(TeleportComponent, 500);
-        player.tag('player');
+        const level = assetStore.getJson('entities') as LevelMap;
+        deserializeEntities(level.entities, registry);
 
-        const enemy = registry.createEntity();
-        enemy.addComponent(TransformComponent, { x: 300, y: 500 }, { x: 1, y: 1 }, 0);
-        enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 2, 0, 0);
-        enemy.addComponent(HighlightComponent, 40, 20, 0, -10);
-        enemy.addComponent(SpriteStateComponent);
-        enemy.addComponent(DeadBodyOnDeathComponent);
-        enemy.addComponent(ShadowComponent, 30, 10, 0, -8);
-        enemy.addComponent(AnimationComponent, 2, 4);
-        enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
-        enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
-        enemy.addComponent(HealthComponent, 50);
-        enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 2, false);
-        enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
-        enemy.addComponent(EntityEffectComponent);
-        enemy.addComponent(ScriptComponent, [
-            { movement: { x: 50, y: 0 }, duration: 2000 },
-            { movement: { x: 0, y: 50 }, duration: 2000 },
-            { movement: { x: -50, y: 0 }, duration: 2000 },
-            { movement: { x: 0, y: -50 }, duration: 2000 },
-        ]);
-        enemy.group('enemies');
+        // const player = registry.createEntity();
+        // player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
+        // player.addComponent(SpriteComponent, 'player-texture', 32, 32, 2, 0, 0, Flip.NONE, false, 1);
+        // player.addComponent(RigidBodyComponent, { x: 0, y: 0 }, { x: 1, y: 0 });
+        // player.addComponent(DeadBodyOnDeathComponent);
+        // player.addComponent(SpriteStateComponent);
+        // player.addComponent(ShadowComponent, 30, 10, 0, -2);
+        // player.addComponent(AnimationComponent, 4, 6);
+        // player.addComponent(CameraFollowComponent);
+        // player.addComponent(PlayerControlComponent, 150, 2000, 1000, 5000);
+        // player.addComponent(RangedAttackEmitterComponent, 200, 400, 7500, 10, true);
+        // player.addComponent(BoxColliderComponent, 25, 34, { x: 2.5, y: 0 });
+        // player.addComponent(HealthComponent, 100);
+        // player.addComponent(CameraShakeComponent, 100);
+        // player.addComponent(LightEmitComponent, 250);
+        // player.addComponent(EntityEffectComponent);
+        // player.addComponent(TeleportComponent, 500);
+        // player.tag('player');
 
-        const enemy2 = registry.createEntity();
-        enemy2.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 2, y: 2 }, 0);
-        enemy2.addComponent(SpriteComponent, 'skeleton-texture', 32, 32, 2, 0, 32);
-        enemy2.addComponent(HighlightComponent, 40, 20, 0, -10);
-        enemy2.addComponent(SpriteStateComponent);
-        enemy2.addComponent(DeadBodyOnDeathComponent);
-        enemy2.addComponent(ShadowComponent, 30, 10, 0, -8);
-        enemy2.addComponent(AnimationComponent, 2, 4);
-        enemy2.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
-        enemy2.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
-        enemy2.addComponent(HealthComponent, 50);
-        enemy2.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 2, false);
-        enemy2.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
-        enemy2.addComponent(EntityEffectComponent);
-        enemy2.addComponent(ScriptComponent, [
-            { movement: { x: 50, y: 0 }, duration: 2000 },
-            { movement: { x: 0, y: 50 }, duration: 2000 },
-            { movement: { x: -50, y: 0 }, duration: 2000 },
-            { movement: { x: 0, y: -50 }, duration: 2000 },
-        ]);
-        enemy2.group('enemies');
+        // const enemy = registry.createEntity();
+        // enemy.addComponent(TransformComponent, { x: 300, y: 500 }, { x: 1, y: 1 }, 0);
+        // enemy.addComponent(SpriteComponent, 'slime-texture', 32, 32, 2, 0, 0);
+        // enemy.addComponent(HighlightComponent, 40, 20, 0, -10);
+        // enemy.addComponent(SpriteStateComponent);
+        // enemy.addComponent(DeadBodyOnDeathComponent);
+        // enemy.addComponent(ShadowComponent, 30, 10, 0, -8);
+        // enemy.addComponent(AnimationComponent, 2, 4);
+        // enemy.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
+        // enemy.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
+        // enemy.addComponent(HealthComponent, 50);
+        // enemy.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 2, false);
+        // enemy.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
+        // enemy.addComponent(EntityEffectComponent);
+        // enemy.addComponent(ScriptComponent, [
+        //     { movement: { x: 50, y: 0 }, duration: 2000 },
+        //     { movement: { x: 0, y: 50 }, duration: 2000 },
+        //     { movement: { x: -50, y: 0 }, duration: 2000 },
+        //     { movement: { x: 0, y: -50 }, duration: 2000 },
+        // ]);
+        // enemy.group('enemies');
 
-        const torch = registry.createEntity();
-        torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
-        torch.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 });
-        torch.addComponent(AnimationComponent, 4, 10);
-        torch.addComponent(LightEmitComponent, 100);
-        torch.addComponent(ShadowComponent, 10, 5, -0.5, -5);
-        torch.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
-        torch.addComponent(EntityEffectComponent);
+        // const enemy2 = registry.createEntity();
+        // enemy2.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 2, y: 2 }, 0);
+        // enemy2.addComponent(SpriteComponent, 'skeleton-texture', 32, 32, 2, 0, 32);
+        // enemy2.addComponent(HighlightComponent, 40, 20, 0, -10);
+        // enemy2.addComponent(SpriteStateComponent);
+        // enemy2.addComponent(DeadBodyOnDeathComponent);
+        // enemy2.addComponent(ShadowComponent, 30, 10, 0, -8);
+        // enemy2.addComponent(AnimationComponent, 2, 4);
+        // enemy2.addComponent(RigidBodyComponent, { x: 50, y: 0 }, { x: 1, y: 0 });
+        // enemy2.addComponent(BoxColliderComponent, 25, 20, { x: 4, y: 7 });
+        // enemy2.addComponent(HealthComponent, 50);
+        // enemy2.addComponent(RangedAttackEmitterComponent, 200, 500, 7500, 2, false);
+        // enemy2.addComponent(EntityFollowComponent, 200, 100, 50, 5000);
+        // enemy2.addComponent(EntityEffectComponent);
+        // enemy2.addComponent(ScriptComponent, [
+        //     { movement: { x: 50, y: 0 }, duration: 2000 },
+        //     { movement: { x: 0, y: 50 }, duration: 2000 },
+        //     { movement: { x: -50, y: 0 }, duration: 2000 },
+        //     { movement: { x: 0, y: -50 }, duration: 2000 },
+        // ]);
+        // enemy2.group('enemies');
 
-        const torch2 = registry.createEntity();
-        torch2.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
-        torch2.addComponent(TransformComponent, { x: 500, y: 200 }, { x: 1, y: 1 });
-        torch2.addComponent(AnimationComponent, 4, 10);
-        torch2.addComponent(LightEmitComponent, 100);
-        torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
-        torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
-        torch2.addComponent(EntityEffectComponent);
+        // const torch = registry.createEntity();
+        // torch.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
+        // torch.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 });
+        // torch.addComponent(AnimationComponent, 4, 10);
+        // torch.addComponent(LightEmitComponent, 100);
+        // torch.addComponent(ShadowComponent, 10, 5, -0.5, -5);
+        // torch.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
+        // torch.addComponent(EntityEffectComponent);
 
-        const tree1 = registry.createEntity();
-        tree1.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree1.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 2, y: 2 });
-        tree1.addComponent(BoxColliderComponent, 16, 30);
-        tree1.group('obstacles');
+        // const torch2 = registry.createEntity();
+        // torch2.addComponent(SpriteComponent, 'torch-texture', 32, 32, 2);
+        // torch2.addComponent(TransformComponent, { x: 500, y: 200 }, { x: 1, y: 1 });
+        // torch2.addComponent(AnimationComponent, 4, 10);
+        // torch2.addComponent(LightEmitComponent, 100);
+        // torch2.addComponent(ShadowComponent, 10, 5, -0.5, -5);
+        // torch2.addComponent(ParticleEmitComponent, 2, 1000, 'rgba(255,0,0,1)', 200, 5, 16, 0, { x: 0, y: -50 });
+        // torch2.addComponent(EntityEffectComponent);
 
-        const tree2 = registry.createEntity();
-        tree2.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree2.addComponent(TransformComponent, { x: 632, y: 200 }, { x: 2, y: 2 });
-        tree2.addComponent(BoxColliderComponent, 16, 30);
-        tree2.group('obstacles');
+        // const tree1 = registry.createEntity();
+        // tree1.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        // tree1.addComponent(TransformComponent, { x: 600, y: 200 }, { x: 2, y: 2 });
+        // tree1.addComponent(BoxColliderComponent, 16, 30);
+        // tree1.group('obstacles');
 
-        const tree3 = registry.createEntity();
-        tree3.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree3.addComponent(TransformComponent, { x: 664, y: 200 }, { x: 2, y: 2 });
-        tree3.addComponent(BoxColliderComponent, 16, 30);
-        tree3.group('obstacles');
+        // const tree2 = registry.createEntity();
+        // tree2.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        // tree2.addComponent(TransformComponent, { x: 632, y: 200 }, { x: 2, y: 2 });
+        // tree2.addComponent(BoxColliderComponent, 16, 30);
+        // tree2.group('obstacles');
 
-        const tree4 = registry.createEntity();
-        tree4.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree4.addComponent(TransformComponent, { x: 600, y: 232 }, { x: 2, y: 2 });
-        tree4.addComponent(BoxColliderComponent, 16, 30);
-        tree4.group('obstacles');
+        // const tree3 = registry.createEntity();
+        // tree3.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        // tree3.addComponent(TransformComponent, { x: 664, y: 200 }, { x: 2, y: 2 });
+        // tree3.addComponent(BoxColliderComponent, 16, 30);
+        // tree3.group('obstacles');
 
-        const tree5 = registry.createEntity();
-        tree5.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
-        tree5.addComponent(TransformComponent, { x: 600, y: 264 }, { x: 2, y: 2 });
-        tree5.addComponent(BoxColliderComponent, 16, 30);
-        tree5.group('obstacles');
+        // const tree4 = registry.createEntity();
+        // tree4.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        // tree4.addComponent(TransformComponent, { x: 600, y: 232 }, { x: 2, y: 2 });
+        // tree4.addComponent(BoxColliderComponent, 16, 30);
+        // tree4.group('obstacles');
 
-        console.log(JSON.stringify(level));
+        // const tree5 = registry.createEntity();
+        // tree5.addComponent(SpriteComponent, 'tree-texture', 32, 32, 2);
+        // tree5.addComponent(TransformComponent, { x: 600, y: 264 }, { x: 2, y: 2 });
+        // tree5.addComponent(BoxColliderComponent, 16, 30);
+        // tree5.group('obstacles');
+
+        // console.log(serializeEntities([player, enemy, enemy2, torch, torch2, tree1, tree2, tree3, tree4, tree5]));
     }
 }
