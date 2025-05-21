@@ -172,7 +172,10 @@ export default class PlayerControlSystem extends System {
     };
 
     private emitMagicBubble = (mousePosition: Vector, playerControl: PlayerControlComponent) => {
-        if (performance.now() - playerControl.magicBubbleLastEmissionTime < playerControl.magicBubbleCooldown) {
+        if (
+            playerControl.magicBubbleLastEmissionTime !== 0 &&
+            performance.now() - playerControl.magicBubbleLastEmissionTime < playerControl.magicBubbleCooldown
+        ) {
             return;
         }
 
@@ -208,7 +211,10 @@ export default class PlayerControlSystem extends System {
     };
 
     teleportPlayer(mousePosition: Vector, playerControl: PlayerControlComponent) {
-        if (performance.now() - playerControl.teleportLastEmissionTime < playerControl.teleportCooldown) {
+        if (
+            playerControl.teleportLastEmissionTime !== 0 &&
+            performance.now() - playerControl.teleportLastEmissionTime < playerControl.teleportCooldown
+        ) {
             return;
         }
 
@@ -309,7 +315,10 @@ export default class PlayerControlSystem extends System {
     }
 
     emitFireCircle(mousePosition: Vector, playerControl: PlayerControlComponent) {
-        if (performance.now() - playerControl.fireCircleLastEmissionTime < playerControl.fireCircleCooldown) {
+        if (
+            playerControl.fireCircleLastEmissionTime !== 0 &&
+            performance.now() - playerControl.fireCircleLastEmissionTime < playerControl.fireCircleCooldown
+        ) {
             return;
         }
 
