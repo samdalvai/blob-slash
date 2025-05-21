@@ -102,7 +102,7 @@ export default class LevelLoader {
     private static loadEntities(registry: Registry, assetStore: AssetStore) {
         console.log('Loading entities');
         const level = assetStore.getJson('entities') as LevelMap;
-        deserializeEntities(level.entities, registry);
+        const entities = deserializeEntities(level.entities, registry);
 
         // const player = registry.createEntity();
         // player.addComponent(TransformComponent, { x: 240, y: 100 }, { x: 1, y: 1 }, 0);
@@ -216,5 +216,6 @@ export default class LevelLoader {
         // tree5.group('obstacles');
 
         // console.log(serializeEntities([player, enemy, enemy2, torch, torch2, tree1, tree2, tree3, tree4, tree5]));
+        console.log(serializeEntities(entities));
     }
 }

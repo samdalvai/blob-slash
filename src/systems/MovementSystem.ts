@@ -161,6 +161,10 @@ export default class MovementSystem extends System {
                 transform.position.y < -cullingMargin ||
                 transform.position.y > Game.mapHeight + cullingMargin;
 
+            if (entity.belongsToGroup('enemies')) {
+                console.log('transform: ', transform.position);
+            }
+
             // Kill all entities that move outside the map boundaries
             if (isEntityOutsideMap && !entity.hasTag('player')) {
                 entity.kill();
