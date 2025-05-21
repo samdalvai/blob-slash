@@ -512,18 +512,3 @@ export const serializeLevel = (registry: Registry): LevelMap => {
 
     return { entities: serializeEntities(entities) };
 };
-
-export const saveLevelSnapshot = (registry: Registry): void => {
-    const jsonString = JSON.stringify(serializeLevel(registry), null, 2);
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'snapshot.json';
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    console.log('Level snapshot saved');
-};
