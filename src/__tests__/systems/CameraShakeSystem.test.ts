@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 
-import CameraShakeEvent from '../../src/events/CameraShakeEvent';
-import CameraShakeSystem from '../../src/systems/CameraShakeSystem';
+import CameraShakeEvent from '../../events/CameraShakeEvent';
+import CameraShakeSystem from '../../systems/CameraShakeSystem';
 
 describe('Testing Camera Shake system related functions', () => {
     test('If there is an ongoing shake which will last less than the new one, the new shake should override the current one', () => {
