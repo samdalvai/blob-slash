@@ -699,7 +699,7 @@
                 "name": "boxcollider",
                 "properties": {
                     "width": 16,
-                    "height": 30,
+                    "height": 16,
                     "offset": {
                         "x": 0,
                         "y": 0
@@ -843,7 +843,7 @@
                 "name": "boxcollider",
                 "properties": {
                     "width": 16,
-                    "height": 30,
+                    "height": 16,
                     "offset": {
                         "x": 0,
                         "y": 0
