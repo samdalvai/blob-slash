@@ -118,6 +118,10 @@ export default class Registry {
         this.tagPerEntity.set(entity.getId(), tag);
     };
 
+    getEntityTag = (entity: Entity) => {
+        return this.tagPerEntity.get(entity.getId());
+    };
+
     entityHasTag = (entity: Entity, tag: string) => {
         const currentTag = this.tagPerEntity.get(entity.getId());
 
@@ -158,6 +162,10 @@ export default class Registry {
         }
 
         this.groupPerEntity.set(entity.getId(), group);
+    };
+
+    getEntityGroup = (entity: Entity) => {
+        return this.groupPerEntity.get(entity.getId());
     };
 
     entityBelongsToGroup = (entity: Entity, group: string) => {

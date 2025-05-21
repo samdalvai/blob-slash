@@ -23,12 +23,20 @@ export default class Entity {
         this.registry.tagEntity(this, tag);
     };
 
+    getTag = () => {
+        return this.registry.getEntityTag(this);
+    };
+
     hasTag = (tag: string) => {
         return this.registry.entityHasTag(this, tag);
     };
 
     group = (group: string) => {
         this.registry.groupEntity(this, group);
+    };
+
+    getGroup = () => {
+        return this.registry.getEntityGroup(this);
     };
 
     belongsToGroup = (group: string) => {
