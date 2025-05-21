@@ -1041,6 +1041,25 @@ describe('Testing Registry related functions', () => {
         expect(() => entity2.tag('test')).toThrowError();
     });
 
+    test('Should retrieve tag of entity', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.tag('test');
+
+        const tag = entity.getTag();
+        expect(tag).toBe('test');
+    });
+
+    test('Should return undefined if entity has not tag', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+
+        const tag = entity.getTag();
+        expect(tag).toBe(undefined);
+    });
+
     test('Should add group to entity and get entity by group', () => {
         const registry = new Registry();
 
@@ -1088,6 +1107,25 @@ describe('Testing Registry related functions', () => {
         registry.update();
 
         expect(registry.getEntitiesByGroup('test')).toEqual([entity2]);
+    });
+
+    test('Should retrieve group of entity', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.group('test');
+
+        const group = entity.getGroup();
+        expect(group).toBe('test');
+    });
+
+    test('Should return undefined if entity has not group', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+
+        const group = entity.getGroup();
+        expect(group).toBe(undefined);
     });
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1148,7 +1186,7 @@ describe('Testing Registry related functions', () => {
         expect(system2?.getSystemEntities().length).toEqual(1);
 
         registry.clear();
-        
+
         expect(registry.numEntities).toBe(0);
         expect(registry.componentPools.length).toBe(0);
         expect(registry.entityComponentSignatures.length).toBe(0);
