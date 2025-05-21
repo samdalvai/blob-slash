@@ -279,5 +279,13 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
         }
     }
 
+    if (entityMap.tag) {
+        entity.tag(entityMap.tag);
+    }
+
+    if (entityMap.group) {
+        entity.group(entityMap.group);
+    }
+
     return entity;
 };

@@ -86,7 +86,12 @@ export const serializeEntity = (entity: Entity): EntityMap => {
         });
     }
 
+    const entityTag = entity.getTag();
+    const entityGroup = entity.getGroup();
+
     return {
+        tag: entityTag ?? undefined,
+        group: entityGroup ?? undefined,
         components: components,
     };
 };

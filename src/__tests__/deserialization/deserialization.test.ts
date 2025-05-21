@@ -88,4 +88,49 @@ describe('Testing deserialization related functions', () => {
             },
         });
     });
+
+    test('Should deserialize entity Map to Entity having tag', () => {
+        const registry = new Registry();
+
+        const entityMap: EntityMap = {
+            tag: 'test',
+            components: [],
+        };
+
+        const entity = deserializeEntity(entityMap, registry);
+        const entityTag = entity.getTag();
+
+        expect(entityTag).toEqual('test');
+    });
+
+    test('Should deserialize entity Map to Entity having group', () => {
+        const registry = new Registry();
+
+        const entityMap: EntityMap = {
+            group: 'test',
+            components: [],
+        };
+
+        const entity = deserializeEntity(entityMap, registry);
+        const entityGroup = entity.getGroup();
+
+        expect(entityGroup).toEqual('test');
+    });
+
+    test('Should deserialize entity Map to Entity having tag and group', () => {
+        const registry = new Registry();
+
+        const entityMap: EntityMap = {
+            tag: 'test',
+            group: 'test',
+            components: [],
+        };
+
+        const entity = deserializeEntity(entityMap, registry);
+        const entityTag = entity.getTag();
+        const entityGroup = entity.getGroup();
+
+        expect(entityTag).toEqual('test');
+        expect(entityGroup).toEqual('test');
+    });
 });
