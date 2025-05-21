@@ -20,7 +20,7 @@ import SpriteStateComponent from '../components/SpriteStateComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
-import { Flip, TileMap } from '../types';
+import { Flip, LevelMap, TileMap } from '../types';
 import Game from './Game';
 
 export default class LevelLoader {
@@ -32,7 +32,7 @@ export default class LevelLoader {
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
-        await assetStore.addJson('tile-map', '/assets/tilemaps/tilemap.json');
+        await assetStore.addJson('level-0', '/assets/tilemaps/level_0.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -62,7 +62,8 @@ export default class LevelLoader {
 
     private static loadTileMap(registry: Registry, assetStore: AssetStore) {
         console.log('Loading tilemap');
-        const tileMap = assetStore.getJson('tile-map') as TileMap;
+        const level = assetStore.getJson('level-0') as LevelMap;
+        const tileMap = level.tileMap;
 
         const tileSize = 32;
         const mapScale = 2;
