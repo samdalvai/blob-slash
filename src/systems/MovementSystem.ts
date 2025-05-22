@@ -43,7 +43,6 @@ export default class MovementSystem extends System {
         }
 
         if (a.belongsToGroup('obstacles') && b.belongsToGroup('projectiles')) {
-            console.log('killing: ', b.getId());
             b.kill();
         }
 
