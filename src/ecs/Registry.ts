@@ -99,7 +99,7 @@ export default class Registry {
 
     killEntity = (entity: Entity) => {
         if (entity.toBeKilled) {
-            console.log('Entity already scheduled for killing, skipping');
+            console.log(`Entity ${entity.getId()} already scheduled for killing, skipping`);
             return;
         }
 
