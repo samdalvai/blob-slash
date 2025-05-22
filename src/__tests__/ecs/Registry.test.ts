@@ -835,6 +835,16 @@ describe('Testing Registry related functions', () => {
         expect(system?.getSystemEntities().length).toEqual(0);
     });
 
+    test('Entity should not be added twice to entitiedToBeKilled in registry', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+
+        entity.kill();
+        entity.kill();
+
+        expect(registry.entitiesToBeKilled.length).toEqual(1);
+    });
+
     test('Should remove entities from system with multiple entities, when updating registry', () => {
         const registry = new Registry();
 
