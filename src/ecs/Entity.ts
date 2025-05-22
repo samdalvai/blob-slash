@@ -5,10 +5,12 @@ import System, { SystemClass } from './System';
 export default class Entity {
     private id: number;
     registry: Registry;
+    toBeKilled: boolean;
 
     constructor(id: number, registry: Registry) {
         this.id = id;
         this.registry = registry;
+        this.toBeKilled = false;
     }
 
     getId = () => {
