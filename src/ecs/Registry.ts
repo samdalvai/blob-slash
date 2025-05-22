@@ -93,20 +93,18 @@ export default class Registry {
 
         const entity = new Entity(entityId, this);
         this.entitiesToBeAdded.push(entity);
-        // console.log('Entity created with id ' + entityId);
 
         return entity;
     };
 
     killEntity = (entity: Entity) => {
-        // TODO: use ids for entitiesToBeKilled, should be more efficient
-        if (this.entitiesToBeKilled.includes(entity)) {
-            console.log('Entity is already sheduled for killing, skipping');
+        if (entity.toBeKilled) {
+            console.log('Entity already scheduled for killing, skipping');
             return;
         }
 
+        entity.toBeKilled = true;
         this.entitiesToBeKilled.push(entity);
-        // console.log('Entity with id ' + entity.getId() + ' killed');
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -249,8 +247,6 @@ export default class Registry {
 
         // Set this component signature for that entity to false
         this.entityComponentSignatures[entityId].remove(componentId);
-
-        // console.log('Component with id ' + componentId + ' was removed from entity id ' + entityId);
     };
 
     hasComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>): boolean => {
