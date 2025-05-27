@@ -49,6 +49,17 @@ export default class PlayerControlSystem extends System {
     }
 
     onMousePressed = (event: MousePressedEvent) => {
+        switch (event.button) {
+            case 'left':
+                this.handleLeftClickAction(event);
+                break;
+            case 'right':
+                this.handleRightClickAction(event);
+                break;
+        }
+    };
+
+    private handleLeftClickAction = (event: MousePressedEvent) => {
         const x = event.coordinates.x;
         const y = event.coordinates.y;
 
@@ -118,6 +129,10 @@ export default class PlayerControlSystem extends System {
         destinationAntimation.addComponent(AnimationComponent, 8, 10);
         destinationAntimation.addComponent(LifetimeComponent, 1000);
         destinationAntimation.tag('player-destination');
+    };
+
+    private handleRightClickAction = (event: MousePressedEvent) => {
+        // TODO
     };
 
     onMouseMove = (event: MouseMoveEvent) => {
