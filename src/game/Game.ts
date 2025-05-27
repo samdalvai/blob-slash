@@ -220,13 +220,13 @@ export default class Game {
                     this.eventBus.emitEvent(MousePressedEvent, {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
-                    });
+                    }, inputEvent.button === 0 ? 'left' : 'right');
                     break;
                 case 'mouseup':
                     this.eventBus.emitEvent(MouseReleasedEvent, {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
-                    });
+                    }, inputEvent.button === 0 ? 'left' : 'right');
                     break;
             }
         }
