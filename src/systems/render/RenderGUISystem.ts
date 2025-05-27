@@ -80,7 +80,7 @@ export default class RenderGUISystem extends System {
         );
 
         const mouseMenuScale = 2.0;
-        const mouseMenuWidth = 32 * 1;
+        const mouseMenuWidth = 32 * 2;
         const mouseMenuHeight = 32;
 
         ctx.drawImage(
