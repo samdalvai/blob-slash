@@ -132,7 +132,7 @@ export default class PlayerControlSystem extends System {
     };
 
     private handleRightClickAction = (event: MousePressedEvent) => {
-        // TODO
+        // TODO: to be implemented
     };
 
     onMouseMove = (event: MouseMoveEvent) => {
