@@ -132,6 +132,19 @@ export default class PlayerControlSystem extends System {
     };
 
     private handleRightClickAction = (event: MousePressedEvent) => {
+        const x = event.coordinates.x;
+        const y = event.coordinates.y;
+
+        const meleeAttack = this.registry.createEntity();
+        meleeAttack.addComponent(
+            TransformComponent,
+            { x: x, y: y },
+            { x: 1, y: 1 },
+            0,
+        );
+        meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 1, 0, 0);
+        meleeAttack.addComponent(AnimationComponent, 5, 10, false);
+        meleeAttack.addComponent(LifetimeComponent, 400);
         // TODO: to be implemented
     };
 
