@@ -1,4 +1,3 @@
-import BoxColliderComponent from '../components/BoxColliderComponent';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import HealthComponent from '../components/HealthComponent';
@@ -13,7 +12,6 @@ import CameraShakeEvent from '../events/CameraShakeEvent';
 import CollisionEvent from '../events/CollisionEvent';
 import EntityHitEvent from '../events/EntityHitEvent';
 import EntityKilledEvent from '../events/EntityKilledEvent';
-import CollisionSystem from './CollisionSystem';
 
 export default class DamageSystem extends System {
     eventBus: EventBus;
@@ -146,27 +144,28 @@ export default class DamageSystem extends System {
     }
 
     onMeleeAttackHitsEntity(meleeAttack: Entity, entity: Entity) {
-        const meleeAttackComp = meleeAttack.getComponent(MeleeAttackComponent);
+        if (meleeAttack.hasComponent(MeleeAttackComponent)) {
+            const meleeAttackComp = meleeAttack.getComponent(MeleeAttackComponent);
 
-        if (!meleeAttackComp) {
-            throw new Error('Could not find some component(s) of entity with id ' + meleeAttack.getId());
+            if (!meleeAttackComp) {
+                throw new Error('Could not find some component(s) of entity with id ' + meleeAttack.getId());
+            }
+
+            if (entity.hasTag('player') && meleeAttackComp.isFriendly) {
+                return;
+            }
+
+            const health = entity.getComponent(HealthComponent);
+
+            if (!health) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            health.healthPercentage -= meleeAttackComp.hitPercentDamage;
+            health.lastDamageTime = performance.now();
+
+            meleeAttack.removeComponent(MeleeAttackComponent);
         }
-
-        if (entity.hasTag('player') && meleeAttackComp.isFriendly) {
-            return;
-        }
-
-        const health = entity.getComponent(HealthComponent);
-
-        if (!health) {
-            throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-        }
-
-        health.healthPercentage -= meleeAttackComp.hitPercentDamage;
-        health.lastDamageTime = performance.now();
-
-        meleeAttack.removeComponent(BoxColliderComponent);
-        meleeAttack.removeFromSystem(CollisionSystem);
     }
 
     update = () => {
