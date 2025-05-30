@@ -149,7 +149,7 @@ export default class PlayerControlSystem extends System {
                             spriteRow * 64,
                         );
                         meleeAttack.addComponent(AnimationComponent, 5, 10, false);
-                        meleeAttack.addComponent(MeleeAttackComponent, true, 20);
+                        meleeAttack.addComponent(MeleeAttackComponent, true, 10);
                         meleeAttack.addComponent(LifetimeComponent, 400);
                         if (unitVector.x > 0) {
                             meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 32, y: 0 });
