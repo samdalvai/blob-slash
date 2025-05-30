@@ -43,24 +43,13 @@ export default class PlayerControlSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, this.onMousePressed);
+        eventBus.subscribeToEvent(MousePressedEvent, this, this.handleClickAction);
         eventBus.subscribeToEvent(MouseMoveEvent, this, this.onMouseMove);
         eventBus.subscribeToEvent(KeyPressedEvent, this, this.onKeyPressed);
         eventBus.subscribeToEvent(KeyReleasedEvent, this, this.onKeyReleased);
     }
 
-    onMousePressed = (event: MousePressedEvent) => {
-        switch (event.button) {
-            case 'left':
-                this.handleLeftClickAction(event);
-                break;
-            case 'right':
-                this.handleRightClickAction(event);
-                break;
-        }
-    };
-
-    private handleLeftClickAction = (event: MousePressedEvent) => {
+    private handleClickAction = (event: MousePressedEvent) => {
         const x = event.coordinates.x;
         const y = event.coordinates.y;
 
@@ -105,126 +94,70 @@ export default class PlayerControlSystem extends System {
 
         // Avoid moving if left shift is pressed
         if (playerControl.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
-            if (player.hasComponent(RangedAttackEmitterComponent)) {
-                this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
-            }
-
-            rigidBody.velocity = { x: 0, y: 0 };
-            return;
-        }
-
-        player.addComponent(EntityDestinationComponent, x, y, playerControl.velocity);
-        player.addToSystem(RenderEntityDestinationSystem);
-        player.addToSystem(EntityDestinationSystem);
-
-        const currentDestination = this.registry.getEntityByTag('player-destination');
-
-        if (currentDestination) {
-            this.registry.removeEntityTag(currentDestination);
-            currentDestination.kill();
-        }
-
-        const destinationAntimation = this.registry.createEntity();
-        destinationAntimation.addComponent(SpriteComponent, 'destination-circle-texture', 32, 32, 1);
-        destinationAntimation.addComponent(TransformComponent, { x: x - 16, y: y - 16 });
-        destinationAntimation.addComponent(AnimationComponent, 8, 10);
-        destinationAntimation.addComponent(LifetimeComponent, 1000);
-        destinationAntimation.tag('player-destination');
-    };
-
-    private handleRightClickAction = (event: MousePressedEvent) => {
-        const x = event.coordinates.x;
-        const y = event.coordinates.y;
-
-        // START OF DUPLICATED CODE
-        const player = this.registry.getEntityByTag('player');
-
-        if (!player) {
-            console.warn('Player entity not found');
-            return;
-        }
-
-        const playerControl = player.getComponent(PlayerControlComponent);
-        const rigidBody = player.getComponent(RigidBodyComponent);
-        const transform = player.getComponent(TransformComponent);
-        const sprite = player.getComponent(SpriteComponent);
-
-        if (!playerControl || !rigidBody || !transform || !sprite) {
-            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
-        }
-
-        if (player.hasComponent(EntityDestinationComponent)) {
-            player.removeComponent(EntityDestinationComponent);
-            player.removeFromSystem(RenderEntityDestinationSystem);
-            player.removeFromSystem(EntityDestinationSystem);
-        }
-
-        let enemyHighlighted = false;
-
-        for (const enemy of player.registry.getEntitiesByGroup('enemies')) {
-            if (enemy.hasComponent(HighlightComponent)) {
-                const highlight = enemy.getComponent(HighlightComponent);
-
-                if (!highlight) {
-                    throw new Error('Could not find some component(s) of entity with id ' + enemy.getId());
-                }
-
-                if (highlight.isHighlighted) {
-                    enemyHighlighted = true;
+            switch (event.button) {
+                case 'left':
+                    if (player.hasComponent(RangedAttackEmitterComponent)) {
+                        this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
+                    }
                     break;
-                }
+                case 'right':
+                    {
+                        const playerPositionX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+                        const playerPositionY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+
+                        const directionVector = computeDirectionVector(playerPositionX, playerPositionY, x, y, 1);
+
+                        const unitVector = computeUnitVector(directionVector.x, directionVector.y);
+                        rigidBody.direction.x = unitVector.x;
+                        rigidBody.direction.y = unitVector.y;
+
+                        // TODO: Handle positioning of animation based on unit vector
+                        let xOffset = 0;
+                        let yOffset = 0;
+                        let spriteRow = 0;
+
+                        if (unitVector.x > 0) {
+                            xOffset += 10;
+                            spriteRow = 1;
+                        } else if (unitVector.x < 0) {
+                            xOffset -= 10;
+                            spriteRow = 3;
+                        } else if (unitVector.y > 0) {
+                            yOffset += 10;
+                            spriteRow = 2;
+                        } else if (unitVector.y < 0) {
+                            yOffset -= 10;
+                            spriteRow = 0;
+                        }
+
+                        const meleeAttack = this.registry.createEntity();
+                        meleeAttack.addComponent(
+                            TransformComponent,
+                            { x: playerPositionX - 32 + xOffset, y: playerPositionY - 32 + yOffset },
+                            { x: 1, y: 1 },
+                            0,
+                        );
+                        meleeAttack.addComponent(
+                            SpriteComponent,
+                            'smear-animation-texture',
+                            64,
+                            64,
+                            3,
+                            0,
+                            spriteRow * 64,
+                        );
+                        meleeAttack.addComponent(AnimationComponent, 5, 10, false);
+                        meleeAttack.addComponent(LifetimeComponent, 400);
+
+                        this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
+                    }
+                    break;
             }
-        }
-        // END OF DUPLICATED CODE
-
-        // Avoid moving if left shift is pressed
-        if (playerControl.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
-            const playerPositionX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const playerPositionY = transform.position.y + (sprite.height / 2) * transform.scale.y;
-
-            const directionVector = computeDirectionVector(playerPositionX, playerPositionY, x, y, 1);
-
-            const unitVector = computeUnitVector(directionVector.x, directionVector.y);
-            rigidBody.direction.x = unitVector.x;
-            rigidBody.direction.y = unitVector.y;
-
-            // TODO: Handle positioning of animation based on unit vector
-            let xOffset = 0;
-            let yOffset = 0;
-            let spriteRow = 0;
-
-            if (unitVector.x > 0) {
-                xOffset += 10;
-                spriteRow = 1;
-            } else if (unitVector.x < 0) {
-                xOffset -= 10;
-                spriteRow = 3;
-            } else if (unitVector.y > 0) {
-                yOffset += 10;
-                spriteRow = 2;
-            } else if (unitVector.y < 0) {
-                yOffset -= 10;
-                spriteRow = 0;
-            }
-
-            const meleeAttack = this.registry.createEntity();
-            meleeAttack.addComponent(
-                TransformComponent,
-                { x: playerPositionX - 32 + xOffset, y: playerPositionY - 32 + yOffset },
-                { x: 1, y: 1 },
-                0,
-            );
-            meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 3, 0, spriteRow * 64);
-            meleeAttack.addComponent(AnimationComponent, 5, 10, false);
-            meleeAttack.addComponent(LifetimeComponent, 400);
-
-            this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
 
             rigidBody.velocity = { x: 0, y: 0 };
             return;
         }
-        
-        // START OF DUPLICATED CODE
+
         player.addComponent(EntityDestinationComponent, x, y, playerControl.velocity);
         player.addToSystem(RenderEntityDestinationSystem);
         player.addToSystem(EntityDestinationSystem);
@@ -242,7 +175,6 @@ export default class PlayerControlSystem extends System {
         destinationAntimation.addComponent(AnimationComponent, 8, 10);
         destinationAntimation.addComponent(LifetimeComponent, 1000);
         destinationAntimation.tag('player-destination');
-        // END OF DUPLICATED CODE
     };
 
     onMouseMove = (event: MouseMoveEvent) => {
