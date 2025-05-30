@@ -37,12 +37,12 @@ export default class DamageSystem extends System {
 
     handleCollision = (source: Entity, target: Entity) => {
         if (source.belongsToGroup('projectiles') && target.hasTag('player')) {
-            this.onProjectileHitsPlayer(source, target);
+            this.onProjectileHitsEntity(source, target);
             return true;
         }
 
         if (source.belongsToGroup('projectiles') && target.belongsToGroup('enemies')) {
-            this.onProjectileHitsEnemy(source, target);
+            this.onProjectileHitsEntity(source, target);
             return true;
         }
 
@@ -54,85 +54,54 @@ export default class DamageSystem extends System {
         return false;
     };
 
-    onProjectileHitsPlayer(projectile: Entity, player: Entity) {
+    onProjectileHitsEntity = (projectile: Entity, entity: Entity) => {
         const projectileComponent = projectile.getComponent(ProjectileComponent);
-
         if (!projectileComponent) {
             throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
         }
 
-        if (!projectileComponent.isFriendly && player.hasComponent(HealthComponent)) {
-            const health = player.getComponent(HealthComponent);
-
-            if (!health) {
-                throw new Error('Could not find some component(s) of entity with id ' + player.getId());
-            }
-
-            health.healthPercentage -= projectileComponent.hitPercentDamage;
-            health.lastDamageTime = performance.now();
-
-            projectile.kill();
-
-            if (player.hasComponent(CameraShakeComponent)) {
-                const cameraShake = player.getComponent(CameraShakeComponent);
-
-                if (!cameraShake) {
-                    throw new Error('Could not find some component(s) of entity with id ' + player.getId());
-                }
-
-                this.eventBus.emitEvent(CameraShakeEvent, cameraShake.shakeDuration);
-            }
-
-            if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
-                const transform = projectile.getComponent(TransformComponent);
-                const sprite = projectile.getComponent(SpriteComponent);
-
-                if (!transform || !sprite) {
-                    throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
-                }
-
-                this.eventBus.emitEvent(EntityHitEvent, player, {
-                    x: transform.position.x + (sprite.width / 2) * transform.scale.x,
-                    y: transform.position.y + (sprite.height / 2) * transform.scale.y,
-                });
-            }
-        }
-    }
-
-    onProjectileHitsEnemy(projectile: Entity, enemy: Entity) {
-        const projectileComponent = projectile.getComponent(ProjectileComponent);
-
-        if (!projectileComponent) {
-            throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
+        if (entity.hasTag('player') && projectileComponent.isFriendly) {
+            return;
         }
 
-        if (projectileComponent.isFriendly && enemy.hasComponent(HealthComponent)) {
-            const health = enemy.getComponent(HealthComponent);
-
-            if (!health) {
-                throw new Error('Could not find some component(s) of entity with id ' + enemy.getId());
-            }
-
-            health.healthPercentage -= projectileComponent.hitPercentDamage;
-            health.lastDamageTime = performance.now();
-
-            projectile.kill();
-
-            if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
-                const transform = projectile.getComponent(TransformComponent);
-                const sprite = projectile.getComponent(SpriteComponent);
-
-                if (!transform || !sprite) {
-                    throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
-                }
-
-                this.eventBus.emitEvent(EntityHitEvent, enemy, {
-                    x: transform.position.x + (sprite.width / 2) * transform.scale.x,
-                    y: transform.position.y + (sprite.height / 2) * transform.scale.y,
-                });
-            }
+        if (!entity.hasTag('player') && !projectileComponent.isFriendly) {
+            return;
         }
-    }
+
+        const health = entity.getComponent(HealthComponent);
+        if (!health) {
+            throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+        }
+
+        health.healthPercentage -= projectileComponent.hitPercentDamage;
+        health.lastDamageTime = performance.now();
+
+        projectile.kill();
+
+        if (entity.hasComponent(CameraShakeComponent)) {
+            const cameraShake = entity.getComponent(CameraShakeComponent);
+
+            if (!cameraShake) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            this.eventBus.emitEvent(CameraShakeEvent, cameraShake.shakeDuration);
+        }
+
+        if (projectile.hasComponent(TransformComponent) && projectile.hasComponent(SpriteComponent)) {
+            const transform = projectile.getComponent(TransformComponent);
+            const sprite = projectile.getComponent(SpriteComponent);
+
+            if (!transform || !sprite) {
+                throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
+            }
+
+            this.eventBus.emitEvent(EntityHitEvent, entity, {
+                x: transform.position.x + (sprite.width / 2) * transform.scale.x,
+                y: transform.position.y + (sprite.height / 2) * transform.scale.y,
+            });
+        }
+    };
 
     onMeleeAttackHitsEntity(meleeAttack: Entity, entity: Entity) {
         if (meleeAttack.hasComponent(MeleeAttackComponent)) {
