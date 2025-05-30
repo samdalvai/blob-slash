@@ -99,16 +99,34 @@ export default class RenderGUISystem extends System {
         const magicSphereWidth = 32;
         const magicSphereHeight = 32;
 
+        const leftClickAttackPosition = 2 * padding + skillsMenuWidth * skillsMenuScale
+
         ctx.drawImage(
             assetStore.getTexture('magic-sphere-texture'),
             0,
             0,
             magicSphereWidth,
             magicSphereHeight,
-            2 * padding + skillsMenuWidth * skillsMenuScale,
+            leftClickAttackPosition,
             Game.windowHeight - 64 - padding,
             magicSphereWidth * magicSphereScale,
             magicSphereWidth * magicSphereScale,
+        );
+
+        const meleeAttackScale = 2;
+        const meleeAttackWidth = 64;
+        const meleeAttackHeight = 64;
+
+        ctx.drawImage(
+            assetStore.getTexture('smear-animation-texture'),
+            meleeAttackWidth,
+            meleeAttackHeight,
+            meleeAttackWidth,
+            meleeAttackHeight,
+            leftClickAttackPosition + meleeAttackWidth - 2.5,
+            Game.windowHeight - 64 - padding - 2.5,
+            meleeAttackWidth * meleeAttackScale,
+            meleeAttackWidth * meleeAttackScale,
         );
     }
 }
