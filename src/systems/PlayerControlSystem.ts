@@ -6,6 +6,7 @@ import EntityEffectComponent from '../components/EntityEffectComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
+import MeleeAttackComponent from '../components/MeleeAttackComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
 import RangedAttackEmitterComponent from '../components/RangedAttackEmitterComponent';
@@ -148,6 +149,7 @@ export default class PlayerControlSystem extends System {
                             spriteRow * 64,
                         );
                         meleeAttack.addComponent(AnimationComponent, 5, 10, false);
+                        meleeAttack.addComponent(MeleeAttackComponent, true, 20);
                         meleeAttack.addComponent(LifetimeComponent, 400);
                         if (unitVector.x > 0) {
                             meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 32, y: 0 });
