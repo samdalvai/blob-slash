@@ -30,38 +30,29 @@ export default class DamageSystem extends System {
         const a = event.a;
         const b = event.b;
 
-        if (a.belongsToGroup('projectiles') && b.hasTag('player')) {
-            this.onProjectileHitsPlayer(a, b);
-        }
-
-        if (b.belongsToGroup('projectiles') && a.hasTag('player')) {
-            this.onProjectileHitsPlayer(b, a);
-        }
-
-        if (a.belongsToGroup('projectiles') && b.belongsToGroup('enemies')) {
-            this.onProjectileHitsEnemy(a, b);
-        }
-
-        if (b.belongsToGroup('projectiles') && a.belongsToGroup('enemies')) {
-            this.onProjectileHitsEnemy(b, a);
-        }
-
-        if (a.belongsToGroup('melee-attack') && b.hasTag('player')) {
-            this.onMeleeAttackHitsEntity(a, b);
-        }
-
-        if (b.belongsToGroup('melee-attack') && a.hasTag('player')) {
-            this.onMeleeAttackHitsEntity(b, a);
-        }
-
-        if (a.belongsToGroup('melee-attack') && b.belongsToGroup('enemies')) {
-            this.onMeleeAttackHitsEntity(a, b);
-        }
-
-        if (b.belongsToGroup('melee-attack') && a.belongsToGroup('enemies')) {
-            this.onMeleeAttackHitsEntity(b, a);
+        if (!this.handleCollision(a, b)) {
+            this.handleCollision(b, a);
         }
     }
+
+    handleCollision = (source: Entity, target: Entity) => {
+        if (source.belongsToGroup('projectiles') && target.hasTag('player')) {
+            this.onProjectileHitsPlayer(source, target);
+            return true;
+        }
+
+        if (source.belongsToGroup('projectiles') && target.belongsToGroup('enemies')) {
+            this.onProjectileHitsEnemy(source, target);
+            return true;
+        }
+
+        if (source.belongsToGroup('melee-attack') && (target.hasTag('player') || target.belongsToGroup('enemies'))) {
+            this.onMeleeAttackHitsEntity(source, target);
+            return true;
+        }
+
+        return false;
+    };
 
     onProjectileHitsPlayer(projectile: Entity, player: Entity) {
         const projectileComponent = projectile.getComponent(ProjectileComponent);
