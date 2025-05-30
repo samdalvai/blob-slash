@@ -214,7 +214,7 @@ export default class PlayerControlSystem extends System {
                 { x: 1, y: 1 },
                 0,
             );
-            meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 2, 0, spriteRow * 64);
+            meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 3, 0, spriteRow * 64);
             meleeAttack.addComponent(AnimationComponent, 5, 10, false);
             meleeAttack.addComponent(LifetimeComponent, 400);
 
@@ -223,6 +223,26 @@ export default class PlayerControlSystem extends System {
             rigidBody.velocity = { x: 0, y: 0 };
             return;
         }
+        
+        // START OF DUPLICATED CODE
+        player.addComponent(EntityDestinationComponent, x, y, playerControl.velocity);
+        player.addToSystem(RenderEntityDestinationSystem);
+        player.addToSystem(EntityDestinationSystem);
+
+        const currentDestination = this.registry.getEntityByTag('player-destination');
+
+        if (currentDestination) {
+            this.registry.removeEntityTag(currentDestination);
+            currentDestination.kill();
+        }
+
+        const destinationAntimation = this.registry.createEntity();
+        destinationAntimation.addComponent(SpriteComponent, 'destination-circle-texture', 32, 32, 1);
+        destinationAntimation.addComponent(TransformComponent, { x: x - 16, y: y - 16 });
+        destinationAntimation.addComponent(AnimationComponent, 8, 10);
+        destinationAntimation.addComponent(LifetimeComponent, 1000);
+        destinationAntimation.tag('player-destination');
+        // END OF DUPLICATED CODE
     };
 
     onMouseMove = (event: MouseMoveEvent) => {
