@@ -24,6 +24,7 @@ import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
 import Game from '../game/Game';
 import { Flip, Vector } from '../types/utils';
+import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 import CollisionSystem from './CollisionSystem';
 import EntityDestinationSystem from './EntityDestinationSystem';
 import MovementSystem from './MovementSystem';
@@ -135,17 +136,93 @@ export default class PlayerControlSystem extends System {
         const x = event.coordinates.x;
         const y = event.coordinates.y;
 
-        const meleeAttack = this.registry.createEntity();
-        meleeAttack.addComponent(
-            TransformComponent,
-            { x: x, y: y },
-            { x: 1, y: 1 },
-            0,
-        );
-        meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 2, 0, 0);
-        meleeAttack.addComponent(AnimationComponent, 5, 10, false);
-        meleeAttack.addComponent(LifetimeComponent, 400);
-        // TODO: to be implemented
+        // START OF DUPLICATED CODE
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+        const rigidBody = player.getComponent(RigidBodyComponent);
+        const transform = player.getComponent(TransformComponent);
+        const sprite = player.getComponent(SpriteComponent);
+
+        if (!playerControl || !rigidBody || !transform || !sprite) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        if (player.hasComponent(EntityDestinationComponent)) {
+            player.removeComponent(EntityDestinationComponent);
+            player.removeFromSystem(RenderEntityDestinationSystem);
+            player.removeFromSystem(EntityDestinationSystem);
+        }
+
+        let enemyHighlighted = false;
+
+        for (const enemy of player.registry.getEntitiesByGroup('enemies')) {
+            if (enemy.hasComponent(HighlightComponent)) {
+                const highlight = enemy.getComponent(HighlightComponent);
+
+                if (!highlight) {
+                    throw new Error('Could not find some component(s) of entity with id ' + enemy.getId());
+                }
+
+                if (highlight.isHighlighted) {
+                    enemyHighlighted = true;
+                    break;
+                }
+            }
+        }
+        // END OF DUPLICATED CODE
+
+        // Avoid moving if left shift is pressed
+        if (playerControl.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
+            const playerPositionX = transform.position.x + (sprite.width / 2) * transform.scale.x;
+            const playerPositionY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+
+            const directionVector = computeDirectionVector(playerPositionX, playerPositionY, x, y, 1);
+
+            const unitVector = computeUnitVector(directionVector.x, directionVector.y);
+            rigidBody.direction.x = unitVector.x;
+            rigidBody.direction.y = unitVector.y;
+
+            // TODO: Handle positioning of animation based on unit vector
+            let xOffset = 0;
+            let yOffset = 0;
+            let spriteRow = 0;
+
+            if (unitVector.x > 0) {
+                xOffset += 10;
+                spriteRow = 1;
+            } else if (unitVector.x < 0) {
+                xOffset -= 10;
+                spriteRow = 3;
+            } else if (unitVector.y > 0) {
+                yOffset += 10;
+                spriteRow = 2;
+            } else if (unitVector.y < 0) {
+                yOffset -= 10;
+                spriteRow = 0;
+            }
+
+            const meleeAttack = this.registry.createEntity();
+            meleeAttack.addComponent(
+                TransformComponent,
+                { x: playerPositionX - 32 + xOffset, y: playerPositionY - 32 + yOffset },
+                { x: 1, y: 1 },
+                0,
+            );
+            meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 2, 0, spriteRow * 64);
+            meleeAttack.addComponent(AnimationComponent, 5, 10, false);
+            meleeAttack.addComponent(LifetimeComponent, 400);
+
+            this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
+
+            rigidBody.velocity = { x: 0, y: 0 };
+            return;
+        }
     };
 
     onMouseMove = (event: MouseMoveEvent) => {

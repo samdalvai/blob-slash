@@ -54,6 +54,8 @@ export default class LevelLoader {
 
         await assetStore.addSound('entity-hit-sound', './assets/sounds/entity_hit.wav');
         await assetStore.addSound('teleport-sound', './assets/sounds/teleport.wav');
+        await assetStore.addSound('slash-sound', './assets/sounds/slash.wav');
+        await assetStore.addSound('melee-attack-sound', './assets/sounds/melee_attack.wav');
     }
 
     private static loadTileMap(registry: Registry, level: LevelMap) {
