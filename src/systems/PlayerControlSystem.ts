@@ -1,4 +1,5 @@
 import AnimationComponent from '../components/AnimationComponent';
+import BoxColliderComponent from '../components/BoxColliderComponent';
 import DamageRadiusComponent from '../components/DamageRadiusComponent';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
@@ -148,6 +149,16 @@ export default class PlayerControlSystem extends System {
                         );
                         meleeAttack.addComponent(AnimationComponent, 5, 10, false);
                         meleeAttack.addComponent(LifetimeComponent, 400);
+                        if (unitVector.x > 0) {
+                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 32, y: 0 });
+                        } else if (unitVector.x < 0) {
+                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 0, y: 0 });
+                        } else if (unitVector.y > 0) {
+                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: 32 });
+                        } else if (unitVector.y < 0) {
+                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: 0 });
+                        }
+                        meleeAttack.group('melee-attack');
 
                         this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
                     }
