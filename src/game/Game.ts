@@ -185,8 +185,11 @@ export default class Game {
                     }
 
                     if (inputEvent.code === 'F3') {
-                        //saveLevelToJson(this.registry);
                         saveLevelToLocalStorage(this.registry);
+                    }
+
+                    if (inputEvent.code === 'F4') {
+                        saveLevelToJson(this.registry);
                     }
 
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
@@ -217,16 +220,24 @@ export default class Game {
                     });
                     break;
                 case 'mousedown':
-                    this.eventBus.emitEvent(MousePressedEvent, {
-                        x: inputEvent.x + this.camera.x,
-                        y: inputEvent.y + this.camera.y,
-                    }, inputEvent.button === 0 ? 'left' : 'right');
+                    this.eventBus.emitEvent(
+                        MousePressedEvent,
+                        {
+                            x: inputEvent.x + this.camera.x,
+                            y: inputEvent.y + this.camera.y,
+                        },
+                        inputEvent.button === 0 ? 'left' : 'right',
+                    );
                     break;
                 case 'mouseup':
-                    this.eventBus.emitEvent(MouseReleasedEvent, {
-                        x: inputEvent.x + this.camera.x,
-                        y: inputEvent.y + this.camera.y,
-                    }, inputEvent.button === 0 ? 'left' : 'right');
+                    this.eventBus.emitEvent(
+                        MouseReleasedEvent,
+                        {
+                            x: inputEvent.x + this.camera.x,
+                            y: inputEvent.y + this.camera.y,
+                        },
+                        inputEvent.button === 0 ? 'left' : 'right',
+                    );
                     break;
             }
         }
