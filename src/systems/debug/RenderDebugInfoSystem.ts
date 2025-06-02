@@ -27,6 +27,8 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 50);
         ctx.fillText(`Mouse coordinates: {x: ${mousePosition.x}, y: ${mousePosition.y}}`, x, y + 100);
         ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 150);
+        ctx.fillText('F3: save level to local storage', x, y + 200);
+        ctx.fillText('F4: save level to json', x, y + 250);
 
         ctx.restore();
     }
