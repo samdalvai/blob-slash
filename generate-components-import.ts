@@ -9,25 +9,12 @@ const outputFile = join(__dirname, 'components.ts');
 // Get list of .ts files in the components directory (excluding components.ts)
 const files = readdirSync(componentsDir).filter(file => file.endsWith('.ts') && file !== 'components.ts');
 
-// Step 2: imports
 const lines: string[] = [];
-
-files.forEach(file => {
-    const componentName = basename(file, '.ts');
-    lines.push(`import ${componentName} from '../components/${componentName}';`);
-});
-
-lines.push(''); // Add empty line between imports and type declarations
-
-// Step 2: type declarations
 const typeNames: string[] = [];
 
 files.forEach(file => {
     const componentName = basename(file, '.ts');
-    const typeName = `${componentName}Type`;
-    lines.push(
-        `export type ${typeName} = { name: '${componentName.replace('Component', '').toLowerCase()}', properties: InstanceType<typeof ${componentName}> }`,
-    );
+    const typeName = '"' + componentName.replace('Component', '').toLowerCase() + '"';
     typeNames.push(typeName);
 });
 

@@ -11,6 +11,7 @@ import HealthComponent from '../components/HealthComponent';
 import HighlightComponent from '../components/HighlightComponent';
 import LifetimeComponent from '../components/LifetimeComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
+import MeleeAttackComponent from '../components/MeleeAttackComponent';
 import ParticleComponent from '../components/ParticleComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
@@ -29,232 +30,87 @@ import TransformComponent from '../components/TransformComponent';
 import Component from '../ecs/Component';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
+import { ComponentType } from '../types/components';
 import { EntityMap } from '../types/map';
+
+const getComponentClass = (componentType: ComponentType): typeof Component => {
+    switch (componentType) {
+        case 'animation':
+            return AnimationComponent;
+        case 'boxcollider':
+            return BoxColliderComponent;
+        case 'camerafollow':
+            return CameraFollowComponent;
+        case 'camerashake':
+            return CameraShakeComponent;
+        case 'damageradius':
+            return DamageRadiusComponent;
+        case 'deadbodyondeath':
+            return DeadBodyOnDeathComponent;
+        case 'entitydestination':
+            return EntityDestinationComponent;
+        case 'entityeffect':
+            return EntityEffectComponent;
+        case 'entityfollow':
+            return EntityFollowComponent;
+        case 'health':
+            return HealthComponent;
+        case 'highlight':
+            return HighlightComponent;
+        case 'lifetime':
+            return LifetimeComponent;
+        case 'lightemit':
+            return LightEmitComponent;
+        case 'meleeattack':
+            return MeleeAttackComponent;
+        case 'particle':
+            return ParticleComponent;
+        case 'particleemit':
+            return ParticleEmitComponent;
+        case 'playercontrol':
+            return PlayerControlComponent;
+        case 'projectile':
+            return ProjectileComponent;
+        case 'rangedattackemitter':
+            return RangedAttackEmitterComponent;
+        case 'rigidbody':
+            return RigidBodyComponent;
+        case 'script':
+            return ScriptComponent;
+        case 'shadow':
+            return ShadowComponent;
+        case 'slowtime':
+            return SlowTimeComponent;
+        case 'sound':
+            return SoundComponent;
+        case 'sprite':
+            return SpriteComponent;
+        case 'spritestate':
+            return SpriteStateComponent;
+        case 'teleport':
+            return TeleportComponent;
+        case 'textlabel':
+            return TextLabelComponent;
+        case 'transform':
+            return TransformComponent;
+        default:
+            throw new Error(`Component of type ${componentType} not supported`);
+    }
+};
 
 export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Entity => {
     const entity = registry.createEntity();
 
     for (const component of entityMap.components) {
-        switch (component.name) {
-            case 'animation': {
-                entity.addComponent(
-                    AnimationComponent,
-                    component.properties.numFrames,
-                    component.properties.frameSpeedRate,
-                    component.properties.isLoop,
-                );
-                break;
-            }
-            case 'boxcollider': {
-                entity.addComponent(
-                    BoxColliderComponent,
-                    component.properties.width,
-                    component.properties.height,
-                    component.properties.offset,
-                );
-                break;
-            }
-            case 'camerafollow': {
-                entity.addComponent(CameraFollowComponent);
-                break;
-            }
-            case 'camerashake': {
-                entity.addComponent(CameraShakeComponent, component.properties.shakeDuration);
-                break;
-            }
-            case 'damageradius': {
-                entity.addComponent(
-                    DamageRadiusComponent,
-                    component.properties.radius,
-                    component.properties.damagePerSecond,
-                    component.properties.isFriendly,
-                );
-                break;
-            }
-            case 'deadbodyondeath': {
-                entity.addComponent(DeadBodyOnDeathComponent);
-                break;
-            }
-            case 'entitydestination': {
-                entity.addComponent(
-                    EntityDestinationComponent,
-                    component.properties.destinationX,
-                    component.properties.destinationY,
-                    component.properties.velocity,
-                );
-                break;
-            }
-            case 'entityeffect': {
-                entity.addComponent(EntityEffectComponent);
-                break;
-            }
-            case 'entityfollow': {
-                entity.addComponent(
-                    EntityFollowComponent,
-                    component.properties.detectionRadius,
-                    component.properties.minFollowDistance,
-                    component.properties.followVelocity,
-                    component.properties.followDuration,
-                );
-                break;
-            }
-            case 'health': {
-                entity.addComponent(HealthComponent, component.properties.healthPercentage);
-                break;
-            }
-            case 'highlight': {
-                entity.addComponent(
-                    HighlightComponent,
-                    component.properties.width,
-                    component.properties.height,
-                    component.properties.offsetX,
-                    component.properties.offsetY,
-                );
-                break;
-            }
-            case 'lifetime': {
-                entity.addComponent(LifetimeComponent, component.properties.lifetime);
-                break;
-            }
-            case 'lightemit': {
-                entity.addComponent(LightEmitComponent, component.properties.lightRadius);
-                break;
-            }
-            case 'particle': {
-                entity.addComponent(ParticleComponent, component.properties.dimension, component.properties.color);
-                break;
-            }
-            case 'particleemit': {
-                entity.addComponent(
-                    ParticleEmitComponent,
-                    component.properties.dimension,
-                    component.properties.duration,
-                    component.properties.color,
-                    component.properties.emitFrequency,
-                    component.properties.emitRadius,
-                    component.properties.offsetX,
-                    component.properties.offsetY,
-                    component.properties.particleVelocity,
-                );
-                break;
-            }
-            case 'playercontrol': {
-                entity.addComponent(
-                    PlayerControlComponent,
-                    component.properties.velocity,
-                    component.properties.magicBubbleCooldown,
-                    component.properties.teleportCooldown,
-                    component.properties.fireCircleCooldown,
-                );
-                break;
-            }
-            case 'projectile': {
-                entity.addComponent(
-                    ProjectileComponent,
-                    component.properties.isFriendly,
-                    component.properties.hitPercentDamage,
-                );
-                break;
-            }
-            case 'rangedattackemitter': {
-                entity.addComponent(
-                    RangedAttackEmitterComponent,
-                    component.properties.projectileVelocity,
-                    component.properties.repeatFrequency,
-                    component.properties.projectileDuration,
-                    component.properties.hitPercentDamage,
-                    component.properties.isFriendly,
-                );
-                break;
-            }
-            case 'rigidbody': {
-                entity.addComponent(RigidBodyComponent, component.properties.velocity, component.properties.direction);
-                break;
-            }
-            case 'script': {
-                entity.addComponent(ScriptComponent, component.properties.scripts);
-                break;
-            }
-            case 'shadow': {
-                entity.addComponent(
-                    ShadowComponent,
-                    component.properties.width,
-                    component.properties.height,
-                    component.properties.offsetX,
-                    component.properties.offsetY,
-                );
-                break;
-            }
-            case 'slowtime': {
-                entity.addComponent(
-                    SlowTimeComponent,
-                    component.properties.radius,
-                    component.properties.slowTimePercentage,
-                    component.properties.isFriendly,
-                );
-                break;
-            }
-            case 'sound': {
-                entity.addComponent(
-                    SoundComponent,
-                    component.properties.assetId,
-                    component.properties.offsetBuffer,
-                    component.properties.volume,
-                );
-                break;
-            }
-            case 'sprite': {
-                entity.addComponent(
-                    SpriteComponent,
-                    component.properties.assetId,
-                    component.properties.width,
-                    component.properties.height,
-                    component.properties.zIndex,
-                    component.properties.srcRect.x,
-                    component.properties.srcRect.y,
-                    component.properties.flip,
-                    component.properties.isFixed,
-                    component.properties.transparency,
-                );
-                break;
-            }
-            case 'spritestate': {
-                entity.addComponent(SpriteStateComponent);
-                break;
-            }
-            case 'teleport': {
-                entity.addComponent(TeleportComponent, component.properties.teleportDelay);
-                break;
-            }
-            case 'textlabel': {
-                entity.addComponent(
-                    TextLabelComponent,
-                    component.properties.position,
-                    component.properties.text,
-                    component.properties.color,
-                    component.properties.isFixed,
-                    component.properties.font,
-                );
-                break;
-            }
-            case 'transform': {
-                const parameters = getComponentConstructorParamNames(TransformComponent);
-                const parameterValues = [];
+        const ComponentClass = getComponentClass(component.name);
+        const parameters = getComponentConstructorParamNames(ComponentClass);
+        const parameterValues = [];
 
-                for (const param of parameters) {
-                    parameterValues.push(component.properties[param as keyof TransformComponent]);
-                }
-
-                entity.addComponent(
-                    TransformComponent,
-                    // component.properties.position,
-                    // component.properties.scale,
-                    // component.properties.rotation,
-                    ...parameterValues
-                );
-                break;
-            }
+        for (const param of parameters) {
+            parameterValues.push(component.properties[param as keyof Component]);
         }
+
+        entity.addComponent(ComponentClass, ...parameterValues);
     }
 
     if (entityMap.tag) {
@@ -285,9 +141,9 @@ export const getComponentConstructorParamNames = <T extends Component>(component
     const constructorPropertiesMatch = rows[0].match(/\((.*?)\)/);
     const propertiesWithNoInitializer = constructorPropertiesMatch
         ? constructorPropertiesMatch[1]
-              .replace(' ', '')
-              .split(',')
-              .filter(peroperty => peroperty !== '')
+            .replace(' ', '')
+            .split(',')
+            .filter(peroperty => peroperty !== '')
         : [];
     const propertiesWithInitializer = rows.filter(row => row.includes('var'));
 

@@ -1,10 +1,8 @@
 import { expect } from '@jest/globals';
 
 import Component, { IComponent } from '../../ecs/Component';
-import Entity from '../../ecs/Entity';
-import Pool from '../../ecs/Pool';
 import Registry from '../../ecs/Registry';
-import System, { ISystem } from '../../ecs/System';
+import { ISystem } from '../../ecs/System';
 
 describe('Testing Entity related functions', () => {
     beforeEach(() => {
@@ -22,7 +20,7 @@ describe('Testing Entity related functions', () => {
         entity.addComponent(MyComponent1);
         entity.addComponent(MyComponent2);
 
-        const components = entity.getAllComponents();
+        const components = entity.getComponents();
         expect(components[0]).toEqual(entity.getComponent(MyComponent1));
         expect(components[1]).toEqual(entity.getComponent(MyComponent2));
         expect(components.length).toBe(2);
@@ -33,7 +31,7 @@ describe('Testing Entity related functions', () => {
 
         const entity = registry.createEntity();
 
-        const components = entity.getAllComponents();
+        const components = entity.getComponents();
 
         expect(components.length).toBe(0);
     });
@@ -52,7 +50,7 @@ describe('Testing Entity related functions', () => {
         const entity2 = registry.createEntity();
         entity2.addComponent(MyComponent3);
 
-        const components = entity1.getAllComponents();
+        const components = entity1.getComponents();
         expect(components[0]).toEqual(entity1.getComponent(MyComponent1));
         expect(components[1]).toEqual(entity1.getComponent(MyComponent2));
         expect(components.length).toBe(2);
