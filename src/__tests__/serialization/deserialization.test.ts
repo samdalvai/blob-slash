@@ -102,6 +102,37 @@ describe('Testing deserialization related functions', () => {
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
     });
 
+    test('Should extract component constructor parameter names with boolean types', () => {
+        class MyComponent extends Component {
+            myProperty1: boolean;
+            myProperty2: boolean;
+
+            constructor(myProperty1 = true, myProperty2 = false) {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should extract component constructor parameter names with string types', () => {
+        class MyComponent extends Component {
+            myProperty1: string;
+            myProperty2: string;
+
+            // eslint-disable-next-line quotes
+            constructor(myProperty1 = "hello", myProperty2 = 'whatever') {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
     test('Should throw error for component with no constructor', () => {
         class MyComponent extends Component {}
 

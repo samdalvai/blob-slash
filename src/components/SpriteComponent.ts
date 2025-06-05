@@ -16,9 +16,8 @@ export default class SpriteComponent extends Component {
         width = 0,
         height = 0,
         zIndex = 0,
-        srcRectX = 0,
-        srcRectY = 0,
-        flip: Flip = Flip.NONE,
+        srcRect = { x: 0, y: 0 },
+        flip: Flip = 0,
         isFixed = false,
         transparency = 1,
     ) {
@@ -31,7 +30,7 @@ export default class SpriteComponent extends Component {
         this.width = width;
         this.height = height;
         this.zIndex = zIndex;
-        this.srcRect = { x: srcRectX, y: srcRectY, width, height };
+        this.srcRect = { x: srcRect.x, y: srcRect.y, width, height };
         this.flip = flip;
         this.isFixed = isFixed;
         this.transparency = transparency;
