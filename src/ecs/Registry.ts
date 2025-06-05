@@ -257,6 +257,19 @@ export default class Registry {
         return (this.componentPools[ComponentClass.getComponentId()] as Pool<T>)?.get(entity.getId());
     };
 
+    getAllEntityComponents = <T extends Component>(entity: Entity): T[] => {
+        const components: T[] = [];
+
+        for (let i = 0; i < this.componentPools.length; i++) {
+            const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entity.getId());
+            if (currentComponent !== undefined) {
+                components.push(currentComponent);
+            }
+        }
+
+        return components;
+    };
+
     ////////////////////////////////////////////////////////////////////////////////
     // System management
     ////////////////////////////////////////////////////////////////////////////////
