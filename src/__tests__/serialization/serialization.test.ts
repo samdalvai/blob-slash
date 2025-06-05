@@ -7,6 +7,7 @@ import Component from '../../ecs/Component';
 import Entity from '../../ecs/Entity';
 import Registry from '../../ecs/Registry';
 import { serializeEntities, serializeEntity } from '../../serialization/serialization';
+import { ComponentType } from '../../types/components';
 import { EntityMap } from '../../types/map';
 
 describe('Testing serialization related functions', () => {
@@ -287,7 +288,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'my',
+                    name: 'my' as ComponentType,
                     properties: {
                         myProperty: 10,
                         startTime: 0,
@@ -318,7 +319,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'my',
+                    name: 'my' as ComponentType,
                     properties: {
                         myProperty: 10,
                         followedEntity: null,
