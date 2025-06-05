@@ -8,5 +8,12 @@ export type LevelMap = {
 export type EntityMap = {
     tag?: string;
     group?: string;
-    components: ComponentType[];
+    components: ComponentMap[];
+};
+
+export type ComponentMap = {
+    name: ComponentType;
+    properties: {
+        [key: string]: any;
+    };
 };
