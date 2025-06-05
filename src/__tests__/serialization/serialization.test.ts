@@ -37,18 +37,18 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'rigidbody',
-                    properties: {
-                        velocity: { x: 100, y: 100 },
-                        direction: { x: 1, y: 0 },
-                    },
-                },
-                {
                     name: 'transform',
                     properties: {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
                         rotation: 0,
+                    },
+                },
+                {
+                    name: 'rigidbody',
+                    properties: {
+                        velocity: { x: 100, y: 100 },
+                        direction: { x: 1, y: 0 },
                     },
                 },
             ],
@@ -152,13 +152,6 @@ describe('Testing serialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'rigidbody',
-                        properties: {
-                            velocity: { x: 100, y: 100 },
-                            direction: { x: 1, y: 0 },
-                        },
-                    },
-                    {
                         name: 'transform',
                         properties: {
                             position: { x: 100, y: 100 },
@@ -166,23 +159,30 @@ describe('Testing serialization related functions', () => {
                             rotation: 0,
                         },
                     },
+                    {
+                        name: 'rigidbody',
+                        properties: {
+                            velocity: { x: 100, y: 100 },
+                            direction: { x: 1, y: 0 },
+                        },
+                    },
                 ],
             },
             {
                 components: [
-                    {
-                        name: 'rigidbody',
-                        properties: {
-                            velocity: { x: 200, y: 200 },
-                            direction: { x: 0, y: 1 },
-                        },
-                    },
                     {
                         name: 'transform',
                         properties: {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
                             rotation: 0,
+                        },
+                    },
+                    {
+                        name: 'rigidbody',
+                        properties: {
+                            velocity: { x: 200, y: 200 },
+                            direction: { x: 0, y: 1 },
                         },
                     },
                 ],
