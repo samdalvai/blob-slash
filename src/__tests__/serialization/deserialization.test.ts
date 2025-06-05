@@ -1,33 +1,6 @@
 import { expect } from '@jest/globals';
 
-import AnimationComponent from '../../components/AnimationComponent';
-import BoxColliderComponent from '../../components/BoxColliderComponent';
-import CameraFollowComponent from '../../components/CameraFollowComponent';
-import CameraShakeComponent from '../../components/CameraShakeComponent';
-import DamageRadiusComponent from '../../components/DamageRadiusComponent';
-import DeadBodyOnDeathComponent from '../../components/DeadBodyOnDeathComponent';
-import EntityDestinationComponent from '../../components/EntityDestinationComponent';
-import EntityEffectComponent from '../../components/EntityEffectComponent';
-import EntityFollowComponent from '../../components/EntityFollowComponent';
-import HealthComponent from '../../components/HealthComponent';
-import HighlightComponent from '../../components/HighlightComponent';
-import LifetimeComponent from '../../components/LifetimeComponent';
-import LightEmitComponent from '../../components/LightEmitComponent';
-import MeleeAttackComponent from '../../components/MeleeAttackComponent';
-import ParticleComponent from '../../components/ParticleComponent';
-import ParticleEmitComponent from '../../components/ParticleEmitComponent';
-import PlayerControlComponent from '../../components/PlayerControlComponent';
-import ProjectileComponent from '../../components/ProjectileComponent';
-import RangedAttackEmitterComponent from '../../components/RangedAttackEmitterComponent';
 import RigidBodyComponent from '../../components/RigidBodyComponent';
-import ScriptComponent from '../../components/ScriptComponent';
-import ShadowComponent from '../../components/ShadowComponent';
-import SlowTimeComponent from '../../components/SlowTimeComponent';
-import SoundComponent from '../../components/SoundComponent';
-import SpriteComponent from '../../components/SpriteComponent';
-import SpriteStateComponent from '../../components/SpriteStateComponent';
-import TeleportComponent from '../../components/TeleportComponent';
-import TextLabelComponent from '../../components/TextLabelComponent';
 import TransformComponent from '../../components/TransformComponent';
 import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
@@ -36,7 +9,6 @@ import {
     deserializeEntity,
     getComponentConstructorParamNames,
 } from '../../serialization/deserialization';
-import { ComponentType } from '../../types/components';
 import { EntityMap } from '../../types/map';
 
 describe('Testing deserialization related functions', () => {
@@ -396,25 +368,5 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
         });
-    });
-
-    test('Test', () => {
-        class MyComponent extends Component {
-            myProperty1: number;
-            myProperty2: number;
-
-            constructor(myProperty1 = 0, myProperty2 = 0) {
-                super();
-                this.myProperty1 = myProperty1;
-                this.myProperty2 = myProperty2;
-            }
-        }
-
-        const registry = new Registry();
-        const entity = registry.createEntity();
-
-        entity.addComponent(MyComponent, 10, 100);
-        console.log(MyComponent);
-        console.log(entity.getComponent(MyComponent));
     });
 });
