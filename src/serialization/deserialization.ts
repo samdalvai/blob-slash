@@ -144,7 +144,11 @@ export const getComponentConstructorParamNames = <T extends Component>(component
 
     const paramNames = constructorMatch[0]
         .replace('constructor', '')
+        .replace('= false', '')
+        .replace('= true', '')
         .replace(/\{([\s\S]*?)\}/g, '')
+        .replace(/'(.*?)'/g, '')
+        .replace(/"(.*?)"/g, '')
         .replace(/[()=,]/g, ' ')
         .split(' ')
         .filter(param => param !== '')

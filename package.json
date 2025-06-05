@@ -5,7 +5,7 @@
     "scripts": {
         "start": "parcel index.html",
         "clean": "rm -rf .parcel-cache",
-        "test": "jest src/__tests__/serialization/*",
+        "test": "jest src/__tests__/**/*",
         "test:perf": "jest src/__tests__/Performance.test.ts",
         "lint": "eslint . --ext .js,.ts",
         "lint:fix": "eslint . --ext .js,.ts --fix",
