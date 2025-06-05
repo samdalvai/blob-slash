@@ -272,12 +272,9 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
 
 export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
     const constructorStr = component.toString();
-    console.log('constructorStr: ', constructorStr);
     const rows = constructorStr.split('\n');
-    console.log('rows: ', rows);
 
     const constructorPropertiesMatch = rows[0].match(/\((.*?)\)/);
-    console.log('constructorPropertiesMatch: ', constructorPropertiesMatch);
     const propertiesWithNoInitializer = constructorPropertiesMatch
         ? constructorPropertiesMatch[1]
             .replace(' ', '')
@@ -286,24 +283,15 @@ export const getComponentConstructorParamNames = <T extends Component>(component
         : [];
     const propertiesWithInitializer = rows.filter(row => row.includes('var'));
 
-    console.log('propertiesWithNoInitializer: ', propertiesWithNoInitializer);
-    console.log('propertiesWithInitializer: ', propertiesWithInitializer);
-
-    // console.log("constructorProperties: ", constructorProperties)
-
     const propertiesNames: string[] = propertiesWithNoInitializer;
 
     for (const propertyString of propertiesWithInitializer) {
-        // console.log('property: ', propertyString);
         const values = propertyString.split(' ').filter(value => value !== '');
-        // console.log('Values: ', values);
         const propertyName = values[1];
         if (!propertyName.includes('_this')) {
             propertiesNames.push(propertyName);
         }
     }
-
-    console.log('propertiesNames: ', propertiesNames);
 
     return propertiesNames;
 };
