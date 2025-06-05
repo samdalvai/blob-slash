@@ -64,6 +64,10 @@ export default class Entity {
         return this.registry.getComponent<T>(this, ComponentClass);
     };
 
+    getAllComponents = <T extends Component>(): T[] => {
+        return this.registry.getAllEntityComponents(this);
+    };
+
     addToSystem = <T extends System>(SystemClass: SystemClass<T>) => {
         this.registry.addEntityToSystem(this, SystemClass);
     };
