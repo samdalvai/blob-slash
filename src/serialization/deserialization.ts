@@ -139,7 +139,7 @@ export const getComponentConstructorParamNames = <T extends Component>(component
     const constructorMatch = constructorStr.match(/constructor\(([\s\S]*?)\)/g);
 
     if (!constructorMatch || !constructorMatch[0]) {
-        throw new Error(`'Error, could not parse constructor for component class ${Component}`);
+        throw new Error(`'Error, could not parse constructor for component class ${component}`);
     }
 
     const paramNames = constructorMatch[0]
