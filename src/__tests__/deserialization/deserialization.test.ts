@@ -2,7 +2,7 @@ import { expect } from '@jest/globals';
 
 import RigidBodyComponent from '../../components/RigidBodyComponent';
 import TransformComponent from '../../components/TransformComponent';
-import Component, { IComponent } from '../../ecs/Component';
+import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import {
     deserializeEntities,

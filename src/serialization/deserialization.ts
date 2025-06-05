@@ -238,11 +238,19 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
                 break;
             }
             case 'transform': {
+                const parameters = getComponentConstructorParamNames(TransformComponent);
+                const parameterValues = [];
+
+                for (const param of parameters) {
+                    parameterValues.push(component.properties[param as keyof TransformComponent]);
+                }
+
                 entity.addComponent(
                     TransformComponent,
-                    component.properties.position,
-                    component.properties.scale,
-                    component.properties.rotation,
+                    // component.properties.position,
+                    // component.properties.scale,
+                    // component.properties.rotation,
+                    ...parameterValues
                 );
                 break;
             }
@@ -277,9 +285,9 @@ export const getComponentConstructorParamNames = <T extends Component>(component
     const constructorPropertiesMatch = rows[0].match(/\((.*?)\)/);
     const propertiesWithNoInitializer = constructorPropertiesMatch
         ? constructorPropertiesMatch[1]
-            .replace(' ', '')
-            .split(',')
-            .filter(peroperty => peroperty !== '')
+              .replace(' ', '')
+              .split(',')
+              .filter(peroperty => peroperty !== '')
         : [];
     const propertiesWithInitializer = rows.filter(row => row.includes('var'));
 
