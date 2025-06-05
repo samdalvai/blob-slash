@@ -12,10 +12,6 @@ import {
 import { EntityMap } from '../../types/map';
 
 describe('Testing deserialization related functions', () => {
-    // beforeEach(() => {
-    //     IComponent.resetIds();
-    // });
-
     test('Should extract component constructor parameter names', () => {
         class MyComponent extends Component {
             myProperty1: number;
@@ -61,7 +57,7 @@ describe('Testing deserialization related functions', () => {
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
     });
 
-    test('Should extract component constructor parameter names with noth initializer and no initalizer to parameters', () => {
+    test('Should extract component constructor parameter names with a mix between initialized and uninitialized constructor properties', () => {
         class MyComponent extends Component {
             myProperty1: number;
             myProperty2: number;
@@ -74,6 +70,21 @@ describe('Testing deserialization related functions', () => {
         }
 
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should extract component constructor parameter names with a mix between initialized and uninitialized constructor properties with mixed order', () => {
+        class MyComponent extends Component {
+            myProperty1: number;
+            myProperty2: number;
+
+            constructor(myProperty2 = 0, myProperty1: number) {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty2', 'myProperty1']);
     });
 
     test('Should deserialize entity Map to Entity with one component', () => {
