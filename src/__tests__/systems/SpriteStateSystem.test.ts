@@ -8,7 +8,7 @@ describe('Testing SpriteState system related functions', () => {
     const system = new SpriteStateSystem();
 
     test('Still entity facing up should show idle sprite facing up (1st row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -16,7 +16,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Still entity facing right should show idle sprite facing right (2nd row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -24,7 +24,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Still entity facing down should show idle sprite facing down (3rd row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -32,7 +32,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Still entity facing left should show idle sprite facing left (4th row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: -1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -40,7 +40,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Moving entity facing up should show moving sprite facing up (1st row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -48,7 +48,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Moving entity facing right should show moving sprite facing right (2nd row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 100, y: 0 }, { x: 1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -56,7 +56,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Moving entity facing down should show moving sprite facing down (3rd row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -64,7 +64,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Moving entity facing left should show moving sprite facing left (4th row)', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: -100, y: 0 }, { x: -1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, false);
@@ -72,7 +72,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Hurt entity facing up should show moving sprite facing up (1st row), regardless of movement', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
@@ -85,7 +85,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Hurt entity facing right should show moving sprite facing right (2nd row), regardless of movement', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 100, y: 0 }, { x: 1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, true);
@@ -98,7 +98,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Hurt entity facing down should show moving sprite facing down (3rd row), regardless of movement', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
@@ -111,7 +111,7 @@ describe('Testing SpriteState system related functions', () => {
     });
 
     test('Hurt entity facing left should show moving sprite facing left (4th row), regardless of movement', () => {
-        const sprite = new SpriteComponent('test', 32, 32, 0, 0, 0);
+        const sprite = new SpriteComponent('test', 32, 32, 0);
         const rigidBody = new RigidBodyComponent({ x: -100, y: 0 }, { x: -1, y: 0 });
 
         system.updateSpriteState(sprite, rigidBody, true);

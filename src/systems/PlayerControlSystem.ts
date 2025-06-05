@@ -139,15 +139,10 @@ export default class PlayerControlSystem extends System {
                             { x: 1, y: 1 },
                             0,
                         );
-                        meleeAttack.addComponent(
-                            SpriteComponent,
-                            'smear-animation-texture',
-                            64,
-                            64,
-                            3,
-                            0,
-                            spriteRow * 64,
-                        );
+                        meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 3, {
+                            x: 0,
+                            y: spriteRow * 64,
+                        });
                         meleeAttack.addComponent(AnimationComponent, 5, 10, false);
                         meleeAttack.addComponent(MeleeAttackComponent, true, 10);
                         meleeAttack.addComponent(LifetimeComponent, 400);
@@ -258,7 +253,17 @@ export default class PlayerControlSystem extends System {
             { x: scale, y: scale },
             0,
         );
-        bubbleFloor.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 1, 0, 128, Flip.NONE, false, 0.5);
+        bubbleFloor.addComponent(
+            SpriteComponent,
+            'magic-bubble-texture',
+            128,
+            128,
+            1,
+            { x: 0, y: 128 },
+            Flip.NONE,
+            false,
+            0.5,
+        );
         bubbleFloor.addComponent(AnimationComponent, 4, 20, false);
         bubbleFloor.addComponent(LifetimeComponent, 5000);
 
@@ -269,7 +274,17 @@ export default class PlayerControlSystem extends System {
             { x: scale, y: scale },
             0,
         );
-        bubbleTop.addComponent(SpriteComponent, 'magic-bubble-texture', 128, 128, 3, 0, 256, Flip.NONE, false, 0.3);
+        bubbleTop.addComponent(
+            SpriteComponent,
+            'magic-bubble-texture',
+            128,
+            128,
+            3,
+            { x: 0, y: 256 },
+            Flip.NONE,
+            false,
+            0.3,
+        );
         bubbleTop.addComponent(AnimationComponent, 4, 20, false);
         bubbleTop.addComponent(SlowTimeComponent, 60 * scale, 0.2, true);
         bubbleTop.addComponent(LifetimeComponent, 5000);
@@ -337,8 +352,6 @@ export default class PlayerControlSystem extends System {
             teleportSpriteWidth,
             teleportSpriteHeight,
             3,
-            0,
-            0,
         );
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
@@ -376,8 +389,6 @@ export default class PlayerControlSystem extends System {
                 teleportSpriteWidth,
                 teleportSpriteHeight,
                 3,
-                0,
-                0,
             );
             teleportDestination.addComponent(AnimationComponent, 4, 8, false);
             teleportDestination.addComponent(LifetimeComponent, 500);
@@ -401,7 +412,17 @@ export default class PlayerControlSystem extends System {
             { x: scale, y: scale },
             0,
         );
-        fireCircleFloor.addComponent(SpriteComponent, 'fire-circle-texture', 128, 128, 1, 0, 0, Flip.NONE, false, 0.5);
+        fireCircleFloor.addComponent(
+            SpriteComponent,
+            'fire-circle-texture',
+            128,
+            128,
+            1,
+            { x: 0, y: 0 },
+            Flip.NONE,
+            false,
+            0.5,
+        );
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
         fireCircleFloor.addComponent(LifetimeComponent, 250);
         fireCircleFloor.addComponent(LightEmitComponent, 100);
@@ -423,8 +444,7 @@ export default class PlayerControlSystem extends System {
                 128,
                 128,
                 2,
-                0,
-                128,
+                { x: 0, y: 128 },
                 Flip.NONE,
                 false,
                 1,
@@ -447,7 +467,16 @@ export default class PlayerControlSystem extends System {
     private emitCooldownAnimation = (cooldown: number, skillPosition: number) => {
         const framesPerSecond = 8 / (cooldown / 1000);
         const cooldownAnimation = this.registry.createEntity();
-        cooldownAnimation.addComponent(SpriteComponent, 'cooldown-skill-texture', 32, 32, 2, 0, 0, Flip.NONE, true);
+        cooldownAnimation.addComponent(
+            SpriteComponent,
+            'cooldown-skill-texture',
+            32,
+            32,
+            2,
+            { x: 0, y: 0 },
+            Flip.NONE,
+            true,
+        );
         cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
         cooldownAnimation.addComponent(
             TransformComponent,
