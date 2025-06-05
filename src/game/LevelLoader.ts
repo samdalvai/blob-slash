@@ -88,6 +88,7 @@ export default class LevelLoader {
                     0,
                 );
                 tile.addComponent(SpriteComponent, 'tiles-dark-texture', tileSize, tileSize, 0, srcRectX, srcRectY);
+                tile.group('tiles');
                 columnNumber++;
             }
             rowNumber++;
