@@ -89,10 +89,10 @@ describe('Testing deserialization related functions', () => {
 
     test('Should extract component constructor parameter names with objects as parameters', () => {
         class MyComponent extends Component {
-            myProperty1: { x: number, y: number};
-            myProperty2: { x: number, y: number};
+            myProperty1: { x: number; y: number };
+            myProperty2: { x: number; y: number };
 
-            constructor(myProperty1 = { x: 1, y: 1}, myProperty2: { x: number, y: number}) {
+            constructor(myProperty1 = { x: 1, y: 1 }, myProperty2: { x: number; y: number }) {
                 super();
                 this.myProperty1 = myProperty1;
                 this.myProperty2 = myProperty2;
@@ -100,6 +100,12 @@ describe('Testing deserialization related functions', () => {
         }
 
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should throw error for component with no constructor', () => {
+        class MyComponent extends Component {}
+
+        expect(() => getComponentConstructorParamNames(MyComponent)).toThrowError();
     });
 
     test('Should deserialize entity Map to Entity with one component', () => {

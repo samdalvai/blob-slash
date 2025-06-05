@@ -1,6 +1,5 @@
 import { expect } from '@jest/globals';
 
-import AnimationComponent from '../../components/AnimationComponent';
 import RigidBodyComponent from '../../components/RigidBodyComponent';
 import TransformComponent from '../../components/TransformComponent';
 import Component from '../../ecs/Component';
