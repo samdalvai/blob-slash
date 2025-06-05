@@ -1,5 +1,5 @@
 import Component from '../ecs/Component';
-import { Flip, Rectangle } from '../types/utils';
+import { Flip, Rectangle, Vector } from '../types/utils';
 
 export default class SpriteComponent extends Component {
     assetId: string;
@@ -16,7 +16,7 @@ export default class SpriteComponent extends Component {
         width = 0,
         height = 0,
         zIndex = 0,
-        srcRect = { x: 0, y: 0 },
+        srcRect: Vector = { x: 0, y: 0 },
         flip: Flip = 0,
         isFixed = false,
         transparency = 1,

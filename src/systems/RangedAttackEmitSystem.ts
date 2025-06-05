@@ -169,8 +169,7 @@ export default class RangedAttackEmitSystem extends System {
                     32,
                     32,
                     2,
-                    0,
-                    0,
+                    { x: 0, y: 0 },
                     Flip.NONE,
                     true,
                 );
