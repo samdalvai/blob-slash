@@ -1,7 +1,10 @@
 import { expect } from '@jest/globals';
 
+import AnimationComponent from '../../components/AnimationComponent';
 import RigidBodyComponent from '../../components/RigidBodyComponent';
 import TransformComponent from '../../components/TransformComponent';
+import Component from '../../ecs/Component';
+import Entity from '../../ecs/Entity';
 import Registry from '../../ecs/Registry';
 import { serializeEntities, serializeEntity } from '../../serialization/serialization';
 import { EntityMap } from '../../types/map';
@@ -263,5 +266,67 @@ describe('Testing serialization related functions', () => {
         ];
 
         expect(serializeEntities([entity1, entity2])).toEqual(expected);
+    });
+
+    test('Should serialize entity component with startTime and override it to 0', () => {
+        class MyComponent extends Component {
+            myProperty: number;
+            startTime: number;
+
+            constructor(myProperty = 0, startTime = 0) {
+                super();
+                this.myProperty = myProperty;
+                this.startTime = startTime;
+            }
+        }
+
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.addComponent(MyComponent, 10, 1000);
+
+        const expected: EntityMap = {
+            components: [
+                {
+                    name: 'my',
+                    properties: {
+                        myProperty: 10,
+                        startTime: 0,
+                    },
+                },
+            ],
+        };
+
+        expect(serializeEntity(entity)).toEqual(expected);
+    });
+
+    test('Should serialize entity component with followedEntity and override it to null', () => {
+        class MyComponent extends Component {
+            myProperty: number;
+            followedEntity: Entity;
+
+            constructor(myProperty = 0, followedEntity: Entity) {
+                super();
+                this.myProperty = myProperty;
+                this.followedEntity = followedEntity;
+            }
+        }
+
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.addComponent(MyComponent, 10, new Entity(2, registry));
+
+        const expected: EntityMap = {
+            components: [
+                {
+                    name: 'my',
+                    properties: {
+                        myProperty: 10,
+                        followedEntity: null,
+                    },
+                },
+            ],
+        };
+
+        expect(serializeEntity(entity)).toEqual(expected);
     });
 });
