@@ -26,6 +26,7 @@ import SpriteStateComponent from '../components/SpriteStateComponent';
 import TeleportComponent from '../components/TeleportComponent';
 import TextLabelComponent from '../components/TextLabelComponent';
 import TransformComponent from '../components/TransformComponent';
+import Component from '../ecs/Component';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import { EntityMap } from '../types/map';
@@ -267,4 +268,42 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
     }
 
     return entitiesList;
+};
+
+export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
+    const constructorStr = component.toString();
+    console.log('constructorStr: ', constructorStr);
+    const rows = constructorStr.split('\n');
+    console.log('rows: ', rows);
+
+    const constructorPropertiesMatch = rows[0].match(/\((.*?)\)/);
+    console.log('constructorPropertiesMatch: ', constructorPropertiesMatch);
+    const propertiesWithNoInitializer = constructorPropertiesMatch
+        ? constructorPropertiesMatch[1]
+            .replace(' ', '')
+            .split(',')
+            .filter(peroperty => peroperty !== '')
+        : [];
+    const propertiesWithInitializer = rows.filter(row => row.includes('var'));
+
+    console.log('propertiesWithNoInitializer: ', propertiesWithNoInitializer);
+    console.log('propertiesWithInitializer: ', propertiesWithInitializer);
+
+    // console.log("constructorProperties: ", constructorProperties)
+
+    const propertiesNames: string[] = propertiesWithNoInitializer;
+
+    for (const propertyString of propertiesWithInitializer) {
+        // console.log('property: ', propertyString);
+        const values = propertyString.split(' ').filter(value => value !== '');
+        // console.log('Values: ', values);
+        const propertyName = values[1];
+        if (!propertyName.includes('_this')) {
+            propertiesNames.push(propertyName);
+        }
+    }
+
+    console.log('propertiesNames: ', propertiesNames);
+
+    return propertiesNames;
 };
