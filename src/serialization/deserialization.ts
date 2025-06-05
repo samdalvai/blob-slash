@@ -136,26 +136,23 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
 
 export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
     const constructorStr = component.toString();
-    const rows = constructorStr.split('\n');
+    const constructorMatch = constructorStr.match(/constructor\(([\s\S]*?)\)/g);
 
-    const constructorPropertiesMatch = rows[0].match(/\((.*?)\)/);
-    const propertiesWithNoInitializer = constructorPropertiesMatch
-        ? constructorPropertiesMatch[1]
-            .replace(' ', '')
-            .split(',')
-            .filter(peroperty => peroperty !== '')
-        : [];
-    const propertiesWithInitializer = rows.filter(row => row.includes('var'));
-
-    const propertiesNames: string[] = propertiesWithNoInitializer;
-
-    for (const propertyString of propertiesWithInitializer) {
-        const values = propertyString.split(' ').filter(value => value !== '');
-        const propertyName = values[1];
-        if (!propertyName.includes('_this')) {
-            propertiesNames.push(propertyName);
-        }
+    if (!constructorMatch || !constructorMatch[0]) {
+        throw new Error(`'Error, could not parse constructor for component class ${Component}`);
     }
 
-    return propertiesNames;
+    const paramNames = constructorMatch[0]
+        .replace('constructor', '')
+        .replace(/\{([\s\S]*?)\}/g, '')
+        .replace(/[()=,]/g, ' ')
+        .split(' ')
+        .filter(param => param !== '')
+        .filter(param => !isNumeric(param));
+
+    return paramNames;
+};
+
+const isNumeric = (str: string) => {
+    return !isNaN(parseFloat(str));
 };
