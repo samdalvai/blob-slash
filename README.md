@@ -21,3 +21,9 @@ npm start
 ```
 
 Now open the browser at http://localhost:1234
+
+## Run in editor mode
+
+```
+npm run start:editor
+```
