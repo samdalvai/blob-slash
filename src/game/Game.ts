@@ -184,11 +184,11 @@ export default class Game {
                         this.isDebug = !this.isDebug;
                     }
 
-                    if (inputEvent.code === 'F3') {
+                    if (inputEvent.code === 'F3' && this.isDebug) {
                         saveLevelToLocalStorage(this.registry);
                     }
 
-                    if (inputEvent.code === 'F4') {
+                    if (inputEvent.code === 'F4' && this.isDebug) {
                         saveLevelToJson(this.registry);
                     }
 
