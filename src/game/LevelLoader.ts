@@ -3,31 +3,26 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
-import { loadLevelFromLocalStorage } from '../serialization/persistence';
+// import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 import Game from './Game';
 
 export default class LevelLoader {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
         await this.loadAssets(assetStore);
-        const level = assetStore.getJson('snapshot') as LevelMap;
-
-        this.loadTileMap(registry, level);
-        this.loadEntities(registry, level);
-
-        // const levelLocal = loadLevelFromLocalStorage();
+        const level = assetStore.getJson('level') as LevelMap;
+        // const level = loadLevelFromLocalStorage();
         // if (!levelLocal) {
         //     throw new Error('Could not read level from local storage');
         // }
 
-        // this.loadTileMap(registry, levelLocal);
-        // this.loadEntities(registry, levelLocal);
+        this.loadEntities(registry, level);
+        this.setMapBoundaries(registry);
     }
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
         await assetStore.addJson('level', '/assets/tilemaps/level.json');
-        await assetStore.addJson('snapshot', '/assets/tilemaps/snapshot.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -58,50 +53,67 @@ export default class LevelLoader {
         await assetStore.addSound('melee-attack-sound', './assets/sounds/melee_attack.wav');
     }
 
-    private static loadTileMap(registry: Registry, level: LevelMap) {
-        console.log('Loading tilemap');
-        const tiles = level.tiles;
-
-        if (!tiles) {
-            console.log('No tiles to be loaded, skipping');
-            return;
-        }
-
-        const tileSize = 32;
-        const mapScale = 2;
-        let rowNumber = 0;
-        let columnNumber = 0;
-        for (let i = 0; i < tiles.length; i++) {
-            columnNumber = 0;
-            for (let j = 0; j < tiles[i].length; j++) {
-                const tileNumber = tiles[i][j];
-                const srcRectX = (tileNumber % 10) * tileSize;
-                const srcRectY = Math.floor(tileNumber / 10) * tileSize;
-                const tile = registry.createEntity();
-                tile.addComponent(
-                    TransformComponent,
-                    {
-                        x: columnNumber * (mapScale * tileSize),
-                        y: rowNumber * (mapScale * tileSize),
-                    },
-                    { x: mapScale, y: mapScale },
-                    0,
-                );
-                tile.addComponent(SpriteComponent, 'tiles-dark-texture', tileSize, tileSize, 0, {
-                    x: srcRectX,
-                    y: srcRectY,
-                });
-                tile.group('tiles');
-                columnNumber++;
-            }
-            rowNumber++;
-        }
-        Game.mapWidth = columnNumber * tileSize * mapScale;
-        Game.mapHeight = rowNumber * tileSize * mapScale;
-    }
-
     private static loadEntities(registry: Registry, level: LevelMap) {
         console.log('Loading entities');
         deserializeEntities(level.entities, registry);
+    }
+
+    private static setMapBoundaries(registry: Registry) {
+        console.log('Setting map boundaries');
+        const tiles = registry.getEntitiesByGroup('tiles');
+
+        let minX = Number.MAX_SAFE_INTEGER;
+        let minY = Number.MAX_SAFE_INTEGER;
+
+        let maxX = 0;
+        let maxY = 0;
+
+        let spriteWidth = 0;
+        let spriteHeight = 0;
+        const spriteScale = { x: 0, y: 0 };
+
+        for (const tile of tiles) {
+            const sprite = tile.getComponent(SpriteComponent);
+            const transform = tile.getComponent(TransformComponent);
+
+            if (!sprite || !transform) {
+                throw new Error(`Could not find some component(s) of tile entity ${tile.getId()}`);
+            }
+
+            if (transform.position.x < minX) {
+                minX = transform.position.x;
+            }
+
+            if (transform.position.y < minY) {
+                minY = transform.position.y;
+            }
+
+            if (transform.position.x > maxX) {
+                maxX = transform.position.x;
+            }
+
+            if (transform.position.y > maxY) {
+                maxY = transform.position.y;
+            }
+
+            if (sprite.width > spriteWidth) {
+                spriteWidth = sprite.width;
+            }
+
+            if (sprite.height > spriteHeight) {
+                spriteHeight = sprite.height;
+            }
+
+            if (transform.scale.x > spriteScale.x) {
+                spriteScale.x = transform.scale.x;
+            }
+
+            if (transform.scale.y > spriteScale.y) {
+                spriteScale.y = transform.scale.y;
+            }
+        }
+
+        Game.mapWidth = maxX - minX + spriteWidth * spriteScale.x;
+        Game.mapHeight = maxY - minY + spriteHeight * spriteScale.y;
     }
 }
