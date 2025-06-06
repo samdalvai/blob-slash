@@ -261,9 +261,11 @@ export default class Registry {
         const components: T[] = [];
 
         for (let i = 0; i < this.componentPools.length; i++) {
-            const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entity.getId());
-            if (currentComponent !== undefined) {
-                components.push(currentComponent);
+            if (this.entityComponentSignatures[entity.getId()].test(i)) {
+                const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entity.getId());
+                if (currentComponent !== undefined) {
+                    components.push(currentComponent);
+                }
             }
         }
 
