@@ -44,6 +44,7 @@ import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
 import { GameStatus, Rectangle, Vector } from '../types/utils';
+import EditorLevelLoader from './EditorLevelLoader';
 
 // import LevelLoader from './LevelLoader';
 
@@ -165,7 +166,7 @@ export default class Editor {
         this.registry.addSystem(RenderSlowTimeRadiusSystem);
         this.registry.addSystem(RenderCursorCoordinatesSystem);
 
-        //await LevelLoader.loadLevel(this.registry, this.assetStore);
+        await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
 
     private processInput = () => {
