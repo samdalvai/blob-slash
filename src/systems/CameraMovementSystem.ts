@@ -27,11 +27,9 @@ export default class CameraMovementSystem extends System {
                 camera.y = Math.floor(transform.position.y - camera.height / 2);
             }
 
-            // Keep camera rectangle view inside the screen limits
-            camera.x = camera.x < 0 ? 0 : camera.x;
-            camera.y = camera.y < 0 ? 0 : camera.y;
-            camera.x = camera.x > camera.width ? camera.width : camera.x;
-            camera.y = camera.y > camera.height ? camera.height : camera.y;
+            // Clamps the camera's position so it stays within the map boundaries.
+            camera.x = Math.max(0, Math.min(camera.x, Game.mapWidth - camera.width));
+            camera.y = Math.max(0, Math.min(camera.y, Game.mapHeight - camera.height));
         }
     }
 }
