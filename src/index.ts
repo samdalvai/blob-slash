@@ -1,10 +1,18 @@
+import Editor from './editor/Editor';
 import Game from './game/Game';
 
 const isEditor = Boolean(process.env.IS_EDITOR) || false;
 
 console.log('is editor: ', isEditor);
 
-const game = new Game();
+if (!isEditor) {
+    const game = new Game();
 
-game.initialize();
-game.run();
+    game.initialize();
+    game.run();
+} else {
+    const editor = new Editor();
+
+    editor.initialize();
+    editor.run();
+}

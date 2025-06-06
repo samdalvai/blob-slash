@@ -2,6 +2,7 @@ import AssetStore from '../../asset-store/AssetStore';
 import System from '../../ecs/System';
 import Game from '../../game/Game';
 
+// TODO: remove this and create entities instead
 export default class RenderGUISystem extends System {
     constructor() {
         super();
