@@ -16,19 +16,19 @@ export default class RenderDebugInfoSystem extends System {
         mousePosition: Vector,
         registry: Registry,
     ) {
-        const x = Game.windowWidth - 400;
+        const x = Game.windowWidth - 275;
         const y = 50;
 
         ctx.save();
 
-        ctx.font = '24px Arial';
+        ctx.font = '16px Arial';
         ctx.fillStyle = 'white';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
-        ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 50);
-        ctx.fillText(`Mouse coordinates: {x: ${mousePosition.x}, y: ${mousePosition.y}}`, x, y + 100);
-        ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 150);
-        ctx.fillText('F3: save level to local storage', x, y + 200);
-        ctx.fillText('F4: save level to json', x, y + 250);
+        ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
+        ctx.fillText(`Mouse coordinates: {x: ${mousePosition.x}, y: ${mousePosition.y}}`, x, y + 50);
+        ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 75);
+        ctx.fillText('F3: save level to local storage', x, y + 100);
+        ctx.fillText('F4: save level to json', x, y + 125);
 
         ctx.restore();
     }

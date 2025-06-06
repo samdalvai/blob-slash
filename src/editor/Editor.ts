@@ -6,6 +6,7 @@ import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
+import Game from '../game/Game';
 import InputManager from '../input-manager/InputManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../serialization/persistence';
 import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
@@ -43,11 +44,12 @@ import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
 import { GameStatus, Rectangle, Vector } from '../types/utils';
+
 // import LevelLoader from './LevelLoader';
 
 export default class Editor {
     private isRunning: boolean;
-    private isDebug: boolean;
+    // private isDebug: boolean;
     private canvas: HTMLCanvasElement | null;
     private ctx: CanvasRenderingContext2D | null;
     private camera: Rectangle;
@@ -63,13 +65,11 @@ export default class Editor {
 
     static mapWidth: number;
     static mapHeight: number;
-    static windowWidth: number;
-    static windowHeight: number;
     static gameStatus: GameStatus;
 
     constructor() {
         this.isRunning = false;
-        this.isDebug = false;
+        // this.isDebug = false;
         this.canvas = null;
         this.ctx = null;
         this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
@@ -87,8 +87,8 @@ export default class Editor {
         camera.width = window.innerWidth;
         camera.height = window.innerHeight;
 
-        Editor.windowWidth = window.innerWidth;
-        Editor.windowHeight = window.innerHeight;
+        Game.windowWidth = window.innerWidth;
+        Game.windowHeight = window.innerHeight;
 
         const ctx = canvas.getContext('2d');
 
@@ -111,7 +111,7 @@ export default class Editor {
         }
 
         this.resize(canvas, this.camera);
-        canvas.style.cursor = 'none';
+        // canvas.style.cursor = 'none';
 
         this.canvas = canvas;
         this.ctx = ctx;
@@ -131,7 +131,7 @@ export default class Editor {
         this.registry.addSystem(RenderParticleSystem);
         this.registry.addSystem(RenderLightingSystem);
         this.registry.addSystem(RenderGUISystem);
-        this.registry.addSystem(RenderCursorSystem);
+        // this.registry.addSystem(RenderCursorSystem);
 
         // Other entities related systems
         this.registry.addSystem(MovementSystem);
@@ -166,7 +166,6 @@ export default class Editor {
         this.registry.addSystem(RenderCursorCoordinatesSystem);
 
         //await LevelLoader.loadLevel(this.registry, this.assetStore);
-        Editor.gameStatus = GameStatus.PLAYING;
     };
 
     private processInput = () => {
@@ -180,9 +179,9 @@ export default class Editor {
 
             switch (inputEvent.type) {
                 case 'keydown':
-                    if (inputEvent.code === 'F2') {
-                        this.isDebug = !this.isDebug;
-                    }
+                    // if (inputEvent.code === 'F2') {
+                    //     this.isDebug = !this.isDebug;
+                    // }
 
                     if (inputEvent.code === 'F3') {
                         saveLevelToLocalStorage(this.registry);
@@ -244,35 +243,35 @@ export default class Editor {
     };
 
     private update = (deltaTime: number) => {
-        if (this.isDebug) {
-            const millisecsCurrentFrame = performance.now();
-            if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-                this.frameDuration = deltaTime * 1000;
-                this.currentFPS = 1000 / this.frameDuration;
-                this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
+        // if (this.isDebug) {
+        const millisecsCurrentFrame = performance.now();
+        if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
+            this.frameDuration = deltaTime * 1000;
+            this.currentFPS = 1000 / this.frameDuration;
+            this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
 
-                if (this.maxFPS < this.currentFPS) {
-                    this.maxFPS = this.currentFPS;
-                }
+            if (this.maxFPS < this.currentFPS) {
+                this.maxFPS = this.currentFPS;
             }
         }
+        // }
 
         // Reset all event handlers for the current frame
-        this.eventBus.reset();
+        // this.eventBus.reset();
 
         this.registry.update();
 
         // Perform the subscription of the events for all systems
-        this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
@@ -302,26 +301,25 @@ export default class Editor {
 
         this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
         this.registry.getSystem(RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
+        // this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
-        this.registry
-            .getSystem(RenderCursorSystem)
-            ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
+        // TODO: to be removed
+        // this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
+        // this.registry
+        //     .getSystem(RenderCursorSystem)
+        //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
-        if (this.isDebug) {
-            this.registry
-                .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.mousePosition, this.registry);
-            this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
-        }
+        this.registry
+            .getSystem(RenderDebugInfoSystem)
+            ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.mousePosition, this.registry);
+        this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
     };
 
     run = async () => {
