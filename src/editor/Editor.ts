@@ -37,13 +37,15 @@ import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinat
 import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
 import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
 import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
+import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
+import RenderCanvasBorder from '../systems/editor/RenderCanvasBorder';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderCursorSystem from '../systems/render/RenderCursorSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/render/RenderLightingSystem';
 import RenderParticleSystem from '../systems/render/RenderParticleSystem';
-import RenderSystem from '../systems/render/RenderSystem';
+// import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
 import { GameStatus, Rectangle, Vector } from '../types/utils';
 import EditorLevelLoader from './EditorLevelLoader';
@@ -67,6 +69,7 @@ export default class Editor {
     private mousePosition: Vector;
 
     private commandButtonPressed: boolean;
+    private zoom: number;
 
     static mapWidth: number;
     static mapHeight: number;
@@ -84,6 +87,7 @@ export default class Editor {
         this.inputManager = new InputManager();
         this.mousePosition = { x: 0, y: 0 };
         this.commandButtonPressed = false;
+        this.zoom = 1;
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
@@ -132,7 +136,7 @@ export default class Editor {
 
     private setup = async () => {
         // Rendering systems
-        this.registry.addSystem(RenderSystem);
+        // this.registry.addSystem(RenderSystem);
         this.registry.addSystem(RenderTextSystem);
         this.registry.addSystem(RenderParticleSystem);
         this.registry.addSystem(RenderLightingSystem);
@@ -170,7 +174,11 @@ export default class Editor {
         this.registry.addSystem(RenderDebugInfoSystem);
         this.registry.addSystem(RenderSlowTimeRadiusSystem);
         this.registry.addSystem(RenderCursorCoordinatesSystem);
+
+        // Editor related systems
+        this.registry.addSystem(EditorRenderSystem);
         this.registry.addSystem(RenderSpriteBoxSystem);
+        this.registry.addSystem(RenderCanvasBorder);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -260,10 +268,16 @@ export default class Editor {
             }
 
             if (wheelEvent.deltaY < 0) {
+                if (this.commandButtonPressed) {
+                    this.zoom *= 1 + 0.01;
+                }
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
 
             if (wheelEvent.deltaY > 0) {
+                if (this.commandButtonPressed) {
+                    this.zoom *= 1 - 0.01;
+                }
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
         }
@@ -324,7 +338,11 @@ export default class Editor {
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
+        // Render Editor systems
+        this.registry.getSystem(EditorRenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
+
+        // Render game related systems
+        // this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
         this.registry.getSystem(RenderHealthBarSystem)?.update(this.ctx, this.camera);
         // this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
@@ -336,6 +354,7 @@ export default class Editor {
         //     .getSystem(RenderCursorSystem)
         //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
+        // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
             ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.mousePosition, this.registry);
@@ -345,7 +364,10 @@ export default class Editor {
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
+
+        // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderCanvasBorder)?.update(this.ctx, this.canvas);
     };
 
     run = async () => {
