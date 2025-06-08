@@ -27,7 +27,7 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(
-            `Mouse coordinates: {x: ${Math.floor(zoom ? mousePosition.x / zoom : mousePosition.x)}, y: ${Math.floor(zoom ? mousePosition.y / zoom : mousePosition.y)}}`,
+            `Mouse coordinates: {x: ${Math.floor(mousePosition.x)}, y: ${Math.floor(mousePosition.y)}}`,
             x,
             y + 50,
         );
