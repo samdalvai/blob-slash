@@ -3,18 +3,24 @@ import HighlightComponent from '../../components/HighlightComponent';
 import PlayerControlComponent from '../../components/PlayerControlComponent';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
-import { Vector } from '../../types/utils';
+import { Rectangle, Vector } from '../../types/utils';
 
 export default class RenderCursorSystem extends System {
     constructor() {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, registry: Registry, mousePosition: Vector) {
+    update(
+        ctx: CanvasRenderingContext2D,
+        camera: Rectangle,
+        assetStore: AssetStore,
+        registry: Registry,
+        mousePosition: Vector,
+    ) {
         const player = registry.getEntityByTag('player');
 
         if (!player) {
-            this.renderDefaultCursor(ctx, assetStore, mousePosition);
+            this.renderDefaultCursor(ctx, camera, assetStore, mousePosition);
             return;
         }
 
@@ -25,7 +31,7 @@ export default class RenderCursorSystem extends System {
         }
 
         if (playerControl.keysPressed.includes('ShiftLeft')) {
-            this.renderAttackCursor(ctx, assetStore, mousePosition);
+            this.renderAttackCursor(ctx, camera, assetStore, mousePosition);
             return;
         }
 
@@ -47,36 +53,46 @@ export default class RenderCursorSystem extends System {
         }
 
         if (enemyHighlighted) {
-            this.renderAttackCursor(ctx, assetStore, mousePosition);
+            this.renderAttackCursor(ctx, camera, assetStore, mousePosition);
             return;
         }
 
-        this.renderDefaultCursor(ctx, assetStore, mousePosition);
+        this.renderDefaultCursor(ctx, camera, assetStore, mousePosition);
     }
 
-    private renderAttackCursor = (ctx: CanvasRenderingContext2D, assetStore: AssetStore, mousePosition: Vector) => {
+    private renderAttackCursor = (
+        ctx: CanvasRenderingContext2D,
+        camera: Rectangle,
+        assetStore: AssetStore,
+        mousePosition: Vector,
+    ) => {
         ctx.drawImage(
             assetStore.getTexture('cursor-texture'),
             32,
             0,
             32,
             32,
-            mousePosition.x - 5,
-            mousePosition.y - 5,
+            mousePosition.x - 5 - camera.x,
+            mousePosition.y - 5 - camera.y,
             32,
             32,
         );
     };
 
-    private renderDefaultCursor = (ctx: CanvasRenderingContext2D, assetStore: AssetStore, mousePosition: Vector) => {
+    private renderDefaultCursor = (
+        ctx: CanvasRenderingContext2D,
+        camera: Rectangle,
+        assetStore: AssetStore,
+        mousePosition: Vector,
+    ) => {
         ctx.drawImage(
             assetStore.getTexture('cursor-texture'),
             0,
             0,
             32,
             32,
-            mousePosition.x - 14,
-            mousePosition.y - 5,
+            mousePosition.x - 14 - camera.x,
+            mousePosition.y - 5 - camera.y,
             32,
             32,
         );
