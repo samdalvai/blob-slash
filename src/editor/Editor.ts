@@ -229,8 +229,8 @@ export default class Editor {
             switch (inputEvent.type) {
                 case 'mousemove':
                     this.mousePosition = {
-                        x: inputEvent.x,
-                        y: inputEvent.y,
+                        x: inputEvent.x / this.zoom + this.camera.x,
+                        y: inputEvent.y / this.zoom + this.camera.y,
                     };
                     this.eventBus.emitEvent(MouseMoveEvent, {
                         x: inputEvent.x / this.zoom + this.camera.x,
@@ -371,7 +371,7 @@ export default class Editor {
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
+        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition, this.zoom);
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
