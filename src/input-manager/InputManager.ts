@@ -23,7 +23,6 @@ export default class InputManager {
     }
 
     handleKeyboardEvent = (event: KeyboardEvent) => {
-        event.preventDefault();
         this.keyboardInputBuffer.push(event);
     };
 
