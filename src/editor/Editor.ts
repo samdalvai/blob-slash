@@ -38,7 +38,7 @@ import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSys
 import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
 import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
 import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
-import RenderCanvasBorder from '../systems/editor/RenderCanvasBorder';
+import RenderGameBorder from '../systems/editor/RenderGameBorder';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderCursorSystem from '../systems/render/RenderCursorSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
@@ -180,7 +180,7 @@ export default class Editor {
         // Editor related systems
         this.registry.addSystem(EditorRenderSystem);
         this.registry.addSystem(RenderSpriteBoxSystem);
-        this.registry.addSystem(RenderCanvasBorder);
+        this.registry.addSystem(RenderGameBorder);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -391,7 +391,7 @@ export default class Editor {
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(RenderCanvasBorder)?.update(this.ctx, this.canvas);
+        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.canvas);
     };
 
     run = async () => {
