@@ -36,6 +36,7 @@ import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinat
 import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
 import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
 import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
+import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderCursorSystem from '../systems/render/RenderCursorSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
@@ -165,6 +166,7 @@ export default class Editor {
         this.registry.addSystem(RenderDebugInfoSystem);
         this.registry.addSystem(RenderSlowTimeRadiusSystem);
         this.registry.addSystem(RenderCursorCoordinatesSystem);
+        this.registry.addSystem(RenderSpriteBoxSystem);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -321,6 +323,7 @@ export default class Editor {
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
+        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera);
     };
 
     run = async () => {
