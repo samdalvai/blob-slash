@@ -6,6 +6,7 @@ import KeyReleasedEvent from '../events/KeyReleasedEvent';
 import MouseMoveEvent from '../events/MouseMoveEvent';
 import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
+import ScrollEvent from '../events/ScrollEvent';
 import Game from '../game/Game';
 import InputManager from '../input-manager/InputManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../serialization/persistence';
@@ -65,6 +66,8 @@ export default class Editor {
     private inputManager: InputManager;
     private mousePosition: Vector;
 
+    private commandButtonPressed: boolean;
+
     static mapWidth: number;
     static mapHeight: number;
     static gameStatus: GameStatus;
@@ -80,6 +83,7 @@ export default class Editor {
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
         this.mousePosition = { x: 0, y: 0 };
+        this.commandButtonPressed = false;
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
@@ -182,9 +186,9 @@ export default class Editor {
 
             switch (inputEvent.type) {
                 case 'keydown':
-                    // if (inputEvent.code === 'F2') {
-                    //     this.isDebug = !this.isDebug;
-                    // }
+                    if (inputEvent.code === 'MetaLeft') {
+                        this.commandButtonPressed = true;
+                    }
 
                     if (inputEvent.code === 'F3') {
                         saveLevelToLocalStorage(this.registry);
@@ -197,6 +201,10 @@ export default class Editor {
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
+                    if (inputEvent.code === 'MetaLeft') {
+                        this.commandButtonPressed = false;
+                    }
+
                     this.eventBus.emitEvent(KeyReleasedEvent, inputEvent.code);
                     break;
             }
@@ -243,10 +251,25 @@ export default class Editor {
                     break;
             }
         }
+
+        while (this.inputManager.wheelInputBuffer.length > 0) {
+            const wheelEvent = this.inputManager.wheelInputBuffer.shift();
+
+            if (!wheelEvent) {
+                return;
+            }
+
+            if (wheelEvent.deltaY < 0) {
+                this.eventBus.emitEvent(ScrollEvent, 'up');
+            }
+
+            if (wheelEvent.deltaY > 0) {
+                this.eventBus.emitEvent(ScrollEvent, 'down');
+            }
+        }
     };
 
     private update = (deltaTime: number) => {
-        // if (this.isDebug) {
         const millisecsCurrentFrame = performance.now();
         if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
             this.frameDuration = deltaTime * 1000;
@@ -257,7 +280,6 @@ export default class Editor {
                 this.maxFPS = this.currentFPS;
             }
         }
-        // }
 
         // Reset all event handlers for the current frame
         // this.eventBus.reset();
