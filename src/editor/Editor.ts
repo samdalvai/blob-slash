@@ -233,16 +233,16 @@ export default class Editor {
                         y: inputEvent.y,
                     };
                     this.eventBus.emitEvent(MouseMoveEvent, {
-                        x: inputEvent.x + this.camera.x,
-                        y: inputEvent.y + this.camera.y,
+                        x: inputEvent.x / this.zoom + this.camera.x,
+                        y: inputEvent.y / this.zoom + this.camera.y,
                     });
                     break;
                 case 'mousedown':
                     this.eventBus.emitEvent(
                         MousePressedEvent,
                         {
-                            x: inputEvent.x + this.camera.x,
-                            y: inputEvent.y + this.camera.y,
+                            x: inputEvent.x / this.zoom + this.camera.x,
+                            y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button === 0 ? 'left' : 'right',
                     );
@@ -251,8 +251,8 @@ export default class Editor {
                     this.eventBus.emitEvent(
                         MouseReleasedEvent,
                         {
-                            x: inputEvent.x + this.camera.x,
-                            y: inputEvent.y + this.camera.y,
+                            x: inputEvent.x / this.zoom + this.camera.x,
+                            y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button === 0 ? 'left' : 'right',
                     );
@@ -357,7 +357,15 @@ export default class Editor {
         // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
-            ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.mousePosition, this.registry);
+            ?.update(
+                this.ctx,
+                this.currentFPS,
+                this.maxFPS,
+                this.frameDuration,
+                this.mousePosition,
+                this.registry,
+                this.zoom,
+            );
         this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
@@ -366,7 +374,7 @@ export default class Editor {
         this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
 
         // Render editor systems
-        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(RenderCanvasBorder)?.update(this.ctx, this.canvas);
     };
 
