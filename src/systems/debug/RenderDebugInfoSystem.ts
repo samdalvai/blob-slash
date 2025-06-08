@@ -15,6 +15,7 @@ export default class RenderDebugInfoSystem extends System {
         frameDuration: number,
         mousePosition: Vector,
         registry: Registry,
+        zoom?: number,
     ) {
         const x = Game.windowWidth - 275;
         const y = 50;
@@ -25,10 +26,18 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillStyle = 'white';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
-        ctx.fillText(`Mouse coordinates: {x: ${mousePosition.x}, y: ${mousePosition.y}}`, x, y + 50);
+        ctx.fillText(
+            `Mouse coordinates: {x: ${(zoom ? mousePosition.x / zoom : mousePosition.x).toFixed(2)}, y: ${(zoom ? mousePosition.y / zoom : mousePosition.y).toFixed(2)}}`,
+            x,
+            y + 50,
+        );
         ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 75);
         ctx.fillText('F3: save level to local storage', x, y + 100);
         ctx.fillText('F4: save level to json', x, y + 125);
+
+        if (zoom) {
+            ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 150);
+        }
 
         ctx.restore();
     }

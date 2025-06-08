@@ -10,7 +10,7 @@ export default class RenderSpriteBoxSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
         for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -31,10 +31,10 @@ export default class RenderSpriteBoxSystem extends System {
             }
 
             const spriteRect: Rectangle = {
-                x: transform.position.x - camera.x,
-                y: transform.position.y - camera.y,
-                width: sprite.width * transform.scale.x,
-                height: sprite.height * transform.scale.y,
+                x: (transform.position.x - camera.x) * zoom,
+                y: (transform.position.y - camera.y) * zoom,
+                width: sprite.width * transform.scale.x * zoom,
+                height: sprite.height * transform.scale.y * zoom,
             };
 
             ctx.strokeStyle = 'green';
