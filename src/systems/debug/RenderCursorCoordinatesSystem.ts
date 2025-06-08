@@ -1,24 +1,29 @@
 import System from '../../ecs/System';
-import { Vector } from '../../types/utils';
+import { Rectangle, Vector } from '../../types/utils';
 
 export default class RenderCursorCoordinatesSystem extends System {
     constructor() {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D, mousePosition: Vector, zoom?: number) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, mousePosition: Vector, zoom?: number) {
         ctx.strokeStyle = 'red';
 
         const zoomFactor = zoom ?? 1;
 
+        const screenMouseX = (mousePosition.x - camera.x) * zoomFactor;
+        const screenMouseY = (mousePosition.y - camera.y) * zoomFactor;
+
+        const crossSize = 25;
+
         ctx.beginPath();
-        ctx.moveTo((mousePosition.x - 25 / zoomFactor) * zoomFactor, mousePosition.y * zoomFactor);
-        ctx.lineTo((mousePosition.x + 25 / zoomFactor) * zoomFactor, mousePosition.y * zoomFactor);
+        ctx.moveTo(screenMouseX - crossSize, screenMouseY);
+        ctx.lineTo(screenMouseX + crossSize, screenMouseY);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(mousePosition.x * zoomFactor, (mousePosition.y - 25 / zoomFactor) * zoomFactor);
-        ctx.lineTo(mousePosition.x * zoomFactor, (mousePosition.y + 25 / zoomFactor) * zoomFactor);
+        ctx.moveTo(screenMouseX, screenMouseY - crossSize);
+        ctx.lineTo(screenMouseX, screenMouseY + crossSize);
         ctx.stroke();
     }
 }

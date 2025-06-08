@@ -211,8 +211,8 @@ export default class Game {
             switch (inputEvent.type) {
                 case 'mousemove':
                     this.mousePosition = {
-                        x: inputEvent.x,
-                        y: inputEvent.y,
+                        x: inputEvent.x + this.camera.x,
+                        y: inputEvent.y + this.camera.y,
                     };
                     this.eventBus.emitEvent(MouseMoveEvent, {
                         x: inputEvent.x + this.camera.x,
@@ -286,7 +286,7 @@ export default class Game {
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
-        this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition, this.camera);
+        this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition);
         this.registry.getSystem(DamageSystem)?.update();
         this.registry.getSystem(AnimationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
@@ -309,7 +309,7 @@ export default class Game {
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
         this.registry
             .getSystem(RenderCursorSystem)
-            ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
+            ?.update(this.ctx, this.camera, this.assetStore, this.registry, this.mousePosition);
 
         if (this.isDebug) {
             this.registry
@@ -320,7 +320,7 @@ export default class Game {
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.mousePosition);
+            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera, this.mousePosition);
         }
     };
 

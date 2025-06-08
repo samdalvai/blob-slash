@@ -2,7 +2,7 @@ import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../ecs/System';
-import { Rectangle, Vector } from '../types/utils';
+import {  Vector } from '../types/utils';
 
 export default class EntityHighlightSystem extends System {
     constructor() {
@@ -12,9 +12,9 @@ export default class EntityHighlightSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update = (mousePosition: Vector, camera: Rectangle) => {
-        const mouseX = mousePosition.x + camera.x;
-        const mouseY = mousePosition.y + camera.y;
+    update = (mousePosition: Vector) => {
+        const mouseX = mousePosition.x;
+        const mouseY = mousePosition.y;
 
         for (const entity of this.getSystemEntities()) {
             const highlight = entity.getComponent(HighlightComponent);
