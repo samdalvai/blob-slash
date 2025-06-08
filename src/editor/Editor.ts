@@ -68,6 +68,7 @@ export default class Editor {
     private inputManager: InputManager;
     private mousePosition: Vector;
 
+    private mousePressed: boolean;
     private commandButtonPressed: boolean;
     private zoom: number;
 
@@ -86,6 +87,7 @@ export default class Editor {
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
         this.mousePosition = { x: 0, y: 0 };
+        this.mousePressed = false;
         this.commandButtonPressed = false;
         this.zoom = 1;
     }
@@ -227,17 +229,30 @@ export default class Editor {
             }
 
             switch (inputEvent.type) {
-                case 'mousemove':
+                case 'mousemove': {
+                    const mouseX = inputEvent.x / this.zoom + this.camera.x;
+                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
+
+                    if (this.mousePressed && this.commandButtonPressed) {
+                        const dx = mouseX - this.mousePosition.x;
+                        const dy = mouseY - this.mousePosition.y;
+
+                        this.camera.x -= dx;
+                        this.camera.y -= dy;
+                    }
+
                     this.mousePosition = {
-                        x: inputEvent.x / this.zoom + this.camera.x,
-                        y: inputEvent.y / this.zoom + this.camera.y,
+                        x: mouseX,
+                        y: mouseY,
                     };
                     this.eventBus.emitEvent(MouseMoveEvent, {
-                        x: inputEvent.x / this.zoom + this.camera.x,
-                        y: inputEvent.y / this.zoom + this.camera.y,
+                        x: mouseX,
+                        y: mouseY,
                     });
                     break;
+                }
                 case 'mousedown':
+                    this.mousePressed = true;
                     this.eventBus.emitEvent(
                         MousePressedEvent,
                         {
@@ -248,6 +263,7 @@ export default class Editor {
                     );
                     break;
                 case 'mouseup':
+                    this.mousePressed = false;
                     this.eventBus.emitEvent(
                         MouseReleasedEvent,
                         {
@@ -296,7 +312,7 @@ export default class Editor {
         }
 
         // Reset all event handlers for the current frame
-        // this.eventBus.reset();
+        this.eventBus.reset();
 
         this.registry.update();
 
