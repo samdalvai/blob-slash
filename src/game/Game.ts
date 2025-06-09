@@ -217,10 +217,12 @@ export default class Game {
                         x: inputEvent.x,
                         y: inputEvent.y,
                     };
+
                     Game.mousePositionWorld = {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
                     };
+                    
                     this.eventBus.emitEvent(MouseMoveEvent, {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
@@ -327,7 +329,7 @@ export default class Game {
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera, this.mousePosition);
+            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera);
         }
     };
 
