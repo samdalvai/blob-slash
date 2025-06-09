@@ -59,8 +59,9 @@ export default class Game {
     private assetStore: AssetStore;
     private eventBus: EventBus;
     private inputManager: InputManager;
-    private mousePosition: Vector;
 
+    static mousePositionScreen: Vector;
+    static mousePositionWorld: Vector;
     static mapWidth: number;
     static mapHeight: number;
     static windowWidth: number;
@@ -77,7 +78,9 @@ export default class Game {
         this.assetStore = new AssetStore();
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
-        this.mousePosition = { x: 0, y: 0 };
+
+        Game.mousePositionScreen = { x: 0, y: 0 };
+        Game.mousePositionWorld = { x: 0, y: 0 };
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
@@ -210,7 +213,11 @@ export default class Game {
 
             switch (inputEvent.type) {
                 case 'mousemove':
-                    this.mousePosition = {
+                    Game.mousePositionScreen = {
+                        x: inputEvent.x,
+                        y: inputEvent.y,
+                    };
+                    Game.mousePositionWorld = {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
                     };
@@ -286,7 +293,7 @@ export default class Game {
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
-        this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition);
+        this.registry.getSystem(EntityHighlightSystem)?.update();
         this.registry.getSystem(DamageSystem)?.update();
         this.registry.getSystem(AnimationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
@@ -309,12 +316,12 @@ export default class Game {
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
         this.registry
             .getSystem(RenderCursorSystem)
-            ?.update(this.ctx, this.camera, this.assetStore, this.registry, this.mousePosition);
+            ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         if (this.isDebug) {
             this.registry
                 .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.mousePosition, this.registry);
+                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry);
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);

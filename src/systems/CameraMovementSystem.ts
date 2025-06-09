@@ -30,6 +30,9 @@ export default class CameraMovementSystem extends System {
             // Clamps the camera's position so it stays within the map boundaries.
             camera.x = Math.max(0, Math.min(camera.x, Game.mapWidth - camera.width));
             camera.y = Math.max(0, Math.min(camera.y, Game.mapHeight - camera.height));
+
+            Game.mousePositionWorld.x = Game.mousePositionScreen.x + camera.x;
+            Game.mousePositionWorld.y = Game.mousePositionScreen.y + camera.y;
         }
     }
 }

@@ -1,18 +1,19 @@
 import System from '../../ecs/System';
-import { Rectangle, Vector } from '../../types/utils';
+import Game from '../../game/Game';
+import { Rectangle } from '../../types/utils';
 
 export default class RenderCursorCoordinatesSystem extends System {
     constructor() {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, mousePosition: Vector, zoom?: number) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom?: number) {
         ctx.strokeStyle = 'red';
 
         const zoomFactor = zoom ?? 1;
 
-        const screenMouseX = (mousePosition.x - camera.x) * zoomFactor;
-        const screenMouseY = (mousePosition.y - camera.y) * zoomFactor;
+        const screenMouseX = Game.mousePositionScreen.x * zoomFactor;
+        const screenMouseY = Game.mousePositionScreen.y * zoomFactor;
 
         const crossSize = 25;
 
