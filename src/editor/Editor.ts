@@ -40,7 +40,6 @@ import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSys
 import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
 import RenderGameBorder from '../systems/editor/RenderGameBorder';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
-import RenderCursorSystem from '../systems/render/RenderCursorSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
 import RenderLightingSystem from '../systems/render/RenderLightingSystem';
@@ -66,7 +65,6 @@ export default class Editor {
     private assetStore: AssetStore;
     private eventBus: EventBus;
     private inputManager: InputManager;
-    private mousePosition: Vector;
 
     private mousePressed: boolean;
     private commandButtonPressed: boolean;
@@ -86,10 +84,12 @@ export default class Editor {
         this.assetStore = new AssetStore();
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
-        this.mousePosition = { x: 0, y: 0 };
         this.mousePressed = false;
         this.commandButtonPressed = false;
         this.zoom = 1;
+
+        Game.mousePositionScreen = { x: 0, y: 0 };
+        Game.mousePositionWorld = { x: 0, y: 0 };
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
@@ -233,18 +233,25 @@ export default class Editor {
                     const mouseX = inputEvent.x / this.zoom + this.camera.x;
                     const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
+                    Game.mousePositionScreen = {
+                        x: inputEvent.x,
+                        y: inputEvent.y,
+                    };
+
+                    // Handles mouse pad pan
                     if (this.mousePressed && this.commandButtonPressed) {
-                        const dx = mouseX - this.mousePosition.x;
-                        const dy = mouseY - this.mousePosition.y;
+                        const dx = mouseX - Game.mousePositionWorld.x;
+                        const dy = mouseY - Game.mousePositionWorld.y;
 
                         this.camera.x -= dx;
                         this.camera.y -= dy;
                     }
 
-                    this.mousePosition = {
+                    Game.mousePositionWorld = {
                         x: mouseX,
                         y: mouseY,
                     };
+
                     this.eventBus.emitEvent(MouseMoveEvent, {
                         x: mouseX,
                         y: mouseY,
@@ -340,7 +347,7 @@ export default class Editor {
         this.registry.getSystem(ParticleEmitSystem)?.update();
         this.registry.getSystem(EntityDestinationSystem)?.update();
         this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
-        this.registry.getSystem(EntityHighlightSystem)?.update(this.mousePosition);
+        // this.registry.getSystem(EntityHighlightSystem)?.update();
         this.registry.getSystem(DamageSystem)?.update();
         this.registry.getSystem(AnimationSystem)?.update();
         this.registry.getSystem(SpriteStateSystem)?.update();
@@ -373,25 +380,17 @@ export default class Editor {
         // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
-            ?.update(
-                this.ctx,
-                this.currentFPS,
-                this.maxFPS,
-                this.frameDuration,
-                this.mousePosition,
-                this.registry,
-                this.zoom,
-            );
+            ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.zoom);
         this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera, this.mousePosition, this.zoom);
+        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.canvas);
+        this.registry.getSystem(RenderGameBorder)?.update(this.ctx);
     };
 
     run = async () => {
