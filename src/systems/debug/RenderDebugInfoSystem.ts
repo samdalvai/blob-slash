@@ -1,7 +1,6 @@
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
 import Game from '../../game/Game';
-import { Vector } from '../../types/utils';
 
 export default class RenderDebugInfoSystem extends System {
     constructor() {
@@ -13,7 +12,6 @@ export default class RenderDebugInfoSystem extends System {
         currentFPS: number,
         maxFPS: number,
         frameDuration: number,
-        mousePosition: Vector,
         registry: Registry,
         zoom?: number,
     ) {
@@ -27,7 +25,7 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(
-            `Mouse coordinates: {x: ${Math.floor(mousePosition.x)}, y: ${Math.floor(mousePosition.y)}}`,
+            `Mouse coordinates: {x: ${Math.floor(Game.mousePositionWorld.x)}, y: ${Math.floor(Game.mousePositionWorld.y)}}`,
             x,
             y + 50,
         );

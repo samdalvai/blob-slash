@@ -3,7 +3,8 @@ import HighlightComponent from '../../components/HighlightComponent';
 import PlayerControlComponent from '../../components/PlayerControlComponent';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
-import { Rectangle, Vector } from '../../types/utils';
+import Game from '../../game/Game';
+import { Rectangle } from '../../types/utils';
 
 export default class RenderCursorSystem extends System {
     constructor() {
@@ -15,12 +16,11 @@ export default class RenderCursorSystem extends System {
         camera: Rectangle,
         assetStore: AssetStore,
         registry: Registry,
-        mousePosition: Vector,
     ) {
         const player = registry.getEntityByTag('player');
 
         if (!player) {
-            this.renderDefaultCursor(ctx, camera, assetStore, mousePosition);
+            this.renderDefaultCursor(ctx, camera, assetStore);
             return;
         }
 
@@ -31,7 +31,7 @@ export default class RenderCursorSystem extends System {
         }
 
         if (playerControl.keysPressed.includes('ShiftLeft')) {
-            this.renderAttackCursor(ctx, camera, assetStore, mousePosition);
+            this.renderAttackCursor(ctx, camera, assetStore);
             return;
         }
 
@@ -53,18 +53,17 @@ export default class RenderCursorSystem extends System {
         }
 
         if (enemyHighlighted) {
-            this.renderAttackCursor(ctx, camera, assetStore, mousePosition);
+            this.renderAttackCursor(ctx, camera, assetStore);
             return;
         }
 
-        this.renderDefaultCursor(ctx, camera, assetStore, mousePosition);
+        this.renderDefaultCursor(ctx, camera, assetStore);
     }
 
     private renderAttackCursor = (
         ctx: CanvasRenderingContext2D,
         camera: Rectangle,
         assetStore: AssetStore,
-        mousePosition: Vector,
     ) => {
         ctx.drawImage(
             assetStore.getTexture('cursor-texture'),
@@ -72,8 +71,8 @@ export default class RenderCursorSystem extends System {
             0,
             32,
             32,
-            mousePosition.x - 5 - camera.x,
-            mousePosition.y - 5 - camera.y,
+            Game.mousePositionScreen.x - 5,
+            Game.mousePositionScreen.y - 5,
             32,
             32,
         );
@@ -83,7 +82,6 @@ export default class RenderCursorSystem extends System {
         ctx: CanvasRenderingContext2D,
         camera: Rectangle,
         assetStore: AssetStore,
-        mousePosition: Vector,
     ) => {
         ctx.drawImage(
             assetStore.getTexture('cursor-texture'),
@@ -91,8 +89,8 @@ export default class RenderCursorSystem extends System {
             0,
             32,
             32,
-            mousePosition.x - 14 - camera.x,
-            mousePosition.y - 5 - camera.y,
+            Game.mousePositionScreen.x - 14,
+            Game.mousePositionScreen.y - 5,
             32,
             32,
         );
