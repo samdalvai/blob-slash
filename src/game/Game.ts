@@ -329,7 +329,7 @@ export default class Game {
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx);
         }
     };
 
