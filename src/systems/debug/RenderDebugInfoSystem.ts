@@ -25,16 +25,21 @@ export default class RenderDebugInfoSystem extends System {
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(
-            `Mouse coordinates: {x: ${Math.floor(Game.mousePositionWorld.x)}, y: ${Math.floor(Game.mousePositionWorld.y)}}`,
+            `Mouse screen: {x: ${Math.floor(Game.mousePositionScreen.x)}, y: ${Math.floor(Game.mousePositionScreen.y)}}`,
             x,
             y + 50,
         );
-        ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 75);
-        ctx.fillText('F3: save level to local storage', x, y + 100);
-        ctx.fillText('F4: save level to json', x, y + 125);
+        ctx.fillText(
+            `Mouse world: {x: ${Math.floor(Game.mousePositionWorld.x)}, y: ${Math.floor(Game.mousePositionWorld.y)}}`,
+            x,
+            y + 75,
+        );
+        ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 100);
+        ctx.fillText('F3: save level to local storage', x, y + 125);
+        ctx.fillText('F4: save level to json', x, y + 150);
 
         if (zoom) {
-            ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 150);
+            ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 175);
         }
 
         ctx.restore();
