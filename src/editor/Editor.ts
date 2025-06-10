@@ -300,6 +300,8 @@ export default class Editor {
             if (wheelEvent.deltaY > 0) {
                 if (this.commandButtonPressed) {
                     this.zoom *= 1 - 0.01;
+
+
                 }
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
@@ -386,7 +388,7 @@ export default class Editor {
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx);
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
