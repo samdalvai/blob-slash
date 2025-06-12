@@ -392,7 +392,7 @@ export default class Editor {
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.zoom);
+        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
     };
 
     run = async () => {
