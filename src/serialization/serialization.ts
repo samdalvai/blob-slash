@@ -1,5 +1,6 @@
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
+import Game from '../game/Game';
 import { ComponentMap, EntityMap, LevelMap } from '../types/map';
 
 export const serializeEntity = (entity: Entity): EntityMap => {
@@ -50,5 +51,5 @@ export const serializeLevel = (registry: Registry): LevelMap => {
         entities.push(new Entity(i, registry));
     }
 
-    return { entities: serializeEntities(entities) };
+    return { mapWidth: Game.mapWidth, mapHeight: Game.mapHeight, entities: serializeEntities(entities) };
 };

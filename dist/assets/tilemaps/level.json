@@ -1,4 +1,6 @@
 {
+  "mapWidth": 2110,
+  "mapHeight": 850,
   "entities": [
     {
       "group": "tiles",

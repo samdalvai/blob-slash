@@ -41,6 +41,7 @@ import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
 import RenderGameBorder from '../systems/editor/RenderGameBorder';
 import RenderSidebarEntities from '../systems/editor/RenderSidebarEntities';
 import RenderSidebarLevelSettings from '../systems/editor/RenderSidebarLevelSettings';
+import RenderSidebarSaveButtons from '../systems/editor/RenderSidebarSaveButtons';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
@@ -204,6 +205,7 @@ export default class Editor {
         this.registry.addSystem(RenderGameBorder);
         this.registry.addSystem(RenderSidebarEntities);
         this.registry.addSystem(RenderSidebarLevelSettings);
+        this.registry.addSystem(RenderSidebarSaveButtons);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -221,14 +223,6 @@ export default class Editor {
                 case 'keydown':
                     if (inputEvent.code === 'MetaLeft') {
                         this.commandButtonPressed = true;
-                    }
-
-                    if (inputEvent.code === 'F3') {
-                        saveLevelToLocalStorage(this.registry);
-                    }
-
-                    if (inputEvent.code === 'F4') {
-                        saveLevelToJson(this.registry);
                     }
 
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
@@ -425,6 +419,7 @@ export default class Editor {
         if (this.shouldSidebarUpdate) {
             this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar);
             this.registry.getSystem(RenderSidebarLevelSettings)?.update(this.sidebar);
+            this.registry.getSystem(RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
             this.shouldSidebarUpdate = false;
         }
     };

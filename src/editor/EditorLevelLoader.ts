@@ -17,7 +17,7 @@ export default class EditorLevelLoader {
         // }
 
         this.loadEntities(registry, level);
-        this.setMapBoundaries(registry);
+        this.setMapBoundaries(level);
     }
 
     private static async loadAssets(assetStore: AssetStore) {
@@ -67,62 +67,10 @@ export default class EditorLevelLoader {
         tile2.group('tiles');
     }
 
-    private static setMapBoundaries(registry: Registry) {
+    private static setMapBoundaries(level: LevelMap) {
         console.log('Setting map boundaries');
-        const tiles = registry.getEntitiesByGroup('tiles');
 
-        let minX = Number.MAX_SAFE_INTEGER;
-        let minY = Number.MAX_SAFE_INTEGER;
-
-        let maxX = 0;
-        let maxY = 0;
-
-        let spriteWidth = 0;
-        let spriteHeight = 0;
-        const spriteScale = { x: 0, y: 0 };
-
-        for (const tile of tiles) {
-            const sprite = tile.getComponent(SpriteComponent);
-            const transform = tile.getComponent(TransformComponent);
-
-            if (!sprite || !transform) {
-                throw new Error(`Could not find some component(s) of tile entity ${tile.getId()}`);
-            }
-
-            if (transform.position.x < minX) {
-                minX = transform.position.x;
-            }
-
-            if (transform.position.y < minY) {
-                minY = transform.position.y;
-            }
-
-            if (transform.position.x > maxX) {
-                maxX = transform.position.x;
-            }
-
-            if (transform.position.y > maxY) {
-                maxY = transform.position.y;
-            }
-
-            if (sprite.width > spriteWidth) {
-                spriteWidth = sprite.width;
-            }
-
-            if (sprite.height > spriteHeight) {
-                spriteHeight = sprite.height;
-            }
-
-            if (transform.scale.x > spriteScale.x) {
-                spriteScale.x = transform.scale.x;
-            }
-
-            if (transform.scale.y > spriteScale.y) {
-                spriteScale.y = transform.scale.y;
-            }
-        }
-
-        Game.mapWidth = maxX - minX + spriteWidth * spriteScale.x;
-        Game.mapHeight = maxY - minY + spriteHeight * spriteScale.y;
+        Game.mapWidth = level.mapWidth;
+        Game.mapHeight = level.mapHeight;
     }
 }

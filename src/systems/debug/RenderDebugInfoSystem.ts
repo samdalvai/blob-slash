@@ -40,11 +40,9 @@ export default class RenderDebugInfoSystem extends System {
             y + 100,
         );
         ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 125);
-        ctx.fillText('F3: save level to local storage', x, y + 150);
-        ctx.fillText('F4: save level to json', x, y + 175);
 
         if (zoom) {
-            ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 200);
+            ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 150);
         }
     }
 }
