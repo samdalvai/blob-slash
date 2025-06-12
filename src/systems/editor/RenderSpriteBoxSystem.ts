@@ -39,10 +39,10 @@ export default class RenderSpriteBoxSystem extends System {
             };
 
             if (
-                Game.mousePositionWorld.x >= spriteRect.x &&
-                Game.mousePositionWorld.x <= spriteRect.x + spriteRect.width &&
-                Game.mousePositionWorld.y >= spriteRect.y &&
-                Game.mousePositionWorld.y <= spriteRect.y + spriteRect.height
+                Game.mousePositionWorld.x >= transform.position.x &&
+                Game.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
+                Game.mousePositionWorld.y >= transform.position.y &&
+                Game.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
