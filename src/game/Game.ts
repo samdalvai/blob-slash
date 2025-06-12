@@ -323,7 +323,7 @@ export default class Game {
         if (this.isDebug) {
             this.registry
                 .getSystem(RenderDebugInfoSystem)
-                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry);
+                ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera);
             this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
