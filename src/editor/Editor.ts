@@ -78,9 +78,11 @@ export default class Editor {
     constructor() {
         this.isRunning = false;
         // this.isDebug = false;
+
         this.canvas = null;
         this.ctx = null;
         this.sidebar = null;
+
         this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
         this.registry = new Registry();
         this.assetStore = new AssetStore();
@@ -94,9 +96,7 @@ export default class Editor {
         Game.mousePositionWorld = { x: 0, y: 0 };
     }
 
-    private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
-        const sidebar = document.getElementById('sidebar') as HTMLElement;
-
+    private resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
         canvas.width = window.innerWidth - sidebar.getBoundingClientRect().width;
         canvas.height = window.innerHeight;
 
@@ -122,22 +122,33 @@ export default class Editor {
     initialize = () => {
         console.log('Initializing game');
         const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+        const sidebar = document.getElementById('sidebar') as HTMLElement;
+
+        if (!canvas) {
+            throw new Error('Failed to get canvas.');
+        }
 
         if (!ctx) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
 
-        this.resize(canvas, this.camera);
-        // canvas.style.cursor = 'none';
+        if (!sidebar) {
+            throw new Error('Failed to get sidebar element.');
+        }
 
         this.canvas = canvas;
         this.ctx = ctx;
+        this.sidebar = sidebar;
+
+        this.resize(canvas, this.camera, this.sidebar);
+        // canvas.style.cursor = 'none';
+
         this.isRunning = true;
 
         window.addEventListener('resize', () => {
-            if (this.canvas && this.camera) {
-                this.resize(this.canvas, this.camera);
+            if (this.canvas && this.camera && this.sidebar) {
+                this.resize(this.canvas, this.camera, this.sidebar);
             }
         });
     };
@@ -236,7 +247,12 @@ export default class Editor {
 
             switch (inputEvent.type) {
                 case 'mousemove': {
-                    const mouseX = inputEvent.x / this.zoom + this.camera.x;
+                    if (!this.sidebar) {
+                        throw new Error('Failed to get sidebar element.');
+                    }
+
+                    const mouseX =
+                        (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
                     const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
                     Game.mousePositionScreen = {
@@ -392,7 +408,9 @@ export default class Editor {
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderCursorCoordinatesSystem)?.update(this.ctx);
+        this.registry
+            .getSystem(RenderCursorCoordinatesSystem)
+            ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
 
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
