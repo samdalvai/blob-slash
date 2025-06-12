@@ -56,6 +56,7 @@ export default class Editor {
     // private isDebug: boolean;
     private canvas: HTMLCanvasElement | null;
     private ctx: CanvasRenderingContext2D | null;
+    private sidebar: HTMLElement | null;
     private camera: Rectangle;
     private millisecondsLastFPSUpdate = 0;
     private currentFPS = 0;
@@ -79,6 +80,7 @@ export default class Editor {
         // this.isDebug = false;
         this.canvas = null;
         this.ctx = null;
+        this.sidebar = null;
         this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
         this.registry = new Registry();
         this.assetStore = new AssetStore();
@@ -384,7 +386,7 @@ export default class Editor {
         // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
-            ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.zoom);
+            ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera, this.zoom);
         this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
