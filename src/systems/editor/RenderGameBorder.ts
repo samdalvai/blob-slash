@@ -6,8 +6,8 @@ export default class RenderGameBorder extends System {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D) {
+    update(ctx: CanvasRenderingContext2D, zoom: number) {
         ctx.strokeStyle = 'red';
-        ctx.strokeRect(0, 0, Game.mapWidth, Game.mapHeight);
+        ctx.strokeRect(0, 0, Game.mapWidth * zoom, Game.mapHeight * zoom);
     }
 }
