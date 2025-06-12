@@ -106,7 +106,7 @@ export default class Game {
 
     initialize = () => {
         console.log('Initializing game');
-        const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+        const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
 
         if (!ctx) {

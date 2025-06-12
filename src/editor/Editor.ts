@@ -40,6 +40,7 @@ import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSys
 import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
 import RenderGameBorder from '../systems/editor/RenderGameBorder';
 import RenderSidebarEntities from '../systems/editor/RenderSidebarEntities';
+import RenderSidebarLevelSettings from '../systems/editor/RenderSidebarLevelSettings';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
@@ -124,7 +125,7 @@ export default class Editor {
 
     initialize = () => {
         console.log('Initializing game');
-        const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+        const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const sidebar = document.getElementById('sidebar') as HTMLElement;
 
@@ -202,6 +203,7 @@ export default class Editor {
         this.registry.addSystem(RenderSpriteBoxSystem);
         this.registry.addSystem(RenderGameBorder);
         this.registry.addSystem(RenderSidebarEntities);
+        this.registry.addSystem(RenderSidebarLevelSettings);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -422,6 +424,7 @@ export default class Editor {
 
         if (this.needSidebarUpdate) {
             this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar);
+            this.registry.getSystem(RenderSidebarLevelSettings)?.update(this.sidebar);
             this.needSidebarUpdate = false;
         }
     };
