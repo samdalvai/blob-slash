@@ -39,6 +39,7 @@ import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowR
 import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
 import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
 import RenderGameBorder from '../systems/editor/RenderGameBorder';
+import RenderSidebar from '../systems/editor/RenderSidebar';
 import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
 import RenderGUISystem from '../systems/render/RenderGUISystem';
 import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
@@ -70,6 +71,7 @@ export default class Editor {
     private mousePressed: boolean;
     private commandButtonPressed: boolean;
     private zoom: number;
+    private needSidebarUpdate: boolean;
 
     static mapWidth: number;
     static mapHeight: number;
@@ -91,6 +93,7 @@ export default class Editor {
         this.mousePressed = false;
         this.commandButtonPressed = false;
         this.zoom = 1;
+        this.needSidebarUpdate = true;
 
         Game.mousePositionScreen = { x: 0, y: 0 };
         Game.mousePositionWorld = { x: 0, y: 0 };
@@ -198,6 +201,7 @@ export default class Editor {
         this.registry.addSystem(EditorRenderSystem);
         this.registry.addSystem(RenderSpriteBoxSystem);
         this.registry.addSystem(RenderGameBorder);
+        this.registry.addSystem(RenderSidebar);
 
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
@@ -376,7 +380,7 @@ export default class Editor {
     };
 
     private render = () => {
-        if (!this.canvas || !this.ctx) {
+        if (!this.canvas || !this.ctx || !this.sidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
 
@@ -415,6 +419,11 @@ export default class Editor {
         // Render editor systems
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
+
+        if (this.needSidebarUpdate) {
+            this.registry.getSystem(RenderSidebar)?.update(this.sidebar);
+            this.needSidebarUpdate = false;
+        }
     };
 
     run = async () => {
