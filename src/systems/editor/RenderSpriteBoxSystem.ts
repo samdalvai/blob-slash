@@ -1,6 +1,7 @@
 import SpriteComponent from '../../components/SpriteComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
+import Game from '../../game/Game';
 import { Rectangle } from '../../types/utils';
 
 export default class RenderSpriteBoxSystem extends System {
@@ -37,8 +38,16 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            ctx.strokeStyle = 'green';
-            ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+            if (
+                Game.mousePositionWorld.x >= spriteRect.x &&
+                Game.mousePositionWorld.x <= spriteRect.x + spriteRect.width &&
+                Game.mousePositionWorld.y >= spriteRect.y &&
+                Game.mousePositionWorld.y <= spriteRect.y + spriteRect.height
+            ) {
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+            }
         }
     }
 }

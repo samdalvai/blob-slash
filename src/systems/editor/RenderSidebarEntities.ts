@@ -2,7 +2,7 @@ import System from '../../ecs/System';
 import Game from '../../game/Game';
 import { Rectangle } from '../../types/utils';
 
-export default class RenderSidebar extends System {
+export default class RenderSidebarEntities extends System {
     constructor() {
         super();
     }
