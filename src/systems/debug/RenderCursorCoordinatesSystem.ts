@@ -6,19 +6,19 @@ export default class RenderCursorCoordinatesSystem extends System {
         super();
     }
 
-    update(ctx: CanvasRenderingContext2D) {
+    update(ctx: CanvasRenderingContext2D, offsetX = 0) {
         ctx.strokeStyle = 'red';
 
         const crossSize = 25;
 
         ctx.beginPath();
-        ctx.moveTo(Game.mousePositionScreen.x - crossSize, Game.mousePositionScreen.y);
-        ctx.lineTo(Game.mousePositionScreen.x + crossSize, Game.mousePositionScreen.y);
+        ctx.moveTo(Game.mousePositionScreen.x - crossSize + offsetX, Game.mousePositionScreen.y);
+        ctx.lineTo(Game.mousePositionScreen.x + crossSize + offsetX, Game.mousePositionScreen.y);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(Game.mousePositionScreen.x, Game.mousePositionScreen.y - crossSize);
-        ctx.lineTo(Game.mousePositionScreen.x, Game.mousePositionScreen.y + crossSize);
+        ctx.moveTo(Game.mousePositionScreen.x + offsetX, Game.mousePositionScreen.y - crossSize);
+        ctx.lineTo(Game.mousePositionScreen.x + offsetX, Game.mousePositionScreen.y + crossSize);
         ctx.stroke();
     }
 }
