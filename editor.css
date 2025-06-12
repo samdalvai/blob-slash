@@ -15,6 +15,7 @@ body {
 
 #sidebar {
   width: 300px;
+  min-width: 300px;
   background-color: #1e1e1e;
   color: #fff;
   padding: 16px;
