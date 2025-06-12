@@ -17,7 +17,7 @@ export default class RenderDebugInfoSystem extends System {
         camera: Rectangle,
         zoom?: number,
     ) {
-        const x = Game.windowWidth - 350;
+        const x = Game.windowWidth - 300;
         const y = 50;
 
         ctx.save();
@@ -37,7 +37,7 @@ export default class RenderDebugInfoSystem extends System {
             y + 75,
         );
         ctx.fillText(
-            `Camera: {x: ${Math.floor(camera.x)}, y: ${Math.floor(camera.y)}, width: ${Math.floor(camera.width)}, height: ${Math.floor(camera.height)}}`,
+            `Camera: {x: ${Math.floor(camera.x)}, y: ${Math.floor(camera.y)}, w: ${Math.floor(camera.width)}, h: ${Math.floor(camera.height)}}`,
             x,
             y + 100,
         );
