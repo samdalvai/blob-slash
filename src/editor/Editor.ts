@@ -72,7 +72,7 @@ export default class Editor {
     private mousePressed: boolean;
     private commandButtonPressed: boolean;
     private zoom: number;
-    private needSidebarUpdate: boolean;
+    private shouldSidebarUpdate: boolean;
 
     static mapWidth: number;
     static mapHeight: number;
@@ -94,7 +94,7 @@ export default class Editor {
         this.mousePressed = false;
         this.commandButtonPressed = false;
         this.zoom = 1;
-        this.needSidebarUpdate = true;
+        this.shouldSidebarUpdate = true;
 
         Game.mousePositionScreen = { x: 0, y: 0 };
         Game.mousePositionWorld = { x: 0, y: 0 };
@@ -405,6 +405,10 @@ export default class Editor {
         //     .getSystem(RenderCursorSystem)
         //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
+        // Render editor systems
+        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
+
         // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
@@ -418,14 +422,10 @@ export default class Editor {
             .getSystem(RenderCursorCoordinatesSystem)
             ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
 
-        // Render editor systems
-        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
-
-        if (this.needSidebarUpdate) {
+        if (this.shouldSidebarUpdate) {
             this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar);
             this.registry.getSystem(RenderSidebarLevelSettings)?.update(this.sidebar);
-            this.needSidebarUpdate = false;
+            this.shouldSidebarUpdate = false;
         }
     };
 

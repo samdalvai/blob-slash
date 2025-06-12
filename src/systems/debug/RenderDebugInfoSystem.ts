@@ -20,8 +20,6 @@ export default class RenderDebugInfoSystem extends System {
         const x = Game.windowWidth - 300;
         const y = 50;
 
-        ctx.save();
-
         ctx.font = '16px Arial';
         ctx.fillStyle = 'white';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
@@ -48,7 +46,5 @@ export default class RenderDebugInfoSystem extends System {
         if (zoom) {
             ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 200);
         }
-
-        ctx.restore();
     }
 }

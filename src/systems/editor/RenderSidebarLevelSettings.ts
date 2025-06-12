@@ -1,4 +1,5 @@
 import System from '../../ecs/System';
+import Game from '../../game/Game';
 
 export default class RenderSidebarLevelSettings extends System {
     constructor() {
@@ -6,10 +7,23 @@ export default class RenderSidebarLevelSettings extends System {
     }
 
     update(sidebar: HTMLElement) {
-        const levelSettings = sidebar.querySelector('#level-settings');
+        const gameWidthInput = sidebar.querySelector('#map-width') as HTMLInputElement;
+        const gameHeightInput = sidebar.querySelector('#map-height') as HTMLInputElement;
 
-        if (!levelSettings) {
-            throw new Error('Could not retrieve level settings element');
+        if (!gameWidthInput || !gameHeightInput) {
+            throw new Error('Could not retrieve level settings element(s)');
         }
+
+        gameWidthInput.value = Game.mapWidth.toString();
+        gameHeightInput.value = Game.mapHeight.toString();
+
+        gameWidthInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Game.mapWidth = parseInt(target.value);
+        });
+        gameHeightInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Game.mapHeight = parseInt(target.value);
+        });
     }
 }
