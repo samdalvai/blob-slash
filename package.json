@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "A 2D adventure game for the browser",
     "scripts": {
-        "start": "parcel index.html",
-        "start:editor": "IS_EDITOR=true parcel index.html",
+        "start": "parcel game.html",
+        "start:editor": "IS_EDITOR=true parcel editor.html",
         "clean": "rm -rf .parcel-cache",
         "test": "jest src/__tests__/**/*",
         "test:perf": "jest src/__tests__/Performance.test.ts",

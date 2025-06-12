@@ -93,13 +93,17 @@ export default class Editor {
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
-        canvas.width = window.innerWidth;
+        const sidebar = document.getElementById('sidebar') as HTMLElement;
+
+        canvas.width = window.innerWidth - sidebar.getBoundingClientRect().width;
         canvas.height = window.innerHeight;
 
-        camera.width = window.innerWidth;
+        camera.width = window.innerWidth - sidebar.getBoundingClientRect().width;
         camera.height = window.innerHeight;
 
-        Game.windowWidth = window.innerWidth;
+        //camera.x = sidebar.getBoundingClientRect().width
+
+        Game.windowWidth = window.innerWidth - sidebar.getBoundingClientRect().width;
         Game.windowHeight = window.innerHeight;
 
         const ctx = canvas.getContext('2d');
@@ -300,8 +304,6 @@ export default class Editor {
             if (wheelEvent.deltaY > 0) {
                 if (this.commandButtonPressed) {
                     this.zoom *= 1 - 0.01;
-
-
                 }
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
