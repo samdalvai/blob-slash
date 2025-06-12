@@ -12,10 +12,23 @@
             <div id="sidebar">
                 <h2>Entities</h2>
                 <ul id="entity-list"></ul>
-                <h3>Components</h3>
-                <div id="component-panel"></div>
+                <hr />
+                <h2>Level settings</h2>
+                <div id="level-settings">
+                    <div id="map-dimensions">
+                        <h4>Map dimensions</h4>
+                        <div class="d-flex">
+                            <div class="pe-2">
+                                <input type="number" id="map-width" />
+                            </div>
+                            <div class="ps-2">
+                                <input type="number" id="map-height" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <canvas id="gameCanvas"></canvas>
+            <canvas id="game-canvas"></canvas>
         </div>
         <script type="module" src="./src/index.ts"></script>
     </body>
