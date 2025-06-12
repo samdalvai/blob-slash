@@ -18,7 +18,7 @@ export default class InputManager {
         window.addEventListener('wheel', this.handleWheelEvent);
 
         window.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
+            //event.preventDefault();
         });
     }
 
