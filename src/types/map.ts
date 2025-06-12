@@ -1,7 +1,8 @@
 import { ComponentType } from './components';
 
 export type LevelMap = {
-    tiles?: number[][];
+    mapWidth: number;
+    mapHeight: number;
     entities: EntityMap[];
 };
 
