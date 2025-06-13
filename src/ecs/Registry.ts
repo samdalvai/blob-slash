@@ -94,7 +94,6 @@ export default class Registry {
         const entity = new Entity(entityId, this);
         this.entitiesToBeAdded.push(entity);
 
-        console.log(`Crated entity with id ${entityId}`);
         return entity;
     };
 
