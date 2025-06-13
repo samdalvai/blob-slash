@@ -2,7 +2,6 @@ import LightEmitComponent from '../../components/LightEmitComponent';
 import SpriteComponent from '../../components/SpriteComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
-import Game from '../../game/Game';
 import { Rectangle } from '../../types/utils';
 
 export default class RenderLightingSystem extends System {
@@ -13,7 +12,7 @@ export default class RenderLightingSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = camera.width;
         tempCanvas.height = camera.height;
@@ -42,9 +41,9 @@ export default class RenderLightingSystem extends System {
 
             tempCtx.beginPath();
             tempCtx.arc(
-                transform.position.x - camera.x + (sprite.width / 2) * transform.scale.x,
-                transform.position.y - camera.y + (sprite.height / 2) * transform.scale.y,
-                lightEmit.lightRadius,
+                (transform.position.x - camera.x + (sprite.width / 2) * transform.scale.x) * zoom,
+                (transform.position.y - camera.y + (sprite.height / 2) * transform.scale.y) * zoom,
+                lightEmit.lightRadius * zoom,
                 0,
                 Math.PI * 2,
             );

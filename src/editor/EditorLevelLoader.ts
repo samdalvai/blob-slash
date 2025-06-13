@@ -1,4 +1,6 @@
 import AssetStore from '../asset-store/AssetStore';
+import BoxColliderComponent from '../components/BoxColliderComponent';
+import LightEmitComponent from '../components/LightEmitComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
@@ -65,6 +67,12 @@ export default class EditorLevelLoader {
         tile2.addComponent(SpriteComponent, 'tiles-dark-texture', 32, 32, 0, { x: 0, y: 0 });
         tile2.addComponent(TransformComponent, { x: 564, y: 500 }, { x: 2, y: 2 });
         tile2.group('tiles');
+
+        const player = registry.createEntity();
+        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 0, { x: 0, y: 32 * 2 });
+        player.addComponent(TransformComponent, { x: 200, y: 200 });
+        player.addComponent(BoxColliderComponent, 32, 32);
+        player.addComponent(LightEmitComponent, 200);
     }
 
     private static setMapBoundaries(level: LevelMap) {
