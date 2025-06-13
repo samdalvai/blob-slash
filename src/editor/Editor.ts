@@ -421,7 +421,7 @@ export default class Editor {
             ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
 
         if (this.shouldSidebarUpdate) {
-            this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar);
+            this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar, this.registry);
             this.registry.getSystem(RenderSidebarLevelSettings)?.update(this.sidebar);
             this.registry.getSystem(RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
             this.shouldSidebarUpdate = false;

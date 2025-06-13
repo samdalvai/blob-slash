@@ -94,6 +94,7 @@ export default class Registry {
         const entity = new Entity(entityId, this);
         this.entitiesToBeAdded.push(entity);
 
+        console.log(`Crated entity with id ${entityId}`);
         return entity;
     };
 
@@ -105,6 +106,20 @@ export default class Registry {
 
         entity.toBeKilled = true;
         this.entitiesToBeKilled.push(entity);
+    };
+
+    getAllEntitiesIds = () => {
+        const entitiesIds: number[] = [];
+
+        for (let i = 0; i < this.numEntities; i++) {
+            if (this.freeIds.includes(i)) {
+                continue;
+            }
+
+            entitiesIds.push(i);
+        }
+
+        return entitiesIds;
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -257,12 +272,12 @@ export default class Registry {
         return (this.componentPools[ComponentClass.getComponentId()] as Pool<T>)?.get(entity.getId());
     };
 
-    getAllEntityComponents = <T extends Component>(entity: Entity): T[] => {
+    getAllEntityComponents = <T extends Component>(entityId: number): T[] => {
         const components: T[] = [];
 
         for (let i = 0; i < this.componentPools.length; i++) {
-            if (this.entityComponentSignatures[entity.getId()].test(i)) {
-                const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entity.getId());
+            if (this.entityComponentSignatures[entityId].test(i)) {
+                const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entityId);
                 if (currentComponent !== undefined) {
                     components.push(currentComponent);
                 }

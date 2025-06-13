@@ -1,3 +1,4 @@
+import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
 
 export default class RenderSidebarEntities extends System {
@@ -5,7 +6,7 @@ export default class RenderSidebarEntities extends System {
         super();
     }
 
-    update(sidebar: HTMLElement) {
+    update(sidebar: HTMLElement, registry: Registry) {
         const entityList = sidebar.querySelector('#entity-list');
 
         if (!entityList) {
@@ -13,6 +14,12 @@ export default class RenderSidebarEntities extends System {
         }
 
         entityList.innerHTML = '';
+
+        console.log('num entities: ', registry.numEntities);
+
+        const entitiesIds = registry.getAllEntitiesIds();
+
+        console.log('entitiesIds = ', entitiesIds);
 
         const li1 = document.createElement('li');
         li1.textContent = 'Entity 1';

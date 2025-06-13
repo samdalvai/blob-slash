@@ -5,9 +5,10 @@ import TransformComponent from '../../components/TransformComponent';
 import Component from '../../ecs/Component';
 import Entity from '../../ecs/Entity';
 import Registry from '../../ecs/Registry';
-import { serializeEntities, serializeEntity } from '../../serialization/serialization';
+import Game from '../../game/Game';
+import { serializeEntities, serializeEntity, serializeLevel } from '../../serialization/serialization';
 import { ComponentType } from '../../types/components';
-import { EntityMap } from '../../types/map';
+import { EntityMap, LevelMap } from '../../types/map';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {
@@ -328,5 +329,116 @@ describe('Testing serialization related functions', () => {
         };
 
         expect(serializeEntity(entity)).toEqual(expected);
+    });
+
+    test('Should serialize level with one entity', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
+
+        const expected: LevelMap = {
+            mapWidth: 500,
+            mapHeight: 500,
+            entities: [
+                {
+                    components: [
+                        {
+                            name: 'transform',
+                            properties: {
+                                position: { x: 100, y: 100 },
+                                scale: { x: 1, y: 1 },
+                                rotation: 0,
+                            },
+                        },
+                    ],
+                },
+            ],
+        };
+
+        Game.mapWidth = 500;
+        Game.mapHeight = 500;
+
+        expect(serializeLevel(registry)).toEqual(expected);
+    });
+
+    test('Should serialize level with two entities', () => {
+        const registry = new Registry();
+        const entity1 = registry.createEntity();
+        entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
+
+        const entity2 = registry.createEntity();
+        entity2.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 }, 0);
+
+        const expected: LevelMap = {
+            mapWidth: 500,
+            mapHeight: 500,
+            entities: [
+                {
+                    components: [
+                        {
+                            name: 'transform',
+                            properties: {
+                                position: { x: 100, y: 100 },
+                                scale: { x: 1, y: 1 },
+                                rotation: 0,
+                            },
+                        },
+                    ],
+                },
+                {
+                    components: [
+                        {
+                            name: 'transform',
+                            properties: {
+                                position: { x: 200, y: 200 },
+                                scale: { x: 1, y: 1 },
+                                rotation: 0,
+                            },
+                        },
+                    ],
+                },
+            ],
+        };
+
+        Game.mapWidth = 500;
+        Game.mapHeight = 500;
+
+        expect(serializeLevel(registry)).toEqual(expected);
+    });
+
+    test('Should serialize level with one entity where another entity has been killed', () => {
+        const registry = new Registry();
+        const entity1 = registry.createEntity();
+        entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
+
+        const entity2 = registry.createEntity();
+        entity2.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 }, 0);
+
+        entity1.kill();
+        registry.update();
+
+        const expected: LevelMap = {
+            mapWidth: 500,
+            mapHeight: 500,
+            entities: [
+                {
+                    components: [
+                        {
+                            name: 'transform',
+                            properties: {
+                                position: { x: 200, y: 200 },
+                                scale: { x: 1, y: 1 },
+                                rotation: 0,
+                            },
+                        },
+                    ],
+                },
+            ],
+        };
+
+        Game.mapWidth = 500;
+        Game.mapHeight = 500;
+
+        expect(serializeLevel(registry)).toEqual(expected);
     });
 });
