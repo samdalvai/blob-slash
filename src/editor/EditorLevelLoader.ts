@@ -68,11 +68,19 @@ export default class EditorLevelLoader {
         tile2.addComponent(TransformComponent, { x: 564, y: 500 }, { x: 2, y: 2 });
         tile2.group('tiles');
 
+        const tile3 = registry.createEntity();
+        tile3.addComponent(SpriteComponent, 'tiles-dark-texture', 32, 32, 0, { x: 0, y: 0 });
+        tile3.addComponent(TransformComponent, { x: 628, y: 500 }, { x: 2, y: 2 });
+        tile3.group('tiles');
+
+        tile3.kill();
+
         const player = registry.createEntity();
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 0, { x: 0, y: 32 * 2 });
         player.addComponent(TransformComponent, { x: 200, y: 200 });
         player.addComponent(BoxColliderComponent, 32, 32);
         player.addComponent(LightEmitComponent, 200);
+        player.tag('player');
     }
 
     private static setMapBoundaries(level: LevelMap) {
