@@ -50,6 +50,8 @@ button {
 #entity-list {
     list-style: none;
     padding-left: 0;
+    overflow-y: scroll;
+    max-height: 65vh;
 }
 
 #entity-list li {
@@ -107,4 +109,12 @@ button {
 
 .d-flex {
     display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.align-center {
+    align-items: center;
 }
