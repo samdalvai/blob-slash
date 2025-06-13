@@ -69,10 +69,12 @@ export default class EditorRenderSystem extends System {
                 // Draw an ellipse as the shadow
                 ctx.beginPath();
                 ctx.ellipse(
-                    transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x,
-                    transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y,
-                    entity.shadow.width / 2,
-                    entity.shadow.height / 2,
+                    (transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x) *
+                        zoom,
+                    (transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y) *
+                        zoom,
+                    (entity.shadow.width / 2) * zoom,
+                    (entity.shadow.height / 2) * zoom,
                     0,
                     0,
                     2 * Math.PI,
