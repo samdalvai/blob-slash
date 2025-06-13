@@ -30,16 +30,17 @@ export default class EditorRenderSystem extends System {
             }
 
             // Check if the entity sprite is outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * sprite.width < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * sprite.height < camera.y ||
-                transform.position.y > camera.y + camera.height;
+            // const isOutsideCameraView =
+            //     transform.position.x + transform.scale.x * sprite.width < camera.x ||
+            //     transform.position.x > camera.x + camera.width ||
+            //     transform.position.y + transform.scale.y * sprite.height < camera.y ||
+            //     transform.position.y > camera.y + camera.height;
 
             // Cull sprites that are outside the camera viww (and are not fixed)
-            if (isOutsideCameraView && !sprite.isFixed) {
-                continue;
-            }
+            // Skip culling for editor
+            // if (isOutsideCameraView && !sprite.isFixed) {
+            //     continue;
+            // }
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
 

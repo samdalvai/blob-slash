@@ -8,6 +8,7 @@ import MousePressedEvent from '../events/MousePressedEvent';
 import MouseReleasedEvent from '../events/MouseReleasedEvent';
 import ScrollEvent from '../events/ScrollEvent';
 import Game from '../game/Game';
+import LevelLoader from '../game/LevelLoader';
 import InputManager from '../input-manager/InputManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../serialization/persistence';
 import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
@@ -207,6 +208,7 @@ export default class Editor {
         this.registry.addSystem(RenderSidebarLevelSettings);
         this.registry.addSystem(RenderSidebarSaveButtons);
 
+        await LevelLoader.loadLevel(this.registry, this.assetStore);
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
 
@@ -358,11 +360,11 @@ export default class Editor {
         // this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
-        this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
-        this.registry.getSystem(ScriptingSystem)?.update();
-        this.registry.getSystem(EntityFollowSystem)?.update();
-        this.registry.getSystem(MovementSystem)?.update(deltaTime);
-        this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
+        // this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
+        // this.registry.getSystem(ScriptingSystem)?.update();
+        // this.registry.getSystem(EntityFollowSystem)?.update();
+        // this.registry.getSystem(MovementSystem)?.update(deltaTime);
+        // this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
         this.registry.getSystem(RangedAttackEmitSystem)?.update();
         this.registry.getSystem(LifetimeSystem)?.update();
