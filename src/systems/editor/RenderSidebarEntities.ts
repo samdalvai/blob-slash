@@ -1,3 +1,4 @@
+import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
 
@@ -15,20 +16,31 @@ export default class RenderSidebarEntities extends System {
 
         entityList.innerHTML = '';
 
-        console.log('num entities: ', registry.numEntities);
-
         const entitiesIds = registry.getAllEntitiesIds();
 
-        console.log('entitiesIds = ', entitiesIds);
+        for (const entityId of entitiesIds) {
+            const entityComponents = registry.getAllEntityComponents(entityId);
+            console.log(entityComponents);
 
-        const li1 = document.createElement('li');
-        li1.textContent = 'Entity 1';
-        li1.onclick = () => console.log('Entity 1 clicked');
-        entityList.appendChild(li1);
+            const li = document.createElement('li');
+            li.id = `entity-${entityId}`;
+            li.textContent = `Entity id: ${entityId}`;
+            li.onclick = () => console.log(`Clicked entity ${entityId}`);
 
-        const li2 = document.createElement('li');
-        li2.textContent = 'Entity 2';
-        li2.onclick = () => console.log('Entity 2 clicked');
-        entityList.appendChild(li2);
+            // const hr = document.createElement('hr');
+            // li.appendChild(hr);
+
+            const forms = this.getComponentsForms(entityComponents);
+            li.appendChild(forms);
+
+            entityList.appendChild(li);
+        }
     }
+
+    private getComponentsForms = (entityComponents: Component[]): HTMLElement => {
+        const div = document.createElement('div');
+        div.className = 'pt-2';
+        div.textContent = 'Ciccio';
+        return div;
+    };
 }

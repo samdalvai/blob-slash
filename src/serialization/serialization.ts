@@ -40,15 +40,11 @@ export const serializeEntities = (entities: Entity[]): EntityMap[] => {
 };
 
 export const serializeLevel = (registry: Registry): LevelMap => {
-    const entitiesIds = registry.numEntities;
+    const entitiesIds = registry.getAllEntitiesIds();
     const entities: Entity[] = [];
 
-    for (let i = 0; i < entitiesIds; i++) {
-        if (registry.freeIds.includes(i)) {
-            continue;
-        }
-
-        entities.push(new Entity(i, registry));
+    for (let i = 0; i < entitiesIds.length; i++) {
+        entities.push(new Entity(entitiesIds[i], registry));
     }
 
     return { mapWidth: Game.mapWidth, mapHeight: Game.mapHeight, entities: serializeEntities(entities) };
