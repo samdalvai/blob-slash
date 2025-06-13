@@ -79,7 +79,7 @@ export default class EditorLevelLoader {
         const player = registry.createEntity();
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 0, { x: 0, y: 32 * 2 });
         player.addComponent(TransformComponent, { x: 200, y: 200 });
-        player.addComponent(BoxColliderComponent, 32, 32);
+        player.addComponent(BoxColliderComponent, 20, 32, { x: 5, y: 0 });
         player.addComponent(LightEmitComponent, 200);
         player.addComponent(ShadowComponent, 32, 16);
         player.tag('player');

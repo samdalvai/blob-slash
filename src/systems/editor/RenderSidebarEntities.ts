@@ -23,7 +23,6 @@ export default class RenderSidebarEntities extends System {
 
         for (const entityId of entitiesIds) {
             const entityComponents = registry.getAllEntityComponents(entityId);
-            console.log(entityComponents);
 
             const li = document.createElement('li');
             li.id = `entity-${entityId}`;
@@ -73,7 +72,6 @@ export default class RenderSidebarEntities extends System {
                 // case 'sound':
                 case 'sprite': {
                     const properties = { ...(component as SpriteComponent) };
-                    console.log('properties: ', properties);
                     const componentContainer = document.createElement('div');
 
                     const title = document.createElement('span');
@@ -89,6 +87,10 @@ export default class RenderSidebarEntities extends System {
                     textInput1.type = 'text';
                     textInput1.value = properties.assetId;
                     textInput1.id = 'sprite-assetId-' + entityId;
+                    textInput1.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as SpriteComponent).assetId = target.value;
+                    });
 
                     property1li.append(property1Title);
                     property1li.append(textInput1);
@@ -101,7 +103,11 @@ export default class RenderSidebarEntities extends System {
                     const textInput2 = document.createElement('input');
                     textInput2.type = 'number';
                     textInput2.value = properties.width.toString();
-                    textInput2.id = 'sprite-assetId-' + entityId;
+                    textInput2.id = 'sprite-width-' + entityId;
+                    textInput2.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as SpriteComponent).width = parseInt(target.value);
+                    });
 
                     property2li.append(property2Title);
                     property2li.append(textInput2);
@@ -114,7 +120,11 @@ export default class RenderSidebarEntities extends System {
                     const textInput3 = document.createElement('input');
                     textInput3.type = 'number';
                     textInput3.value = properties.height.toString();
-                    textInput3.id = 'sprite-assetId-' + entityId;
+                    textInput3.id = 'sprite-height-' + entityId;
+                    textInput3.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as SpriteComponent).height = parseInt(target.value);
+                    });
 
                     property3li.append(property3Title);
                     property3li.append(textInput3);
@@ -130,7 +140,6 @@ export default class RenderSidebarEntities extends System {
                 // case 'textlabel':
                 case 'transform': {
                     const properties = { ...(component as TransformComponent) };
-                    console.log('properties: ', properties);
                     const componentContainer = document.createElement('div');
 
                     const title = document.createElement('span');
@@ -145,7 +154,11 @@ export default class RenderSidebarEntities extends System {
                     const textInput2 = document.createElement('input');
                     textInput2.type = 'number';
                     textInput2.value = properties.position.x.toString();
-                    textInput2.id = 'sprite-assetId-' + entityId;
+                    textInput2.id = 'transform-posx-' + entityId;
+                    textInput2.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as TransformComponent).position.x = parseInt(target.value);
+                    });
 
                     property2li.append(property2Title);
                     property2li.append(textInput2);
@@ -158,7 +171,11 @@ export default class RenderSidebarEntities extends System {
                     const textInput3 = document.createElement('input');
                     textInput3.type = 'number';
                     textInput3.value = properties.position.y.toString();
-                    textInput3.id = 'sprite-assetId-' + entityId;
+                    textInput3.id = 'transform-posy-' + entityId;
+                    textInput3.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as TransformComponent).position.y = parseInt(target.value);
+                    });
 
                     property3li.append(property3Title);
                     property3li.append(textInput3);
