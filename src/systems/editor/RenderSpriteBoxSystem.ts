@@ -12,12 +12,13 @@ export default class RenderSpriteBoxSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
-        for (const entity of this.getSystemEntities()) {
-            const sprite = entity.getComponent(SpriteComponent);
-            const transform = entity.getComponent(TransformComponent);
+        // Traverse entities backwards to highlight the ones in front
+        for (let i = this.getSystemEntities().length - 1; i >= 0; i--) {
+            const sprite = this.getSystemEntities()[i].getComponent(SpriteComponent);
+            const transform = this.getSystemEntities()[i].getComponent(TransformComponent);
 
             if (!sprite || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                throw new Error('Could not find some component(s) of entity with id ' + this.getSystemEntities()[i].getId());
             }
 
             // Bypass rendering if entities are outside the camera view
@@ -47,6 +48,7 @@ export default class RenderSpriteBoxSystem extends System {
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                return;
             }
         }
     }
