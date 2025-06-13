@@ -208,7 +208,7 @@ export default class Editor {
         this.registry.addSystem(RenderSidebarLevelSettings);
         this.registry.addSystem(RenderSidebarSaveButtons);
 
-        await LevelLoader.loadLevel(this.registry, this.assetStore);
+        // await LevelLoader.loadLevel(this.registry, this.assetStore);
         await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
     };
 
@@ -394,7 +394,7 @@ export default class Editor {
         // this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
         // TODO: to be removed
         // this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
         // this.registry
@@ -402,18 +402,20 @@ export default class Editor {
         //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
         // Render editor systems
-        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
         this.registry
             .getSystem(RenderDebugInfoSystem)
             ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera, this.zoom);
-        this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+
+        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+
         this.registry
             .getSystem(RenderCursorCoordinatesSystem)
             ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);

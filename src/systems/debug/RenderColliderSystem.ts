@@ -10,7 +10,7 @@ export default class RenderColliderSystem extends System {
         this.requireComponent(BoxColliderComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const collider = entity.getComponent(BoxColliderComponent);
@@ -31,10 +31,10 @@ export default class RenderColliderSystem extends System {
             }
 
             const colliderRect: Rectangle = {
-                x: transform.position.x + collider.offset.x - camera.x,
-                y: transform.position.y + collider.offset.y - camera.y,
-                width: collider.width * transform.scale.x,
-                height: collider.height * transform.scale.y,
+                x: (transform.position.x + collider.offset.x - camera.x) * zoom,
+                y: (transform.position.y + collider.offset.y - camera.y) * zoom,
+                width: collider.width * transform.scale.x * zoom,
+                height: collider.height * transform.scale.y * zoom,
             };
 
             ctx.strokeStyle = performance.now() - collider.lastCollision <= 100 ? 'orange' : 'red';
