@@ -1,6 +1,7 @@
 import AssetStore from '../asset-store/AssetStore';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import LightEmitComponent from '../components/LightEmitComponent';
+import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import Registry from '../ecs/Registry';
@@ -80,6 +81,7 @@ export default class EditorLevelLoader {
         player.addComponent(TransformComponent, { x: 200, y: 200 });
         player.addComponent(BoxColliderComponent, 32, 32);
         player.addComponent(LightEmitComponent, 200);
+        player.addComponent(ShadowComponent, 32, 16);
         player.tag('player');
     }
 
