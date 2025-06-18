@@ -1,6 +1,7 @@
 import { expect } from '@jest/globals';
 
-import { computeDirectionVector, computeUnitVector } from '../../utils/vector';
+import { Rectangle, Vector } from '../../types/utils';
+import { computeDirectionVector, computeUnitVector, isRectangle, isVector } from '../../utils/vector';
 
 describe('Testing vector utils related functions', () => {
     test('Should correctly compute direction vector normalized to length on vertical axis', () => {
@@ -82,5 +83,54 @@ describe('Testing vector utils related functions', () => {
         expect(vector).toEqual({ x: -1, y: 0 });
         vector = computeUnitVector(-50, -100);
         expect(vector).toEqual({ x: 0, y: -1 });
+    });
+
+    test('Should return true if object is of type Vector', () => {
+        const vec: Vector = { x: 0, y: 0 };
+        expect(isVector(vec)).toBe(true);
+    });
+
+    test('Should return false if object is not of type Vector', () => {
+        const another = { x: 0, y: 0, other: 0 };
+        expect(isVector(another)).toBe(false);
+    });
+
+    test('Should return false if object is type Rectangle', () => {
+        const rect: Rectangle = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+        };
+        expect(isVector(rect)).toBe(false);
+    });
+
+    test('Should return true if object is of type Rectangle', () => {
+        const rect: Rectangle = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+        };
+        expect(isRectangle(rect)).toBe(true);
+    });
+
+    test('Should return false if object is not of type Vector', () => {
+        const another = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            other: 0,
+        };
+        expect(isRectangle(another)).toBe(false);
+    });
+
+    test('Should return false if object is type Vector', () => {
+        const vec: Vector = {
+            x: 0,
+            y: 0,
+        };
+        expect(isRectangle(vec)).toBe(false);
     });
 });

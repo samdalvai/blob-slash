@@ -65,16 +65,22 @@ export const computeUnitVector = (x: number, y: number): Vector => {
 };
 
 export const isVector = (obj: any): obj is Vector => {
-    return (
-        obj &&
-        typeof obj.x === 'number' &&
-        typeof obj.y === 'number' &&
-        obj.width === undefined &&
-        obj.height === undefined
-    );
+    const propeties = Object.keys(obj);
+
+    if (propeties.length > 2) {
+        return false;
+    }
+
+    return obj && typeof obj.x === 'number' && typeof obj.y === 'number';
 };
 
 export const isRectangle = (obj: any): obj is Rectangle => {
+    const propeties = Object.keys(obj);
+
+    if (propeties.length > 4) {
+        return false;
+    }
+
     return (
         obj &&
         typeof obj.x === 'number' &&
