@@ -66,11 +66,6 @@ export default class RenderSidebarEntities extends System {
     ) => {
         switch (typeof propertyValue) {
             case 'string': {
-                const propertyLi = document.createElement('li');
-                propertyLi.className = 'd-flex space-between align-center';
-                const propertyTitle = propertyName;
-                propertyLi.append(propertyTitle);
-
                 const textInput = document.createElement('input');
                 textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'text';
@@ -79,15 +74,11 @@ export default class RenderSidebarEntities extends System {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.value;
                 });
-                propertyLi.append(textInput);
+
+                const propertyLi = this.createListItem(propertyName, textInput);
                 return propertyLi;
             }
             case 'number': {
-                const propertyLi = document.createElement('li');
-                propertyLi.className = 'd-flex space-between align-center';
-                const propertyTitle = propertyName;
-                propertyLi.append(propertyTitle);
-
                 const textInput = document.createElement('input');
                 textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'number';
@@ -96,15 +87,10 @@ export default class RenderSidebarEntities extends System {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
                 });
-                propertyLi.append(textInput);
+                const propertyLi = this.createListItem(propertyName, textInput);
                 return propertyLi;
             }
             case 'boolean': {
-                const propertyLi = document.createElement('li');
-                propertyLi.className = 'd-flex space-between align-center';
-                const propertyTitle = propertyName;
-                propertyLi.append(propertyTitle);
-
                 const textInput = document.createElement('input');
                 textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'checkbox';
@@ -113,16 +99,12 @@ export default class RenderSidebarEntities extends System {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
                 });
-                propertyLi.append(textInput);
+                const propertyLi = this.createListItem(propertyName, textInput);
                 return propertyLi;
             }
             case 'object': {
                 if (isVector(propertyValue)) {
                     const vectorContainer = document.createElement('div');
-
-                    const propertyLi1 = document.createElement('li');
-                    propertyLi1.className = 'd-flex space-between align-center';
-                    const propertyTitle1 = propertyName + ' (x)';
 
                     const textInput1 = document.createElement('input');
                     textInput1.id = propertyName + '-' + entityId;
@@ -133,12 +115,7 @@ export default class RenderSidebarEntities extends System {
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    propertyLi1.append(propertyTitle1);
-                    propertyLi1.append(textInput1);
-
-                    const propertyLi2 = document.createElement('li');
-                    propertyLi2.className = 'd-flex space-between align-center';
-                    const propertyTitle2 = propertyName + ' (y)';
+                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
 
                     const textInput2 = document.createElement('input');
                     textInput2.id = propertyName + '-' + entityId;
@@ -149,8 +126,7 @@ export default class RenderSidebarEntities extends System {
                         (component as any)[propertyName].y = parseInt(target.value);
                     });
 
-                    propertyLi2.append(propertyTitle2);
-                    propertyLi2.append(textInput2);
+                    const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
 
                     vectorContainer.append(propertyLi1);
                     vectorContainer.append(propertyLi2);
@@ -161,41 +137,27 @@ export default class RenderSidebarEntities extends System {
                 if (isRectangle(propertyValue)) {
                     const vectorContainer = document.createElement('div');
 
-                    const propertyLi1 = document.createElement('li');
-                    propertyLi1.className = 'd-flex space-between align-center';
-                    const propertyTitle1 = propertyName + ' (x)';
-
                     const textInput1 = document.createElement('input');
                     textInput1.id = propertyName + '-' + entityId;
                     textInput1.type = 'number';
-                    textInput1.value = propertyValue.x.toString();
+                    textInput1.value = (propertyValue as Rectangle).x.toString();
                     textInput1.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    propertyLi1.append(propertyTitle1);
-                    propertyLi1.append(textInput1);
-
-                    const propertyLi2 = document.createElement('li');
-                    propertyLi2.className = 'd-flex space-between align-center';
-                    const propertyTitle2 = propertyName + ' (y)';
+                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
 
                     const textInput2 = document.createElement('input');
                     textInput2.id = propertyName + '-' + entityId;
                     textInput2.type = 'number';
-                    textInput2.value = propertyValue.y.toString();
+                    textInput2.value = (propertyValue as Rectangle).y.toString();
                     textInput2.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].y = parseInt(target.value);
                     });
 
-                    propertyLi2.append(propertyTitle2);
-                    propertyLi2.append(textInput2);
-
-                    const propertyLi3 = document.createElement('li');
-                    propertyLi3.className = 'd-flex space-between align-center';
-                    const propertyTitle3 = propertyName + ' (width)';
+                    const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
 
                     const textInput3 = document.createElement('input');
                     textInput3.id = propertyName + '-' + entityId;
@@ -206,12 +168,7 @@ export default class RenderSidebarEntities extends System {
                         (component as any)[propertyName].width = parseInt(target.value);
                     });
 
-                    propertyLi3.append(propertyTitle3);
-                    propertyLi3.append(textInput3);
-
-                    const propertyLi4 = document.createElement('li');
-                    propertyLi4.className = 'd-flex space-between align-center';
-                    const propertyTitle4 = propertyName + ' (height)';
+                    const propertyLi3 = this.createListItem(propertyName + ' (width)', textInput3);
 
                     const textInput4 = document.createElement('input');
                     textInput4.id = propertyName + '-' + entityId;
@@ -222,8 +179,7 @@ export default class RenderSidebarEntities extends System {
                         (component as any)[propertyName].height = parseInt(target.value);
                     });
 
-                    propertyLi4.append(propertyTitle4);
-                    propertyLi4.append(textInput4);
+                    const propertyLi4 = this.createListItem(propertyName + ' (height)', textInput4);
 
                     vectorContainer.append(propertyLi1);
                     vectorContainer.append(propertyLi2);
@@ -237,4 +193,12 @@ export default class RenderSidebarEntities extends System {
             }
         }
     };
+
+    private createListItem(label: string, input: HTMLInputElement): HTMLLIElement {
+        const li = document.createElement('li');
+        li.className = 'd-flex space-between align-center';
+        li.append(label);
+        li.append(input);
+        return li;
+    }
 }
