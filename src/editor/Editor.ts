@@ -394,6 +394,7 @@ export default class Editor {
         // this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(RenderSpriteBoxSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
         // this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
