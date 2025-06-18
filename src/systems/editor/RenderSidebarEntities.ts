@@ -73,123 +73,71 @@ export default class RenderSidebarEntities extends System {
                 // case 'slowtime':
                 // case 'sound':
                 case 'sprite': {
-                    const properties = { ...(component as SpriteComponent) };
                     const componentContainer = document.createElement('div');
-
                     const title = document.createElement('span');
                     title.innerText = 'Sprite component';
                     componentContainer.append(title);
 
-                    const property1li = document.createElement('li');
-                    property1li.className = 'd-flex space-between align-center';
+                    const properties = Object.keys(component);
 
-                    const property1Title = 'Asset id';
+                    for (const key of properties) {
+                        componentContainer.append(this.getPropertyInput(key, (component as any)[key], component));
+                    }
 
-                    const textInput1 = document.createElement('input');
-                    textInput1.type = 'text';
-                    textInput1.value = properties.assetId;
-                    textInput1.id = 'sprite-assetId-' + entityId;
-                    textInput1.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        (component as SpriteComponent).assetId = target.value;
-                    });
-
-                    property1li.append(property1Title);
-                    property1li.append(textInput1);
-
-                    const property2li = document.createElement('li');
-                    property2li.className = 'd-flex space-between align-center';
-
-                    const property2Title = 'Width';
-
-                    const textInput2 = document.createElement('input');
-                    textInput2.type = 'number';
-                    textInput2.value = properties.width.toString();
-                    textInput2.id = 'sprite-width-' + entityId;
-                    textInput2.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        (component as SpriteComponent).width = parseInt(target.value);
-                    });
-
-                    property2li.append(property2Title);
-                    property2li.append(textInput2);
-
-                    const property3li = document.createElement('li');
-                    property3li.className = 'd-flex space-between align-center';
-
-                    const property3Title = 'Height';
-
-                    const textInput3 = document.createElement('input');
-                    textInput3.type = 'number';
-                    textInput3.value = properties.height.toString();
-                    textInput3.id = 'sprite-height-' + entityId;
-                    textInput3.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        (component as SpriteComponent).height = parseInt(target.value);
-                    });
-
-                    property3li.append(property3Title);
-                    property3li.append(textInput3);
-
-                    componentContainer.append(property1li);
-                    componentContainer.append(property2li);
-                    componentContainer.append(property3li);
                     container.append(componentContainer);
-
-                    this.addPropertyInput('test', properties.flip, component);
-
                     break;
                 }
                 // case 'spritestate':
                 // case 'teleport':
                 // case 'textlabel':
                 case 'transform': {
-                    const properties = { ...(component as TransformComponent) };
-                    const componentContainer = document.createElement('div');
+                    // const properties = { ...(component as TransformComponent) };
+                    // console.log(properties)
+                    // const componentContainer = document.createElement('div');
 
-                    const title = document.createElement('span');
-                    title.innerText = 'Transform component';
-                    componentContainer.append(title);
+                    // const title = document.createElement('span');
+                    // title.innerText = 'Transform component';
+                    // componentContainer.append(title);
 
-                    const property2li = document.createElement('li');
-                    property2li.className = 'd-flex space-between align-center';
+                    // const property2li = document.createElement('li');
+                    // property2li.className = 'd-flex space-between align-center';
 
-                    const property2Title = 'Position x';
+                    // const property2Title = 'Position x';
 
-                    const textInput2 = document.createElement('input');
-                    textInput2.type = 'number';
-                    textInput2.value = properties.position.x.toString();
-                    textInput2.id = 'transform-posx-' + entityId;
-                    textInput2.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        (component as TransformComponent).position.x = parseInt(target.value);
-                    });
+                    // const textInput2 = document.createElement('input');
+                    // textInput2.type = 'number';
+                    // textInput2.value = properties.position.x.toString();
+                    // textInput2.id = 'transform-posx-' + entityId;
+                    // textInput2.addEventListener('input', event => {
+                    //     const target = event.target as HTMLInputElement;
+                    //     (component as TransformComponent).position.x = parseInt(target.value);
+                    // });
 
-                    property2li.append(property2Title);
-                    property2li.append(textInput2);
+                    // property2li.append(property2Title);
+                    // property2li.append(textInput2);
 
-                    const property3li = document.createElement('li');
-                    property3li.className = 'd-flex space-between align-center';
+                    // const property3li = document.createElement('li');
+                    // property3li.className = 'd-flex space-between align-center';
 
-                    const property3Title = 'Position y';
+                    // const property3Title = 'Position y';
 
-                    const textInput3 = document.createElement('input');
-                    textInput3.type = 'number';
-                    textInput3.value = properties.position.y.toString();
-                    textInput3.id = 'transform-posy-' + entityId;
-                    textInput3.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        (component as TransformComponent).position.y = parseInt(target.value);
-                    });
+                    // const textInput3 = document.createElement('input');
+                    // textInput3.type = 'number';
+                    // textInput3.value = properties.position.y.toString();
+                    // textInput3.id = 'transform-posy-' + entityId;
+                    // textInput3.addEventListener('input', event => {
+                    //     const target = event.target as HTMLInputElement;
+                    //     (component as TransformComponent).position.y = parseInt(target.value);
+                    // });
 
-                    property3li.append(property3Title);
-                    property3li.append(textInput3);
+                    // property3li.append(property3Title);
+                    // property3li.append(textInput3);
 
-                    componentContainer.append(property2li);
-                    componentContainer.append(property3li);
-                    container.append(componentContainer);
+                    // componentContainer.append(property2li);
+                    // componentContainer.append(property3li);
+                    // container.append(componentContainer);
 
-                    this.addPropertyInput('test', properties.position, component);
+                    // this.getPropertyInput('test', properties.position, component);
 
                     break;
                 }
@@ -199,16 +147,15 @@ export default class RenderSidebarEntities extends System {
         return container;
     };
 
-    private addPropertyInput = (
+    private getPropertyInput = (
         propertyName: string,
         propertyValue: number | boolean | Vector | Rectangle,
         component: Component,
     ) => {
         if (typeof propertyValue === 'number') {
-            console.log('Number:', propertyValue);
             const propertyLi = document.createElement('li');
             propertyLi.className = 'd-flex space-between align-center';
-            const propertyTitle = 'Position x';
+            const propertyTitle = propertyName;
 
             const textInput = document.createElement('input');
             textInput.type = 'number';
@@ -220,12 +167,35 @@ export default class RenderSidebarEntities extends System {
             });
 
             propertyLi.append(propertyTitle);
+            propertyLi.append(textInput);
+            return propertyLi;
         } else if (typeof propertyValue === 'boolean') {
-            console.log('Boolean:', propertyValue);
+            const propertyLi = document.createElement('li');
+            propertyLi.className = 'd-flex space-between align-center';
+            const propertyTitle = propertyName;
+
+            const textInput = document.createElement('input');
+            textInput.type = 'checkbox';
+            textInput.value = propertyValue.toString();
+            textInput.id = propertyName + '-';
+            textInput.addEventListener('input', event => {
+                const target = event.target as HTMLInputElement;
+                console.log('Boolean change: ', target.value);
+                //(component as any)[propertyName] = parseInt(target.value);
+            });
+
+            propertyLi.append(propertyTitle);
+            propertyLi.append(textInput);
+            return propertyLi;
+        } else if (typeof propertyValue === 'string') {
+            const propertyLi = document.createElement('li');
+            return propertyLi;
         } else if (isVector(propertyValue)) {
-            console.log('Vector:', propertyValue);
+            const propertyLi = document.createElement('li');
+            return propertyLi;
         } else if (isRectangle(propertyValue)) {
-            console.log('Rectangle:', propertyValue);
+            const propertyLi = document.createElement('li');
+            return propertyLi;
         } else {
             throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
         }
