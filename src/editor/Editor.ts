@@ -324,15 +324,23 @@ export default class Editor {
                 return;
             }
 
+            const mouseWorldXBefore = this.camera.x + Game.mousePositionScreen.x / this.zoom;
+            const mouseWorldYBefore = this.camera.y + Game.mousePositionScreen.y / this.zoom;
+
             if (wheelEvent.deltaY < 0) {
                 this.zoom *= 1 + 0.01;
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
-
             if (wheelEvent.deltaY > 0) {
                 this.zoom *= 1 - 0.01;
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
+
+            const mouseWorldXAfter = this.camera.x + Game.mousePositionScreen.x / this.zoom;
+            const mouseWorldYAfter = this.camera.y + Game.mousePositionScreen.y / this.zoom;
+
+            this.camera.x += mouseWorldXBefore - mouseWorldXAfter;
+            this.camera.y += mouseWorldYBefore - mouseWorldYAfter;
         }
     };
 
