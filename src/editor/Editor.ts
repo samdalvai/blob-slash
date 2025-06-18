@@ -324,8 +324,15 @@ export default class Editor {
                 return;
             }
 
-            const mouseWorldXBefore = this.camera.x + Game.mousePositionScreen.x / this.zoom;
-            const mouseWorldYBefore = this.camera.y + Game.mousePositionScreen.y / this.zoom;
+            if (!this.sidebar) {
+                throw new Error('Sidebar is not defined');
+            }
+
+            const mouseXOnCanvas = Game.mousePositionScreen.x - this.sidebar.getBoundingClientRect().width;
+            const mouseYOnCanvas = Game.mousePositionScreen.y;
+
+            const mouseWorldXBefore = this.camera.x + mouseXOnCanvas / this.zoom;
+            const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
 
             if (wheelEvent.deltaY < 0) {
                 this.zoom *= 1 + 0.01;
@@ -336,8 +343,8 @@ export default class Editor {
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
 
-            const mouseWorldXAfter = this.camera.x + Game.mousePositionScreen.x / this.zoom;
-            const mouseWorldYAfter = this.camera.y + Game.mousePositionScreen.y / this.zoom;
+            const mouseWorldXAfter = this.camera.x + mouseXOnCanvas / this.zoom;
+            const mouseWorldYAfter = this.camera.y + mouseYOnCanvas / this.zoom;
 
             this.camera.x += mouseWorldXBefore - mouseWorldXAfter;
             this.camera.y += mouseWorldYBefore - mouseWorldYAfter;
