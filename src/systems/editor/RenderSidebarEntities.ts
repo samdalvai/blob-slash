@@ -66,10 +66,7 @@ export default class RenderSidebarEntities extends System {
     ) => {
         switch (typeof propertyValue) {
             case 'string': {
-                const textInput = document.createElement('input');
-                textInput.id = propertyName + '-' + entityId;
-                textInput.type = 'text';
-                textInput.value = propertyValue;
+                const textInput = this.createInput('text', propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.value;
@@ -79,10 +76,7 @@ export default class RenderSidebarEntities extends System {
                 return propertyLi;
             }
             case 'number': {
-                const textInput = document.createElement('input');
-                textInput.id = propertyName + '-' + entityId;
-                textInput.type = 'number';
-                textInput.value = propertyValue.toString();
+                const textInput = this.createInput('number', propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
@@ -91,10 +85,7 @@ export default class RenderSidebarEntities extends System {
                 return propertyLi;
             }
             case 'boolean': {
-                const textInput = document.createElement('input');
-                textInput.id = propertyName + '-' + entityId;
-                textInput.type = 'checkbox';
-                textInput.checked = propertyValue;
+                const textInput = this.createInput('checkbox', propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
@@ -106,26 +97,19 @@ export default class RenderSidebarEntities extends System {
                 if (isVector(propertyValue)) {
                     const vectorContainer = document.createElement('div');
 
-                    const textInput1 = document.createElement('input');
-                    textInput1.id = propertyName + '-' + entityId;
-                    textInput1.type = 'number';
-                    textInput1.value = propertyValue.x.toString();
+                    const textInput1 = this.createInput('number', propertyName + '-' + entityId, propertyValue.x);
                     textInput1.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
-
-                    const textInput2 = document.createElement('input');
-                    textInput2.id = propertyName + '-' + entityId;
-                    textInput2.type = 'number';
-                    textInput2.value = propertyValue.y.toString();
+                    const textInput2 = this.createInput('number', propertyName + '-' + entityId, propertyValue.y);
                     textInput2.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].y = parseInt(target.value);
                     });
 
+                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
                     const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
 
                     vectorContainer.append(propertyLi1);
@@ -137,48 +121,49 @@ export default class RenderSidebarEntities extends System {
                 if (isRectangle(propertyValue)) {
                     const vectorContainer = document.createElement('div');
 
-                    const textInput1 = document.createElement('input');
-                    textInput1.id = propertyName + '-' + entityId;
-                    textInput1.type = 'number';
-                    textInput1.value = (propertyValue as Rectangle).x.toString();
+                    const textInput1 = this.createInput(
+                        'number',
+                        propertyName + '-' + entityId,
+                        (propertyValue as Rectangle).x,
+                    );
                     textInput1.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
-
-                    const textInput2 = document.createElement('input');
-                    textInput2.id = propertyName + '-' + entityId;
-                    textInput2.type = 'number';
-                    textInput2.value = (propertyValue as Rectangle).y.toString();
+                    const textInput2 = this.createInput(
+                        'number',
+                        propertyName + '-' + entityId,
+                        (propertyValue as Rectangle).y,
+                    );
                     textInput2.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].y = parseInt(target.value);
                     });
 
-                    const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
-
-                    const textInput3 = document.createElement('input');
-                    textInput3.id = propertyName + '-' + entityId;
-                    textInput3.type = 'number';
-                    textInput3.value = (propertyValue as Rectangle).width.toString();
+                    const textInput3 = this.createInput(
+                        'number',
+                        propertyName + '-' + entityId,
+                        (propertyValue as Rectangle).width,
+                    );
                     textInput3.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].width = parseInt(target.value);
                     });
 
-                    const propertyLi3 = this.createListItem(propertyName + ' (width)', textInput3);
-
-                    const textInput4 = document.createElement('input');
-                    textInput4.id = propertyName + '-' + entityId;
-                    textInput4.type = 'number';
-                    textInput4.value = (propertyValue as Rectangle).height.toString();
+                    const textInput4 = this.createInput(
+                        'number',
+                        propertyName + '-' + entityId,
+                        (propertyValue as Rectangle).height,
+                    );
                     textInput4.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].height = parseInt(target.value);
                     });
 
+                    const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
+                    const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
+                    const propertyLi3 = this.createListItem(propertyName + ' (width)', textInput3);
                     const propertyLi4 = this.createListItem(propertyName + ' (height)', textInput4);
 
                     vectorContainer.append(propertyLi1);
@@ -200,5 +185,21 @@ export default class RenderSidebarEntities extends System {
         li.append(label);
         li.append(input);
         return li;
+    }
+
+    private createInput(
+        type: 'text' | 'number' | 'checkbox',
+        id: string,
+        value: string | number | boolean,
+    ): HTMLInputElement {
+        const input = document.createElement('input');
+        input.type = type;
+        input.id = id;
+        if (type === 'checkbox') {
+            input.checked = Boolean(value);
+        } else {
+            input.value = String(value);
+        }
+        return input;
     }
 }
