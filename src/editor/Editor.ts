@@ -50,7 +50,7 @@ import RenderLightingSystem from '../systems/render/RenderLightingSystem';
 import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 // import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
-import { GameStatus, Rectangle, Vector } from '../types/utils';
+import { GameStatus, Rectangle } from '../types/utils';
 import EditorLevelLoader from './EditorLevelLoader';
 
 // import LevelLoader from './LevelLoader';
@@ -283,6 +283,7 @@ export default class Editor {
                     break;
                 }
                 case 'mousedown':
+                    console.log('event: ', inputEvent.button);
                     this.mousePressed = true;
                     this.eventBus.emitEvent(
                         MousePressedEvent,
@@ -290,7 +291,7 @@ export default class Editor {
                             x: inputEvent.x / this.zoom + this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
-                        inputEvent.button === 0 ? 'left' : 'right',
+                        inputEvent.button,
                     );
                     break;
                 case 'mouseup':
