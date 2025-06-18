@@ -23,12 +23,16 @@ export default class RenderSidebarEntities extends System {
         for (const entityId of entitiesIds) {
             const entityComponents = registry.getAllEntityComponents(entityId);
 
+            const title = document.createElement('h3');
+            title.textContent = `Entity id: ${entityId}`;
+
             const li = document.createElement('li');
             li.id = `entity-${entityId}`;
-            li.textContent = `Entity id: ${entityId}`;
-            //li.onclick = () => console.log(`Clicked entity ${entityId}`);
+            li.style.border = 'solid 1px white';
+            li.onclick = () => console.log(`Clicked entity ${entityId}`);
 
             const forms = this.getComponentsForms(entityComponents, entityId);
+            li.appendChild(title);
             li.appendChild(forms);
 
             entityList.appendChild(li);
@@ -40,10 +44,9 @@ export default class RenderSidebarEntities extends System {
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
-            console.log('Component: ', component.constructor.name);
             const componentContainer = document.createElement('div');
             const title = document.createElement('span');
-            title.innerText = component.constructor.name;
+            title.innerText = '* ' + component.constructor.name;
             componentContainer.append(title);
 
             const properties = Object.keys(component);
@@ -179,19 +182,19 @@ export default class RenderSidebarEntities extends System {
         }
     };
 
-    private createListItem(label: string, input: HTMLInputElement): HTMLLIElement {
+    private createListItem = (label: string, input: HTMLInputElement): HTMLLIElement => {
         const li = document.createElement('li');
         li.className = 'd-flex space-between align-center';
         li.append(label);
         li.append(input);
         return li;
-    }
+    };
 
-    private createInput(
+    private createInput = (
         type: 'text' | 'number' | 'checkbox',
         id: string,
         value: string | number | boolean,
-    ): HTMLInputElement {
+    ): HTMLInputElement => {
         const input = document.createElement('input');
         input.type = type;
         input.id = id;
@@ -201,5 +204,5 @@ export default class RenderSidebarEntities extends System {
             input.value = String(value);
         }
         return input;
-    }
+    };
 }
