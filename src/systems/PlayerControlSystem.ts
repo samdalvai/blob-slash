@@ -25,6 +25,7 @@ import MousePressedEvent from '../events/MousePressedEvent';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
 import Game from '../game/Game';
+import { MouseButton } from '../types/control';
 import { Flip, Vector } from '../types/utils';
 import { computeDirectionVector, computeUnitVector } from '../utils/vector';
 import CollisionSystem from './CollisionSystem';
@@ -97,12 +98,12 @@ export default class PlayerControlSystem extends System {
         // Avoid moving if left shift is pressed
         if (playerControl.keysPressed.includes('ShiftLeft') || enemyHighlighted) {
             switch (event.button) {
-                case 'left':
+                case MouseButton.LEFT:
                     if (player.hasComponent(RangedAttackEmitterComponent)) {
                         this.eventBus.emitEvent(RangedAttackEmitEvent, { x, y });
                     }
                     break;
-                case 'right':
+                case MouseButton.RIGHT:
                     {
                         const playerPositionX = transform.position.x + (sprite.width / 2) * transform.scale.x;
                         const playerPositionY = transform.position.y + (sprite.height / 2) * transform.scale.y;
@@ -159,6 +160,8 @@ export default class PlayerControlSystem extends System {
 
                         this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
                     }
+                    break;
+                default:
                     break;
             }
 
@@ -346,13 +349,7 @@ export default class PlayerControlSystem extends System {
                 16,
             y: playerTransform.position.y + playerSprite.height * playerTransform.scale.y - teleportSpriteHeight + 10,
         });
-        teleportStart.addComponent(
-            SpriteComponent,
-            'teleport-texture',
-            teleportSpriteWidth,
-            teleportSpriteHeight,
-            3,
-        );
+        teleportStart.addComponent(SpriteComponent, 'teleport-texture', teleportSpriteWidth, teleportSpriteHeight, 3);
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
 

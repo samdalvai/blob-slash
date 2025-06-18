@@ -222,7 +222,7 @@ export default class Game {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
                     };
-                    
+
                     this.eventBus.emitEvent(MouseMoveEvent, {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
@@ -235,7 +235,7 @@ export default class Game {
                             x: inputEvent.x + this.camera.x,
                             y: inputEvent.y + this.camera.y,
                         },
-                        inputEvent.button === 0 ? 'left' : 'right',
+                        inputEvent.button,
                     );
                     break;
                 case 'mouseup':
@@ -316,9 +316,7 @@ export default class Game {
         this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
-        this.registry
-            .getSystem(RenderCursorSystem)
-            ?.update(this.ctx, this.camera, this.assetStore, this.registry);
+        this.registry.getSystem(RenderCursorSystem)?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         if (this.isDebug) {
             this.registry
