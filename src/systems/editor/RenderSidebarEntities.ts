@@ -4,6 +4,8 @@ import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
 import { ComponentType } from '../../types/components';
+import { Rectangle, Vector } from '../../types/utils';
+import { isRectangle, isVector } from '../../utils/vector';
 
 export default class RenderSidebarEntities extends System {
     constructor() {
@@ -133,6 +135,9 @@ export default class RenderSidebarEntities extends System {
                     componentContainer.append(property2li);
                     componentContainer.append(property3li);
                     container.append(componentContainer);
+
+                    this.addPropertyInput('test', properties.flip, component);
+
                     break;
                 }
                 // case 'spritestate':
@@ -183,11 +188,46 @@ export default class RenderSidebarEntities extends System {
                     componentContainer.append(property2li);
                     componentContainer.append(property3li);
                     container.append(componentContainer);
+
+                    this.addPropertyInput('test', properties.position, component);
+
                     break;
                 }
             }
         }
 
         return container;
+    };
+
+    private addPropertyInput = (
+        propertyName: string,
+        propertyValue: number | boolean | Vector | Rectangle,
+        component: Component,
+    ) => {
+        if (typeof propertyValue === 'number') {
+            console.log('Number:', propertyValue);
+            const propertyLi = document.createElement('li');
+            propertyLi.className = 'd-flex space-between align-center';
+            const propertyTitle = 'Position x';
+
+            const textInput = document.createElement('input');
+            textInput.type = 'number';
+            textInput.value = propertyValue.toString();
+            textInput.id = propertyName + '-';
+            textInput.addEventListener('input', event => {
+                const target = event.target as HTMLInputElement;
+                (component as any)[propertyName] = parseInt(target.value);
+            });
+
+            propertyLi.append(propertyTitle);
+        } else if (typeof propertyValue === 'boolean') {
+            console.log('Boolean:', propertyValue);
+        } else if (isVector(propertyValue)) {
+            console.log('Vector:', propertyValue);
+        } else if (isRectangle(propertyValue)) {
+            console.log('Rectangle:', propertyValue);
+        } else {
+            throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
+        }
     };
 }
