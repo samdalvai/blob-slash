@@ -1,7 +1,11 @@
 import SpriteComponent from '../../components/SpriteComponent';
 import TransformComponent from '../../components/TransformComponent';
 import System from '../../ecs/System';
+import Editor from '../../editor/Editor';
+import EventBus from '../../event-bus/EventBus';
+import MousePressedEvent from '../../events/MousePressedEvent';
 import Game from '../../game/Game';
+import { MouseButton } from '../../types/control';
 import { Rectangle } from '../../types/utils';
 
 export default class RenderSpriteBoxSystem extends System {
@@ -11,14 +15,50 @@ export default class RenderSpriteBoxSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
+    subscribeToEvents(eventBus: EventBus) {
+        eventBus.subscribeToEvent(MousePressedEvent, this, this.onMouseClicked);
+    }
+
+    onMouseClicked = (event: MousePressedEvent) => {
+        if (event.button !== MouseButton.LEFT) {
+            return;
+        }
+
+        let entityClicked = false;
+
+        for (const entity of this.getSystemEntities()) {
+            const sprite = entity.getComponent(SpriteComponent);
+            const transform = entity.getComponent(TransformComponent);
+
+            if (!sprite || !transform) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            if (
+                event.coordinates.x >= transform.position.x &&
+                event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
+                event.coordinates.y >= transform.position.y &&
+                event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
+            ) {
+                entityClicked = true;
+                Editor.selectedEntity = entity;
+            }
+        }
+
+        if (!entityClicked) {
+            Editor.selectedEntity = null;
+        }
+    };
+
     update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
         // Traverse entities backwards to highlight the ones in front
         for (let i = this.getSystemEntities().length - 1; i >= 0; i--) {
-            const sprite = this.getSystemEntities()[i].getComponent(SpriteComponent);
-            const transform = this.getSystemEntities()[i].getComponent(TransformComponent);
+            const entity = this.getSystemEntities()[i];
+            const sprite = entity.getComponent(SpriteComponent);
+            const transform = entity.getComponent(TransformComponent);
 
             if (!sprite || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + this.getSystemEntities()[i].getId());
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
             // Bypass rendering if entities are outside the camera view
@@ -39,6 +79,12 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
+            if (Editor.selectedEntity && Editor.selectedEntity.getId() === entity.getId()) {
+                ctx.strokeStyle = 'green';
+                ctx.lineWidth = 4;
+                ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+            }
+
             if (
                 Game.mousePositionWorld.x >= transform.position.x &&
                 Game.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
@@ -48,7 +94,6 @@ export default class RenderSpriteBoxSystem extends System {
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
-                return;
             }
         }
     }

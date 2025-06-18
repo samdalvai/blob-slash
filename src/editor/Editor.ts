@@ -1,4 +1,5 @@
 import AssetStore from '../asset-store/AssetStore';
+import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import EventBus from '../event-bus/EventBus';
 import KeyPressedEvent from '../events/KeyPressedEvent';
@@ -80,6 +81,7 @@ export default class Editor {
     static mapWidth: number;
     static mapHeight: number;
     static gameStatus: GameStatus;
+    static selectedEntity: Entity | null;
 
     constructor() {
         this.isRunning = false;
@@ -284,11 +286,15 @@ export default class Editor {
                     break;
                 }
                 case 'mousedown':
+                    if (!this.sidebar) {
+                        throw new Error('Failed to get sidebar element.');
+                    }
+
                     this.mousePressed = true;
                     this.eventBus.emitEvent(
                         MousePressedEvent,
                         {
-                            x: inputEvent.x / this.zoom + this.camera.x,
+                            x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button,
@@ -300,11 +306,15 @@ export default class Editor {
 
                     break;
                 case 'mouseup':
+                    if (!this.sidebar) {
+                        throw new Error('Failed to get sidebar element.');
+                    }
+
                     this.mousePressed = false;
                     this.eventBus.emitEvent(
                         MouseReleasedEvent,
                         {
-                            x: inputEvent.x / this.zoom + this.camera.x,
+                            x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button === 0 ? 'left' : 'right',
@@ -383,6 +393,7 @@ export default class Editor {
         // this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(RenderSpriteBoxSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         // this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
