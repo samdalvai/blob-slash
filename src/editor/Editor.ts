@@ -328,6 +328,10 @@ export default class Editor {
                 throw new Error('Sidebar is not defined');
             }
 
+            if (Game.mousePositionScreen.x <= this.sidebar.getBoundingClientRect().width) {
+                return;
+            }
+
             const mouseXOnCanvas = Game.mousePositionScreen.x - this.sidebar.getBoundingClientRect().width;
             const mouseYOnCanvas = Game.mousePositionScreen.y;
 
