@@ -4,6 +4,7 @@ import System from '../../ecs/System';
 import Editor from '../../editor/Editor';
 import EventBus from '../../event-bus/EventBus';
 import MousePressedEvent from '../../events/MousePressedEvent';
+import EntitySelectEvent from '../../events/editor/EntitySelectEvent';
 import Game from '../../game/Game';
 import { MouseButton } from '../../types/control';
 import { Rectangle } from '../../types/utils';
@@ -16,10 +17,10 @@ export default class RenderSpriteBoxSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, this.onMouseClicked);
+        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMouseClicked(event, eventBus));
     }
 
-    onMouseClicked = (event: MousePressedEvent) => {
+    onMouseClicked = (event: MousePressedEvent, eventBus: EventBus) => {
         if (event.button !== MouseButton.LEFT) {
             return;
         }
@@ -42,6 +43,7 @@ export default class RenderSpriteBoxSystem extends System {
             ) {
                 entityClicked = true;
                 Editor.selectedEntity = entity;
+                eventBus.emitEvent(EntitySelectEvent, entity);
             }
         }
 

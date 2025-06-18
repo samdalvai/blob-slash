@@ -1,6 +1,8 @@
 import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
+import EventBus from '../../event-bus/EventBus';
+import EntitySelectEvent from '../../events/editor/EntitySelectEvent';
 import { Rectangle, Vector } from '../../types/utils';
 import { isRectangle, isVector } from '../../utils/vector';
 
@@ -8,6 +10,33 @@ export default class RenderSidebarEntities extends System {
     constructor() {
         super();
     }
+
+    subscribeToEvents(eventBus: EventBus, sidebar: HTMLElement | null) {
+        eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, sidebar));
+    }
+
+    onEntitySelect = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
+        if (!sidebar) {
+            throw new Error('Could not retrieve sidebar');
+        }
+
+        const entityList = sidebar.querySelector('#entity-list');
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
+
+        if (!targetElement) {
+            throw new Error('Could not find target element in entity list');
+        }
+
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    };
 
     update(sidebar: HTMLElement, registry: Registry) {
         const entityList = sidebar.querySelector('#entity-list');
