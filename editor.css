@@ -45,6 +45,7 @@ button {
 #sidebar h2,
 #sidebar h3 {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 #entity-list {
