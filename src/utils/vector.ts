@@ -1,4 +1,4 @@
-import { Vector } from '../types/utils';
+import { Rectangle, Vector } from '../types/utils';
 
 /**
  * Computes the direction vector between two points, normalized over the lenght
@@ -62,4 +62,24 @@ export const computeUnitVector = (x: number, y: number): Vector => {
     } else {
         return y > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
     }
+};
+
+export const isVector = (obj: any): obj is Vector => {
+    return (
+        obj &&
+        typeof obj.x === 'number' &&
+        typeof obj.y === 'number' &&
+        obj.width === undefined &&
+        obj.height === undefined
+    );
+};
+
+export const isRectangle = (obj: any): obj is Rectangle => {
+    return (
+        obj &&
+        typeof obj.x === 'number' &&
+        typeof obj.y === 'number' &&
+        typeof obj.width === 'number' &&
+        typeof obj.height === 'number'
+    );
 };
