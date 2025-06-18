@@ -81,7 +81,9 @@ export default class RenderSidebarEntities extends System {
                     const properties = Object.keys(component);
 
                     for (const key of properties) {
-                        componentContainer.append(this.getPropertyInput(key, (component as any)[key], component));
+                        componentContainer.append(
+                            this.getPropertyInput(key, (component as any)[key], component, entityId),
+                        );
                     }
 
                     container.append(componentContainer);
@@ -91,54 +93,20 @@ export default class RenderSidebarEntities extends System {
                 // case 'teleport':
                 // case 'textlabel':
                 case 'transform': {
-                    // const properties = { ...(component as TransformComponent) };
-                    // console.log(properties)
-                    // const componentContainer = document.createElement('div');
+                    const componentContainer = document.createElement('div');
+                    const title = document.createElement('span');
+                    title.innerText = 'Transform component';
+                    componentContainer.append(title);
 
-                    // const title = document.createElement('span');
-                    // title.innerText = 'Transform component';
-                    // componentContainer.append(title);
+                    const properties = Object.keys(component);
 
-                    // const property2li = document.createElement('li');
-                    // property2li.className = 'd-flex space-between align-center';
+                    for (const key of properties) {
+                        componentContainer.append(
+                            this.getPropertyInput(key, (component as any)[key], component, entityId),
+                        );
+                    }
 
-                    // const property2Title = 'Position x';
-
-                    // const textInput2 = document.createElement('input');
-                    // textInput2.type = 'number';
-                    // textInput2.value = properties.position.x.toString();
-                    // textInput2.id = 'transform-posx-' + entityId;
-                    // textInput2.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as TransformComponent).position.x = parseInt(target.value);
-                    // });
-
-                    // property2li.append(property2Title);
-                    // property2li.append(textInput2);
-
-                    // const property3li = document.createElement('li');
-                    // property3li.className = 'd-flex space-between align-center';
-
-                    // const property3Title = 'Position y';
-
-                    // const textInput3 = document.createElement('input');
-                    // textInput3.type = 'number';
-                    // textInput3.value = properties.position.y.toString();
-                    // textInput3.id = 'transform-posy-' + entityId;
-                    // textInput3.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as TransformComponent).position.y = parseInt(target.value);
-                    // });
-
-                    // property3li.append(property3Title);
-                    // property3li.append(textInput3);
-
-                    // componentContainer.append(property2li);
-                    // componentContainer.append(property3li);
-                    // container.append(componentContainer);
-
-                    // this.getPropertyInput('test', properties.position, component);
-
+                    container.append(componentContainer);
                     break;
                 }
             }
@@ -151,16 +119,17 @@ export default class RenderSidebarEntities extends System {
         propertyName: string,
         propertyValue: number | boolean | Vector | Rectangle,
         component: Component,
+        entityId: number,
     ) => {
-        const propertyLi = document.createElement('li');
-        propertyLi.className = 'd-flex space-between align-center';
-        const propertyTitle = propertyName;
-        propertyLi.append(propertyTitle);
-
         switch (typeof propertyValue) {
             case 'string': {
+                const propertyLi = document.createElement('li');
+                propertyLi.className = 'd-flex space-between align-center';
+                const propertyTitle = propertyName;
+                propertyLi.append(propertyTitle);
+
                 const textInput = document.createElement('input');
-                textInput.id = propertyName + '-';
+                textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'text';
                 textInput.value = propertyValue;
                 textInput.addEventListener('input', event => {
@@ -171,8 +140,13 @@ export default class RenderSidebarEntities extends System {
                 return propertyLi;
             }
             case 'number': {
+                const propertyLi = document.createElement('li');
+                propertyLi.className = 'd-flex space-between align-center';
+                const propertyTitle = propertyName;
+                propertyLi.append(propertyTitle);
+
                 const textInput = document.createElement('input');
-                textInput.id = propertyName + '-';
+                textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'number';
                 textInput.value = propertyValue.toString();
                 textInput.addEventListener('input', event => {
@@ -183,8 +157,13 @@ export default class RenderSidebarEntities extends System {
                 return propertyLi;
             }
             case 'boolean': {
+                const propertyLi = document.createElement('li');
+                propertyLi.className = 'd-flex space-between align-center';
+                const propertyTitle = propertyName;
+                propertyLi.append(propertyTitle);
+
                 const textInput = document.createElement('input');
-                textInput.id = propertyName + '-';
+                textInput.id = propertyName + '-' + entityId;
                 textInput.type = 'checkbox';
                 textInput.checked = propertyValue;
                 textInput.addEventListener('input', event => {
@@ -196,13 +175,119 @@ export default class RenderSidebarEntities extends System {
             }
             case 'object': {
                 if (isVector(propertyValue)) {
-                    const propertyLi = document.createElement('li');
-                    return propertyLi;
+                    const vectorContainer = document.createElement('div');
+
+                    const propertyLi1 = document.createElement('li');
+                    propertyLi1.className = 'd-flex space-between align-center';
+                    const propertyTitle1 = propertyName + ' (x)';
+
+                    const textInput1 = document.createElement('input');
+                    textInput1.id = propertyName + '-' + entityId;
+                    textInput1.type = 'number';
+                    textInput1.value = propertyValue.x.toString();
+                    textInput1.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].x = parseInt(target.value);
+                    });
+
+                    propertyLi1.append(propertyTitle1);
+                    propertyLi1.append(textInput1);
+
+                    const propertyLi2 = document.createElement('li');
+                    propertyLi2.className = 'd-flex space-between align-center';
+                    const propertyTitle2 = propertyName + ' (y)';
+
+                    const textInput2 = document.createElement('input');
+                    textInput2.id = propertyName + '-' + entityId;
+                    textInput2.type = 'number';
+                    textInput2.value = propertyValue.y.toString();
+                    textInput2.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].y = parseInt(target.value);
+                    });
+
+                    propertyLi2.append(propertyTitle2);
+                    propertyLi2.append(textInput2);
+
+                    vectorContainer.append(propertyLi1);
+                    vectorContainer.append(propertyLi2);
+
+                    return vectorContainer;
                 }
 
                 if (isRectangle(propertyValue)) {
-                    const propertyLi = document.createElement('li');
-                    return propertyLi;
+                    const vectorContainer = document.createElement('div');
+
+                    const propertyLi1 = document.createElement('li');
+                    propertyLi1.className = 'd-flex space-between align-center';
+                    const propertyTitle1 = propertyName + ' (x)';
+
+                    const textInput1 = document.createElement('input');
+                    textInput1.id = propertyName + '-' + entityId;
+                    textInput1.type = 'number';
+                    textInput1.value = propertyValue.x.toString();
+                    textInput1.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].x = parseInt(target.value);
+                    });
+
+                    propertyLi1.append(propertyTitle1);
+                    propertyLi1.append(textInput1);
+
+                    const propertyLi2 = document.createElement('li');
+                    propertyLi2.className = 'd-flex space-between align-center';
+                    const propertyTitle2 = propertyName + ' (y)';
+
+                    const textInput2 = document.createElement('input');
+                    textInput2.id = propertyName + '-' + entityId;
+                    textInput2.type = 'number';
+                    textInput2.value = propertyValue.y.toString();
+                    textInput2.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].y = parseInt(target.value);
+                    });
+
+                    propertyLi2.append(propertyTitle2);
+                    propertyLi2.append(textInput2);
+
+                    const propertyLi3 = document.createElement('li');
+                    propertyLi3.className = 'd-flex space-between align-center';
+                    const propertyTitle3 = propertyName + ' (width)';
+
+                    const textInput3 = document.createElement('input');
+                    textInput3.id = propertyName + '-' + entityId;
+                    textInput3.type = 'number';
+                    textInput3.value = (propertyValue as Rectangle).width.toString();
+                    textInput3.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].width = parseInt(target.value);
+                    });
+
+                    propertyLi3.append(propertyTitle3);
+                    propertyLi3.append(textInput3);
+
+                    const propertyLi4 = document.createElement('li');
+                    propertyLi4.className = 'd-flex space-between align-center';
+                    const propertyTitle4 = propertyName + ' (height)';
+
+                    const textInput4 = document.createElement('input');
+                    textInput4.id = propertyName + '-' + entityId;
+                    textInput4.type = 'number';
+                    textInput4.value = (propertyValue as Rectangle).height.toString();
+                    textInput4.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName].height = parseInt(target.value);
+                    });
+
+                    propertyLi4.append(propertyTitle4);
+                    propertyLi4.append(textInput4);
+
+                    vectorContainer.append(propertyLi1);
+                    vectorContainer.append(propertyLi2);
+                    vectorContainer.append(propertyLi3);
+                    vectorContainer.append(propertyLi4);
+
+                    return vectorContainer;
                 }
 
                 throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
