@@ -50,6 +50,7 @@ import RenderLightingSystem from '../systems/render/RenderLightingSystem';
 import RenderParticleSystem from '../systems/render/RenderParticleSystem';
 // import RenderSystem from '../systems/render/RenderSystem';
 import RenderTextSystem from '../systems/render/RenderTextSystem';
+import { MouseButton } from '../types/control';
 import { GameStatus, Rectangle } from '../types/utils';
 import EditorLevelLoader from './EditorLevelLoader';
 
@@ -72,7 +73,7 @@ export default class Editor {
     private inputManager: InputManager;
 
     private mousePressed: boolean;
-    private commandButtonPressed: boolean;
+    private panEnabled: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
 
@@ -94,7 +95,7 @@ export default class Editor {
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
         this.mousePressed = false;
-        this.commandButtonPressed = false;
+        this.panEnabled = false;
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
 
@@ -224,14 +225,14 @@ export default class Editor {
             switch (inputEvent.type) {
                 case 'keydown':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.commandButtonPressed = true;
+                        this.panEnabled = true;
                     }
 
                     this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.commandButtonPressed = false;
+                        this.panEnabled = false;
                     }
 
                     this.eventBus.emitEvent(KeyReleasedEvent, inputEvent.code);
@@ -263,7 +264,7 @@ export default class Editor {
                     };
 
                     // Handles mouse pad pan
-                    if (this.mousePressed && this.commandButtonPressed) {
+                    if (this.mousePressed && this.panEnabled) {
                         const dx = mouseX - Game.mousePositionWorld.x;
                         const dy = mouseY - Game.mousePositionWorld.y;
 
@@ -283,7 +284,6 @@ export default class Editor {
                     break;
                 }
                 case 'mousedown':
-                    console.log('event: ', inputEvent.button);
                     this.mousePressed = true;
                     this.eventBus.emitEvent(
                         MousePressedEvent,
@@ -293,6 +293,11 @@ export default class Editor {
                         },
                         inputEvent.button,
                     );
+
+                    if (inputEvent.button === MouseButton.MIDDLE) {
+                        this.panEnabled = true;
+                    }
+
                     break;
                 case 'mouseup':
                     this.mousePressed = false;
@@ -304,6 +309,10 @@ export default class Editor {
                         },
                         inputEvent.button === 0 ? 'left' : 'right',
                     );
+
+                    if (inputEvent.button === MouseButton.MIDDLE) {
+                        this.panEnabled = false;
+                    }
                     break;
             }
         }
@@ -316,16 +325,12 @@ export default class Editor {
             }
 
             if (wheelEvent.deltaY < 0) {
-                if (this.commandButtonPressed) {
-                    this.zoom *= 1 + 0.01;
-                }
+                this.zoom *= 1 + 0.01;
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
 
             if (wheelEvent.deltaY > 0) {
-                if (this.commandButtonPressed) {
-                    this.zoom *= 1 - 0.01;
-                }
+                this.zoom *= 1 - 0.01;
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
         }
