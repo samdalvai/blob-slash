@@ -1,9 +1,6 @@
-import SpriteComponent from '../../components/SpriteComponent';
-import TransformComponent from '../../components/TransformComponent';
 import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
-import { ComponentType } from '../../types/components';
 import { Rectangle, Vector } from '../../types/utils';
 import { isRectangle, isVector } from '../../utils/vector';
 
@@ -43,73 +40,19 @@ export default class RenderSidebarEntities extends System {
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
-            const componentType: ComponentType = component.constructor.name
-                .toLowerCase()
-                .replace('component', '') as ComponentType;
+            console.log('Component: ', component.constructor.name);
+            const componentContainer = document.createElement('div');
+            const title = document.createElement('span');
+            title.innerText = component.constructor.name;
+            componentContainer.append(title);
 
-            switch (componentType) {
-                // case 'animation':
-                // case 'boxcollider':
-                // case 'camerafollow':
-                // case 'camerashake':
-                // case 'damageradius':
-                // case 'deadbodyondeath':
-                // case 'entitydestination':
-                // case 'entityeffect':
-                // case 'entityfollow':
-                // case 'health':
-                // case 'highlight':
-                // case 'lifetime':
-                // case 'lightemit':
-                // case 'meleeattack':
-                // case 'particle':
-                // case 'particleemit':
-                // case 'playercontrol':
-                // case 'projectile':
-                // case 'rangedattackemitter':
-                // case 'rigidbody':
-                // case 'script':
-                // case 'shadow':
-                // case 'slowtime':
-                // case 'sound':
-                case 'sprite': {
-                    const componentContainer = document.createElement('div');
-                    const title = document.createElement('span');
-                    title.innerText = 'Sprite component';
-                    componentContainer.append(title);
+            const properties = Object.keys(component);
 
-                    const properties = Object.keys(component);
-
-                    for (const key of properties) {
-                        componentContainer.append(
-                            this.getPropertyInput(key, (component as any)[key], component, entityId),
-                        );
-                    }
-
-                    container.append(componentContainer);
-                    break;
-                }
-                // case 'spritestate':
-                // case 'teleport':
-                // case 'textlabel':
-                case 'transform': {
-                    const componentContainer = document.createElement('div');
-                    const title = document.createElement('span');
-                    title.innerText = 'Transform component';
-                    componentContainer.append(title);
-
-                    const properties = Object.keys(component);
-
-                    for (const key of properties) {
-                        componentContainer.append(
-                            this.getPropertyInput(key, (component as any)[key], component, entityId),
-                        );
-                    }
-
-                    container.append(componentContainer);
-                    break;
-                }
+            for (const key of properties) {
+                componentContainer.append(this.getPropertyInput(key, (component as any)[key], component, entityId));
             }
+
+            container.append(componentContainer);
         }
 
         return container;
