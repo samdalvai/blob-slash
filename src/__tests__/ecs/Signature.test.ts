@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals';
 
-import Signature from '../../ecs/Signature';
+import Signature from '../../core/ecs/Signature';
 
 describe('Testing Signature related functions', () => {
     test('Should correctly set one bit of a signature', () => {

@@ -1,14 +1,14 @@
 import { expect } from '@jest/globals';
 
-import RigidBodyComponent from '../../components/RigidBodyComponent';
-import TransformComponent from '../../components/TransformComponent';
-import Component from '../../ecs/Component';
-import Entity from '../../ecs/Entity';
-import Registry from '../../ecs/Registry';
+import RigidBodyComponent from '../../game/components/RigidBodyComponent';
+import TransformComponent from '../../game/components/TransformComponent';
+import Component from '../../core/ecs/Component';
+import Entity from '../../core/ecs/Entity';
+import Registry from '../../core/ecs/Registry';
 import Game from '../../game/Game';
-import { serializeEntities, serializeEntity, serializeLevel } from '../../serialization/serialization';
-import { ComponentType } from '../../types/components';
-import { EntityMap, LevelMap } from '../../types/map';
+import { serializeEntities, serializeEntity, serializeLevel } from '../../core/serialization/serialization';
+import { ComponentType } from '../../core/types/components';
+import { EntityMap, LevelMap } from '../../core/types/map';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {
