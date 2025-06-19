@@ -37,6 +37,10 @@ export default class AssetStore {
         return texture;
     }
 
+    getAllTexturesIds() {
+        return Array.from(this.textures.keys());
+    }
+
     addSound(assetId: string, filePath: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const sound = new Audio();
