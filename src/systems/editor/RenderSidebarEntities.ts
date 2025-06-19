@@ -1,3 +1,4 @@
+import AssetStore from '../../asset-store/AssetStore';
 import Component from '../../ecs/Component';
 import Registry from '../../ecs/Registry';
 import System from '../../ecs/System';
@@ -38,7 +39,7 @@ export default class RenderSidebarEntities extends System {
         });
     };
 
-    update(sidebar: HTMLElement, registry: Registry) {
+    update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
         const entityList = sidebar.querySelector('#entity-list');
 
         if (!entityList) {
@@ -60,7 +61,7 @@ export default class RenderSidebarEntities extends System {
             li.style.border = 'solid 1px white';
             li.onclick = () => console.log(`Clicked entity ${entityId}`);
 
-            const forms = this.getComponentsForms(entityComponents, entityId);
+            const forms = this.getComponentsForms(entityComponents, entityId, assetStore);
             li.appendChild(title);
             li.appendChild(forms);
 
@@ -68,20 +69,27 @@ export default class RenderSidebarEntities extends System {
         }
     }
 
-    private getComponentsForms = (entityComponents: Component[], entityId: number): HTMLElement => {
+    private getComponentsForms = (
+        entityComponents: Component[],
+        entityId: number,
+        assetStore: AssetStore,
+    ): HTMLElement => {
         const container = document.createElement('div');
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
             const componentContainer = document.createElement('div');
             const title = document.createElement('span');
-            title.innerText = '* ' + component.constructor.name;
+            const componentName = component.constructor.name;
+            title.innerText = '* ' + componentName;
             componentContainer.append(title);
 
             const properties = Object.keys(component);
 
             for (const key of properties) {
-                componentContainer.append(this.getPropertyInput(key, (component as any)[key], component, entityId));
+                componentContainer.append(
+                    this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore),
+                );
             }
 
             container.append(componentContainer);
@@ -95,7 +103,37 @@ export default class RenderSidebarEntities extends System {
         propertyValue: number | boolean | Vector | Rectangle,
         component: Component,
         entityId: number,
+        assetStore: AssetStore,
     ) => {
+        if (component.constructor.name === 'SpriteComponent' && propertyName === 'assetId') {
+            const select = document.createElement('select');
+            select.id = propertyName + '-' + entityId;
+
+            const textureIds = assetStore.getAllTexturesIds();
+            const options: { value: string; text: string }[] = [];
+
+            for (const textureId of textureIds) {
+                options.push({ value: textureId, text: textureId });
+            }
+
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                select.appendChild(option);
+            });
+
+            select.value = (component as any)[propertyName];
+
+            select.addEventListener('change', (event: Event): void => {
+                const target = event.target as HTMLSelectElement;
+                (component as any)[propertyName] = target.value;
+            });
+
+            const propertyLi = this.createListItem(propertyName, select);
+            return propertyLi;
+        }
+
         switch (typeof propertyValue) {
             case 'string': {
                 const textInput = this.createInput('text', propertyName + '-' + entityId, propertyValue);
@@ -211,7 +249,7 @@ export default class RenderSidebarEntities extends System {
         }
     };
 
-    private createListItem = (label: string, input: HTMLInputElement): HTMLLIElement => {
+    private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
         const li = document.createElement('li');
         li.className = 'd-flex space-between align-center';
         li.append(label);
