@@ -1,49 +1,12 @@
 import AssetStore from '../core/asset-store/AssetStore';
 import Registry from '../core/ecs/Registry';
 import EventBus from '../core/event-bus/EventBus';
-import KeyPressedEvent from './events/KeyPressedEvent';
-import KeyReleasedEvent from './events/KeyReleasedEvent';
-import MouseMoveEvent from './events/MouseMoveEvent';
-import MousePressedEvent from './events/MousePressedEvent';
-import MouseReleasedEvent from './events/MouseReleasedEvent';
 import InputManager from '../core/input-manager/InputManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../core/serialization/persistence';
-import AnimationOnHitSystem from './systems/AnimationOnHitSystem';
-import AnimationSystem from './systems/AnimationSystem';
-import CameraMovementSystem from './systems/CameraMovementSystem';
-import CameraShakeSystem from './systems/CameraShakeSystem';
-import CollisionSystem from './systems/CollisionSystem';
-import DamageSystem from './systems/DamageSystem';
-import DeadBodyOnDeathSystem from './systems/DeadBodyOnDeathSystem';
-import EntityDestinationSystem from './systems/EntityDestinationSystem';
-import EntityEffectSystem from './systems/EntityEffectSystem';
-import EntityFollowSystem from './systems/EntityFollowSystem';
-import EntityHighlightSystem from './systems/EntityHighlightSystem';
-import LifetimeSystem from './systems/LifeTimeSystem';
-import MovementSystem from './systems/MovementSystem';
-import ParticleEmitSystem from './systems/ParticleEmitSystem';
-import PlayerControlSystem from './systems/PlayerControlSystem';
-import PlayerDetectionSystem from './systems/PlayerDetectionSystem';
-import RangedAttackEmitSystem from './systems/RangedAttackEmitSystem';
-import ScriptingSystem from './systems/ScriptingSystem';
-import SoundSystem from './systems/SoundSystem';
-import SpriteStateSystem from './systems/SpriteStateSystem';
-import DebugColliderSystem from './systems/DebugColliderSystem';
-import DebugCursorCoordinatesSystem from './systems/DebugCursorCoordinatesSystem';
-import DebugInfoSystem from './systems/DebugInfoSystem';
-import DebugEntityDestinationSystem from './systems/DebugEntityDestinationSystem';
-import DebugParticleSourceSystem from './systems/DebugParticleSourceSystem';
-import DebugPlayerFollowRadiusSystem from './systems/DebugPlayerFollowRadiusSystem';
-import DebugSlowTimeRadiusSystem from './systems/DebugSlowTimeRadiusSystem';
-import RenderCursorSystem from './systems/RenderCursorSystem';
-import RenderGUISystem from './systems/RenderGUISystem';
-import RenderHealthBarSystem from './systems/RenderHealthBarSystem';
-import RenderLightingSystem from './systems/RenderLightingSystem';
-import RenderParticleSystem from './systems/RenderParticleSystem';
-import RenderSystem from './systems/RenderSystem';
-import RenderTextSystem from './systems/RenderTextSystem';
 import { GameStatus, Rectangle, Vector } from '../core/types/utils';
-import GameLevelManager from './level/GameLevelManager';
+import * as GameEvents from './events';
+import GameLevelManager from './level-manager/GameLevelManager';
+import * as Systems from './systems';
 
 export default class Game {
     private isRunning: boolean;
@@ -129,44 +92,44 @@ export default class Game {
 
     private setup = async () => {
         // Rendering systems
-        this.registry.addSystem(RenderSystem);
-        this.registry.addSystem(RenderTextSystem);
-        this.registry.addSystem(RenderParticleSystem);
-        this.registry.addSystem(RenderLightingSystem);
-        this.registry.addSystem(RenderGUISystem);
-        this.registry.addSystem(RenderCursorSystem);
+        this.registry.addSystem(Systems.RenderSystem);
+        this.registry.addSystem(Systems.RenderTextSystem);
+        this.registry.addSystem(Systems.RenderParticleSystem);
+        this.registry.addSystem(Systems.RenderLightingSystem);
+        this.registry.addSystem(Systems.RenderGUISystem);
+        this.registry.addSystem(Systems.RenderCursorSystem);
 
         // Other entities related systems
-        this.registry.addSystem(MovementSystem);
-        this.registry.addSystem(CameraMovementSystem);
-        this.registry.addSystem(AnimationSystem);
-        this.registry.addSystem(CollisionSystem);
-        this.registry.addSystem(RangedAttackEmitSystem, this.registry);
-        this.registry.addSystem(DamageSystem, this.eventBus);
-        this.registry.addSystem(LifetimeSystem);
-        this.registry.addSystem(CameraShakeSystem);
-        this.registry.addSystem(SoundSystem, this.assetStore);
-        this.registry.addSystem(DebugPlayerFollowRadiusSystem);
-        this.registry.addSystem(EntityFollowSystem);
-        this.registry.addSystem(PlayerDetectionSystem);
-        this.registry.addSystem(SpriteStateSystem);
-        this.registry.addSystem(ScriptingSystem);
-        this.registry.addSystem(DeadBodyOnDeathSystem);
-        this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(PlayerControlSystem, this.eventBus, this.registry);
-        this.registry.addSystem(EntityDestinationSystem);
-        this.registry.addSystem(EntityHighlightSystem);
-        this.registry.addSystem(EntityEffectSystem);
-        this.registry.addSystem(AnimationOnHitSystem);
+        this.registry.addSystem(Systems.MovementSystem);
+        this.registry.addSystem(Systems.CameraMovementSystem);
+        this.registry.addSystem(Systems.AnimationSystem);
+        this.registry.addSystem(Systems.CollisionSystem);
+        this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
+        this.registry.addSystem(Systems.DamageSystem, this.eventBus);
+        this.registry.addSystem(Systems.LifetimeSystem);
+        this.registry.addSystem(Systems.CameraShakeSystem);
+        this.registry.addSystem(Systems.SoundSystem, this.assetStore);
+        this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
+        this.registry.addSystem(Systems.EntityFollowSystem);
+        this.registry.addSystem(Systems.PlayerDetectionSystem);
+        this.registry.addSystem(Systems.SpriteStateSystem);
+        this.registry.addSystem(Systems.ScriptingSystem);
+        this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
+        this.registry.addSystem(Systems.ParticleEmitSystem);
+        this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
+        this.registry.addSystem(Systems.EntityDestinationSystem);
+        this.registry.addSystem(Systems.EntityHighlightSystem);
+        this.registry.addSystem(Systems.EntityEffectSystem);
+        this.registry.addSystem(Systems.AnimationOnHitSystem);
 
         // Debug systems
-        this.registry.addSystem(DebugColliderSystem);
-        this.registry.addSystem(RenderHealthBarSystem);
-        this.registry.addSystem(DebugEntityDestinationSystem);
-        this.registry.addSystem(DebugParticleSourceSystem);
-        this.registry.addSystem(DebugInfoSystem);
-        this.registry.addSystem(DebugSlowTimeRadiusSystem);
-        this.registry.addSystem(DebugCursorCoordinatesSystem);
+        this.registry.addSystem(Systems.DebugColliderSystem);
+        this.registry.addSystem(Systems.RenderHealthBarSystem);
+        this.registry.addSystem(Systems.DebugEntityDestinationSystem);
+        this.registry.addSystem(Systems.DebugParticleSourceSystem);
+        this.registry.addSystem(Systems.DebugInfoSystem);
+        this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
+        this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
         await GameLevelManager.loadLevel(this.registry, this.assetStore);
         Game.gameStatus = GameStatus.PLAYING;
@@ -195,10 +158,10 @@ export default class Game {
                         saveLevelToJson(this.registry);
                     }
 
-                    this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
+                    this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
-                    this.eventBus.emitEvent(KeyReleasedEvent, inputEvent.code);
+                    this.eventBus.emitEvent(GameEvents.KeyReleasedEvent, inputEvent.code);
                     break;
             }
         }
@@ -223,14 +186,14 @@ export default class Game {
                         y: inputEvent.y + this.camera.y,
                     };
 
-                    this.eventBus.emitEvent(MouseMoveEvent, {
+                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
                     });
                     break;
                 case 'mousedown':
                     this.eventBus.emitEvent(
-                        MousePressedEvent,
+                        GameEvents.MousePressedEvent,
                         {
                             x: inputEvent.x + this.camera.x,
                             y: inputEvent.y + this.camera.y,
@@ -240,7 +203,7 @@ export default class Game {
                     break;
                 case 'mouseup':
                     this.eventBus.emitEvent(
-                        MouseReleasedEvent,
+                        GameEvents.MouseReleasedEvent,
                         {
                             x: inputEvent.x + this.camera.x,
                             y: inputEvent.y + this.camera.y,
@@ -272,33 +235,33 @@ export default class Game {
         this.registry.update();
 
         // Perform the subscription of the events for all systems
-        this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.MovementSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.DamageSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.SoundSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
-        this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
-        this.registry.getSystem(ScriptingSystem)?.update();
-        this.registry.getSystem(EntityFollowSystem)?.update();
-        this.registry.getSystem(MovementSystem)?.update(deltaTime);
-        this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
-        this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
-        this.registry.getSystem(RangedAttackEmitSystem)?.update();
-        this.registry.getSystem(LifetimeSystem)?.update();
-        this.registry.getSystem(ParticleEmitSystem)?.update();
-        this.registry.getSystem(EntityDestinationSystem)?.update();
-        this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
-        this.registry.getSystem(EntityHighlightSystem)?.update();
-        this.registry.getSystem(DamageSystem)?.update();
-        this.registry.getSystem(AnimationSystem)?.update();
-        this.registry.getSystem(SpriteStateSystem)?.update();
+        this.registry.getSystem(Systems.PlayerDetectionSystem)?.update(this.registry);
+        this.registry.getSystem(Systems.ScriptingSystem)?.update();
+        this.registry.getSystem(Systems.EntityFollowSystem)?.update();
+        this.registry.getSystem(Systems.MovementSystem)?.update(deltaTime);
+        this.registry.getSystem(Systems.CameraMovementSystem)?.update(this.camera);
+        this.registry.getSystem(Systems.CollisionSystem)?.update(this.eventBus);
+        this.registry.getSystem(Systems.RangedAttackEmitSystem)?.update();
+        this.registry.getSystem(Systems.LifetimeSystem)?.update();
+        this.registry.getSystem(Systems.ParticleEmitSystem)?.update();
+        this.registry.getSystem(Systems.EntityDestinationSystem)?.update();
+        this.registry.getSystem(Systems.EntityEffectSystem)?.update(this.registry);
+        this.registry.getSystem(Systems.EntityHighlightSystem)?.update();
+        this.registry.getSystem(Systems.DamageSystem)?.update();
+        this.registry.getSystem(Systems.AnimationSystem)?.update();
+        this.registry.getSystem(Systems.SpriteStateSystem)?.update();
     };
 
     private render = () => {
@@ -309,25 +272,27 @@ export default class Game {
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
-        this.registry.getSystem(RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
-        this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
-        this.registry.getSystem(RenderCursorSystem)?.update(this.ctx, this.camera, this.assetStore, this.registry);
+        this.registry.getSystem(Systems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
+        this.registry.getSystem(Systems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(Systems.CameraShakeSystem)?.update(this.ctx);
+        this.registry.getSystem(Systems.RenderTextSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(Systems.RenderParticleSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(Systems.RenderLightingSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(Systems.RenderGUISystem)?.update(this.ctx, this.assetStore);
+        this.registry
+            .getSystem(Systems.RenderCursorSystem)
+            ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         if (this.isDebug) {
             this.registry
-                .getSystem(DebugInfoSystem)
+                .getSystem(Systems.DebugInfoSystem)
                 ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera);
-            this.registry.getSystem(DebugColliderSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(DebugParticleSourceSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(DebugCursorCoordinatesSystem)?.update(this.ctx);
+            this.registry.getSystem(Systems.DebugColliderSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugCursorCoordinatesSystem)?.update(this.ctx);
         }
     };
 

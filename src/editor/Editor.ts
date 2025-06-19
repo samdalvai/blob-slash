@@ -6,51 +6,11 @@ import InputManager from '../core/input-manager/InputManager';
 import { MouseButton } from '../core/types/control';
 import { GameStatus, Rectangle } from '../core/types/utils';
 import Game from '../game/Game';
-import KeyPressedEvent from '../game/events/KeyPressedEvent';
-import KeyReleasedEvent from '../game/events/KeyReleasedEvent';
-import MouseMoveEvent from '../game/events/MouseMoveEvent';
-import MousePressedEvent from '../game/events/MousePressedEvent';
-import MouseReleasedEvent from '../game/events/MouseReleasedEvent';
-import AnimationOnHitSystem from '../game/systems/AnimationOnHitSystem';
-import AnimationSystem from '../game/systems/AnimationSystem';
-import CameraMovementSystem from '../game/systems/CameraMovementSystem';
-import CameraShakeSystem from '../game/systems/CameraShakeSystem';
-import CollisionSystem from '../game/systems/CollisionSystem';
-import DamageSystem from '../game/systems/DamageSystem';
-import DeadBodyOnDeathSystem from '../game/systems/DeadBodyOnDeathSystem';
-import DebugColliderSystem from '../game/systems/DebugColliderSystem';
-import DebugCursorCoordinatesSystem from '../game/systems/DebugCursorCoordinatesSystem';
-import DebugEntityDestinationSystem from '../game/systems/DebugEntityDestinationSystem';
-import DebugInfoSystem from '../game/systems/DebugInfoSystem';
-import DebugParticleSourceSystem from '../game/systems/DebugParticleSourceSystem';
-import DebugPlayerFollowRadiusSystem from '../game/systems/DebugPlayerFollowRadiusSystem';
-import DebugSlowTimeRadiusSystem from '../game/systems/DebugSlowTimeRadiusSystem';
-import EntityDestinationSystem from '../game/systems/EntityDestinationSystem';
-import EntityEffectSystem from '../game/systems/EntityEffectSystem';
-import EntityFollowSystem from '../game/systems/EntityFollowSystem';
-import EntityHighlightSystem from '../game/systems/EntityHighlightSystem';
-import LifetimeSystem from '../game/systems/LifeTimeSystem';
-import MovementSystem from '../game/systems/MovementSystem';
-import ParticleEmitSystem from '../game/systems/ParticleEmitSystem';
-import PlayerControlSystem from '../game/systems/PlayerControlSystem';
-import PlayerDetectionSystem from '../game/systems/PlayerDetectionSystem';
-import RangedAttackEmitSystem from '../game/systems/RangedAttackEmitSystem';
-import RenderGUISystem from '../game/systems/RenderGUISystem';
-import RenderHealthBarSystem from '../game/systems/RenderHealthBarSystem';
-import RenderLightingSystem from '../game/systems/RenderLightingSystem';
-import RenderParticleSystem from '../game/systems/RenderParticleSystem';
-import RenderTextSystem from '../game/systems/RenderTextSystem';
-import ScriptingSystem from '../game/systems/ScriptingSystem';
-import SoundSystem from '../game/systems/SoundSystem';
-import SpriteStateSystem from '../game/systems/SpriteStateSystem';
+import * as GameEvents from '../game/events';
+import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
-import EditorLevelManager from './level/EditorLevelManager';
-import EditorRenderSystem from './systems/EditorRenderSystem';
-import RenderGameBorder from './systems/RenderGameBorder';
-import RenderSidebarEntities from './systems/RenderSidebarEntities';
-import RenderSidebarLevelSettings from './systems/RenderSidebarLevelSettings';
-import RenderSidebarSaveButtons from './systems/RenderSidebarSaveButtons';
-import RenderSpriteBoxSystem from './systems/RenderSpriteBoxSystem';
+import EditorLevelManager from './level-manager/EditorLevelManager';
+import * as EditorSystems from './systems';
 
 export default class Editor {
     private isRunning: boolean;
@@ -159,52 +119,52 @@ export default class Editor {
 
     private setup = async () => {
         // Rendering systems
-        // this.registry.addSystem(RenderSystem);
-        this.registry.addSystem(RenderTextSystem);
-        this.registry.addSystem(RenderParticleSystem);
-        this.registry.addSystem(RenderLightingSystem);
-        this.registry.addSystem(RenderGUISystem);
-        // this.registry.addSystem(RenderCursorSystem);
+        // this.registry.addSystem(GameSystems.RenderSystem);
+        this.registry.addSystem(GameSystems.RenderTextSystem);
+        this.registry.addSystem(GameSystems.RenderParticleSystem);
+        this.registry.addSystem(GameSystems.RenderLightingSystem);
+        this.registry.addSystem(GameSystems.RenderGUISystem);
+        // this.registry.addSystem(GameSystems.RenderCursorSystem);
 
         // Other entities related systems
-        this.registry.addSystem(MovementSystem);
-        this.registry.addSystem(CameraMovementSystem);
-        this.registry.addSystem(AnimationSystem);
-        this.registry.addSystem(CollisionSystem);
-        this.registry.addSystem(RangedAttackEmitSystem, this.registry);
-        this.registry.addSystem(DamageSystem, this.eventBus);
-        this.registry.addSystem(LifetimeSystem);
-        this.registry.addSystem(CameraShakeSystem);
-        this.registry.addSystem(SoundSystem, this.assetStore);
-        this.registry.addSystem(DebugPlayerFollowRadiusSystem);
-        this.registry.addSystem(EntityFollowSystem);
-        this.registry.addSystem(PlayerDetectionSystem);
-        this.registry.addSystem(SpriteStateSystem);
-        this.registry.addSystem(ScriptingSystem);
-        this.registry.addSystem(DeadBodyOnDeathSystem);
-        this.registry.addSystem(ParticleEmitSystem);
-        this.registry.addSystem(PlayerControlSystem, this.eventBus, this.registry);
-        this.registry.addSystem(EntityDestinationSystem);
-        this.registry.addSystem(EntityHighlightSystem);
-        this.registry.addSystem(EntityEffectSystem);
-        this.registry.addSystem(AnimationOnHitSystem);
+        this.registry.addSystem(GameSystems.MovementSystem);
+        this.registry.addSystem(GameSystems.CameraMovementSystem);
+        this.registry.addSystem(GameSystems.AnimationSystem);
+        this.registry.addSystem(GameSystems.CollisionSystem);
+        this.registry.addSystem(GameSystems.RangedAttackEmitSystem, this.registry);
+        this.registry.addSystem(GameSystems.DamageSystem, this.eventBus);
+        this.registry.addSystem(GameSystems.LifetimeSystem);
+        this.registry.addSystem(GameSystems.CameraShakeSystem);
+        this.registry.addSystem(GameSystems.SoundSystem, this.assetStore);
+        this.registry.addSystem(GameSystems.DebugPlayerFollowRadiusSystem);
+        this.registry.addSystem(GameSystems.EntityFollowSystem);
+        this.registry.addSystem(GameSystems.PlayerDetectionSystem);
+        this.registry.addSystem(GameSystems.SpriteStateSystem);
+        this.registry.addSystem(GameSystems.ScriptingSystem);
+        this.registry.addSystem(GameSystems.DeadBodyOnDeathSystem);
+        this.registry.addSystem(GameSystems.ParticleEmitSystem);
+        this.registry.addSystem(GameSystems.PlayerControlSystem, this.eventBus, this.registry);
+        this.registry.addSystem(GameSystems.EntityDestinationSystem);
+        this.registry.addSystem(GameSystems.EntityHighlightSystem);
+        this.registry.addSystem(GameSystems.EntityEffectSystem);
+        this.registry.addSystem(GameSystems.AnimationOnHitSystem);
 
         // Debug systems
-        this.registry.addSystem(DebugColliderSystem);
-        this.registry.addSystem(RenderHealthBarSystem);
-        this.registry.addSystem(DebugEntityDestinationSystem);
-        this.registry.addSystem(DebugParticleSourceSystem);
-        this.registry.addSystem(DebugInfoSystem);
-        this.registry.addSystem(DebugSlowTimeRadiusSystem);
-        this.registry.addSystem(DebugCursorCoordinatesSystem);
+        this.registry.addSystem(GameSystems.DebugColliderSystem);
+        this.registry.addSystem(GameSystems.RenderHealthBarSystem);
+        this.registry.addSystem(GameSystems.DebugEntityDestinationSystem);
+        this.registry.addSystem(GameSystems.DebugParticleSourceSystem);
+        this.registry.addSystem(GameSystems.DebugInfoSystem);
+        this.registry.addSystem(GameSystems.DebugSlowTimeRadiusSystem);
+        this.registry.addSystem(GameSystems.DebugCursorCoordinatesSystem);
 
         // Editor related systems
-        this.registry.addSystem(EditorRenderSystem);
-        this.registry.addSystem(RenderSpriteBoxSystem);
-        this.registry.addSystem(RenderGameBorder);
-        this.registry.addSystem(RenderSidebarEntities);
-        this.registry.addSystem(RenderSidebarLevelSettings);
-        this.registry.addSystem(RenderSidebarSaveButtons);
+        this.registry.addSystem(EditorSystems.EditorRenderSystem);
+        this.registry.addSystem(EditorSystems.RenderSpriteBoxSystem);
+        this.registry.addSystem(EditorSystems.RenderGameBorder);
+        this.registry.addSystem(EditorSystems.RenderSidebarEntities);
+        this.registry.addSystem(EditorSystems.RenderSidebarLevelSettings);
+        this.registry.addSystem(EditorSystems.RenderSidebarSaveButtons);
 
         // await LevelLoader.loadLevel(this.registry, this.assetStore);
         await EditorLevelManager.loadLevel(this.registry, this.assetStore);
@@ -225,14 +185,14 @@ export default class Editor {
                         this.panEnabled = true;
                     }
 
-                    this.eventBus.emitEvent(KeyPressedEvent, inputEvent.code);
+                    this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
                     if (inputEvent.code === 'MetaLeft') {
                         this.panEnabled = false;
                     }
 
-                    this.eventBus.emitEvent(KeyReleasedEvent, inputEvent.code);
+                    this.eventBus.emitEvent(GameEvents.KeyReleasedEvent, inputEvent.code);
                     break;
             }
         }
@@ -274,7 +234,7 @@ export default class Editor {
                         y: mouseY,
                     };
 
-                    this.eventBus.emitEvent(MouseMoveEvent, {
+                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, {
                         x: mouseX,
                         y: mouseY,
                     });
@@ -287,7 +247,7 @@ export default class Editor {
 
                     this.mousePressed = true;
                     this.eventBus.emitEvent(
-                        MousePressedEvent,
+                        GameEvents.MousePressedEvent,
                         {
                             x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
@@ -307,7 +267,7 @@ export default class Editor {
 
                     this.mousePressed = false;
                     this.eventBus.emitEvent(
-                        MouseReleasedEvent,
+                        GameEvents.MouseReleasedEvent,
                         {
                             x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
@@ -378,35 +338,35 @@ export default class Editor {
         this.registry.update();
 
         // Perform the subscription of the events for all systems
-        // this.registry.getSystem(MovementSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(DamageSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(SoundSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(RenderSpriteBoxSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
+        // this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
+        // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
-        // this.registry.getSystem(PlayerDetectionSystem)?.update(this.registry);
-        // this.registry.getSystem(ScriptingSystem)?.update();
-        // this.registry.getSystem(EntityFollowSystem)?.update();
-        // this.registry.getSystem(MovementSystem)?.update(deltaTime);
-        // this.registry.getSystem(CameraMovementSystem)?.update(this.camera);
-        this.registry.getSystem(CollisionSystem)?.update(this.eventBus);
-        this.registry.getSystem(RangedAttackEmitSystem)?.update();
-        this.registry.getSystem(LifetimeSystem)?.update();
-        this.registry.getSystem(ParticleEmitSystem)?.update();
-        this.registry.getSystem(EntityDestinationSystem)?.update();
-        this.registry.getSystem(EntityEffectSystem)?.update(this.registry);
-        // this.registry.getSystem(EntityHighlightSystem)?.update();
-        this.registry.getSystem(DamageSystem)?.update();
-        this.registry.getSystem(AnimationSystem)?.update();
-        this.registry.getSystem(SpriteStateSystem)?.update();
+        // this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
+        // this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
+        // this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
+        // this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
+        // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
+        this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
+        this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
+        this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+        this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
+        this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
+        this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
+        // this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
+        this.registry.getSystem(GameSystems.DamageSystem)?.update();
+        this.registry.getSystem(GameSystems.AnimationSystem)?.update();
+        this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
     };
 
     private render = () => {
@@ -418,44 +378,48 @@ export default class Editor {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Render Editor systems
-        this.registry.getSystem(EditorRenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
+        this.registry
+            .getSystem(EditorSystems.EditorRenderSystem)
+            ?.update(this.ctx, this.assetStore, this.camera, this.zoom);
 
         // Render game related systems
-        // this.registry.getSystem(RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
-        this.registry.getSystem(RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        // this.registry.getSystem(CameraShakeSystem)?.update(this.ctx);
-        this.registry.getSystem(RenderTextSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderParticleSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
+        // this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
+        this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
+        // this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
+        this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
         // TODO: to be removed
-        // this.registry.getSystem(RenderGUISystem)?.update(this.ctx, this.assetStore);
+        // this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
         // this.registry
-        //     .getSystem(RenderCursorSystem)
+        //     .getSystem(GameSystems.RenderCursorSystem)
         //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
 
         // Render editor systems
-        this.registry.getSystem(RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
         this.registry
-            .getSystem(DebugInfoSystem)
+            .getSystem(GameSystems.DebugInfoSystem)
             ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera, this.zoom);
-        this.registry.getSystem(DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(DebugParticleSourceSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(GameSystems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
 
-        this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
 
         this.registry
-            .getSystem(DebugCursorCoordinatesSystem)
+            .getSystem(GameSystems.DebugCursorCoordinatesSystem)
             ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
 
         if (this.shouldSidebarUpdate) {
-            this.registry.getSystem(RenderSidebarEntities)?.update(this.sidebar, this.registry, this.assetStore);
-            this.registry.getSystem(RenderSidebarLevelSettings)?.update(this.sidebar);
-            this.registry.getSystem(RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
+            this.registry
+                .getSystem(EditorSystems.RenderSidebarEntities)
+                ?.update(this.sidebar, this.registry, this.assetStore);
+            this.registry.getSystem(EditorSystems.RenderSidebarLevelSettings)?.update(this.sidebar);
+            this.registry.getSystem(EditorSystems.RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
             this.shouldSidebarUpdate = false;
         }
     };
