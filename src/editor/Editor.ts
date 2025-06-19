@@ -1,61 +1,56 @@
-import AssetStore from '../asset-store/AssetStore';
-import Entity from '../ecs/Entity';
-import Registry from '../ecs/Registry';
-import EventBus from '../event-bus/EventBus';
-import KeyPressedEvent from '../events/KeyPressedEvent';
-import KeyReleasedEvent from '../events/KeyReleasedEvent';
-import MouseMoveEvent from '../events/MouseMoveEvent';
-import MousePressedEvent from '../events/MousePressedEvent';
-import MouseReleasedEvent from '../events/MouseReleasedEvent';
-import ScrollEvent from '../events/ScrollEvent';
+import AssetStore from '../core/asset-store/AssetStore';
+import Entity from '../core/ecs/Entity';
+import Registry from '../core/ecs/Registry';
+import EventBus from '../core/event-bus/EventBus';
+import InputManager from '../core/input-manager/InputManager';
+import { MouseButton } from '../core/types/control';
+import { GameStatus, Rectangle } from '../core/types/utils';
 import Game from '../game/Game';
-import LevelLoader from '../game/LevelLoader';
-import InputManager from '../input-manager/InputManager';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../serialization/persistence';
-import AnimationOnHitSystem from '../systems/AnimationOnHitSystem';
-import AnimationSystem from '../systems/AnimationSystem';
-import CameraMovementSystem from '../systems/CameraMovementSystem';
-import CameraShakeSystem from '../systems/CameraShakeSystem';
-import CollisionSystem from '../systems/CollisionSystem';
-import DamageSystem from '../systems/DamageSystem';
-import DeadBodyOnDeathSystem from '../systems/DeadBodyOnDeathSystem';
-import EntityDestinationSystem from '../systems/EntityDestinationSystem';
-import EntityEffectSystem from '../systems/EntityEffectSystem';
-import EntityFollowSystem from '../systems/EntityFollowSystem';
-import EntityHighlightSystem from '../systems/EntityHighlightSystem';
-import LifetimeSystem from '../systems/LifeTimeSystem';
-import MovementSystem from '../systems/MovementSystem';
-import ParticleEmitSystem from '../systems/ParticleEmitSystem';
-import PlayerControlSystem from '../systems/PlayerControlSystem';
-import PlayerDetectionSystem from '../systems/PlayerDetectionSystem';
-import RangedAttackEmitSystem from '../systems/RangedAttackEmitSystem';
-import ScriptingSystem from '../systems/ScriptingSystem';
-import SoundSystem from '../systems/SoundSystem';
-import SpriteStateSystem from '../systems/SpriteStateSystem';
-import RenderColliderSystem from '../systems/debug/RenderColliderSystem';
-import RenderCursorCoordinatesSystem from '../systems/debug/RenderCursorCoordinatesSystem';
-import RenderDebugInfoSystem from '../systems/debug/RenderDebugInfoSystem';
-import RenderEntityDestinationSystem from '../systems/debug/RenderEntityDestinationSystem';
-import RenderParticleSourceSystem from '../systems/debug/RenderParticleSourceSystem';
-import RenderPlayerFollowRadiusSystem from '../systems/debug/RenderPlayerFollowRadiusSystem';
-import RenderSlowTimeRadiusSystem from '../systems/debug/RenderSlowTimeRadiusSystem';
-import EditorRenderSystem from '../systems/editor/EditorRenderSystem';
-import RenderGameBorder from '../systems/editor/RenderGameBorder';
-import RenderSidebarEntities from '../systems/editor/RenderSidebarEntities';
-import RenderSidebarLevelSettings from '../systems/editor/RenderSidebarLevelSettings';
-import RenderSidebarSaveButtons from '../systems/editor/RenderSidebarSaveButtons';
-import RenderSpriteBoxSystem from '../systems/editor/RenderSpriteBoxSystem';
-import RenderGUISystem from '../systems/render/RenderGUISystem';
-import RenderHealthBarSystem from '../systems/render/RenderHealthBarSystem';
-import RenderLightingSystem from '../systems/render/RenderLightingSystem';
-import RenderParticleSystem from '../systems/render/RenderParticleSystem';
-// import RenderSystem from '../systems/render/RenderSystem';
-import RenderTextSystem from '../systems/render/RenderTextSystem';
-import { MouseButton } from '../types/control';
-import { GameStatus, Rectangle } from '../types/utils';
-import EditorLevelLoader from './EditorLevelLoader';
-
-// import LevelLoader from './LevelLoader';
+import KeyPressedEvent from '../game/events/KeyPressedEvent';
+import KeyReleasedEvent from '../game/events/KeyReleasedEvent';
+import MouseMoveEvent from '../game/events/MouseMoveEvent';
+import MousePressedEvent from '../game/events/MousePressedEvent';
+import MouseReleasedEvent from '../game/events/MouseReleasedEvent';
+import AnimationOnHitSystem from '../game/systems/AnimationOnHitSystem';
+import AnimationSystem from '../game/systems/AnimationSystem';
+import CameraMovementSystem from '../game/systems/CameraMovementSystem';
+import CameraShakeSystem from '../game/systems/CameraShakeSystem';
+import CollisionSystem from '../game/systems/CollisionSystem';
+import DamageSystem from '../game/systems/DamageSystem';
+import DeadBodyOnDeathSystem from '../game/systems/DeadBodyOnDeathSystem';
+import DebugColliderSystem from '../game/systems/DebugColliderSystem';
+import DebugCursorCoordinatesSystem from '../game/systems/DebugCursorCoordinatesSystem';
+import DebugEntityDestinationSystem from '../game/systems/DebugEntityDestinationSystem';
+import DebugInfoSystem from '../game/systems/DebugInfoSystem';
+import DebugParticleSourceSystem from '../game/systems/DebugParticleSourceSystem';
+import DebugPlayerFollowRadiusSystem from '../game/systems/DebugPlayerFollowRadiusSystem';
+import DebugSlowTimeRadiusSystem from '../game/systems/DebugSlowTimeRadiusSystem';
+import EntityDestinationSystem from '../game/systems/EntityDestinationSystem';
+import EntityEffectSystem from '../game/systems/EntityEffectSystem';
+import EntityFollowSystem from '../game/systems/EntityFollowSystem';
+import EntityHighlightSystem from '../game/systems/EntityHighlightSystem';
+import LifetimeSystem from '../game/systems/LifeTimeSystem';
+import MovementSystem from '../game/systems/MovementSystem';
+import ParticleEmitSystem from '../game/systems/ParticleEmitSystem';
+import PlayerControlSystem from '../game/systems/PlayerControlSystem';
+import PlayerDetectionSystem from '../game/systems/PlayerDetectionSystem';
+import RangedAttackEmitSystem from '../game/systems/RangedAttackEmitSystem';
+import RenderGUISystem from '../game/systems/RenderGUISystem';
+import RenderHealthBarSystem from '../game/systems/RenderHealthBarSystem';
+import RenderLightingSystem from '../game/systems/RenderLightingSystem';
+import RenderParticleSystem from '../game/systems/RenderParticleSystem';
+import RenderTextSystem from '../game/systems/RenderTextSystem';
+import ScriptingSystem from '../game/systems/ScriptingSystem';
+import SoundSystem from '../game/systems/SoundSystem';
+import SpriteStateSystem from '../game/systems/SpriteStateSystem';
+import ScrollEvent from './events/ScrollEvent';
+import EditorLevelManager from './level/EditorLevelManager';
+import EditorRenderSystem from './systems/EditorRenderSystem';
+import RenderGameBorder from './systems/RenderGameBorder';
+import RenderSidebarEntities from './systems/RenderSidebarEntities';
+import RenderSidebarLevelSettings from './systems/RenderSidebarLevelSettings';
+import RenderSidebarSaveButtons from './systems/RenderSidebarSaveButtons';
+import RenderSpriteBoxSystem from './systems/RenderSpriteBoxSystem';
 
 export default class Editor {
     private isRunning: boolean;
@@ -181,7 +176,7 @@ export default class Editor {
         this.registry.addSystem(LifetimeSystem);
         this.registry.addSystem(CameraShakeSystem);
         this.registry.addSystem(SoundSystem, this.assetStore);
-        this.registry.addSystem(RenderPlayerFollowRadiusSystem);
+        this.registry.addSystem(DebugPlayerFollowRadiusSystem);
         this.registry.addSystem(EntityFollowSystem);
         this.registry.addSystem(PlayerDetectionSystem);
         this.registry.addSystem(SpriteStateSystem);
@@ -195,13 +190,13 @@ export default class Editor {
         this.registry.addSystem(AnimationOnHitSystem);
 
         // Debug systems
-        this.registry.addSystem(RenderColliderSystem);
+        this.registry.addSystem(DebugColliderSystem);
         this.registry.addSystem(RenderHealthBarSystem);
-        this.registry.addSystem(RenderEntityDestinationSystem);
-        this.registry.addSystem(RenderParticleSourceSystem);
-        this.registry.addSystem(RenderDebugInfoSystem);
-        this.registry.addSystem(RenderSlowTimeRadiusSystem);
-        this.registry.addSystem(RenderCursorCoordinatesSystem);
+        this.registry.addSystem(DebugEntityDestinationSystem);
+        this.registry.addSystem(DebugParticleSourceSystem);
+        this.registry.addSystem(DebugInfoSystem);
+        this.registry.addSystem(DebugSlowTimeRadiusSystem);
+        this.registry.addSystem(DebugCursorCoordinatesSystem);
 
         // Editor related systems
         this.registry.addSystem(EditorRenderSystem);
@@ -212,7 +207,7 @@ export default class Editor {
         this.registry.addSystem(RenderSidebarSaveButtons);
 
         // await LevelLoader.loadLevel(this.registry, this.assetStore);
-        await EditorLevelLoader.loadLevel(this.registry, this.assetStore);
+        await EditorLevelManager.loadLevel(this.registry, this.assetStore);
     };
 
     private processInput = () => {
@@ -443,18 +438,18 @@ export default class Editor {
 
         // Render debug systems
         this.registry
-            .getSystem(RenderDebugInfoSystem)
+            .getSystem(DebugInfoSystem)
             ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera, this.zoom);
-        this.registry.getSystem(RenderColliderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(RenderPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderParticleSourceSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderEntityDestinationSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(RenderSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
 
         this.registry.getSystem(RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
 
         this.registry
-            .getSystem(RenderCursorCoordinatesSystem)
+            .getSystem(DebugCursorCoordinatesSystem)
             ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
 
         if (this.shouldSidebarUpdate) {

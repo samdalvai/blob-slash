@@ -1,9 +1,9 @@
 import LifetimeComponent from '../components/LifetimeComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import Registry from '../ecs/Registry';
-import LifetimeSystem from '../systems/LifeTimeSystem';
-import MovementSystem from '../systems/MovementSystem';
+import Registry from '../core/ecs/Registry';
+import LifetimeSystem from '../game/systems/LifeTimeSystem';
+import MovementSystem from '../game/systems/MovementSystem';
 
 describe('Testing performance related functions', () => {
     test('A test on performance', () => {
