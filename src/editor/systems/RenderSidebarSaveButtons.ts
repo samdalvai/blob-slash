@@ -1,6 +1,6 @@
 import Registry from '../../core/ecs/Registry';
 import System from '../../core/ecs/System';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../../serialization/persistence';
+import { saveLevelToJson, saveLevelToLocalStorage } from '../../core/serialization/persistence';
 
 export default class RenderSidebarSaveButtons extends System {
     constructor() {

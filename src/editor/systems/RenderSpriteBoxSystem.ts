@@ -1,5 +1,5 @@
-import SpriteComponent from '../../components/SpriteComponent';
-import TransformComponent from '../../components/TransformComponent';
+import SpriteComponent from '../../game/components/SpriteComponent';
+import TransformComponent from '../../game/components/TransformComponent';
 import System from '../../core/ecs/System';
 import Editor from '../Editor';
 import EventBus from '../../core/event-bus/EventBus';

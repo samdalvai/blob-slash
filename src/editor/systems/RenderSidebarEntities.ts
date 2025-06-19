@@ -5,7 +5,7 @@ import System from '../../core/ecs/System';
 import EventBus from '../../core/event-bus/EventBus';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { Rectangle, Vector } from '../../core/types/utils';
-import { isRectangle, isVector } from '../../utils/vector';
+import { isRectangle, isVector } from '../../core/utils/vector';
 
 export default class RenderSidebarEntities extends System {
     constructor() {

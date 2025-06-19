@@ -1,8 +1,8 @@
 import AssetStore from '../../core/asset-store/AssetStore';
-import HighlightComponent from '../../components/HighlightComponent';
-import ShadowComponent from '../../components/ShadowComponent';
-import SpriteComponent from '../../components/SpriteComponent';
-import TransformComponent from '../../components/TransformComponent';
+import HighlightComponent from '../../game/components/HighlightComponent';
+import ShadowComponent from '../../game/components/ShadowComponent';
+import SpriteComponent from '../../game/components/SpriteComponent';
+import TransformComponent from '../../game/components/TransformComponent';
 import System from '../../core/ecs/System';
 import { Flip, Rectangle } from '../../core/types/utils';
 
