@@ -77,10 +77,17 @@ export default class EditorLevelManager {
         const player = registry.createEntity();
         player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, { x: 0, y: 32 * 2 });
         player.addComponent(TransformComponent, { x: 200, y: 200 });
-        player.addComponent(BoxColliderComponent, 20, 32, { x: 5, y: 0 });
+        player.addComponent(BoxColliderComponent, 25, 32, { x: 3, y: 0 });
         player.addComponent(LightEmitComponent, 200);
         player.addComponent(ShadowComponent, 32, 16);
         player.tag('player');
+
+        const enemy1 = registry.createEntity();
+        enemy1.addComponent(SpriteComponent, 'skeleton-texture', 32, 32, 1, { x: 0, y: 32 * 2 });
+        enemy1.addComponent(TransformComponent, { x: 300, y: 200 }, { x: 2, y: 2});
+        enemy1.addComponent(BoxColliderComponent, 20, 32, { x: 10, y: 0 });
+        enemy1.addComponent(ShadowComponent, 32, 16);
+        enemy1.tag('enemies');
     }
 
     private static setMapBoundaries(level: LevelMap) {
