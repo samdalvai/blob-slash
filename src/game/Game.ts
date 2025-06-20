@@ -1,3 +1,4 @@
+import Engine from '../core/Engine';
 import AssetStore from '../core/asset-store/AssetStore';
 import Registry from '../core/ecs/Registry';
 import EventBus from '../core/event-bus/EventBus';
@@ -8,8 +9,7 @@ import * as GameEvents from './events';
 import GameLevelManager from './level-manager/GameLevelManager';
 import * as Systems from './systems';
 
-export default class Game {
-    private isRunning: boolean;
+export default class Game extends Engine {
     private isDebug: boolean;
     private canvas: HTMLCanvasElement | null;
     private ctx: CanvasRenderingContext2D | null;
@@ -32,7 +32,7 @@ export default class Game {
     static gameStatus: GameStatus;
 
     constructor() {
-        this.isRunning = false;
+        super();
         this.isDebug = false;
         this.canvas = null;
         this.ctx = null;
@@ -90,7 +90,7 @@ export default class Game {
         });
     };
 
-    private setup = async () => {
+    setup = async () => {
         // Rendering systems
         this.registry.addSystem(Systems.RenderSystem);
         this.registry.addSystem(Systems.RenderTextSystem);
@@ -135,7 +135,7 @@ export default class Game {
         Game.gameStatus = GameStatus.PLAYING;
     };
 
-    private processInput = () => {
+    processInput = () => {
         // Hanlde keyboard events
         while (this.inputManager.keyboardInputBuffer.length > 0) {
             const inputEvent = this.inputManager.keyboardInputBuffer.shift();
@@ -215,7 +215,7 @@ export default class Game {
         }
     };
 
-    private update = (deltaTime: number) => {
+    update = (deltaTime: number) => {
         if (this.isDebug) {
             const millisecsCurrentFrame = performance.now();
             if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
@@ -264,7 +264,7 @@ export default class Game {
         this.registry.getSystem(Systems.SpriteStateSystem)?.update();
     };
 
-    private render = () => {
+    render = () => {
         if (!this.canvas || !this.ctx) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
@@ -294,29 +294,5 @@ export default class Game {
             this.registry.getSystem(Systems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(Systems.DebugCursorCoordinatesSystem)?.update(this.ctx);
         }
-    };
-
-    run = async () => {
-        await this.setup();
-        console.log('Running game');
-
-        let lastTime = performance.now();
-
-        const loop = () => {
-            if (this.isRunning) {
-                const currentTime = performance.now();
-                const deltaTime = (currentTime - lastTime) / 1000.0;
-
-                this.processInput();
-                this.update(deltaTime);
-                this.render();
-
-                lastTime = currentTime;
-
-                requestAnimationFrame(loop);
-            }
-        };
-
-        requestAnimationFrame(loop);
     };
 }
