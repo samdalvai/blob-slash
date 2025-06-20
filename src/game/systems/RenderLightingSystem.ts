@@ -52,7 +52,7 @@ export default class RenderLightingSystem extends System {
 
         // Render light where we have the skills menu
         // const padding = 25;
-        // tempCtx.fillRect(padding, Game.windowHeight - 64 - padding, 192, 64);
+        // tempCtx.fillRect(padding, Engine.windowHeight - 64 - padding, 192, 64);
 
         tempCtx.globalCompositeOperation = 'source-over';
         ctx.drawImage(tempCanvas, 0, 0);

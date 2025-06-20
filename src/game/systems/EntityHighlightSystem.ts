@@ -2,7 +2,6 @@ import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import System from '../../engine/ecs/System';
-import Game from '../Game';
 import Engine from '../../engine/Engine';
 
 export default class EntityHighlightSystem extends System {

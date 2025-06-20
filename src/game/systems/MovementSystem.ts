@@ -6,8 +6,8 @@ import Entity from '../../engine/ecs/Entity';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
-import Game from '../Game';
 import { Vector } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 // TODO: a bug happens sometimes where Movement system can't find some entity component,
 // to reproduce shoot projectile at obstacle for some time
@@ -155,13 +155,13 @@ export default class MovementSystem extends System {
                 const paddingBottom = 50;
                 transform.position.x = transform.position.x < paddingLeft ? paddingLeft : transform.position.x;
                 transform.position.x =
-                    transform.position.x > Game.mapWidth - paddingRight
-                        ? Game.mapWidth - paddingRight
+                    transform.position.x > Engine.mapWidth - paddingRight
+                        ? Engine.mapWidth - paddingRight
                         : transform.position.x;
                 transform.position.y = transform.position.y < paddingTop ? paddingTop : transform.position.y;
                 transform.position.y =
-                    transform.position.y > Game.mapHeight - paddingBottom
-                        ? Game.mapHeight - paddingBottom
+                    transform.position.y > Engine.mapHeight - paddingBottom
+                        ? Engine.mapHeight - paddingBottom
                         : transform.position.y;
             }
 
@@ -169,9 +169,9 @@ export default class MovementSystem extends System {
 
             const isEntityOutsideMap =
                 transform.position.x < -cullingMargin ||
-                transform.position.x > Game.mapWidth + cullingMargin ||
+                transform.position.x > Engine.mapWidth + cullingMargin ||
                 transform.position.y < -cullingMargin ||
-                transform.position.y > Game.mapHeight + cullingMargin;
+                transform.position.y > Engine.mapHeight + cullingMargin;
 
             // Kill all entities that move outside the map boundaries
             if (isEntityOutsideMap && !entity.hasTag('player')) {

@@ -1,10 +1,10 @@
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
+import Engine from '../../engine/Engine';
 import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
 import { Flip, Vector } from '../../engine/types/utils';
 import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
-import Game from '../Game';
 import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import DamageRadiusComponent from '../components/DamageRadiusComponent';
@@ -477,7 +477,7 @@ export default class PlayerControlSystem extends System {
         cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
         cooldownAnimation.addComponent(
             TransformComponent,
-            { x: 25 + skillPosition * 64, y: Game.windowHeight - 64 - 25 },
+            { x: 25 + skillPosition * 64, y: Engine.windowHeight - 64 - 25 },
             { x: 2, y: 2 },
         );
         cooldownAnimation.addComponent(LifetimeComponent, cooldown);

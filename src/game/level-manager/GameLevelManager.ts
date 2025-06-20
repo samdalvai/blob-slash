@@ -1,9 +1,9 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Registry from '../../engine/ecs/Registry';
+import Engine from '../../engine/Engine';
 import { deserializeEntities } from '../../engine/serialization/deserialization';
 // import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
-import Game from '../Game';
 
 export default class GameLevelManager {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
@@ -59,7 +59,7 @@ export default class GameLevelManager {
     private static setMapBoundaries(level: LevelMap) {
         console.log('Setting map boundaries');
 
-        Game.mapWidth = level.mapWidth;
-        Game.mapHeight = level.mapHeight;
+        Engine.mapWidth = level.mapWidth;
+        Engine.mapHeight = level.mapHeight;
     }
 }

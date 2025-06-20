@@ -1,9 +1,9 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Registry from '../../engine/ecs/Registry';
+import Engine from '../../engine/Engine';
 //import { deserializeEntities } from '../../core/serialization/deserialization';
 // import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
-import Game from '../../game/Game';
 import BoxColliderComponent from '../../game/components/BoxColliderComponent';
 import LightEmitComponent from '../../game/components/LightEmitComponent';
 import ShadowComponent from '../../game/components/ShadowComponent';
@@ -88,7 +88,7 @@ export default class EditorLevelManager {
     private static setMapBoundaries(level: LevelMap) {
         console.log('Setting map boundaries');
 
-        Game.mapWidth = level.mapWidth;
-        Game.mapHeight = level.mapHeight;
+        Engine.mapWidth = level.mapWidth;
+        Engine.mapHeight = level.mapHeight;
     }
 }
