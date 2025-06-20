@@ -3,13 +3,13 @@ import { expect } from '@jest/globals';
 import RigidBodyComponent from '../../game/components/RigidBodyComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import Registry from '../../engine/ecs/Registry';
-import Game from '../../game/Game';
 import MovementSystem from '../../game/systems/MovementSystem';
+import Engine from '../../engine/Engine';
 
 describe('Testing Movement system related functions', () => {
     beforeEach(() => {
-        Game.mapWidth = 1000;
-        Game.mapHeight = 1000;
+        Engine.mapWidth = 1000;
+        Engine.mapHeight = 1000;
     });
 
     test('Entity having horizontal velocity should change his position', () => {

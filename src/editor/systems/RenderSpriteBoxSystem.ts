@@ -5,9 +5,9 @@ import Editor from '../Editor';
 import EventBus from '../../engine/event-bus/EventBus';
 import MousePressedEvent from '../../game/events/MousePressedEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
-import Game from '../../game/Game';
 import { MouseButton } from '../../engine/types/control';
 import { Rectangle } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 export default class RenderSpriteBoxSystem extends System {
     constructor() {

@@ -1,5 +1,5 @@
 import System from '../../engine/ecs/System';
-import Game from '../Game';
+import Engine from '../../engine/Engine';
 
 export default class DebugCursorCoordinatesSystem extends System {
     constructor() {

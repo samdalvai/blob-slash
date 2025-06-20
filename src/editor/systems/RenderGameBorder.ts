@@ -1,6 +1,6 @@
 import System from '../../engine/ecs/System';
-import Game from '../../game/Game';
 import { Rectangle } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 export default class RenderGameBorder extends System {
     constructor() {
@@ -14,6 +14,6 @@ export default class RenderGameBorder extends System {
 
         ctx.strokeStyle = 'red';
         ctx.lineWidth = 2;
-        ctx.strokeRect(0 - camera.x * zoom, 0 - camera.y * zoom, Game.mapWidth * zoom, Game.mapHeight * zoom);
+        ctx.strokeRect(0 - camera.x * zoom, 0 - camera.y * zoom, Engine.mapWidth * zoom, Engine.mapHeight * zoom);
     }
 }

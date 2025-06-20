@@ -1,7 +1,7 @@
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
-import Game from '../Game';
 import { Rectangle } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 export default class DebugInfoSystem extends System {
     constructor() {
@@ -17,7 +17,7 @@ export default class DebugInfoSystem extends System {
         camera: Rectangle,
         zoom?: number,
     ) {
-        const x = Game.windowWidth - 300;
+        const x = Engine.windowWidth - 300;
         const y = 50;
 
         ctx.font = '16px Arial';

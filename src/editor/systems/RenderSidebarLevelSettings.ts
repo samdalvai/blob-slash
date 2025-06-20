@@ -1,5 +1,5 @@
 import System from '../../engine/ecs/System';
-import Game from '../../game/Game';
+import Engine from '../../engine/Engine';
 
 export default class RenderSidebarLevelSettings extends System {
     constructor() {
@@ -14,16 +14,16 @@ export default class RenderSidebarLevelSettings extends System {
             throw new Error('Could not retrieve level settings element(s)');
         }
 
-        gameWidthInput.value = Game.mapWidth.toString();
-        gameHeightInput.value = Game.mapHeight.toString();
+        gameWidthInput.value = Engine.mapWidth.toString();
+        gameHeightInput.value = Engine.mapHeight.toString();
 
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
-            Game.mapWidth = parseInt(target.value);
+            Engine.mapWidth = parseInt(target.value);
         });
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
-            Game.mapHeight = parseInt(target.value);
+            Engine.mapHeight = parseInt(target.value);
         });
     }
 }

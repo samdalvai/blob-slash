@@ -1,6 +1,6 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
 import System from '../../engine/ecs/System';
-import Game from '../../game/Game';
+import Engine from '../../engine/Engine';
 
 // TODO: remove this and create entities instead
 export default class RenderGUISystem extends System {
@@ -22,7 +22,7 @@ export default class RenderGUISystem extends System {
             skillsMenuWidth,
             skillsMenuHeight,
             padding,
-            Game.windowHeight - 64 - padding,
+            Engine.windowHeight - 64 - padding,
             skillsMenuWidth * skillsMenuScale,
             skillsMenuHeight * skillsMenuScale,
         );
@@ -38,7 +38,7 @@ export default class RenderGUISystem extends System {
             magicBubbleWidth,
             magicBubbleHeight,
             padding,
-            Game.windowHeight - 64 - padding,
+            Engine.windowHeight - 64 - padding,
             magicBubbleWidth * magicBubbleScale,
             magicBubbleHeight * magicBubbleScale,
         );
@@ -56,7 +56,7 @@ export default class RenderGUISystem extends System {
             teleportWidth,
             teleportHeight,
             firstSkillPosition + (teleportWidth * teleportScale) / 2,
-            Game.windowHeight - teleportHeight * teleportScale - padding,
+            Engine.windowHeight - teleportHeight * teleportScale - padding,
             teleportWidth * teleportScale,
             teleportHeight * teleportScale,
         );
@@ -75,7 +75,7 @@ export default class RenderGUISystem extends System {
             fireCircleWidth,
             fireCircleleHeight,
             secondSkillPosition + (fireCircleWidth * fireCircleScale) / 2 + padding - 4,
-            Game.windowHeight - 64 - padding + 4,
+            Engine.windowHeight - 64 - padding + 4,
             fireCircleWidth * fireCircleScale,
             fireCircleleHeight * fireCircleScale,
         );
@@ -91,7 +91,7 @@ export default class RenderGUISystem extends System {
             mouseMenuWidth,
             mouseMenuHeight,
             2 * padding + skillsMenuWidth * skillsMenuScale,
-            Game.windowHeight - 64 - padding,
+            Engine.windowHeight - 64 - padding,
             mouseMenuWidth * mouseMenuScale,
             mouseMenuHeight * mouseMenuScale,
         );
@@ -109,7 +109,7 @@ export default class RenderGUISystem extends System {
             magicSphereWidth,
             magicSphereHeight,
             leftClickAttackPosition,
-            Game.windowHeight - 64 - padding,
+            Engine.windowHeight - 64 - padding,
             magicSphereWidth * magicSphereScale,
             magicSphereWidth * magicSphereScale,
         );
@@ -125,7 +125,7 @@ export default class RenderGUISystem extends System {
             meleeAttackWidth,
             meleeAttackHeight,
             leftClickAttackPosition + meleeAttackWidth - 2.5,
-            Game.windowHeight - 64 - padding - 2.5,
+            Engine.windowHeight - 64 - padding - 2.5,
             meleeAttackWidth * meleeAttackScale,
             meleeAttackWidth * meleeAttackScale,
         );

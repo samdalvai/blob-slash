@@ -6,7 +6,6 @@ import EventBus from '../engine/event-bus/EventBus';
 import InputManager from '../engine/input-manager/InputManager';
 import { MouseButton } from '../engine/types/control';
 import { GameStatus, Rectangle } from '../engine/types/utils';
-import Game from '../game/Game';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
@@ -70,8 +69,8 @@ export default class Editor {
 
         //camera.x = sidebar.getBoundingClientRect().width
 
-        Game.windowWidth = window.innerWidth - sidebar.getBoundingClientRect().width;
-        Game.windowHeight = window.innerHeight;
+        Engine.windowWidth = window.innerWidth - sidebar.getBoundingClientRect().width;
+        Engine.windowHeight = window.innerHeight;
 
         const ctx = canvas.getContext('2d');
 

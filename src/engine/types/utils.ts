@@ -24,6 +24,7 @@ export enum Direction {
 }
 
 export enum GameStatus {
+    IDLE,
     PLAYING,
     WON,
     LOST,

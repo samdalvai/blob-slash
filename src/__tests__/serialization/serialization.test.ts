@@ -5,10 +5,10 @@ import TransformComponent from '../../game/components/TransformComponent';
 import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
-import Game from '../../game/Game';
 import { serializeEntities, serializeEntity, serializeLevel } from '../../engine/serialization/serialization';
 import { ComponentType } from '../../engine/types/components';
 import { EntityMap, LevelMap } from '../../engine/types/map';
+import Engine from '../../engine/Engine';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {
@@ -355,8 +355,8 @@ describe('Testing serialization related functions', () => {
             ],
         };
 
-        Game.mapWidth = 500;
-        Game.mapHeight = 500;
+        Engine.mapWidth = 500;
+        Engine.mapHeight = 500;
 
         expect(serializeLevel(registry)).toEqual(expected);
     });
@@ -400,8 +400,8 @@ describe('Testing serialization related functions', () => {
             ],
         };
 
-        Game.mapWidth = 500;
-        Game.mapHeight = 500;
+        Engine.mapWidth = 500;
+        Engine.mapHeight = 500;
 
         expect(serializeLevel(registry)).toEqual(expected);
     });
@@ -436,8 +436,8 @@ describe('Testing serialization related functions', () => {
             ],
         };
 
-        Game.mapWidth = 500;
-        Game.mapHeight = 500;
+        Engine.mapWidth = 500;
+        Engine.mapHeight = 500;
 
         expect(serializeLevel(registry)).toEqual(expected);
     });
