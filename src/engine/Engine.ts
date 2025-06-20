@@ -80,7 +80,8 @@ export default abstract class Engine {
         });
     };
 
-    protected resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected resize = (canvas: HTMLCanvasElement, camera: Rectangle, ...args: any[]) => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -123,8 +124,7 @@ export default abstract class Engine {
     protected abstract render(): void;
 
     run = async () => {
-        console.log(this.constructor.name)
-        console.log('Initializing engine');
+        console.log('Initializing Engine');
         this.initialize();
 
         console.log('Setting up systems');

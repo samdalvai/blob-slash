@@ -1,73 +1,41 @@
 import Engine from '../engine/Engine';
-import AssetStore from '../engine/asset-store/AssetStore';
-import Entity from '../engine/ecs/Entity';
-import Registry from '../engine/ecs/Registry';
-import EventBus from '../engine/event-bus/EventBus';
-import InputManager from '../engine/input-manager/InputManager';
 import { MouseButton } from '../engine/types/control';
-import { GameStatus, Rectangle } from '../engine/types/utils';
+import { Rectangle } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
 import EditorLevelManager from './level-manager/EditorLevelManager';
 import * as EditorSystems from './systems';
 
-export default class Editor {
-    private isRunning: boolean;
-    // private isDebug: boolean;
-    private canvas: HTMLCanvasElement | null;
-    private ctx: CanvasRenderingContext2D | null;
+export default class Editor extends Engine {
+    // Objects for rendering
     private sidebar: HTMLElement | null;
-    private camera: Rectangle;
-    private millisecondsLastFPSUpdate = 0;
-    private currentFPS = 0;
-    private maxFPS = 0;
-    private frameDuration = 0;
-    private registry: Registry;
-    private assetStore: AssetStore;
-    private eventBus: EventBus;
-    private inputManager: InputManager;
 
+    // Editor status properties
     private mousePressed: boolean;
     private panEnabled: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
 
-    static mapWidth: number;
-    static mapHeight: number;
-    static gameStatus: GameStatus;
-    static selectedEntity: Entity | null;
+    // Global Editor objects
+    static selectedEntity: number | null;
 
     constructor() {
-        this.isRunning = false;
-        // this.isDebug = false;
-
-        this.canvas = null;
-        this.ctx = null;
+        super();
         this.sidebar = null;
 
-        this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-        this.registry = new Registry();
-        this.assetStore = new AssetStore();
-        this.eventBus = new EventBus();
-        this.inputManager = new InputManager();
         this.mousePressed = false;
         this.panEnabled = false;
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
-
-        Engine.mousePositionScreen = { x: 0, y: 0 };
-        Engine.mousePositionWorld = { x: 0, y: 0 };
     }
 
-    private resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
+    resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
         canvas.width = window.innerWidth - sidebar.getBoundingClientRect().width;
         canvas.height = window.innerHeight;
 
         camera.width = window.innerWidth - sidebar.getBoundingClientRect().width;
         camera.height = window.innerHeight;
-
-        //camera.x = sidebar.getBoundingClientRect().width
 
         Engine.windowWidth = window.innerWidth - sidebar.getBoundingClientRect().width;
         Engine.windowHeight = window.innerHeight;
@@ -84,7 +52,6 @@ export default class Editor {
     };
 
     initialize = () => {
-        console.log('Initializing game');
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const sidebar = document.getElementById('sidebar') as HTMLElement;
@@ -117,7 +84,7 @@ export default class Editor {
         });
     };
 
-    private setup = async () => {
+    setup = async () => {
         // Rendering systems
         // this.registry.addSystem(GameSystems.RenderSystem);
         this.registry.addSystem(GameSystems.RenderTextSystem);
@@ -166,11 +133,10 @@ export default class Editor {
         this.registry.addSystem(EditorSystems.RenderSidebarLevelSettings);
         this.registry.addSystem(EditorSystems.RenderSidebarSaveButtons);
 
-        // await LevelLoader.loadLevel(this.registry, this.assetStore);
         await EditorLevelManager.loadLevel(this.registry, this.assetStore);
     };
 
-    private processInput = () => {
+    processInput = () => {
         // Hanlde keyboard events
         while (this.inputManager.keyboardInputBuffer.length > 0) {
             const inputEvent = this.inputManager.keyboardInputBuffer.shift();
@@ -320,21 +286,12 @@ export default class Editor {
         }
     };
 
-    private update = (deltaTime: number) => {
-        const millisecsCurrentFrame = performance.now();
-        if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-            this.frameDuration = deltaTime * 1000;
-            this.currentFPS = 1000 / this.frameDuration;
-            this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
-
-            if (this.maxFPS < this.currentFPS) {
-                this.maxFPS = this.currentFPS;
-            }
-        }
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    update = (deltaTime: number) => {
         // Reset all event handlers for the current frame
         this.eventBus.reset();
 
+        // Update entities to be created/killed
         this.registry.update();
 
         // Perform the subscription of the events for all systems
@@ -369,7 +326,7 @@ export default class Editor {
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
     };
 
-    private render = () => {
+    render = () => {
         if (!this.canvas || !this.ctx || !this.sidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
@@ -422,29 +379,5 @@ export default class Editor {
             this.registry.getSystem(EditorSystems.RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
             this.shouldSidebarUpdate = false;
         }
-    };
-
-    run = async () => {
-        await this.setup();
-        console.log('Running game');
-
-        let lastTime = performance.now();
-
-        const loop = () => {
-            if (this.isRunning) {
-                const currentTime = performance.now();
-                const deltaTime = (currentTime - lastTime) / 1000.0;
-
-                this.processInput();
-                this.update(deltaTime);
-                this.render();
-
-                lastTime = currentTime;
-
-                requestAnimationFrame(loop);
-            }
-        };
-
-        requestAnimationFrame(loop);
     };
 }
