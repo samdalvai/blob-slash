@@ -1,6 +1,6 @@
-import Entity from '../../core/ecs/Entity';
-import GameEvent from '../../core/event-bus/GameEvent';
-import { Vector } from '../../core/types/utils';
+import Entity from '../../engine/ecs/Entity';
+import GameEvent from '../../engine/event-bus/GameEvent';
+import { Vector } from '../../engine/types/utils';
 
 export default class CollisionEvent extends GameEvent {
     a: Entity;

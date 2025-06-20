@@ -1,7 +1,7 @@
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
-import { Rectangle } from '../../core/types/utils';
+import System from '../../engine/ecs/System';
+import { Rectangle } from '../../engine/types/utils';
 
 export default class DebugParticleSourceSystem extends System {
     constructor() {

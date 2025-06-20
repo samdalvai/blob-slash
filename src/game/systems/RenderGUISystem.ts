@@ -1,5 +1,5 @@
-import AssetStore from '../../core/asset-store/AssetStore';
-import System from '../../core/ecs/System';
+import AssetStore from '../../engine/asset-store/AssetStore';
+import System from '../../engine/ecs/System';
 import Game from '../../game/Game';
 
 // TODO: remove this and create entities instead

@@ -1,5 +1,5 @@
-import Entity from '../../core/ecs/Entity';
-import GameEvent from '../../core/event-bus/GameEvent';
+import Entity from '../../engine/ecs/Entity';
+import GameEvent from '../../engine/event-bus/GameEvent';
 
 export default class EntityKilledEvent extends GameEvent {
     entity: Entity;

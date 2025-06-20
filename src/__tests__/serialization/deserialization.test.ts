@@ -1,13 +1,13 @@
 import { expect } from '@jest/globals';
 
-import Component from '../../core/ecs/Component';
-import Registry from '../../core/ecs/Registry';
+import Component from '../../engine/ecs/Component';
+import Registry from '../../engine/ecs/Registry';
 import {
     deserializeEntities,
     deserializeEntity,
     getComponentConstructorParamNames,
-} from '../../core/serialization/deserialization';
-import { EntityMap } from '../../core/types/map';
+} from '../../engine/serialization/deserialization';
+import { EntityMap } from '../../engine/types/map';
 import TransformComponent from '../../game/components/TransformComponent';
 import RigidBodyComponent from '../../game/components/RigidBodyComponent';
 

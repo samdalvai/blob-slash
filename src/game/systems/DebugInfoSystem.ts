@@ -1,7 +1,7 @@
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
 import Game from '../Game';
-import { Rectangle } from '../../core/types/utils';
+import { Rectangle } from '../../engine/types/utils';
 
 export default class DebugInfoSystem extends System {
     constructor() {
@@ -25,12 +25,12 @@ export default class DebugInfoSystem extends System {
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(
-            `Mouse screen: {x: ${Math.floor(Game.mousePositionScreen.x)}, y: ${Math.floor(Game.mousePositionScreen.y)}}`,
+            `Mouse screen: {x: ${Math.floor(Engine.mousePositionScreen.x)}, y: ${Math.floor(Engine.mousePositionScreen.y)}}`,
             x,
             y + 50,
         );
         ctx.fillText(
-            `Mouse world: {x: ${Math.floor(Game.mousePositionWorld.x)}, y: ${Math.floor(Game.mousePositionWorld.y)}}`,
+            `Mouse world: {x: ${Math.floor(Engine.mousePositionWorld.x)}, y: ${Math.floor(Engine.mousePositionWorld.y)}}`,
             x,
             y + 75,
         );

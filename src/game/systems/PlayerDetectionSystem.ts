@@ -2,11 +2,11 @@ import EntityFollowComponent from '../components/EntityFollowComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import EntityHitEvent from '../events/EntityHitEvent';
-import { isPointInsideCircle } from '../../core/utils/circle';
+import { isPointInsideCircle } from '../../engine/utils/circle';
 
 export default class PlayerDetectionSystem extends System {
     constructor() {

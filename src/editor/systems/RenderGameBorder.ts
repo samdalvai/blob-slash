@@ -1,6 +1,6 @@
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 import Game from '../../game/Game';
-import { Rectangle } from '../../core/types/utils';
+import { Rectangle } from '../../engine/types/utils';
 
 export default class RenderGameBorder extends System {
     constructor() {

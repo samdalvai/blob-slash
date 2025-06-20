@@ -1,10 +1,10 @@
-import AssetStore from '../../core/asset-store/AssetStore';
+import AssetStore from '../../engine/asset-store/AssetStore';
 import HighlightComponent from '../components/HighlightComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import Game from '../../game/Game';
-import { Rectangle } from '../../core/types/utils';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import { Rectangle } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 export default class RenderCursorSystem extends System {
     constructor() {
@@ -71,8 +71,8 @@ export default class RenderCursorSystem extends System {
             0,
             32,
             32,
-            Game.mousePositionScreen.x - 5,
-            Game.mousePositionScreen.y - 5,
+            Engine.mousePositionScreen.x - 5,
+            Engine.mousePositionScreen.y - 5,
             32,
             32,
         );
@@ -89,8 +89,8 @@ export default class RenderCursorSystem extends System {
             0,
             32,
             32,
-            Game.mousePositionScreen.x - 14,
-            Game.mousePositionScreen.y - 5,
+            Engine.mousePositionScreen.x - 14,
+            Engine.mousePositionScreen.y - 5,
             32,
             32,
         );

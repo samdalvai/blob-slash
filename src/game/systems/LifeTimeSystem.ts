@@ -1,5 +1,5 @@
 import LifetimeComponent from '../components/LifetimeComponent';
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 
 export default class LifetimeSystem extends System {
     constructor() {

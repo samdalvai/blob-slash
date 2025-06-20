@@ -1,7 +1,7 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
-import { Rectangle } from '../../core/types/utils';
+import System from '../../engine/ecs/System';
+import { Rectangle } from '../../engine/types/utils';
 
 export default class DebugColliderSystem extends System {
     constructor() {

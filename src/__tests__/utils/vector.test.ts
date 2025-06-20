@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 
-import { Rectangle, Vector } from '../../core/types/utils';
-import { computeDirectionVector, computeUnitVector, isRectangle, isVector } from '../../core/utils/vector';
+import { Rectangle, Vector } from '../../engine/types/utils';
+import { computeDirectionVector, computeUnitVector, isRectangle, isVector } from '../../engine/utils/vector';
 
 describe('Testing vector utils related functions', () => {
     test('Should correctly compute direction vector normalized to length on vertical axis', () => {

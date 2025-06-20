@@ -1,4 +1,4 @@
-import Component from '../../core/ecs/Component';
+import Component from '../../engine/ecs/Component';
 
 export default class SoundComponent extends Component {
     assetId: string;

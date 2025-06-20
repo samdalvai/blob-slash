@@ -2,7 +2,7 @@ import AssetStore from './asset-store/AssetStore';
 import Registry from './ecs/Registry';
 import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
-import { Rectangle } from './types/utils';
+import { GameStatus, Rectangle, Vector } from './types/utils';
 
 export default abstract class Engine {
     // Objects for rendering
@@ -19,12 +19,21 @@ export default abstract class Engine {
     // Game status properties
     protected isRunning: boolean;
     protected isDebug: boolean;
+    protected gameStatus: GameStatus;
 
     // Debug info
     protected currentFPS: number;
     protected maxFPS: number;
     protected frameDuration: number;
     protected millisecondsLastFPSUpdate: number;
+
+    // Global engine objects
+    static mousePositionScreen: Vector;
+    static mousePositionWorld: Vector;
+    static mapWidth: number;
+    static mapHeight: number;
+    static windowWidth: number;
+    static windowHeight: number;
 
     constructor() {
         this.canvas = null;
@@ -38,15 +47,71 @@ export default abstract class Engine {
 
         this.isRunning = false;
         this.isDebug = false;
+        this.gameStatus = GameStatus.IDLE;
 
         this.currentFPS = 0;
         this.maxFPS = 0;
         this.frameDuration = 0;
         this.millisecondsLastFPSUpdate = 0;
+
+        Engine.mousePositionScreen = { x: 0, y: 0 };
+        Engine.mousePositionWorld = { x: 0, y: 0 };
     }
 
-    protected initialize = (): void => {
-        throw new Error('Method initialize must be implemented by subclass');
+    protected initialize = () => {
+        const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+            throw new Error('Failed to get 2D context for the canvas.');
+        }
+
+        this.resize(canvas, this.camera);
+        canvas.style.cursor = 'none';
+
+        this.canvas = canvas;
+        this.ctx = ctx;
+        this.isRunning = true;
+
+        window.addEventListener('resize', () => {
+            if (this.canvas && this.camera) {
+                this.resize(this.canvas, this.camera);
+            }
+        });
+    };
+
+    protected resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        camera.width = window.innerWidth;
+        camera.height = window.innerHeight;
+
+        Engine.windowWidth = window.innerWidth;
+        Engine.windowHeight = window.innerHeight;
+
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+            throw new Error('Failed to get 2D context for the canvas.');
+        }
+
+        // If this is not disabled the browser might use interpolation to smooth the scaling,
+        // which can cause visible borders or artifacts, e.g. when rendering tiles
+        ctx.imageSmoothingEnabled = false;
+    };
+
+    private updateDebugInfo = (deltaTime: number) => {
+        const millisecsCurrentFrame = performance.now();
+        if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
+            this.frameDuration = deltaTime * 1000;
+            this.currentFPS = 1000 / this.frameDuration;
+            this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
+
+            if (this.maxFPS < this.currentFPS) {
+                this.maxFPS = this.currentFPS;
+            }
+        }
     };
 
     protected setup = async (): Promise<void> => {
@@ -65,23 +130,14 @@ export default abstract class Engine {
         throw new Error('Method render must be implemented by subclass');
     };
 
-    private updateDebugInfo = (deltaTime: number) => {
-        const millisecsCurrentFrame = performance.now();
-        if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-            this.frameDuration = deltaTime * 1000;
-            this.currentFPS = 1000 / this.frameDuration;
-            this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
-
-            if (this.maxFPS < this.currentFPS) {
-                this.maxFPS = this.currentFPS;
-            }
-        }
-    };
-
     run = async () => {
-        await this.setup();
-        console.log('Running Engine');
+        console.log('Initializing engine');
+        this.initialize();
 
+        console.log('Setting up systems');
+        await this.setup();
+
+        console.log('Running Engine');
         let lastTime = performance.now();
 
         const loop = () => {

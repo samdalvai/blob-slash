@@ -1,13 +1,13 @@
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 import Editor from '../Editor';
-import EventBus from '../../core/event-bus/EventBus';
+import EventBus from '../../engine/event-bus/EventBus';
 import MousePressedEvent from '../../game/events/MousePressedEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import Game from '../../game/Game';
-import { MouseButton } from '../../core/types/control';
-import { Rectangle } from '../../core/types/utils';
+import { MouseButton } from '../../engine/types/control';
+import { Rectangle } from '../../engine/types/utils';
 
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
@@ -88,10 +88,10 @@ export default class RenderSpriteBoxSystem extends System {
             }
 
             if (
-                Game.mousePositionWorld.x >= transform.position.x &&
-                Game.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
-                Game.mousePositionWorld.y >= transform.position.y &&
-                Game.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y
+                Engine.mousePositionWorld.x >= transform.position.x &&
+                Engine.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
+                Engine.mousePositionWorld.y >= transform.position.y &&
+                Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;

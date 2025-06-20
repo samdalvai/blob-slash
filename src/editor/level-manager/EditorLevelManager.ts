@@ -1,8 +1,8 @@
-import AssetStore from '../../core/asset-store/AssetStore';
-import Registry from '../../core/ecs/Registry';
+import AssetStore from '../../engine/asset-store/AssetStore';
+import Registry from '../../engine/ecs/Registry';
 //import { deserializeEntities } from '../../core/serialization/deserialization';
 // import { loadLevelFromLocalStorage } from '../serialization/persistence';
-import { LevelMap } from '../../core/types/map';
+import { LevelMap } from '../../engine/types/map';
 import Game from '../../game/Game';
 import BoxColliderComponent from '../../game/components/BoxColliderComponent';
 import LightEmitComponent from '../../game/components/LightEmitComponent';

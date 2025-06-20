@@ -3,8 +3,8 @@ import ParticleComponent from '../components/ParticleComponent';
 import ParticleEmitComponent from '../components/ParticleEmitComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
-import { Vector } from '../../core/types/utils';
+import System from '../../engine/ecs/System';
+import { Vector } from '../../engine/types/utils';
 
 export default class ParticleEmitSystem extends System {
     constructor() {

@@ -1,11 +1,11 @@
-import AssetStore from '../../core/asset-store/AssetStore';
-import Component from '../../core/ecs/Component';
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import AssetStore from '../../engine/asset-store/AssetStore';
+import Component from '../../engine/ecs/Component';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import EntitySelectEvent from '../events/EntitySelectEvent';
-import { Rectangle, Vector } from '../../core/types/utils';
-import { isRectangle, isVector } from '../../core/utils/vector';
+import { Rectangle, Vector } from '../../engine/types/utils';
+import { isRectangle, isVector } from '../../engine/utils/vector';
 
 export default class RenderSidebarEntities extends System {
     constructor() {

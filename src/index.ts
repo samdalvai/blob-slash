@@ -5,8 +5,6 @@ const isEditor = Boolean(process.env.IS_EDITOR) || false;
 
 if (!isEditor) {
     const game = new Game();
-
-    game.initialize();
     game.run();
 } else {
     const editor = new Editor();

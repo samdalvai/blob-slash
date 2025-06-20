@@ -2,7 +2,7 @@ import { expect } from '@jest/globals';
 
 import RigidBodyComponent from '../../game/components/RigidBodyComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import Registry from '../../core/ecs/Registry';
+import Registry from '../../engine/ecs/Registry';
 import Game from '../../game/Game';
 import MovementSystem from '../../game/systems/MovementSystem';
 

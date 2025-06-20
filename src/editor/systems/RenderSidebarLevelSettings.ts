@@ -1,4 +1,4 @@
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 import Game from '../../game/Game';
 
 export default class RenderSidebarLevelSettings extends System {

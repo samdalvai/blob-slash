@@ -1,4 +1,4 @@
-import Registry from '../../core/ecs/Registry';
+import Registry from '../ecs/Registry';
 import { LevelMap } from '../types/map';
 import { serializeLevel } from './serialization';
 

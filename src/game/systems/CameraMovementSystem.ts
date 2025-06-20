@@ -1,8 +1,9 @@
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 import Game from '../Game';
-import { Rectangle } from '../../core/types/utils';
+import { Rectangle } from '../../engine/types/utils';
+import Engine from '../../engine/Engine';
 
 export default class CameraMovementSystem extends System {
     constructor() {
@@ -31,8 +32,8 @@ export default class CameraMovementSystem extends System {
             camera.x = Math.max(0, Math.min(camera.x, Game.mapWidth - camera.width));
             camera.y = Math.max(0, Math.min(camera.y, Game.mapHeight - camera.height));
 
-            Game.mousePositionWorld.x = Game.mousePositionScreen.x + camera.x;
-            Game.mousePositionWorld.y = Game.mousePositionScreen.y + camera.y;
+            Engine.mousePositionWorld.x = Engine.mousePositionScreen.x + camera.x;
+            Engine.mousePositionWorld.y = Engine.mousePositionScreen.y + camera.y;
         }
     }
 }

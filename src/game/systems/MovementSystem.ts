@@ -2,12 +2,12 @@ import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import Entity from '../../core/ecs/Entity';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import Entity from '../../engine/ecs/Entity';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
 import Game from '../Game';
-import { Vector } from '../../core/types/utils';
+import { Vector } from '../../engine/types/utils';
 
 // TODO: a bug happens sometimes where Movement system can't find some entity component,
 // to reproduce shoot projectile at obstacle for some time

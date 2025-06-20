@@ -10,14 +10,14 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import Entity from '../../core/ecs/Entity';
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import Entity from '../../engine/ecs/Entity';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
 import Game from '../Game';
-import { Flip, Vector } from '../../core/types/utils';
-import { computeDirectionVector, computeUnitVector } from '../../core/utils/vector';
+import { Flip, Vector } from '../../engine/types/utils';
+import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
 
 export default class RangedAttackEmitSystem extends System {
     registry: Registry;

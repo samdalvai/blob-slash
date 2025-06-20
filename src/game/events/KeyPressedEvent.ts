@@ -1,4 +1,4 @@
-import GameEvent from '../../core/event-bus/GameEvent';
+import GameEvent from '../../engine/event-bus/GameEvent';
 
 export default class KeyPressedEvent extends GameEvent {
     keyCode: string;

@@ -1,9 +1,9 @@
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
-import { Vector } from '../../core/types/utils';
+import { Vector } from '../../engine/types/utils';
 
 export default class CollisionSystem extends System {
     constructor() {

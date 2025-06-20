@@ -1,10 +1,11 @@
-import AssetStore from '../core/asset-store/AssetStore';
-import Entity from '../core/ecs/Entity';
-import Registry from '../core/ecs/Registry';
-import EventBus from '../core/event-bus/EventBus';
-import InputManager from '../core/input-manager/InputManager';
-import { MouseButton } from '../core/types/control';
-import { GameStatus, Rectangle } from '../core/types/utils';
+import Engine from '../engine/Engine';
+import AssetStore from '../engine/asset-store/AssetStore';
+import Entity from '../engine/ecs/Entity';
+import Registry from '../engine/ecs/Registry';
+import EventBus from '../engine/event-bus/EventBus';
+import InputManager from '../engine/input-manager/InputManager';
+import { MouseButton } from '../engine/types/control';
+import { GameStatus, Rectangle } from '../engine/types/utils';
 import Game from '../game/Game';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
@@ -56,8 +57,8 @@ export default class Editor {
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
 
-        Game.mousePositionScreen = { x: 0, y: 0 };
-        Game.mousePositionWorld = { x: 0, y: 0 };
+        Engine.mousePositionScreen = { x: 0, y: 0 };
+        Engine.mousePositionWorld = { x: 0, y: 0 };
     }
 
     private resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
@@ -215,21 +216,21 @@ export default class Editor {
                         (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
                     const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
-                    Game.mousePositionScreen = {
+                    Engine.mousePositionScreen = {
                         x: inputEvent.x,
                         y: inputEvent.y,
                     };
 
                     // Handles mouse pad pan
                     if (this.mousePressed && this.panEnabled) {
-                        const dx = mouseX - Game.mousePositionWorld.x;
-                        const dy = mouseY - Game.mousePositionWorld.y;
+                        const dx = mouseX - Engine.mousePositionWorld.x;
+                        const dy = mouseY - Engine.mousePositionWorld.y;
 
                         this.camera.x -= dx;
                         this.camera.y -= dy;
                     }
 
-                    Game.mousePositionWorld = {
+                    Engine.mousePositionWorld = {
                         x: mouseX,
                         y: mouseY,
                     };
@@ -293,12 +294,12 @@ export default class Editor {
                 throw new Error('Sidebar is not defined');
             }
 
-            if (Game.mousePositionScreen.x <= this.sidebar.getBoundingClientRect().width) {
+            if (Engine.mousePositionScreen.x <= this.sidebar.getBoundingClientRect().width) {
                 return;
             }
 
-            const mouseXOnCanvas = Game.mousePositionScreen.x - this.sidebar.getBoundingClientRect().width;
-            const mouseYOnCanvas = Game.mousePositionScreen.y;
+            const mouseXOnCanvas = Engine.mousePositionScreen.x - this.sidebar.getBoundingClientRect().width;
+            const mouseYOnCanvas = Engine.mousePositionScreen.y;
 
             const mouseWorldXBefore = this.camera.x + mouseXOnCanvas / this.zoom;
             const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
