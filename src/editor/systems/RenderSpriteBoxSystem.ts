@@ -1,13 +1,9 @@
 import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import { MouseButton } from '../../engine/types/control';
 import { Rectangle } from '../../engine/types/utils';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import MousePressedEvent from '../../game/events/MousePressedEvent';
 import Editor from '../Editor';
-import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
@@ -15,42 +11,6 @@ export default class RenderSpriteBoxSystem extends System {
         this.requireComponent(SpriteComponent);
         this.requireComponent(TransformComponent);
     }
-
-    subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMouseClicked(event, eventBus));
-    }
-
-    onMouseClicked = (event: MousePressedEvent, eventBus: EventBus) => {
-        if (event.button !== MouseButton.LEFT) {
-            return;
-        }
-
-        let entityClicked = false;
-
-        for (const entity of this.getSystemEntities()) {
-            const sprite = entity.getComponent(SpriteComponent);
-            const transform = entity.getComponent(TransformComponent);
-
-            if (!sprite || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            if (
-                event.coordinates.x >= transform.position.x &&
-                event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
-                event.coordinates.y >= transform.position.y &&
-                event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
-            ) {
-                entityClicked = true;
-                Editor.selectedEntity = entity.getId();
-                eventBus.emitEvent(EntitySelectEvent, entity);
-            }
-        }
-
-        if (!entityClicked) {
-            Editor.selectedEntity = null;
-        }
-    };
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
         // Traverse entities backwards to highlight the ones in front

@@ -74,10 +74,8 @@ export default class EditorLevelManager {
         tile3.addComponent(TransformComponent, { x: 628, y: 500 }, { x: 2, y: 2 });
         tile3.group('tiles');
 
-        tile3.kill();
-
         const player = registry.createEntity();
-        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 0, { x: 0, y: 32 * 2 });
+        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, { x: 0, y: 32 * 2 });
         player.addComponent(TransformComponent, { x: 200, y: 200 });
         player.addComponent(BoxColliderComponent, 20, 32, { x: 5, y: 0 });
         player.addComponent(LightEmitComponent, 200);
