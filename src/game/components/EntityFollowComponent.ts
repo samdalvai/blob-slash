@@ -1,5 +1,5 @@
 import Component from '../../engine/ecs/Component';
-import Entity from '../ecs/Entity';
+import Entity from '../../engine/ecs/Entity';
 
 export default class EntityFollowComponent extends Component {
     detectionRadius: number;
