@@ -114,22 +114,13 @@ export default abstract class Engine {
         }
     };
 
-    protected setup = async (): Promise<void> => {
-        throw new Error('Method setup must be implemented by subclass');
-    };
+    protected abstract setup(): Promise<void>;
 
-    protected processInput = (): void => {
-        throw new Error('Method processInput must be implemented by subclass');
-    };
+    protected abstract processInput(): void;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected update = (deltaTime: number): void => {
-        throw new Error('Method update must be implemented by subclass');
-    };
+    protected abstract update(deltaTime: number): void;
 
-    protected render = (): void => {
-        throw new Error('Method render must be implemented by subclass');
-    };
+    protected abstract render(): void;
 
     run = async () => {
         console.log('Initializing engine');
