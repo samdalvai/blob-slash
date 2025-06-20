@@ -1,8 +1,4 @@
 import Engine from '../core/Engine';
-import AssetStore from '../core/asset-store/AssetStore';
-import Registry from '../core/ecs/Registry';
-import EventBus from '../core/event-bus/EventBus';
-import InputManager from '../core/input-manager/InputManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../core/serialization/persistence';
 import { GameStatus, Rectangle, Vector } from '../core/types/utils';
 import * as GameEvents from './events';
@@ -10,19 +6,6 @@ import GameLevelManager from './level-manager/GameLevelManager';
 import * as Systems from './systems';
 
 export default class Game extends Engine {
-    private isDebug: boolean;
-    private canvas: HTMLCanvasElement | null;
-    private ctx: CanvasRenderingContext2D | null;
-    private camera: Rectangle;
-    private millisecondsLastFPSUpdate = 0;
-    private currentFPS = 0;
-    private maxFPS = 0;
-    private frameDuration = 0;
-    private registry: Registry;
-    private assetStore: AssetStore;
-    private eventBus: EventBus;
-    private inputManager: InputManager;
-
     static mousePositionScreen: Vector;
     static mousePositionWorld: Vector;
     static mapWidth: number;
@@ -33,14 +16,6 @@ export default class Game extends Engine {
 
     constructor() {
         super();
-        this.isDebug = false;
-        this.canvas = null;
-        this.ctx = null;
-        this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-        this.registry = new Registry();
-        this.assetStore = new AssetStore();
-        this.eventBus = new EventBus();
-        this.inputManager = new InputManager();
 
         Game.mousePositionScreen = { x: 0, y: 0 };
         Game.mousePositionWorld = { x: 0, y: 0 };
@@ -216,22 +191,10 @@ export default class Game extends Engine {
     };
 
     update = (deltaTime: number) => {
-        if (this.isDebug) {
-            const millisecsCurrentFrame = performance.now();
-            if (millisecsCurrentFrame - this.millisecondsLastFPSUpdate >= 1000) {
-                this.frameDuration = deltaTime * 1000;
-                this.currentFPS = 1000 / this.frameDuration;
-                this.millisecondsLastFPSUpdate = millisecsCurrentFrame;
-
-                if (this.maxFPS < this.currentFPS) {
-                    this.maxFPS = this.currentFPS;
-                }
-            }
-        }
-
         // Reset all event handlers for the current frame
         this.eventBus.reset();
 
+        // Update entities to be created/killed
         this.registry.update();
 
         // Perform the subscription of the events for all systems
