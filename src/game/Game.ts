@@ -1,5 +1,4 @@
 import Engine from '../engine/Engine';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { GameStatus } from '../engine/types/utils';
 import * as GameEvents from './events';
 import GameLevelManager from './level-manager/GameLevelManager';
@@ -68,14 +67,6 @@ export default class Game extends Engine {
                 case 'keydown':
                     if (inputEvent.code === 'F2') {
                         this.isDebug = !this.isDebug;
-                    }
-
-                    if (inputEvent.code === 'F3' && this.isDebug) {
-                        saveLevelToLocalStorage(this.registry);
-                    }
-
-                    if (inputEvent.code === 'F4' && this.isDebug) {
-                        saveLevelToJson(this.registry);
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);

@@ -8,7 +8,5 @@ if (!isEditor) {
     game.run();
 } else {
     const editor = new Editor();
-
-    editor.initialize();
     editor.run();
 }

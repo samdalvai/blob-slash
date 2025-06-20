@@ -1,13 +1,13 @@
-import SpriteComponent from '../../game/components/SpriteComponent';
-import TransformComponent from '../../game/components/TransformComponent';
+import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
-import Editor from '../Editor';
 import EventBus from '../../engine/event-bus/EventBus';
-import MousePressedEvent from '../../game/events/MousePressedEvent';
-import EntitySelectEvent from '../events/EntitySelectEvent';
 import { MouseButton } from '../../engine/types/control';
 import { Rectangle } from '../../engine/types/utils';
-import Engine from '../../engine/Engine';
+import SpriteComponent from '../../game/components/SpriteComponent';
+import TransformComponent from '../../game/components/TransformComponent';
+import MousePressedEvent from '../../game/events/MousePressedEvent';
+import Editor from '../Editor';
+import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
@@ -42,7 +42,7 @@ export default class RenderSpriteBoxSystem extends System {
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
                 entityClicked = true;
-                Editor.selectedEntity = entity;
+                Editor.selectedEntity = entity.getId();
                 eventBus.emitEvent(EntitySelectEvent, entity);
             }
         }
@@ -81,10 +81,12 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            if (Editor.selectedEntity && Editor.selectedEntity.getId() === entity.getId()) {
+            if (Editor.selectedEntity !== null && Editor.selectedEntity === entity.getId()) {
+                ctx.save();
                 ctx.strokeStyle = 'green';
                 ctx.lineWidth = 4;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                ctx.restore();
             }
 
             if (
@@ -93,9 +95,11 @@ export default class RenderSpriteBoxSystem extends System {
                 Engine.mousePositionWorld.y >= transform.position.y &&
                 Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
+                ctx.save();
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                ctx.restore();
             }
         }
     }
