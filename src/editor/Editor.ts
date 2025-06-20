@@ -1,6 +1,6 @@
 import Engine from '../engine/Engine';
 import { MouseButton } from '../engine/types/control';
-import { Rectangle } from '../engine/types/utils';
+import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
@@ -19,6 +19,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntity: number | null;
+    static entityDragOffset: Vector | null;
 
     constructor() {
         super();
@@ -132,6 +133,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderSidebarEntities);
         this.registry.addSystem(EditorSystems.RenderSidebarLevelSettings);
         this.registry.addSystem(EditorSystems.RenderSidebarSaveButtons);
+        this.registry.addSystem(EditorSystems.EntityDragSystem);
 
         await EditorLevelManager.loadLevel(this.registry, this.assetStore);
     };
@@ -305,7 +307,7 @@ export default class Editor extends Engine {
         // this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
@@ -324,6 +326,8 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.DamageSystem)?.update();
         this.registry.getSystem(GameSystems.AnimationSystem)?.update();
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
+
+        this.registry.getSystem(EditorSystems.EntityDragSystem)?.update();
     };
 
     render = () => {
