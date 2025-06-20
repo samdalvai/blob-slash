@@ -123,6 +123,7 @@ export default abstract class Engine {
     protected abstract render(): void;
 
     run = async () => {
+        console.log(this.constructor.name)
         console.log('Initializing engine');
         this.initialize();
 

@@ -1,4 +1,4 @@
-import { Rectangle, Vector } from '../core/types/utils';
+import { Rectangle, Vector } from '../types/utils';
 
 /**
  * Computes the direction vector between two points, normalized over the lenght
