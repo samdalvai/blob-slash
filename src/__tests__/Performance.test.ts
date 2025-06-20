@@ -1,7 +1,7 @@
 import LifetimeComponent from '../components/LifetimeComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import Registry from '../core/ecs/Registry';
+import Registry from '../engine/ecs/Registry';
 import LifetimeSystem from '../game/systems/LifeTimeSystem';
 import MovementSystem from '../game/systems/MovementSystem';
 

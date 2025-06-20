@@ -1,4 +1,4 @@
-import Component from '../../core/ecs/Component';
+import Component from '../../engine/ecs/Component';
 import Entity from '../ecs/Entity';
 
 export default class EntityFollowComponent extends Component {

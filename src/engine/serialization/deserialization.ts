@@ -27,9 +27,9 @@ import SpriteStateComponent from '../../game/components/SpriteStateComponent';
 import TeleportComponent from '../../game/components/TeleportComponent';
 import TextLabelComponent from '../../game/components/TextLabelComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import Component from '../../core/ecs/Component';
-import Entity from '../core/../ecs/Entity';
-import Registry from '../core/../ecs/Registry';
+import Component from '../ecs/Component';
+import Entity from '../ecs/Entity';
+import Registry from '../ecs/Registry';
 import { ComponentType } from '../types/components';
 import { EntityMap } from '../types/map';
 

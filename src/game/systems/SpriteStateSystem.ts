@@ -2,7 +2,7 @@ import HealthComponent from '../components/HealthComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import SpriteStateComponent from '../components/SpriteStateComponent';
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 
 export default class SpriteStateSystem extends System {
     constructor() {

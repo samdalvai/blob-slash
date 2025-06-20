@@ -1,69 +1,14 @@
-import Engine from '../core/Engine';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../core/serialization/persistence';
-import { GameStatus, Rectangle, Vector } from '../core/types/utils';
+import Engine from '../engine/Engine';
+import { saveLevelToJson, saveLevelToLocalStorage } from '../engine/serialization/persistence';
+import { GameStatus } from '../engine/types/utils';
 import * as GameEvents from './events';
 import GameLevelManager from './level-manager/GameLevelManager';
 import * as Systems from './systems';
 
 export default class Game extends Engine {
-    static mousePositionScreen: Vector;
-    static mousePositionWorld: Vector;
-    static mapWidth: number;
-    static mapHeight: number;
-    static windowWidth: number;
-    static windowHeight: number;
-    static gameStatus: GameStatus;
-
     constructor() {
         super();
-
-        Game.mousePositionScreen = { x: 0, y: 0 };
-        Game.mousePositionWorld = { x: 0, y: 0 };
     }
-
-    private resize = (canvas: HTMLCanvasElement, camera: Rectangle) => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        camera.width = window.innerWidth;
-        camera.height = window.innerHeight;
-
-        Game.windowWidth = window.innerWidth;
-        Game.windowHeight = window.innerHeight;
-
-        const ctx = canvas.getContext('2d');
-
-        if (!ctx) {
-            throw new Error('Failed to get 2D context for the canvas.');
-        }
-
-        // If this is not disabled the browser might use interpolation to smooth the scaling,
-        // which can cause visible borders or artifacts, e.g. when rendering tiles
-        ctx.imageSmoothingEnabled = false;
-    };
-
-    initialize = () => {
-        console.log('Initializing game');
-        const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
-        const ctx = canvas.getContext('2d');
-
-        if (!ctx) {
-            throw new Error('Failed to get 2D context for the canvas.');
-        }
-
-        this.resize(canvas, this.camera);
-        canvas.style.cursor = 'none';
-
-        this.canvas = canvas;
-        this.ctx = ctx;
-        this.isRunning = true;
-
-        window.addEventListener('resize', () => {
-            if (this.canvas && this.camera) {
-                this.resize(this.canvas, this.camera);
-            }
-        });
-    };
 
     setup = async () => {
         // Rendering systems
@@ -107,7 +52,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
         await GameLevelManager.loadLevel(this.registry, this.assetStore);
-        Game.gameStatus = GameStatus.PLAYING;
+        this.gameStatus = GameStatus.PLAYING;
     };
 
     processInput = () => {
@@ -151,12 +96,12 @@ export default class Game extends Engine {
 
             switch (inputEvent.type) {
                 case 'mousemove':
-                    Game.mousePositionScreen = {
+                    Engine.mousePositionScreen = {
                         x: inputEvent.x,
                         y: inputEvent.y,
                     };
 
-                    Game.mousePositionWorld = {
+                    Engine.mousePositionWorld = {
                         x: inputEvent.x + this.camera.x,
                         y: inputEvent.y + this.camera.y,
                     };
@@ -183,7 +128,7 @@ export default class Game extends Engine {
                             x: inputEvent.x + this.camera.x,
                             y: inputEvent.y + this.camera.y,
                         },
-                        inputEvent.button === 0 ? 'left' : 'right',
+                        inputEvent.button,
                     );
                     break;
             }

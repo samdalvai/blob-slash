@@ -4,8 +4,8 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import EntityKilledEvent from '../events/EntityKilledEvent';
 
 export default class DeadBodyOnDeathSystem extends System {

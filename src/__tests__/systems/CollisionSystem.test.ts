@@ -2,8 +2,8 @@ import { expect } from '@jest/globals';
 
 import BoxColliderComponent from '../../game/components/BoxColliderComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import Registry from '../../core/ecs/Registry';
-import EventBus from '../../core/event-bus/EventBus';
+import Registry from '../../engine/ecs/Registry';
+import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../../game/events/CollisionEvent';
 import CollisionSystem from '../../game/systems/CollisionSystem';
 

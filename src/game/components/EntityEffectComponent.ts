@@ -1,4 +1,4 @@
-import Component from '../../core/ecs/Component';
+import Component from '../../engine/ecs/Component';
 
 export default class EntityEffectComponent extends Component {
     slowed: boolean;

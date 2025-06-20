@@ -1,9 +1,9 @@
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
-import { MouseButton } from '../../core/types/control';
-import { Flip, Vector } from '../../core/types/utils';
-import { computeDirectionVector, computeUnitVector } from '../../core/utils/vector';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
+import { MouseButton } from '../../engine/types/control';
+import { Flip, Vector } from '../../engine/types/utils';
+import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
 import Game from '../Game';
 import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';

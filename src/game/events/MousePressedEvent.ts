@@ -1,6 +1,6 @@
-import GameEvent from '../../core/event-bus/GameEvent';
-import { MouseButton } from '../../core/types/control';
-import { Vector } from '../../core/types/utils';
+import GameEvent from '../../engine/event-bus/GameEvent';
+import { MouseButton } from '../../engine/types/control';
+import { Vector } from '../../engine/types/utils';
 
 export default class MousePressedEvent extends GameEvent {
     coordinates: Vector;

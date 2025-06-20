@@ -1,5 +1,5 @@
-import Entity from '../../core/ecs/Entity';
-import Registry from '../../core/ecs/Registry';
+import Entity from '../ecs/Entity';
+import Registry from '../ecs/Registry';
 import Game from '../../game/Game';
 import { ComponentMap, EntityMap, LevelMap } from '../types/map';
 

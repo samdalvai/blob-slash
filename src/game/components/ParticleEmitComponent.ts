@@ -1,5 +1,5 @@
-import Component from '../../core/ecs/Component';
-import { Vector } from '../../core/types/utils';
+import Component from '../../engine/ecs/Component';
+import { Vector } from '../../engine/types/utils';
 
 export default class ParticleEmitComponent extends Component {
     dimension: number;

@@ -1,5 +1,5 @@
-import System from '../../core/ecs/System';
-import EventBus from '../../core/event-bus/EventBus';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import CameraShakeEvent from '../events/CameraShakeEvent';
 
 const SHAKE_MAX_MOVEMENT = 10;

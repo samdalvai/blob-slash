@@ -1,8 +1,9 @@
 import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../core/ecs/System';
+import System from '../../engine/ecs/System';
 import Game from '../Game';
+import Engine from '../../engine/Engine';
 
 export default class EntityHighlightSystem extends System {
     constructor() {
@@ -13,8 +14,8 @@ export default class EntityHighlightSystem extends System {
     }
 
     update = () => {
-        const mouseX = Game.mousePositionWorld.x;
-        const mouseY = Game.mousePositionWorld.y;
+        const mouseX = Engine.mousePositionWorld.x;
+        const mouseY = Engine.mousePositionWorld.y;
 
         for (const entity of this.getSystemEntities()) {
             const highlight = entity.getComponent(HighlightComponent);

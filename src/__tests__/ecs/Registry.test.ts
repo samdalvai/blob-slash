@@ -1,10 +1,10 @@
 import { expect } from '@jest/globals';
 
-import Component, { IComponent } from '../../core/ecs/Component';
-import Entity from '../../core/ecs/Entity';
-import Pool from '../../core/ecs/Pool';
-import Registry from '../../core/ecs/Registry';
-import System, { ISystem } from '../../core/ecs/System';
+import Component, { IComponent } from '../../engine/ecs/Component';
+import Entity from '../../engine/ecs/Entity';
+import Pool from '../../engine/ecs/Pool';
+import Registry from '../../engine/ecs/Registry';
+import System, { ISystem } from '../../engine/ecs/System';
 
 describe('Testing Registry related functions', () => {
     beforeEach(() => {

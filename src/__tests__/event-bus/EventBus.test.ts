@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 
-import EventBus from '../../core/event-bus/EventBus';
-import GameEvent from '../../core/event-bus/GameEvent';
+import EventBus from '../../engine/event-bus/EventBus';
+import GameEvent from '../../engine/event-bus/GameEvent';
 
 describe('Testing EventBus related functions', () => {
     test('Class instance should subscribe to custom event with a callback', () => {

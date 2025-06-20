@@ -4,9 +4,9 @@ import EntityFollowComponent from '../components/EntityFollowComponent';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import Registry from '../../core/ecs/Registry';
-import System from '../../core/ecs/System';
-import { isPointInsideCircle } from '../../core/utils/circle';
+import Registry from '../../engine/ecs/Registry';
+import System from '../../engine/ecs/System';
+import { isPointInsideCircle } from '../../engine/utils/circle';
 
 export default class EntityEffectSystem extends System {
     constructor() {
