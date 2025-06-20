@@ -122,6 +122,7 @@ export default abstract class Engine {
         throw new Error('Method processInput must be implemented by subclass');
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected update = (deltaTime: number): void => {
         throw new Error('Method update must be implemented by subclass');
     };
