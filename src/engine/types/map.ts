@@ -1,3 +1,5 @@
+import * as GameComponents from '../../game/components';
+
 export type LevelMap = {
     mapWidth: number;
     mapHeight: number;
@@ -11,7 +13,7 @@ export type EntityMap = {
 };
 
 export type ComponentMap = {
-    name: string;
+    name: keyof typeof GameComponents;
     properties: {
         [key: string]: any;
     };

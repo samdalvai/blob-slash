@@ -287,7 +287,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'MyComponent',
+                    name: 'MyComponent' as any,
                     properties: {
                         myProperty: 10,
                         startTime: 0,
@@ -318,7 +318,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'MyComponent',
+                    name: 'MyComponent' as any,
                     properties: {
                         myProperty: 10,
                         followedEntity: null,
