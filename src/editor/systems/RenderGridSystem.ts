@@ -1,6 +1,7 @@
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
 import Game from '../../game/Game';
+import Editor from '../Editor';
 
 export default class RenderGridSystem extends System {
     constructor() {
@@ -21,7 +22,7 @@ export default class RenderGridSystem extends System {
             ctx.lineTo((Game.mapWidth - camera.x) * zoom, (offset - camera.y) * zoom);
             ctx.stroke();
 
-            offset += 64;
+            offset += Editor.gridSquareSide;
         }
 
         offset = 0;
@@ -32,7 +33,7 @@ export default class RenderGridSystem extends System {
             ctx.lineTo((offset - camera.x) * zoom, (Game.mapHeight - camera.y) * zoom);
             ctx.stroke();
 
-            offset += 64;
+            offset += Editor.gridSquareSide;
         }
 
         ctx.restore();
