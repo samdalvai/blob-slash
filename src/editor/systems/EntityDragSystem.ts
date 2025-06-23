@@ -77,8 +77,19 @@ export default class EntityDragSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            transform.position.x = Engine.mousePositionWorld.x - Editor.entityDragOffset.x;
-            transform.position.y = Engine.mousePositionWorld.y - Editor.entityDragOffset.y;
+            transform.position.x = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
+            transform.position.y = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
+
+            // Update sidebar component position for the entity
+            const positionXInput = document.getElementById('position-x-' + entity.getId()) as HTMLInputElement;
+            const positionYInput = document.getElementById('position-y-' + entity.getId()) as HTMLInputElement;
+
+            if (!positionXInput || !positionYInput) {
+                throw new Error('Could not get position inputs for entity ' + entity.getId());
+            }
+
+            positionXInput.value = transform.position.x.toString();
+            positionYInput.value = transform.position.y.toString();
         }
     };
 }

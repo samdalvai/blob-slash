@@ -3,9 +3,9 @@ import Component from '../../engine/ecs/Component';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
-import EntitySelectEvent from '../events/EntitySelectEvent';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
+import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class RenderSidebarEntities extends System {
     constructor() {
@@ -167,13 +167,13 @@ export default class RenderSidebarEntities extends System {
                 if (isVector(propertyValue)) {
                     const vectorContainer = document.createElement('div');
 
-                    const textInput1 = this.createInput('number', propertyName + '-' + entityId, propertyValue.x);
+                    const textInput1 = this.createInput('number', propertyName + '-y-' + entityId, propertyValue.x);
                     textInput1.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    const textInput2 = this.createInput('number', propertyName + '-' + entityId, propertyValue.y);
+                    const textInput2 = this.createInput('number', propertyName + '-x-' + entityId, propertyValue.y);
                     textInput2.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].y = parseInt(target.value);
@@ -193,7 +193,7 @@ export default class RenderSidebarEntities extends System {
 
                     const textInput1 = this.createInput(
                         'number',
-                        propertyName + '-' + entityId,
+                        propertyName + '-x-' + entityId,
                         (propertyValue as Rectangle).x,
                     );
                     textInput1.addEventListener('input', event => {
@@ -203,7 +203,7 @@ export default class RenderSidebarEntities extends System {
 
                     const textInput2 = this.createInput(
                         'number',
-                        propertyName + '-' + entityId,
+                        propertyName + '-y-' + entityId,
                         (propertyValue as Rectangle).y,
                     );
                     textInput2.addEventListener('input', event => {
@@ -213,7 +213,7 @@ export default class RenderSidebarEntities extends System {
 
                     const textInput3 = this.createInput(
                         'number',
-                        propertyName + '-' + entityId,
+                        propertyName + '-width-' + entityId,
                         (propertyValue as Rectangle).width,
                     );
                     textInput3.addEventListener('input', event => {
@@ -223,7 +223,7 @@ export default class RenderSidebarEntities extends System {
 
                     const textInput4 = this.createInput(
                         'number',
-                        propertyName + '-' + entityId,
+                        propertyName + '-height-' + entityId,
                         (propertyValue as Rectangle).height,
                     );
                     textInput4.addEventListener('input', event => {
