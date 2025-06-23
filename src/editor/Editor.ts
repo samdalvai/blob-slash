@@ -32,6 +32,8 @@ export default class Editor extends Engine {
         this.panEnabled = false;
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
+
+        this.isDebug = true;
     }
 
     resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
