@@ -42,13 +42,16 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
+                if (Editor.selectedEntity !== entity.getId()) {
+                    eventBus.emitEvent(EntitySelectEvent, entity);
+                }
+
                 entityClicked = true;
                 Editor.selectedEntity = entity.getId();
                 Editor.entityDragOffset = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
                 };
-                eventBus.emitEvent(EntitySelectEvent, entity);
             }
         }
 
