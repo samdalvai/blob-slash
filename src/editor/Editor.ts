@@ -134,6 +134,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderSidebarLevelSettings);
         this.registry.addSystem(EditorSystems.RenderSidebarSaveButtons);
         this.registry.addSystem(EditorSystems.EntityDragSystem);
+        this.registry.addSystem(EditorSystems.RenderGridSystem);
 
         await EditorLevelManager.loadLevel(this.registry, this.assetStore);
     };
@@ -339,6 +340,8 @@ export default class Editor extends Engine {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Render Editor systems
+        this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
         this.registry
             .getSystem(EditorSystems.EditorRenderSystem)
             ?.update(this.ctx, this.assetStore, this.camera, this.zoom);
@@ -355,9 +358,6 @@ export default class Editor extends Engine {
         // this.registry
         //     .getSystem(GameSystems.RenderCursorSystem)
         //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
-
-        // Render editor systems
-        this.registry.getSystem(EditorSystems.RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
         this.registry

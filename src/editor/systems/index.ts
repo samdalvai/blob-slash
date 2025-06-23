@@ -5,3 +5,4 @@ export { default as RenderSidebarLevelSettings } from './RenderSidebarLevelSetti
 export { default as RenderSidebarSaveButtons } from './RenderSidebarSaveButtons';
 export { default as RenderSpriteBoxSystem } from './RenderSpriteBoxSystem';
 export { default as EntityDragSystem } from './EntityDragSystem';
+export { default as RenderGridSystem } from './RenderGridSystem';
