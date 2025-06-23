@@ -1,5 +1,6 @@
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import Game from '../../game/Game';
 
 export default class RenderGridSystem extends System {
     constructor() {
@@ -9,13 +10,30 @@ export default class RenderGridSystem extends System {
     update = (ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) => {
         ctx.save();
 
-        ctx.strokeStyle = 'gray';
+        ctx.strokeStyle = 'lightgray';
         ctx.lineWidth = 1;
 
-        ctx.beginPath();
-        ctx.moveTo((0 - camera.x) * zoom, (200 - camera.y) * zoom);
-        ctx.lineTo((100 - camera.x) * zoom, (200 - camera.y) * zoom);
-        ctx.stroke();
+        let offset = 0;
+
+        while (offset <= Game.mapHeight) {
+            ctx.beginPath();
+            ctx.moveTo((0 - camera.x) * zoom, (offset - camera.y) * zoom);
+            ctx.lineTo((Game.mapWidth - camera.x) * zoom, (offset - camera.y) * zoom);
+            ctx.stroke();
+
+            offset += 64;
+        }
+
+        offset = 0;
+
+        while (offset <= Game.mapWidth) {
+            ctx.beginPath();
+            ctx.moveTo((offset - camera.x) * zoom, (0 - camera.y) * zoom);
+            ctx.lineTo((offset - camera.x) * zoom, (Game.mapHeight - camera.y) * zoom);
+            ctx.stroke();
+
+            offset += 64;
+        }
 
         ctx.restore();
     };
