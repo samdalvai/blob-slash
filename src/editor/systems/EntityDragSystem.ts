@@ -1,4 +1,5 @@
 import Engine from '../../engine/Engine';
+import Entity from '../../engine/ecs/Entity';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
@@ -77,19 +78,41 @@ export default class EntityDragSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            transform.position.x = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
-            transform.position.y = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
+            const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
+            const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
 
-            // Update sidebar component position for the entity
-            const positionXInput = document.getElementById('position-x-' + entity.getId()) as HTMLInputElement;
-            const positionYInput = document.getElementById('position-y-' + entity.getId()) as HTMLInputElement;
+            if (Editor.snapToGrid) {
+                const diffX = mousePositionX % Editor.gridSquareSide;
+                const diffY = mousePositionY % Editor.gridSquareSide;
 
-            if (!positionXInput || !positionYInput) {
-                throw new Error('Could not get position inputs for entity ' + entity.getId());
+                if (diffX <= Editor.gridSquareSide / 2 || diffY <= Editor.gridSquareSide / 2) {
+                    this.updateEntityPosition(entity, transform, mousePositionX - diffX, mousePositionY - diffY);
+                    return;
+                }
             }
 
-            positionXInput.value = transform.position.x.toString();
-            positionYInput.value = transform.position.y.toString();
+            this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY);
         }
+    };
+
+    private updateEntityPosition = (
+        entity: Entity,
+        transform: TransformComponent,
+        newPositionX: number,
+        newPositionY: number,
+    ) => {
+        transform.position.x = newPositionX;
+        transform.position.y = newPositionY;
+
+        // Update sidebar component position for the entity
+        const positionXInput = document.getElementById('position-x-' + entity.getId()) as HTMLInputElement;
+        const positionYInput = document.getElementById('position-y-' + entity.getId()) as HTMLInputElement;
+
+        if (!positionXInput || !positionYInput) {
+            throw new Error('Could not get position inputs for entity ' + entity.getId());
+        }
+
+        positionXInput.value = transform.position.x.toString();
+        positionYInput.value = transform.position.y.toString();
     };
 }
