@@ -145,7 +145,7 @@ describe('Testing deserialization related functions', () => {
         const entityMap: EntityMap = {
             components: [
                 {
-                    name: 'transform',
+                    name: 'TransformComponent',
                     properties: {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
@@ -177,7 +177,7 @@ describe('Testing deserialization related functions', () => {
         const entityMap: EntityMap = {
             components: [
                 {
-                    name: 'transform',
+                    name: 'TransformComponent',
                     properties: {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
@@ -185,7 +185,7 @@ describe('Testing deserialization related functions', () => {
                     },
                 },
                 {
-                    name: 'rigidbody',
+                    name: 'RigidBodyComponent',
                     properties: {
                         velocity: { x: 100, y: 100 },
                         direction: { x: 1, y: 0 },
@@ -273,7 +273,7 @@ describe('Testing deserialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
@@ -285,7 +285,7 @@ describe('Testing deserialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
@@ -332,7 +332,7 @@ describe('Testing deserialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
@@ -340,7 +340,7 @@ describe('Testing deserialization related functions', () => {
                         },
                     },
                     {
-                        name: 'rigidbody',
+                        name: 'RigidBodyComponent',
                         properties: {
                             velocity: { x: 100, y: 100 },
                             direction: { x: 1, y: 0 },
@@ -351,7 +351,7 @@ describe('Testing deserialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
@@ -359,7 +359,7 @@ describe('Testing deserialization related functions', () => {
                         },
                     },
                     {
-                        name: 'rigidbody',
+                        name: 'RigidBodyComponent',
                         properties: {
                             velocity: { x: 200, y: 200 },
                             direction: { x: 0, y: 1 },
