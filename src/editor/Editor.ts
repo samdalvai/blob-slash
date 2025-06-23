@@ -311,7 +311,9 @@ export default class Editor extends Engine {
         // this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
+        if (!this.panEnabled) {
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
+        }
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
