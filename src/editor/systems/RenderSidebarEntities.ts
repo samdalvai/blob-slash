@@ -80,6 +80,7 @@ export default class RenderSidebarEntities extends System {
 
         for (const component of entityComponents) {
             const componentContainer = document.createElement('div');
+            componentContainer.className = 'pb-2';
             const title = document.createElement('span');
             const componentName = component.constructor.name;
             title.innerText = '* ' + componentName;
@@ -88,9 +89,18 @@ export default class RenderSidebarEntities extends System {
             const properties = Object.keys(component);
 
             for (const key of properties) {
-                componentContainer.append(
-                    this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore),
-                );
+                const form = this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore);
+
+                if (form) {
+                    componentContainer.append(form);
+                }
+            }
+
+            if (properties.length === 0) {
+                const li = document.createElement('li');
+                li.className = 'd-flex align-center';
+                li.innerText = 'No property for this component...';
+                componentContainer.append(li);
             }
 
             container.append(componentContainer);
@@ -106,6 +116,10 @@ export default class RenderSidebarEntities extends System {
         entityId: number,
         assetStore: AssetStore,
     ) => {
+        if (propertyValue === null) {
+            return null;
+        }
+
         if (component.constructor.name === 'SpriteComponent' && propertyName === 'assetId') {
             const select = document.createElement('select');
             select.id = propertyName + '-' + entityId;
@@ -245,7 +259,9 @@ export default class RenderSidebarEntities extends System {
                     return vectorContainer;
                 }
 
-                throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
+                console.warn(`Uknown type of property ${propertyName} with value ${propertyValue}`);
+                return null;
+                //throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
             }
         }
     };
