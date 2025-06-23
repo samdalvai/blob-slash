@@ -21,7 +21,7 @@ export default class Editor extends Engine {
     static selectedEntity: number | null;
     static entityDragOffset: Vector | null;
     static snapToGrid: boolean = false;
-    static showGrid = false;
+    static showGrid = true;
     static gridSquareSide = 32;
 
     constructor() {
