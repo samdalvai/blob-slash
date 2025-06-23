@@ -1,31 +1,20 @@
+import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Registry from '../../engine/ecs/Registry';
-import Engine from '../../engine/Engine';
-//import { deserializeEntities } from '../../core/serialization/deserialization';
-// import { loadLevelFromLocalStorage } from '../serialization/persistence';
+import { deserializeEntities } from '../../engine/serialization/deserialization';
 import { LevelMap } from '../../engine/types/map';
-import BoxColliderComponent from '../../game/components/BoxColliderComponent';
-import LightEmitComponent from '../../game/components/LightEmitComponent';
-import ShadowComponent from '../../game/components/ShadowComponent';
-import SpriteComponent from '../../game/components/SpriteComponent';
-import TransformComponent from '../../game/components/TransformComponent';
 
 export default class EditorLevelManager {
     public static async loadLevel(registry: Registry, assetStore: AssetStore) {
         await this.loadAssets(assetStore);
-        const level = assetStore.getJson('level') as LevelMap;
-        // const level = loadLevelFromLocalStorage();
-        // if (!levelLocal) {
-        //     throw new Error('Could not read level from local storage');
-        // }
-
+        const level = assetStore.getJson('snapshot') as LevelMap;
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);
     }
 
     private static async loadAssets(assetStore: AssetStore) {
         console.log('Loading assets');
-        await assetStore.addJson('level', '/assets/tilemaps/level.json');
+        await assetStore.addJson('snapshot', '/assets/tilemaps/snapshot.json');
         await assetStore.addTexture('desert-texture', './assets/tilemaps/desert.png');
         await assetStore.addTexture('tiles-dark-texture', './assets/tilemaps/tiles_dark.png');
 
@@ -58,36 +47,7 @@ export default class EditorLevelManager {
 
     private static loadEntities(registry: Registry, level: LevelMap) {
         console.log('Loading entities');
-
-        const tile1 = registry.createEntity();
-        tile1.addComponent(SpriteComponent, 'tiles-dark-texture', 32, 32, 0, { x: 0, y: 0 });
-        tile1.addComponent(TransformComponent, { x: 500, y: 500 }, { x: 2, y: 2 });
-        tile1.group('tiles');
-
-        const tile2 = registry.createEntity();
-        tile2.addComponent(SpriteComponent, 'tiles-dark-texture', 32, 32, 0, { x: 0, y: 0 });
-        tile2.addComponent(TransformComponent, { x: 564, y: 500 }, { x: 2, y: 2 });
-        tile2.group('tiles');
-
-        const tile3 = registry.createEntity();
-        tile3.addComponent(SpriteComponent, 'tiles-dark-texture', 32, 32, 0, { x: 0, y: 0 });
-        tile3.addComponent(TransformComponent, { x: 628, y: 500 }, { x: 2, y: 2 });
-        tile3.group('tiles');
-
-        const player = registry.createEntity();
-        player.addComponent(SpriteComponent, 'player-texture', 32, 32, 1, { x: 0, y: 32 * 2 });
-        player.addComponent(TransformComponent, { x: 200, y: 200 });
-        player.addComponent(BoxColliderComponent, 25, 32, { x: 3, y: 0 });
-        player.addComponent(LightEmitComponent, 200);
-        player.addComponent(ShadowComponent, 32, 16);
-        player.tag('player');
-
-        const enemy1 = registry.createEntity();
-        enemy1.addComponent(SpriteComponent, 'skeleton-texture', 32, 32, 1, { x: 0, y: 32 * 2 });
-        enemy1.addComponent(TransformComponent, { x: 300, y: 200 }, { x: 2, y: 2});
-        enemy1.addComponent(BoxColliderComponent, 20, 32, { x: 10, y: 0 });
-        enemy1.addComponent(ShadowComponent, 32, 16);
-        enemy1.tag('enemies');
+        deserializeEntities(level.entities, registry);
     }
 
     private static setMapBoundaries(level: LevelMap) {

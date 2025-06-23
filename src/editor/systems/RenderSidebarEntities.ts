@@ -60,7 +60,7 @@ export default class RenderSidebarEntities extends System {
             const li = document.createElement('li');
             li.id = `entity-${entityId}`;
             li.style.border = 'solid 1px white';
-            li.onclick = () => Editor.selectedEntity = entityId;
+            li.onclick = () => (Editor.selectedEntity = entityId);
 
             const forms = this.getComponentsForms(entityComponents, entityId, assetStore);
             li.appendChild(title);
