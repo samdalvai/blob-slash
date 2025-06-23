@@ -6,7 +6,6 @@ import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import { serializeEntities, serializeEntity, serializeLevel } from '../../engine/serialization/serialization';
-import { ComponentType } from '../../engine/types/components';
 import { EntityMap, LevelMap } from '../../engine/types/map';
 import Engine from '../../engine/Engine';
 
@@ -19,7 +18,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'transform',
+                    name: 'TransformComponent',
                     properties: {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
@@ -41,7 +40,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'transform',
+                    name: 'TransformComponent',
                     properties: {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
@@ -49,7 +48,7 @@ describe('Testing serialization related functions', () => {
                     },
                 },
                 {
-                    name: 'rigidbody',
+                    name: 'RigidBodyComponent',
                     properties: {
                         velocity: { x: 100, y: 100 },
                         direction: { x: 1, y: 0 },
@@ -115,7 +114,7 @@ describe('Testing serialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
@@ -127,7 +126,7 @@ describe('Testing serialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
@@ -156,7 +155,7 @@ describe('Testing serialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
@@ -164,7 +163,7 @@ describe('Testing serialization related functions', () => {
                         },
                     },
                     {
-                        name: 'rigidbody',
+                        name: 'RigidBodyComponent',
                         properties: {
                             velocity: { x: 100, y: 100 },
                             direction: { x: 1, y: 0 },
@@ -175,7 +174,7 @@ describe('Testing serialization related functions', () => {
             {
                 components: [
                     {
-                        name: 'transform',
+                        name: 'TransformComponent',
                         properties: {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
@@ -183,7 +182,7 @@ describe('Testing serialization related functions', () => {
                         },
                     },
                     {
-                        name: 'rigidbody',
+                        name: 'RigidBodyComponent',
                         properties: {
                             velocity: { x: 200, y: 200 },
                             direction: { x: 0, y: 1 },
@@ -288,7 +287,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'my' as ComponentType,
+                    name: 'MyComponent',
                     properties: {
                         myProperty: 10,
                         startTime: 0,
@@ -319,7 +318,7 @@ describe('Testing serialization related functions', () => {
         const expected: EntityMap = {
             components: [
                 {
-                    name: 'my' as ComponentType,
+                    name: 'MyComponent',
                     properties: {
                         myProperty: 10,
                         followedEntity: null,
@@ -343,7 +342,7 @@ describe('Testing serialization related functions', () => {
                 {
                     components: [
                         {
-                            name: 'transform',
+                            name: 'TransformComponent',
                             properties: {
                                 position: { x: 100, y: 100 },
                                 scale: { x: 1, y: 1 },
@@ -376,7 +375,7 @@ describe('Testing serialization related functions', () => {
                 {
                     components: [
                         {
-                            name: 'transform',
+                            name: 'TransformComponent',
                             properties: {
                                 position: { x: 100, y: 100 },
                                 scale: { x: 1, y: 1 },
@@ -388,7 +387,7 @@ describe('Testing serialization related functions', () => {
                 {
                     components: [
                         {
-                            name: 'transform',
+                            name: 'TransformComponent',
                             properties: {
                                 position: { x: 200, y: 200 },
                                 scale: { x: 1, y: 1 },
@@ -424,7 +423,7 @@ describe('Testing serialization related functions', () => {
                 {
                     components: [
                         {
-                            name: 'transform',
+                            name: 'TransformComponent',
                             properties: {
                                 position: { x: 200, y: 200 },
                                 scale: { x: 1, y: 1 },

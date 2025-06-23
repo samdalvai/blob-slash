@@ -10,7 +10,7 @@ export const serializeEntity = (entity: Entity): EntityMap => {
 
     for (const component of entityComponents) {
         components.push({
-            name: component.constructor.name.toLowerCase().replace('component', ''),
+            name: component.constructor.name,
             properties: {
                 ...component,
                 ...('startTime' in component ? { startTime: 0 } : {}),

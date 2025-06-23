@@ -30,10 +30,9 @@ import TransformComponent from '../../game/components/TransformComponent';
 import Component from '../ecs/Component';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
-import { ComponentType } from '../types/components';
 import { EntityMap } from '../types/map';
 
-const getComponentClass = (componentType: ComponentType): typeof Component => {
+const getComponentClass = (componentType: string): typeof Component => {
     switch (componentType) {
         case 'animation':
             return AnimationComponent;
