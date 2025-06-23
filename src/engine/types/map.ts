@@ -1,5 +1,3 @@
-import { ComponentType } from './components';
-
 export type LevelMap = {
     mapWidth: number;
     mapHeight: number;
@@ -13,7 +11,7 @@ export type EntityMap = {
 };
 
 export type ComponentMap = {
-    name: ComponentType;
+    name: string;
     properties: {
         [key: string]: any;
     };
