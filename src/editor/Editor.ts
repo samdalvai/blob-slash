@@ -16,7 +16,7 @@ export default class Editor extends Engine {
     private panEnabled: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
-    
+
     // Global Editor objects
     static selectedEntity: number | null;
     static entityDragOffset: Vector | null;
@@ -331,7 +331,9 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.AnimationSystem)?.update();
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
-        this.registry.getSystem(EditorSystems.EntityDragSystem)?.update();
+        if (!this.panEnabled) {
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update();
+        }
     };
 
     render = () => {
@@ -343,9 +345,7 @@ export default class Editor extends Engine {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Render Editor systems
-        this.registry
-            .getSystem(EditorSystems.RenderGridSystem)
-            ?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
         this.registry
             .getSystem(EditorSystems.EditorRenderSystem)

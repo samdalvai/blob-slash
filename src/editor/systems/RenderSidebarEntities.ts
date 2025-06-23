@@ -259,7 +259,9 @@ export default class RenderSidebarEntities extends System {
                     return vectorContainer;
                 }
 
-                console.warn(`Uknown type of property ${propertyName} with value ${propertyValue}`);
+                console.warn(
+                    `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
+                );
                 return null;
                 //throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
             }
