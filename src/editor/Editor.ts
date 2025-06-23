@@ -20,7 +20,7 @@ export default class Editor extends Engine {
     // Global Editor objects
     static selectedEntity: number | null;
     static entityDragOffset: Vector | null;
-    static snapToGrid: boolean = true;
+    static snapToGrid: boolean = false;
     static gridSquareSide = 64;
 
     constructor() {

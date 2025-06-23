@@ -13,6 +13,10 @@ input {
     height: 25px;
 }
 
+input[type='checkbox'] {
+    width: 20px;
+}
+
 select {
     height: 30px;
     width: 56%;
@@ -21,6 +25,8 @@ select {
 button {
     height: 30px;
 }
+
+/* Styles by id */
 
 #game-canvas {
     border: 1px solid black;
@@ -31,8 +37,6 @@ button {
     height: 100vh;
     width: 100vw;
 }
-
-/* Styles by id */
 
 #sidebar {
     width: 300px;
