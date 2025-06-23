@@ -52,7 +52,8 @@ button {
 }
 
 #sidebar h2,
-#sidebar h3 {
+#sidebar h3, 
+#sidebar h4 {
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -61,7 +62,7 @@ button {
     list-style: none;
     padding-left: 0;
     overflow-y: scroll;
-    max-height: 65vh;
+    max-height: 60vh;
 }
 
 #entity-list li {
