@@ -5,6 +5,7 @@ import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
+import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class RenderSidebarEntities extends System {
@@ -59,7 +60,7 @@ export default class RenderSidebarEntities extends System {
             const li = document.createElement('li');
             li.id = `entity-${entityId}`;
             li.style.border = 'solid 1px white';
-            li.onclick = () => console.log(`Clicked entity ${entityId}`);
+            li.onclick = () => Editor.selectedEntity = entityId;
 
             const forms = this.getComponentsForms(entityComponents, entityId, assetStore);
             li.appendChild(title);
