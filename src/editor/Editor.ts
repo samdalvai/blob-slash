@@ -16,12 +16,13 @@ export default class Editor extends Engine {
     private panEnabled: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
-
+    
     // Global Editor objects
     static selectedEntity: number | null;
     static entityDragOffset: Vector | null;
     static snapToGrid: boolean = false;
-    static gridSquareSide = 64;
+    static showGrid = false;
+    static gridSquareSide = 32;
 
     constructor() {
         super();
@@ -342,7 +343,9 @@ export default class Editor extends Engine {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Render Editor systems
-        this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry
+            .getSystem(EditorSystems.RenderGridSystem)
+            ?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorder)?.update(this.ctx, this.camera, this.zoom);
         this.registry
             .getSystem(EditorSystems.EditorRenderSystem)

@@ -9,6 +9,10 @@ export default class RenderGridSystem extends System {
     }
 
     update = (ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) => {
+        if (!Editor.showGrid) {
+            return;
+        }
+
         ctx.save();
 
         ctx.strokeStyle = 'lightgray';
