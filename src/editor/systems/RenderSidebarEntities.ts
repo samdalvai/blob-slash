@@ -284,7 +284,12 @@ export default class RenderSidebarEntities extends System {
     private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
         const li = document.createElement('li');
         li.className = 'd-flex space-between align-center';
-        li.append(label);
+
+        const span = document.createElement('span');
+        span.innerText = label;
+        span.className = 'label-text';
+
+        li.append(span);
         li.append(input);
         return li;
     };
