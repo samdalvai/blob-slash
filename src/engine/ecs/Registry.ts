@@ -6,6 +6,7 @@ import System, { SystemClass } from './System';
 
 export default class Registry {
     numEntities: number;
+    entities: Map<number, Entity>;
 
     // [Array index = component type id] - [Pool index = entity id]
     componentPools: IPool[];
@@ -31,6 +32,7 @@ export default class Registry {
 
     constructor() {
         this.numEntities = 0;
+        this.entities = new Map();
         this.componentPools = [];
         this.entityComponentSignatures = [];
         this.systems = new Map();
@@ -70,6 +72,8 @@ export default class Registry {
             if (this.groupPerEntity.get(entity.getId()) !== undefined) {
                 this.removeEntityGroup(entity);
             }
+
+            this.entities.delete(entity.getId());
         }
 
         this.entitiesToBeKilled = [];
@@ -93,6 +97,7 @@ export default class Registry {
 
         const entity = new Entity(entityId, this);
         this.entitiesToBeAdded.push(entity);
+        this.entities.set(entity.getId(), entity);
 
         return entity;
     };
@@ -107,18 +112,12 @@ export default class Registry {
         this.entitiesToBeKilled.push(entity);
     };
 
-    getAllEntitiesIds = () => {
-        const entitiesIds: number[] = [];
+    getAllEntities = () => {
+        return this.entities.values();
+    };
 
-        for (let i = 0; i < this.numEntities; i++) {
-            if (this.freeIds.includes(i)) {
-                continue;
-            }
-
-            entitiesIds.push(i);
-        }
-
-        return entitiesIds;
+    getEntityById = (entityId: number) => {
+        return this.entities.get(entityId);
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -271,12 +270,12 @@ export default class Registry {
         return (this.componentPools[ComponentClass.getComponentId()] as Pool<T>)?.get(entity.getId());
     };
 
-    getAllEntityComponents = <T extends Component>(entityId: number): T[] => {
+    getAllEntityComponents = <T extends Component>(entity: Entity): T[] => {
         const components: T[] = [];
 
         for (let i = 0; i < this.componentPools.length; i++) {
-            if (this.entityComponentSignatures[entityId].test(i)) {
-                const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entityId);
+            if (this.entityComponentSignatures[entity.getId()].test(i)) {
+                const currentComponent = (this.componentPools[i] as Pool<T>)?.get(entity.getId());
                 if (currentComponent !== undefined) {
                     components.push(currentComponent);
                 }
