@@ -38,6 +38,8 @@ export default class RenderSpriteBoxSystem extends System {
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
+        let spriteBoxHighlighted = false;
+
         // Traverse entities backwards to highlight the ones in front
         for (let i = renderableEntities.length - 1; i >= 0; i--) {
             const sprite = renderableEntities[i].sprite;
@@ -73,15 +75,15 @@ export default class RenderSpriteBoxSystem extends System {
                 Engine.mousePositionWorld.x >= transform.position.x &&
                 Engine.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
                 Engine.mousePositionWorld.y >= transform.position.y &&
-                Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y
+                Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y &&
+                !spriteBoxHighlighted
             ) {
                 ctx.save();
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
-
-                return;
+                spriteBoxHighlighted = true;
             }
         }
     }
