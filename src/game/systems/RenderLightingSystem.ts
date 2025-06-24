@@ -14,8 +14,8 @@ export default class RenderLightingSystem extends System {
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = camera.width;
-        tempCanvas.height = camera.height;
+        tempCanvas.width = camera.width * zoom;
+        tempCanvas.height = camera.height * zoom;
 
         const tempCtx = tempCanvas.getContext('2d');
 
@@ -24,7 +24,7 @@ export default class RenderLightingSystem extends System {
         }
 
         tempCtx.fillStyle = 'rgba(0,0,0,0.5)';
-        tempCtx.fillRect(0, 0, camera.width, camera.height);
+        tempCtx.fillRect(0, 0, camera.width * zoom, camera.height * zoom);
 
         tempCtx.globalCompositeOperation = 'destination-out';
         tempCtx.shadowColor = 'black';

@@ -1,7 +1,7 @@
-import ParticleComponent from '../components/ParticleComponent';
-import TransformComponent from '../components/TransformComponent';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import ParticleComponent from '../components/ParticleComponent';
+import TransformComponent from '../components/TransformComponent';
 
 export default class RenderParticleSystem extends System {
     constructor() {
@@ -10,7 +10,7 @@ export default class RenderParticleSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const particle = entity.getComponent(ParticleComponent);
@@ -30,13 +30,13 @@ export default class RenderParticleSystem extends System {
                 continue;
             }
 
-            const positionX = transform.position.x - camera.x;
-            const positionY = transform.position.y - camera.y;
+            const positionX = (transform.position.x - camera.x) * zoom;
+            const positionY = (transform.position.y - camera.y) * zoom;
 
             ctx.fillStyle = particle.color;
 
             ctx.beginPath();
-            ctx.fillRect(positionX, positionY, particle.dimension, particle.dimension);
+            ctx.fillRect(positionX, positionY, particle.dimension * zoom, particle.dimension * zoom);
         }
     }
 }
