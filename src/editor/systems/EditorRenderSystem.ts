@@ -1,10 +1,10 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
+import System from '../../engine/ecs/System';
+import { Flip, Rectangle } from '../../engine/types/utils';
 import HighlightComponent from '../../game/components/HighlightComponent';
 import ShadowComponent from '../../game/components/ShadowComponent';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { Flip, Rectangle } from '../../engine/types/utils';
 
 export default class EditorRenderSystem extends System {
     constructor() {
@@ -30,17 +30,16 @@ export default class EditorRenderSystem extends System {
             }
 
             // Check if the entity sprite is outside the camera view
-            // const isOutsideCameraView =
-            //     transform.position.x + transform.scale.x * sprite.width < camera.x ||
-            //     transform.position.x > camera.x + camera.width ||
-            //     transform.position.y + transform.scale.y * sprite.height < camera.y ||
-            //     transform.position.y > camera.y + camera.height;
+            const isOutsideCameraView =
+                transform.position.x + transform.scale.x * sprite.width < camera.x ||
+                transform.position.x > camera.x + camera.width ||
+                transform.position.y + transform.scale.y * sprite.height < camera.y ||
+                transform.position.y > camera.y + camera.height;
 
             // Cull sprites that are outside the camera viww (and are not fixed)
-            // Skip culling for editor
-            // if (isOutsideCameraView && !sprite.isFixed) {
-            //     continue;
-            // }
+            if (isOutsideCameraView && !sprite.isFixed) {
+                continue;
+            }
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
 
