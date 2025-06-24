@@ -1,8 +1,8 @@
+import System from '../../engine/ecs/System';
+import { Rectangle } from '../../engine/types/utils';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
 
 export default class DebugPlayerFollowRadiusSystem extends System {
     constructor() {
@@ -12,7 +12,7 @@ export default class DebugPlayerFollowRadiusSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const entityFollow = entity.getComponent(EntityFollowComponent);
@@ -33,16 +33,16 @@ export default class DebugPlayerFollowRadiusSystem extends System {
                 continue;
             }
 
-            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x - camera.x;
-            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y - camera.y;
+            const circleX = (transform.position.x + (sprite.width / 2) * transform.scale.x - camera.x) * zoom;
+            const circleY = (transform.position.y + (sprite.height / 2) * transform.scale.y - camera.y) * zoom;
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, entityFollow.detectionRadius, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, entityFollow.detectionRadius * zoom, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, entityFollow.minFollowDistance, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, entityFollow.minFollowDistance * zoom, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }

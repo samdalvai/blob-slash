@@ -380,8 +380,8 @@ export default class Editor extends Engine {
             .getSystem(GameSystems.DebugInfoSystem)
             ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera, this.zoom);
         this.registry.getSystem(GameSystems.DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(GameSystems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(GameSystems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(GameSystems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
 
