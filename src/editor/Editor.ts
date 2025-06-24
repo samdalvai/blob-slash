@@ -317,7 +317,7 @@ export default class Editor extends Engine {
         // this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
         if (!this.panEnabled) {
@@ -326,13 +326,13 @@ export default class Editor extends Engine {
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
-        // this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
+        this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
         // this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
-        // this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
+        this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
         // this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
         // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
-        this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
+        // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
         this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
         this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
         this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
