@@ -64,14 +64,7 @@ export default class RenderSidebarEntities extends System {
             deleteButton.innerText = 'DELETE';
             deleteButton.onclick = () => {
                 entity.kill();
-
-                const entityForm = document.getElementById(`entity-${entity.getId()}`);
-
-                if (!entityForm) {
-                    throw new Error('Could not delete entity form with id: ' + entity.getId());
-                }
-
-                entityForm?.remove();
+                li.remove();
             };
 
             header.append(title);
