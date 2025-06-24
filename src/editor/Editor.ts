@@ -20,9 +20,9 @@ export default class Editor extends Engine {
     // Global Editor objects
     static selectedEntity: number | null;
     static entityDragOffset: Vector | null;
-    static snapToGrid: boolean = false;
+    static snapToGrid = false;
     static showGrid = true;
-    static gridSquareSide = 32;
+    static gridSquareSide = 64;
 
     constructor() {
         super();
@@ -327,7 +327,7 @@ export default class Editor extends Engine {
 
         // Invoke all the systems that need to update
         this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
-        // this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
+        this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
         this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
         // this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
         // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
@@ -367,7 +367,7 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
         // this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
         // TODO: to be removed
         // this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
