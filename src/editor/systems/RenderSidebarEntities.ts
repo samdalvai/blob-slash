@@ -49,21 +49,41 @@ export default class RenderSidebarEntities extends System {
 
         entityList.innerHTML = '';
 
-        const entitiesIds = registry.getAllEntitiesIds();
+        const entitiesIds = registry.getAllEntities();
 
-        for (const entityId of entitiesIds) {
-            const entityComponents = registry.getAllEntityComponents(entityId);
+        for (const entity of entitiesIds) {
+            const entityComponents = entity.getComponents();
+
+            const header = document.createElement('div');
+            header.className = 'd-flex align-center space-between';
 
             const title = document.createElement('h3');
-            title.textContent = `Entity id: ${entityId}`;
+            title.textContent = `Entity id: ${entity.getId()}`;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'DELETE';
+            deleteButton.onclick = () => {
+                entity.kill();
+
+                const entityForm = document.getElementById(`entity-${entity.getId()}`);
+
+                if (!entityForm) {
+                    throw new Error('Could not delete entity form with id: ' + entity.getId());
+                }
+
+                entityForm?.remove();
+            };
+
+            header.append(title);
+            header.append(deleteButton);
 
             const li = document.createElement('li');
-            li.id = `entity-${entityId}`;
+            li.id = `entity-${entity.getId()}`;
             li.style.border = 'solid 1px white';
-            li.onclick = () => (Editor.selectedEntity = entityId);
+            li.onclick = () => (Editor.selectedEntity = entity.getId());
 
-            const forms = this.getComponentsForms(entityComponents, entityId, assetStore);
-            li.appendChild(title);
+            const forms = this.getComponentsForms(entityComponents, entity.getId(), assetStore);
+            li.appendChild(header);
             li.appendChild(forms);
 
             entityList.appendChild(li);

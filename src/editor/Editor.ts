@@ -323,6 +323,7 @@ export default class Editor extends Engine {
         if (!this.panEnabled) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
         }
+        
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
