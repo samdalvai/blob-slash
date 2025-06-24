@@ -1,7 +1,7 @@
-import ParticleEmitComponent from '../components/ParticleEmitComponent';
-import TransformComponent from '../components/TransformComponent';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import ParticleEmitComponent from '../components/ParticleEmitComponent';
+import TransformComponent from '../components/TransformComponent';
 
 export default class DebugParticleSourceSystem extends System {
     constructor() {
@@ -10,7 +10,7 @@ export default class DebugParticleSourceSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const particleEmit = entity.getComponent(ParticleEmitComponent);
@@ -30,11 +30,11 @@ export default class DebugParticleSourceSystem extends System {
                 continue;
             }
 
-            const circleX = transform.position.x - camera.x + particleEmit.offsetX;
-            const circleY = transform.position.y - camera.y + particleEmit.offsetY;
+            const circleX = (transform.position.x - camera.x + particleEmit.offsetX) * zoom;
+            const circleY = (transform.position.y - camera.y + particleEmit.offsetY) * zoom;
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, particleEmit.emitRadius, 0, Math.PI * 2);
+            ctx.arc(circleX, circleY, particleEmit.emitRadius * zoom, 0, Math.PI * 2);
             ctx.strokeStyle = 'blue';
             ctx.stroke();
         }
