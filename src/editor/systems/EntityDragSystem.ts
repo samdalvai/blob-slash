@@ -26,7 +26,11 @@ export default class EntityDragSystem extends System {
             return;
         }
 
-        let entityClicked = false;
+        const renderableEntities: {
+            entity: Entity;
+            sprite: SpriteComponent;
+            transform: TransformComponent;
+        }[] = [];
 
         for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
@@ -36,22 +40,41 @@ export default class EntityDragSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
+            renderableEntities.push({ entity, sprite, transform });
+        }
+
+        renderableEntities.sort((entityA, entityB) => {
+            if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
+                return entityA.transform.position.y - entityB.transform.position.y;
+            }
+
+            return entityA.sprite.zIndex - entityB.sprite.zIndex;
+        });
+
+        let entityClicked = false;
+
+        for (const entity of renderableEntities) {
+            const sprite = entity.sprite;
+            const transform = entity.transform;
+
             if (
                 event.coordinates.x >= transform.position.x &&
                 event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== entity.getId()) {
-                    eventBus.emitEvent(EntitySelectEvent, entity);
+                if (Editor.selectedEntity !== entity.entity.getId()) {
+                    eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
                 entityClicked = true;
-                Editor.selectedEntity = entity.getId();
+                Editor.selectedEntity = entity.entity.getId();
                 Editor.entityDragOffset = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
                 };
+
+                continue;
             }
         }
 
