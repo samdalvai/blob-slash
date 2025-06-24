@@ -5,6 +5,7 @@ import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
+import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 
@@ -54,6 +55,11 @@ export default class RenderSidebarEntities extends System {
         for (const entity of entitiesIds) {
             const entityComponents = entity.getComponents();
 
+            const li = document.createElement('li');
+            li.id = `entity-${entity.getId()}`;
+            li.style.border = 'solid 1px white';
+            li.onclick = () => (Editor.selectedEntity = entity.getId());
+
             const header = document.createElement('div');
             header.className = 'd-flex align-center space-between';
 
@@ -66,17 +72,62 @@ export default class RenderSidebarEntities extends System {
                 entity.kill();
                 li.remove();
             };
-
             header.append(title);
             header.append(deleteButton);
+            li.appendChild(header);
 
-            const li = document.createElement('li');
-            li.id = `entity-${entity.getId()}`;
-            li.style.border = 'solid 1px white';
-            li.onclick = () => (Editor.selectedEntity = entity.getId());
+            const componentSelector = document.createElement('div');
+            componentSelector.className = 'd-flex align-center space-between pt-2';
+
+            const addComponentButton = document.createElement('button');
+            addComponentButton.innerText = 'Add component';
+            addComponentButton.onclick = () => {
+                const entityComponentSelector = document.getElementById(
+                    'component-select-' + entity.getId(),
+                ) as HTMLSelectElement;
+
+                if (!entityComponentSelector) {
+                    throw new Error('Could not find component selector for entity ' + entity.getId());
+                }
+
+                const ComponentClass = GameComponents[entityComponentSelector.value as keyof typeof GameComponents];
+
+                if (entity.hasComponent(ComponentClass)) {
+                    console.warn('Attention, entity already has component with class ', entityComponentSelector.value);
+                } else {
+                    entity.addComponent(ComponentClass);
+
+                    const component = entity.getComponent(ComponentClass);
+
+                    if (!component) {
+                        throw new Error('Could not find new component for entity ' + entity.getId());
+                    }
+                    // TODO: changing this component does not have any effect
+                    const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
+                    li.appendChild(componentContainer);
+                }
+            };
+
+            const select = document.createElement('select');
+            select.id = 'component-select-' + entity.getId();
+
+            const options: { value: string; text: string }[] = [];
+            for (const componentKey in GameComponents) {
+                options.push({ value: componentKey, text: componentKey });
+            }
+
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                select.appendChild(option);
+            });
+
+            componentSelector.appendChild(addComponentButton);
+            componentSelector.appendChild(select);
+            li.appendChild(componentSelector);
 
             const forms = this.getComponentsForms(entityComponents, entity.getId(), assetStore);
-            li.appendChild(header);
             li.appendChild(forms);
 
             entityList.appendChild(li);
@@ -92,34 +143,39 @@ export default class RenderSidebarEntities extends System {
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
-            const componentContainer = document.createElement('div');
-            componentContainer.className = 'pb-2';
-            const title = document.createElement('span');
-            const componentName = component.constructor.name;
-            title.innerText = '* ' + componentName;
-            componentContainer.append(title);
-
-            const properties = Object.keys(component);
-
-            for (const key of properties) {
-                const form = this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore);
-
-                if (form) {
-                    componentContainer.append(form);
-                }
-            }
-
-            if (properties.length === 0) {
-                const li = document.createElement('li');
-                li.className = 'd-flex align-center';
-                li.innerText = 'No property for this component...';
-                componentContainer.append(li);
-            }
-
+            const componentContainer = this.getComponentContainer(component, entityId, assetStore);
             container.append(componentContainer);
         }
 
         return container;
+    };
+
+    private getComponentContainer = (component: Component, entityId: number, assetStore: AssetStore) => {
+        const componentContainer = document.createElement('div');
+        componentContainer.className = 'pb-2';
+        const title = document.createElement('span');
+        const componentName = component.constructor.name;
+        title.innerText = '* ' + componentName;
+        componentContainer.append(title);
+
+        const properties = Object.keys(component);
+
+        for (const key of properties) {
+            const form = this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore);
+
+            if (form) {
+                componentContainer.append(form);
+            }
+        }
+
+        if (properties.length === 0) {
+            const li = document.createElement('li');
+            li.className = 'd-flex align-center';
+            li.innerText = 'No property for this component...';
+            componentContainer.append(li);
+        }
+
+        return componentContainer;
     };
 
     private getPropertyInput = (
