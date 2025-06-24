@@ -52,7 +52,7 @@ button {
 }
 
 #sidebar h2,
-#sidebar h3, 
+#sidebar h3,
 #sidebar h4 {
     margin-top: 0;
     margin-bottom: 0;
@@ -71,6 +71,13 @@ button {
     background-color: #2a2a2a;
     margin-bottom: 4px;
     border-radius: 4px;
+}
+
+#entity-list span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1
 }
 
 #entity-list li:hover {
