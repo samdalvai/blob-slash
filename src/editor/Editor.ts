@@ -291,6 +291,13 @@ export default class Editor extends Engine {
 
             this.camera.x += mouseWorldXBefore - mouseWorldXAfter;
             this.camera.y += mouseWorldYBefore - mouseWorldYAfter;
+
+            if (!this.canvas) {
+                throw new Error('Canvas is not defined');
+            }
+
+            this.camera.width = this.canvas.width / this.zoom;
+            this.camera.height = this.canvas.height / this.zoom;
         }
     };
 
