@@ -13,15 +13,35 @@ export default class RenderSpriteBoxSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
-        // Traverse entities backwards to highlight the ones in front
-        for (let i = this.getSystemEntities().length - 1; i >= 0; i--) {
-            const entity = this.getSystemEntities()[i];
+        const renderableEntities: {
+            entityId: number;
+            sprite: SpriteComponent;
+            transform: TransformComponent;
+        }[] = [];
+
+        for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
 
             if (!sprite || !transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
+
+            renderableEntities.push({ entityId: entity.getId(), sprite, transform });
+        }
+
+        renderableEntities.sort((entityA, entityB) => {
+            if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
+                return entityA.transform.position.y - entityB.transform.position.y;
+            }
+
+            return entityA.sprite.zIndex - entityB.sprite.zIndex;
+        });
+
+        // Traverse entities backwards to highlight the ones in front
+        for (let i = renderableEntities.length - 1; i >= 0; i--) {
+            const sprite = renderableEntities[i].sprite;
+            const transform = renderableEntities[i].transform;
 
             // Bypass rendering if entities are outside the camera view
             // const isOutsideCameraView =
@@ -41,7 +61,7 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            if (Editor.selectedEntity !== null && Editor.selectedEntity === entity.getId()) {
+            if (Editor.selectedEntity !== null && Editor.selectedEntity === renderableEntities[i].entityId) {
                 ctx.save();
                 ctx.strokeStyle = 'green';
                 ctx.lineWidth = 4;
@@ -60,6 +80,8 @@ export default class RenderSpriteBoxSystem extends System {
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
+
+                return;
             }
         }
     }
