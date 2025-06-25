@@ -1,3 +1,4 @@
+import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Component from '../../engine/ecs/Component';
 import Registry from '../../engine/ecs/Registry';
@@ -94,6 +95,7 @@ export default class RenderSidebarEntities extends System {
 
                 if (entity.hasComponent(ComponentClass)) {
                     console.warn('Attention, entity already has component with class ', entityComponentSelector.value);
+                    alert('Entity already has component ' + entityComponentSelector.value);
                 } else {
                     entity.addComponent(ComponentClass);
 
