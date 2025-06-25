@@ -22,15 +22,15 @@ export default class InputManager {
         });
     }
 
-    handleKeyboardEvent = (event: KeyboardEvent) => {
+    private handleKeyboardEvent = (event: KeyboardEvent) => {
         this.keyboardInputBuffer.push(event);
     };
 
-    handleMouseEvent = (event: MouseEvent) => {
+    private handleMouseEvent = (event: MouseEvent) => {
         this.mouseInputBuffer.push(event);
     };
 
-    handleWheelEvent = (event: WheelEvent) => {
+    private handleWheelEvent = (event: WheelEvent) => {
         this.wheelInputBuffer.push(event);
     };
 }

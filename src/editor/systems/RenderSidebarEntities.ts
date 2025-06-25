@@ -1,4 +1,3 @@
-import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Component from '../../engine/ecs/Component';
 import Registry from '../../engine/ecs/Registry';
@@ -9,6 +8,7 @@ import { isRectangle, isVector } from '../../engine/utils/vector';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
+import { showAlert } from '../gui';
 
 export default class RenderSidebarEntities extends System {
     constructor() {
@@ -94,8 +94,9 @@ export default class RenderSidebarEntities extends System {
                 const ComponentClass = GameComponents[entityComponentSelector.value as keyof typeof GameComponents];
 
                 if (entity.hasComponent(ComponentClass)) {
-                    console.warn('Attention, entity already has component with class ', entityComponentSelector.value);
-                    alert('Entity already has component ' + entityComponentSelector.value);
+                    showAlert(
+                        `Entity with id ${entity.getId()} already has component ` + entityComponentSelector.value,
+                    );
                 } else {
                     entity.addComponent(ComponentClass);
 

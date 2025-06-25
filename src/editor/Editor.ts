@@ -6,6 +6,13 @@ import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
 import EditorLevelManager from './level-manager/EditorLevelManager';
 import * as EditorSystems from './systems';
+import { closeAlert } from './gui';
+
+declare global {
+    interface Window {
+        closeAlert: () => void;
+    }
+}
 
 export default class Editor extends Engine {
     // Objects for rendering
@@ -23,6 +30,7 @@ export default class Editor extends Engine {
     static snapToGrid = false;
     static showGrid = true;
     static gridSquareSide = 64;
+    static alertShown = false;
 
     constructor() {
         super();
@@ -88,6 +96,8 @@ export default class Editor extends Engine {
                 this.resize(this.canvas, this.camera, this.sidebar);
             }
         });
+
+        window.closeAlert = closeAlert;
     };
 
     setup = async () => {
@@ -145,6 +155,13 @@ export default class Editor extends Engine {
     };
 
     processInput = () => {
+        if (Editor.alertShown) {
+            this.inputManager.mouseInputBuffer = [];
+            this.inputManager.keyboardInputBuffer = [];
+            this.inputManager.wheelInputBuffer = [];
+            return;
+        }
+
         // Hanlde keyboard events
         while (this.inputManager.keyboardInputBuffer.length > 0) {
             const inputEvent = this.inputManager.keyboardInputBuffer.shift();
@@ -323,7 +340,7 @@ export default class Editor extends Engine {
         if (!this.panEnabled) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
         }
-        
+
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
