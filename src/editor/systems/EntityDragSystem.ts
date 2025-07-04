@@ -16,12 +16,12 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus));
+    subscribeToEvents(eventBus: EventBus, sidebarOffset: number) {
+        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, sidebarOffset));
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
     }
 
-    onMousePressed = (event: MousePressedEvent, eventBus: EventBus) => {
+    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, sidebarOffset: number) => {
         if (event.button !== MouseButton.LEFT) {
             return;
         }
@@ -78,7 +78,7 @@ export default class EntityDragSystem extends System {
             }
         }
 
-        if (!entityClicked) {
+        if (!entityClicked && event.coordinates.x >= sidebarOffset) {
             Editor.selectedEntity = null;
         }
     };
