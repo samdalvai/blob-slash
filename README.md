@@ -27,3 +27,9 @@ Now open the browser at http://localhost:1234
 ```
 npm run start:editor
 ```
+
+## Clean build files
+
+```
+npm run clean
+```
