@@ -4,9 +4,9 @@ import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
+import { closeAlert } from './gui';
 import EditorLevelManager from './level-manager/EditorLevelManager';
 import * as EditorSystems from './systems';
-import { closeAlert } from './gui';
 
 declare global {
     interface Window {
@@ -338,7 +338,9 @@ export default class Editor extends Engine {
         // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
         if (!this.panEnabled) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
+            this.registry
+                .getSystem(EditorSystems.EntityDragSystem)
+                ?.subscribeToEvents(this.eventBus, this.sidebar ? this.sidebar.getBoundingClientRect().width : 0);
         }
 
         this.registry.getSystem(EditorSystems.RenderSidebarEntities)?.subscribeToEvents(this.eventBus, this.sidebar);
