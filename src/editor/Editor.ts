@@ -416,7 +416,9 @@ export default class Editor extends Engine {
                 .getSystem(EditorSystems.RenderSidebarEntities)
                 ?.update(this.sidebar, this.registry, this.assetStore);
             this.registry.getSystem(EditorSystems.RenderSidebarLevelSettings)?.update(this.sidebar);
-            this.registry.getSystem(EditorSystems.RenderSidebarSaveButtons)?.update(this.sidebar, this.registry);
+            this.registry
+                .getSystem(EditorSystems.RenderSidebarSaveButtons)
+                ?.update(this.sidebar, this.registry, this.assetStore);
             this.shouldSidebarUpdate = false;
         }
     };

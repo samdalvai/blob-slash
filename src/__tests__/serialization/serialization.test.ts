@@ -1,13 +1,14 @@
 import { expect } from '@jest/globals';
 
-import RigidBodyComponent from '../../game/components/RigidBodyComponent';
-import TransformComponent from '../../game/components/TransformComponent';
+import Engine from '../../engine/Engine';
+import AssetStore from '../../engine/asset-store/AssetStore';
 import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import { serializeEntities, serializeEntity, serializeLevel } from '../../engine/serialization/serialization';
 import { EntityMap, LevelMap } from '../../engine/types/map';
-import Engine from '../../engine/Engine';
+import RigidBodyComponent from '../../game/components/RigidBodyComponent';
+import TransformComponent from '../../game/components/TransformComponent';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {
@@ -332,6 +333,8 @@ describe('Testing serialization related functions', () => {
 
     test('Should serialize level with one entity', () => {
         const registry = new Registry();
+        const assetStore = new AssetStore();
+
         const entity = registry.createEntity();
         entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
@@ -352,16 +355,20 @@ describe('Testing serialization related functions', () => {
                     ],
                 },
             ],
+            textures: [],
+            sounds: [],
         };
 
         Engine.mapWidth = 500;
         Engine.mapHeight = 500;
 
-        expect(serializeLevel(registry)).toEqual(expected);
+        expect(serializeLevel(registry, assetStore)).toEqual(expected);
     });
 
     test('Should serialize level with two entities', () => {
         const registry = new Registry();
+        const assetStore = new AssetStore();
+        
         const entity1 = registry.createEntity();
         entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
@@ -397,16 +404,20 @@ describe('Testing serialization related functions', () => {
                     ],
                 },
             ],
+            textures: [],
+            sounds: [],
         };
 
         Engine.mapWidth = 500;
         Engine.mapHeight = 500;
 
-        expect(serializeLevel(registry)).toEqual(expected);
+        expect(serializeLevel(registry, assetStore)).toEqual(expected);
     });
 
     test('Should serialize level with one entity where another entity has been killed', () => {
         const registry = new Registry();
+        const assetStore = new AssetStore();
+        
         const entity1 = registry.createEntity();
         entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
@@ -433,11 +444,13 @@ describe('Testing serialization related functions', () => {
                     ],
                 },
             ],
+            textures: [],
+            sounds: [],
         };
 
         Engine.mapWidth = 500;
         Engine.mapHeight = 500;
 
-        expect(serializeLevel(registry)).toEqual(expected);
+        expect(serializeLevel(registry, assetStore)).toEqual(expected);
     });
 });

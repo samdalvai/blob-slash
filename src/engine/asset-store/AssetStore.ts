@@ -1,12 +1,20 @@
+import { Asset } from '../types/map';
+
 export default class AssetStore {
     private textures: Map<string, HTMLImageElement>;
     private sounds: Map<string, HTMLAudioElement>;
     private jsons: Map<string, any>;
 
+    private texturesFilePaths: Asset[];
+    private soundsFilePaths: Asset[];
+
     constructor() {
         this.textures = new Map<string, HTMLImageElement>();
         this.sounds = new Map<string, HTMLAudioElement>();
         this.jsons = new Map<string, any>();
+
+        this.texturesFilePaths = [];
+        this.soundsFilePaths = [];
     }
 
     addTexture(assetId: string, filePath: string): Promise<void> {
@@ -17,6 +25,7 @@ export default class AssetStore {
             texture.onload = () => {
                 console.log('Texture added to the AssetStore with id ' + assetId);
                 this.textures.set(assetId, texture);
+                this.texturesFilePaths.push({ assetId, filePath });
                 resolve();
             };
 
@@ -49,6 +58,7 @@ export default class AssetStore {
             sound.onloadeddata = () => {
                 console.log('Sound added to the AssetStore with id ' + assetId);
                 this.sounds.set(assetId, sound);
+                this.soundsFilePaths.push({ assetId, filePath });
                 resolve();
             };
 
@@ -97,9 +107,20 @@ export default class AssetStore {
         return json;
     }
 
+    getTexturesFilePaths() {
+        return this.texturesFilePaths;
+    }
+
+    getSoundsFilePaths() {
+        return this.soundsFilePaths;
+    }
+
     clearAssets() {
         this.textures.clear();
         this.sounds.clear();
         this.jsons.clear();
+
+        this.texturesFilePaths = [];
+        this.soundsFilePaths = [];
     }
 }

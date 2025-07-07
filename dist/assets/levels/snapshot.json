@@ -1,4 +1,96 @@
 {
+  "textures": [
+    {
+      "assetId": "desert-texture",
+      "filePath": "./assets/tilemaps/desert.png"
+    },
+    {
+      "assetId": "tiles-dark-texture",
+      "filePath": "./assets/tilemaps/tiles_dark.png"
+    },
+    {
+      "assetId": "slime-texture",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "player-texture",
+      "filePath": "./assets/sprites/player_full.png"
+    },
+    {
+      "assetId": "skeleton-texture",
+      "filePath": "./assets/sprites/skeleton_full.png"
+    },
+    {
+      "assetId": "magic-sphere-texture",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "magic-bubble-texture",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "fire-circle-texture",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "teleport-texture",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "tree-texture",
+      "filePath": "./assets/sprites/tree.png"
+    },
+    {
+      "assetId": "torch-texture",
+      "filePath": "./assets/sprites/torch.png"
+    },
+    {
+      "assetId": "skills-menu-texture",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "cooldown-skill-texture",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "mouse-menu-texture",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "destination-circle-texture",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "smear-animation-texture",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "explosion-small-blue-texture",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
+    }
+  ],
+  "sounds": [
+    {
+      "assetId": "entity-hit-sound",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport-sound",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash-sound",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee-attack-sound",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    }
+  ],
   "mapWidth": 960,
   "mapHeight": 640,
   "entities": [
@@ -33,7 +125,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 0,
+              "x": 96,
               "y": 32,
               "width": 32,
               "height": 32
@@ -64,7 +156,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -181,7 +273,7 @@
             "zIndex": 2,
             "srcRect": {
               "x": 0,
-              "y": 160,
+              "y": 192,
               "width": 32,
               "height": 32
             },
@@ -194,12 +286,12 @@
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
-              "x": 50,
-              "y": 0
+              "x": 0,
+              "y": 50
             },
             "direction": {
-              "x": 1,
-              "y": 0
+              "x": 0,
+              "y": 1
             }
           }
         },
@@ -291,8 +383,8 @@
                 "duration": 2000
               }
             ],
-            "currentActionIndex": 0,
-            "actionStart": 500.39999999990687
+            "currentActionIndex": 1,
+            "actionStart": 3006.5
           }
         },
         {
@@ -356,7 +448,7 @@
             "zIndex": 2,
             "srcRect": {
               "x": 0,
-              "y": 160,
+              "y": 192,
               "width": 32,
               "height": 32
             },
@@ -369,12 +461,12 @@
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
-              "x": 50,
-              "y": 0
+              "x": 0,
+              "y": 50
             },
             "direction": {
-              "x": 1,
-              "y": 0
+              "x": 0,
+              "y": 1
             }
           }
         },
@@ -466,8 +558,8 @@
                 "duration": 2000
               }
             ],
-            "currentActionIndex": 0,
-            "actionStart": 500.5
+            "currentActionIndex": 1,
+            "actionStart": 3006.5
           }
         },
         {
@@ -535,7 +627,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 32,
               "y": 0,
               "width": 32,
               "height": 32
@@ -549,7 +641,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 1,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -558,7 +650,7 @@
         {
           "name": "ParticleEmitComponent",
           "properties": {
-            "lastEmission": 2278.3000000000466,
+            "lastEmission": 3508.60000000149,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -623,7 +715,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 32,
               "y": 0,
               "width": 32,
               "height": 32
@@ -637,7 +729,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 1,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -646,7 +738,7 @@
         {
           "name": "ParticleEmitComponent",
           "properties": {
-            "lastEmission": 2278.399999999907,
+            "lastEmission": 3508.60000000149,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -6143,8 +6235,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 515.1681937148915,
-              "y": 195.2408761151627
+              "x": 217.68534063229532,
+              "y": 199.22803103548605
             },
             "scale": {
               "x": 1,
@@ -6188,8 +6280,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 215.9290961886865,
-              "y": 201.26249495888732
+              "x": 520.0206669969193,
+              "y": 200.18148322320354
             },
             "scale": {
               "x": 1,
@@ -6233,8 +6325,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 512.2856952308596,
-              "y": 203.26707893699378
+              "x": 220.03158674605152,
+              "y": 199.7969981454769
             },
             "scale": {
               "x": 1,
@@ -6278,8 +6370,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 218.0220639579178,
-              "y": 202.97225747911853
+              "x": 513.1109142142109,
+              "y": 198.0359623908496
             },
             "scale": {
               "x": 1,
@@ -6323,8 +6415,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 518.0626049087697,
-              "y": 201.94980535033258
+              "x": 218.69519416069826,
+              "y": 197.24292234637156
             },
             "scale": {
               "x": 1,
@@ -6368,8 +6460,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 212.2853658047988,
-              "y": 201.0171100674102
+              "x": 514.688144389612,
+              "y": 202.845190374012
             },
             "scale": {
               "x": 1,
@@ -6413,8 +6505,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 520.1343059040826,
-              "y": 199.67653344452495
+              "x": 216.18496843346296,
+              "y": 199.54008508379354
             },
             "scale": {
               "x": 1,
@@ -6458,8 +6550,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 213.72226460605577,
-              "y": 195.9437466369568
+              "x": 518.4722310505456,
+              "y": 203.8119545989912
             },
             "scale": {
               "x": 1,
@@ -6503,8 +6595,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 217.34313015580778,
-              "y": 200.90095997689272
+              "x": 217.30145308639962,
+              "y": 198.81610214020782
             },
             "scale": {
               "x": 1,
@@ -6548,8 +6640,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 515.3480747823196,
-              "y": 202.08103919629713
+              "x": 514.0506930632001,
+              "y": 199.6683989076102
             },
             "scale": {
               "x": 1,
