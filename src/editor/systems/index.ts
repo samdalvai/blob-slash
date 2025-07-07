@@ -1,4 +1,3 @@
-export { default as EditorRenderSystem } from './EditorRenderSystem';
 export { default as RenderGameBorderSystem } from './RenderGameBorderSystem';
 export { default as RenderSidebarSystem } from './RenderSidebarSystem';
 export { default as RenderSpriteBoxSystem } from './RenderSpriteBoxSystem';

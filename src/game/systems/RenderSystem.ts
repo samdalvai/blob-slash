@@ -13,7 +13,7 @@ export default class RenderSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle, zoom = 1) {
         const renderableEntities: {
             sprite: SpriteComponent;
             transform: TransformComponent;
@@ -65,10 +65,12 @@ export default class RenderSystem extends System {
                 // Draw an ellipse as the shadow
                 ctx.beginPath();
                 ctx.ellipse(
-                    transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x,
-                    transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y,
-                    entity.shadow.width / 2,
-                    entity.shadow.height / 2,
+                    (transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x) *
+                        zoom,
+                    (transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y) *
+                        zoom,
+                    (entity.shadow.width / 2) * zoom,
+                    (entity.shadow.height / 2) * zoom,
                     0,
                     0,
                     2 * Math.PI,
@@ -96,10 +98,10 @@ export default class RenderSystem extends System {
             const srcRect: Rectangle = sprite.srcRect;
 
             const dstRect: Rectangle = {
-                x: transform.position.x - (sprite.isFixed ? 0 : camera.x),
-                y: transform.position.y - (sprite.isFixed ? 0 : camera.y),
-                width: sprite.width * transform.scale.x,
-                height: sprite.height * transform.scale.y,
+                x: (transform.position.x - (sprite.isFixed ? 0 : camera.x)) * zoom,
+                y: (transform.position.y - (sprite.isFixed ? 0 : camera.y)) * zoom,
+                width: sprite.width * transform.scale.x * zoom,
+                height: sprite.height * transform.scale.y * zoom,
             };
 
             ctx.save();
