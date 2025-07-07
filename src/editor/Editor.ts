@@ -101,7 +101,7 @@ export default class Editor extends Engine {
 
     setup = async () => {
         // Rendering systems
-        // this.registry.addSystem(GameSystems.RenderSystem);
+        this.registry.addSystem(GameSystems.RenderSystem);
         this.registry.addSystem(GameSystems.RenderTextSystem);
         this.registry.addSystem(GameSystems.RenderParticleSystem);
         this.registry.addSystem(GameSystems.RenderLightingSystem);
@@ -141,7 +141,6 @@ export default class Editor extends Engine {
         this.registry.addSystem(GameSystems.DebugCursorCoordinatesSystem);
 
         // Editor related systems
-        this.registry.addSystem(EditorSystems.EditorRenderSystem);
         this.registry.addSystem(EditorSystems.RenderSpriteBoxSystem);
         this.registry.addSystem(EditorSystems.RenderGameBorderSystem);
         this.registry.addSystem(EditorSystems.RenderSidebarSystem);
@@ -376,12 +375,9 @@ export default class Editor extends Engine {
         // Render Editor systems
         this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry
-            .getSystem(EditorSystems.EditorRenderSystem)
-            ?.update(this.ctx, this.assetStore, this.camera, this.zoom);
 
         // Render game related systems
-        // this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
+        this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
         this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
         // this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
