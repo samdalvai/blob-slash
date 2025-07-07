@@ -2,6 +2,7 @@ import AssetStore from './asset-store/AssetStore';
 import Registry from './ecs/Registry';
 import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
+import LevelManager from './level-manager/LevelManager';
 import { GameStatus, Rectangle, Vector } from './types/utils';
 
 export default abstract class Engine {
@@ -15,6 +16,7 @@ export default abstract class Engine {
     protected assetStore: AssetStore;
     protected eventBus: EventBus;
     protected inputManager: InputManager;
+    protected levelManager: LevelManager;
 
     // Game status properties
     protected isRunning: boolean;
@@ -44,6 +46,7 @@ export default abstract class Engine {
         this.assetStore = new AssetStore();
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
+        this.levelManager = new LevelManager(this.assetStore);
 
         this.isRunning = false;
         this.isDebug = false;
