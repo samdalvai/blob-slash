@@ -1,10 +1,10 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
+import System from '../../engine/ecs/System';
+import { Flip, Rectangle } from '../../engine/types/utils';
 import HighlightComponent from '../components/HighlightComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { Flip, Rectangle } from '../../engine/types/utils';
 
 export default class RenderSystem extends System {
     constructor() {
@@ -42,10 +42,7 @@ export default class RenderSystem extends System {
             }
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
-
-            const highlight = entity.hasComponent(HighlightComponent)
-                ? entity.getComponent(HighlightComponent)
-                : undefined;
+            const highlight = entity.getComponent(HighlightComponent);
 
             renderableEntities.push({ sprite, transform, shadow, highlight });
         }

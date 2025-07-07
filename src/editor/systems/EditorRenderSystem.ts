@@ -42,10 +42,7 @@ export default class EditorRenderSystem extends System {
             }
 
             const shadow = entity.hasComponent(ShadowComponent) ? entity.getComponent(ShadowComponent) : undefined;
-
-            const highlight = entity.hasComponent(HighlightComponent)
-                ? entity.getComponent(HighlightComponent)
-                : undefined;
+            const highlight = entity.getComponent(HighlightComponent);
 
             renderableEntities.push({ sprite, transform, shadow, highlight });
         }
