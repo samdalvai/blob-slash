@@ -1,8 +1,10 @@
+import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
 import Component from '../../engine/ecs/Component';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
+import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
 import * as GameComponents from '../../game/components';
@@ -10,7 +12,7 @@ import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 
-export default class RenderSidebarEntitiesSystem extends System {
+export default class RenderSidebarSystem extends System {
     constructor() {
         super();
     }
@@ -43,6 +45,12 @@ export default class RenderSidebarEntitiesSystem extends System {
     };
 
     update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
+        this.renderEntityList(sidebar, registry, assetStore);
+        this.renderLevelSettings(sidebar);
+        this.renderSaveButtons(sidebar, registry, assetStore);
+    }
+
+    private renderEntityList = (sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) => {
         const entityList = sidebar.querySelector('#entity-list');
 
         if (!entityList) {
@@ -139,6 +147,61 @@ export default class RenderSidebarEntitiesSystem extends System {
 
             entityList.appendChild(li);
         }
+    };
+
+    private renderLevelSettings = (sidebar: HTMLElement) => {
+        const gameWidthInput = sidebar.querySelector('#map-width') as HTMLInputElement;
+        const gameHeightInput = sidebar.querySelector('#map-height') as HTMLInputElement;
+        const snapGridInput = sidebar.querySelector('#snap-grid') as HTMLInputElement;
+        const showGridInput = sidebar.querySelector('#show-grid') as HTMLInputElement;
+        const gridSideInput = sidebar.querySelector('#grid-side') as HTMLInputElement;
+
+        if (!gameWidthInput || !gameHeightInput || !snapGridInput || !showGridInput || !gridSideInput) {
+            throw new Error('Could not retrieve level settings element(s)');
+        }
+
+        gameWidthInput.value = Engine.mapWidth.toString();
+        gameHeightInput.value = Engine.mapHeight.toString();
+        snapGridInput.checked = Editor.snapToGrid;
+        showGridInput.checked = Editor.showGrid;
+        gridSideInput.value = Editor.gridSquareSide.toString();
+
+        gameWidthInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Engine.mapWidth = parseInt(target.value);
+        });
+
+        gameHeightInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Engine.mapHeight = parseInt(target.value);
+        });
+
+        snapGridInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Editor.snapToGrid = target.checked;
+        });
+
+        showGridInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Editor.showGrid = target.checked;
+        });
+
+        gridSideInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Editor.gridSquareSide = parseInt(target.value);
+        });
+    };
+
+    private renderSaveButtons(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
+        const saveToJsonButton = sidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const saveToLocalButton = sidebar.querySelector('#save-to-local') as HTMLButtonElement;
+
+        if (!saveToJsonButton || !saveToLocalButton) {
+            throw new Error('Could not retrieve level save button(s)');
+        }
+
+        saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
+        saveToLocalButton.onclick = () => saveLevelToLocalStorage('level', registry, assetStore);
     }
 
     private getComponentsForms = (
