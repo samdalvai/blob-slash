@@ -2,7 +2,7 @@ import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
 import Engine from '../../engine/Engine';
 
-export default class RenderGameBorder extends System {
+export default class RenderGameBorderSystem extends System {
     constructor() {
         super();
     }
