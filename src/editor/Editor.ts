@@ -144,9 +144,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.EditorRenderSystem);
         this.registry.addSystem(EditorSystems.RenderSpriteBoxSystem);
         this.registry.addSystem(EditorSystems.RenderGameBorderSystem);
-        this.registry.addSystem(EditorSystems.RenderSidebarEntitiesSystem);
-        this.registry.addSystem(EditorSystems.RenderLevelSettingsSystem);
-        this.registry.addSystem(EditorSystems.RenderSaveButtonsSystem);
+        this.registry.addSystem(EditorSystems.RenderSidebarSystem);
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
 
@@ -343,7 +341,7 @@ export default class Editor extends Engine {
                 ?.subscribeToEvents(this.eventBus, this.sidebar ? this.sidebar.getBoundingClientRect().width : 0);
         }
 
-        this.registry.getSystem(EditorSystems.RenderSidebarEntitiesSystem)?.subscribeToEvents(this.eventBus, this.sidebar);
+        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.sidebar);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
@@ -413,12 +411,9 @@ export default class Editor extends Engine {
 
         if (this.shouldSidebarUpdate) {
             this.registry
-                .getSystem(EditorSystems.RenderSidebarEntitiesSystem)
+                .getSystem(EditorSystems.RenderSidebarSystem)
                 ?.update(this.sidebar, this.registry, this.assetStore);
-            this.registry.getSystem(EditorSystems.RenderLevelSettingsSystem)?.update(this.sidebar);
-            this.registry
-                .getSystem(EditorSystems.RenderSaveButtonsSystem)
-                ?.update(this.sidebar, this.registry, this.assetStore);
+
             this.shouldSidebarUpdate = false;
         }
     };
