@@ -2,7 +2,7 @@ import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
 import Editor from '../Editor';
 
-export default class RenderSidebarLevelSettings extends System {
+export default class RenderLevelSettingsSystem extends System {
     constructor() {
         super();
     }

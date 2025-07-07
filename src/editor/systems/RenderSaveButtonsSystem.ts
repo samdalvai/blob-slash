@@ -3,7 +3,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 
-export default class RenderSidebarSaveButtons extends System {
+export default class RenderSaveButtonsSystem extends System {
     constructor() {
         super();
     }

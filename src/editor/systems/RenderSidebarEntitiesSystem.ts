@@ -10,7 +10,7 @@ import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 
-export default class RenderSidebarEntities extends System {
+export default class RenderSidebarEntitiesSystem extends System {
     constructor() {
         super();
     }
