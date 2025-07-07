@@ -1,4 +1,5 @@
 import Engine from '../Engine';
+import AssetStore from '../asset-store/AssetStore';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import { ComponentMap, EntityMap, LevelMap } from '../types/map';
@@ -39,7 +40,13 @@ export const serializeEntities = (entities: Entity[]): EntityMap[] => {
     return entitiesMap;
 };
 
-export const serializeLevel = (registry: Registry): LevelMap => {
+export const serializeLevel = (registry: Registry, assetStore: AssetStore): LevelMap => {
     const entities = registry.getAllEntities();
-    return { mapWidth: Engine.mapWidth, mapHeight: Engine.mapHeight, entities: serializeEntities([...entities]) };
+    return {
+        textures: assetStore.getTexturesFilePaths(),
+        sounds: assetStore.getSoundsFilePaths(),
+        mapWidth: Engine.mapWidth,
+        mapHeight: Engine.mapHeight,
+        entities: serializeEntities([...entities]),
+    };
 };
