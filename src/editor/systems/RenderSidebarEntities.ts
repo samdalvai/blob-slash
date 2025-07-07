@@ -105,7 +105,11 @@ export default class RenderSidebarEntities extends System {
                     if (!component) {
                         throw new Error('Could not find new component for entity ' + entity.getId());
                     }
-                    // TODO: changing this component does not have any effect
+
+                    // Entities are added to systems only on creation, here we force and update to all systems
+                    registry.removeEntityFromSystems(entity);
+                    registry.addEntityToSystems(entity);
+
                     const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
                     li.appendChild(componentContainer);
                 }
