@@ -5,7 +5,6 @@ import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
-import EditorLevelManager from './level-manager/EditorLevelManager';
 import * as EditorSystems from './systems';
 
 declare global {
@@ -151,7 +150,8 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
 
-        await EditorLevelManager.loadLevel(this.registry, this.assetStore);
+        await this.levelManager.addLevel('snapshot', '/assets/levels/snapshot.json');
+        await this.levelManager.loadLevel(this.registry, 'snapshot');
     };
 
     processInput = () => {

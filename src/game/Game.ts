@@ -1,7 +1,6 @@
 import Engine from '../engine/Engine';
 import { GameStatus } from '../engine/types/utils';
 import * as GameEvents from './events';
-import GameLevelManager from './level-manager/GameLevelManager';
 import * as Systems from './systems';
 
 export default class Game extends Engine {
@@ -50,7 +49,8 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        await GameLevelManager.loadLevel(this.registry, this.assetStore);
+        await this.levelManager.addLevel('snapshot', '/assets/levels/snapshot.json');
+        await this.levelManager.loadLevel(this.registry, 'snapshot');
         this.gameStatus = GameStatus.PLAYING;
     };
 
