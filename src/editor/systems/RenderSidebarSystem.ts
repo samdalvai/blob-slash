@@ -64,12 +64,13 @@ export default class RenderSidebarSystem extends System {
         const entitiesIds = registry.getAllEntities();
 
         for (const entity of entitiesIds) {
-            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, entityList));
+            entityList.appendChild(this.getEntityListElement(entity, sidebar, registry, assetStore, entityList));
         }
     };
 
     private getEntityListElement = (
         entity: Entity,
+        sidebar: HTMLElement,
         registry: Registry,
         assetStore: AssetStore,
         entityList: Element,
@@ -106,8 +107,9 @@ export default class RenderSidebarSystem extends System {
                 entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
             }
 
-            registry.update();
-            entityList.appendChild(this.getEntityListElement(entityCopy, registry, assetStore, entityList));
+            entityList.appendChild(this.getEntityListElement(entityCopy, sidebar, registry, assetStore, entityList));
+            this.onEntitySelect(new EntitySelectEvent(entityCopy), sidebar);
+            Editor.selectedEntity = entityCopy.getId();
         };
 
         const deleteButton = document.createElement('button');
