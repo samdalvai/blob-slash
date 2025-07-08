@@ -17,7 +17,9 @@ export default class EntityDragSystem extends System {
     }
 
     subscribeToEvents(eventBus: EventBus, sidebarOffset: number) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, sidebarOffset));
+        eventBus.subscribeToEvent(MousePressedEvent, this, event =>
+            this.onMousePressed(event, eventBus, sidebarOffset),
+        );
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
     }
 
@@ -87,8 +89,12 @@ export default class EntityDragSystem extends System {
         Editor.entityDragOffset = null;
     };
 
-    update = () => {
-        if (!Editor.entityDragOffset || Editor.selectedEntity === null) {
+    update = (sidebar: HTMLElement) => {
+        if (
+            !Editor.entityDragOffset ||
+            Editor.selectedEntity === null ||
+            Engine.mousePositionWorld.x <= sidebar.getBoundingClientRect().width
+        ) {
             return;
         }
 
