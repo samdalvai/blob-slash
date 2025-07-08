@@ -1,9 +1,11 @@
 import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
-import Component from '../../engine/ecs/Component';
+import Component, { ComponentClass } from '../../engine/ecs/Component';
+import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
+import { getComponentConstructorParamNames } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
@@ -62,99 +64,123 @@ export default class RenderSidebarSystem extends System {
         const entitiesIds = registry.getAllEntities();
 
         for (const entity of entitiesIds) {
-            const entityComponents = entity.getComponents();
+            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, entityList));
+        }
+    };
 
-            const li = document.createElement('li');
-            li.id = `entity-${entity.getId()}`;
-            li.style.border = 'solid 1px white';
-            li.onclick = () => (Editor.selectedEntity = entity.getId());
+    private getEntityListElement = (
+        entity: Entity,
+        registry: Registry,
+        assetStore: AssetStore,
+        entityList: Element,
+    ) => {
+        const entityComponents = entity.getComponents();
 
-            const header = document.createElement('div');
-            header.className = 'd-flex align-center space-between';
+        const li = document.createElement('li');
+        li.id = `entity-${entity.getId()}`;
+        li.style.border = 'solid 1px white';
+        li.onclick = () => (Editor.selectedEntity = entity.getId());
 
-            const title = document.createElement('h3');
-            title.textContent = `Entity id: ${entity.getId()}`;
+        const header = document.createElement('div');
+        header.className = 'd-flex align-center space-between';
 
-            const duplicateButton = document.createElement('button');
-            duplicateButton.innerText = 'DUPLICATE';
-            duplicateButton.onclick = () => {
-                // TODO: implement duplicate mechanism
-            };
+        const title = document.createElement('h3');
+        title.textContent = `Entity id: ${entity.getId()}`;
 
-            const deleteButton = document.createElement('button');
-            deleteButton.innerText = 'DELETE';
-            deleteButton.onclick = () => {
-                entity.kill();
-                li.remove();
-            };
+        const duplicateButton = document.createElement('button');
+        duplicateButton.innerText = 'DUPLICATE';
+        duplicateButton.onclick = () => {
+            const entityCopy = registry.createEntity();
+            const components = entity.getComponents();
 
-            header.append(title);
-            header.append(duplicateButton);
-            header.append(deleteButton);
-            li.appendChild(header);
+            for (const component of components) {
+                const ComponentClassConstructor = component.constructor;
 
-            const componentSelector = document.createElement('div');
-            componentSelector.className = 'd-flex align-center space-between pt-2';
+                const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
+                const parameterValues: (keyof Component)[] = [];
 
-            const addComponentButton = document.createElement('button');
-            addComponentButton.innerText = 'Add component';
-            addComponentButton.onclick = () => {
-                const entityComponentSelector = document.getElementById(
-                    'component-select-' + entity.getId(),
-                ) as HTMLSelectElement;
-
-                if (!entityComponentSelector) {
-                    throw new Error('Could not find component selector for entity ' + entity.getId());
+                for (const param of parameters) {
+                    parameterValues.push(component[param as keyof Component]);
                 }
 
-                const ComponentClass = GameComponents[entityComponentSelector.value as keyof typeof GameComponents];
-
-                if (entity.hasComponent(ComponentClass)) {
-                    showAlert(
-                        `Entity with id ${entity.getId()} already has component ` + entityComponentSelector.value,
-                    );
-                } else {
-                    entity.addComponent(ComponentClass);
-
-                    const component = entity.getComponent(ComponentClass);
-
-                    if (!component) {
-                        throw new Error('Could not find new component for entity ' + entity.getId());
-                    }
-
-                    // Entities are added to systems only on creation, here we force and update to all systems
-                    registry.removeEntityFromSystems(entity);
-                    registry.addEntityToSystems(entity);
-
-                    const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
-                    li.appendChild(componentContainer);
-                }
-            };
-
-            const select = document.createElement('select');
-            select.id = 'component-select-' + entity.getId();
-
-            const options: { value: string; text: string }[] = [];
-            for (const componentKey in GameComponents) {
-                options.push({ value: componentKey, text: componentKey });
+                entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
             }
 
-            options.forEach(optionData => {
-                const option = document.createElement('option');
-                option.value = optionData.value;
-                option.textContent = optionData.text;
-                select.appendChild(option);
-            });
+            registry.update();
+            entityList.appendChild(this.getEntityListElement(entityCopy, registry, assetStore, entityList));
+        };
 
-            componentSelector.appendChild(addComponentButton);
-            componentSelector.appendChild(select);
-            li.appendChild(componentSelector);
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'DELETE';
+        deleteButton.onclick = () => {
+            entity.kill();
+            li.remove();
+        };
 
-            const forms = this.getComponentsForms(entityComponents, entity.getId(), assetStore);
-            li.appendChild(forms);
+        header.append(title);
+        header.append(duplicateButton);
+        header.append(deleteButton);
+        li.appendChild(header);
 
-            entityList.appendChild(li);
+        const componentSelector = document.createElement('div');
+        componentSelector.className = 'd-flex align-center space-between pt-2';
+
+        const addComponentButton = document.createElement('button');
+        addComponentButton.innerText = 'Add component';
+        addComponentButton.onclick = () => {
+            const entityComponentSelector = document.getElementById(
+                'component-select-' + entity.getId(),
+            ) as HTMLSelectElement;
+
+            if (!entityComponentSelector) {
+                throw new Error('Could not find component selector for entity ' + entity.getId());
+            }
+
+            const ComponentClass = GameComponents[entityComponentSelector.value as keyof typeof GameComponents];
+
+            if (entity.hasComponent(ComponentClass)) {
+                showAlert(`Entity with id ${entity.getId()} already has component ` + entityComponentSelector.value);
+            } else {
+                entity.addComponent(ComponentClass);
+
+                const component = entity.getComponent(ComponentClass);
+
+                if (!component) {
+                    throw new Error('Could not find new component for entity ' + entity.getId());
+                }
+
+                // Entities are added to systems only on creation, here we force and update to all systems
+                registry.removeEntityFromSystems(entity);
+                registry.addEntityToSystems(entity);
+
+                const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
+                li.appendChild(componentContainer);
+            }
+        };
+
+        const select = document.createElement('select');
+        select.id = 'component-select-' + entity.getId();
+
+        const options: { value: string; text: string }[] = [];
+        for (const componentKey in GameComponents) {
+            options.push({ value: componentKey, text: componentKey });
         }
+
+        options.forEach(optionData => {
+            const option = document.createElement('option');
+            option.value = optionData.value;
+            option.textContent = optionData.text;
+            select.appendChild(option);
+        });
+
+        componentSelector.appendChild(addComponentButton);
+        componentSelector.appendChild(select);
+        li.appendChild(componentSelector);
+
+        const forms = this.getComponentsForms(entityComponents, entity.getId(), assetStore);
+        li.appendChild(forms);
+
+        return li;
     };
 
     private renderLevelSettings = (sidebar: HTMLElement) => {
