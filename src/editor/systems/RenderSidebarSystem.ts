@@ -12,6 +12,7 @@ import { isRectangle, isVector } from '../../engine/utils/vector';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
+import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 
@@ -20,9 +21,12 @@ export default class RenderSidebarSystem extends System {
         super();
     }
 
-    subscribeToEvents(eventBus: EventBus, sidebar: HTMLElement | null) {
+    subscribeToEvents(eventBus: EventBus, sidebar: HTMLElement | null, assetStore: AssetStore) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, sidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, sidebar));
+        eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
+            this.onEntityDuplicate(event, sidebar, assetStore, eventBus),
+        );
     }
 
     onEntitySelect = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
@@ -71,6 +75,40 @@ export default class RenderSidebarSystem extends System {
         targetElement.remove();
     };
 
+    onEntityDuplicate = (
+        event: EntitySelectEvent,
+        sidebar: HTMLElement | null,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+    ) => {
+        if (!sidebar) {
+            throw new Error('Could not retrieve sidebar');
+        }
+
+        const entityList = sidebar.querySelector('#entity-list');
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        const originalEntity = event.entity;
+        const entityCopy = originalEntity.registry.createEntity();
+        const components = originalEntity.getComponents();
+        for (const component of components) {
+            const ComponentClassConstructor = component.constructor;
+            const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
+            const parameterValues: (keyof Component)[] = [];
+            for (const param of parameters) {
+                parameterValues.push(component[param as keyof Component]);
+            }
+            entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
+        }
+
+        entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus));
+
+        eventBus.emitEvent(EntitySelectEvent, entityCopy);
+    };
+
     update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
         this.renderEntityList(sidebar, registry, assetStore, eventBus);
         this.renderLevelSettings(sidebar);
@@ -115,28 +153,12 @@ export default class RenderSidebarSystem extends System {
         const duplicateButton = document.createElement('button');
         duplicateButton.innerText = 'DUPLICATE';
         duplicateButton.onclick = () => {
-            // const entityCopy = registry.createEntity();
-            // const components = entity.getComponents();
-            // for (const component of components) {
-            //     const ComponentClassConstructor = component.constructor;
-            //     const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
-            //     const parameterValues: (keyof Component)[] = [];
-            //     for (const param of parameters) {
-            //         parameterValues.push(component[param as keyof Component]);
-            //     }
-            //     entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
-            // }
-            // entityList.appendChild(this.getEntityListElement(entityCopy, sidebar, registry, assetStore, entityList));
-            // this.onEntitySelect(new EntitySelectEvent(entityCopy), sidebar);
-            // Editor.selectedEntity = entityCopy.getId();
-            // TODO: does not work properly, should be done in sync with game loop
+            eventBus.emitEvent(EntityDuplicateEvent, entity);
         };
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
         deleteButton.onclick = () => {
-            // entity.kill();
-            // li.remove();
             eventBus.emitEvent(EntityDeleteEvent, entity);
         };
 

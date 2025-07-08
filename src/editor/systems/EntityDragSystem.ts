@@ -93,7 +93,7 @@ export default class EntityDragSystem extends System {
         if (
             !Editor.entityDragOffset ||
             Editor.selectedEntity === null ||
-            Engine.mousePositionWorld.x <= sidebar.getBoundingClientRect().width
+            Engine.mousePositionScreen.x <= sidebar.getBoundingClientRect().width
         ) {
             return;
         }

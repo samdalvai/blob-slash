@@ -344,7 +344,9 @@ export default class Editor extends Engine {
                 ?.subscribeToEvents(this.eventBus, this.sidebar.getBoundingClientRect().width);
         }
 
-        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.sidebar);
+        this.registry
+            .getSystem(EditorSystems.RenderSidebarSystem)
+            ?.subscribeToEvents(this.eventBus, this.sidebar, this.assetStore);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
