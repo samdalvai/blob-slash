@@ -110,6 +110,8 @@ export default class RenderSidebarSystem extends System {
             entityList.appendChild(this.getEntityListElement(entityCopy, sidebar, registry, assetStore, entityList));
             this.onEntitySelect(new EntitySelectEvent(entityCopy), sidebar);
             Editor.selectedEntity = entityCopy.getId();
+
+            // TODO: does not work properly, should be done in sync with game loop
         };
 
         const deleteButton = document.createElement('button');
