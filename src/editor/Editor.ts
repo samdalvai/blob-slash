@@ -317,6 +317,10 @@ export default class Editor extends Engine {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     update = (deltaTime: number) => {
+        if (!this.sidebar) {
+            throw new Error('Failed to get sidebar element.');
+        }
+
         // Reset all event handlers for the current frame
         this.eventBus.reset();
 
@@ -337,7 +341,7 @@ export default class Editor extends Engine {
         if (!this.panEnabled) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.sidebar ? this.sidebar.getBoundingClientRect().width : 0);
+                ?.subscribeToEvents(this.eventBus, this.sidebar.getBoundingClientRect().width);
         }
 
         this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.sidebar);
@@ -360,7 +364,7 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
         if (!this.panEnabled) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update();
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(this.sidebar);
         }
     };
 

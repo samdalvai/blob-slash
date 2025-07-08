@@ -14,8 +14,6 @@ import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 
-// TODO: commit 878040c introduced bug with moving transform?
-
 export default class RenderSidebarSystem extends System {
     constructor() {
         super();
