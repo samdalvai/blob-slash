@@ -11,6 +11,7 @@ import { Rectangle, Vector } from '../../engine/types/utils';
 import { isRectangle, isVector } from '../../engine/utils/vector';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
+import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 
@@ -21,6 +22,7 @@ export default class RenderSidebarSystem extends System {
 
     subscribeToEvents(eventBus: EventBus, sidebar: HTMLElement | null) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, sidebar));
+        eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, sidebar));
     }
 
     onEntitySelect = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
@@ -46,13 +48,41 @@ export default class RenderSidebarSystem extends System {
         });
     };
 
-    update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
-        this.renderEntityList(sidebar, registry, assetStore);
+    onEntityDelete = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
+        if (!sidebar) {
+            throw new Error('Could not retrieve sidebar');
+        }
+
+        const entityList = sidebar.querySelector('#entity-list');
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        event.entity.kill();
+
+        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
+
+        if (!targetElement) {
+            throw new Error('Could not find target element in entity list');
+        }
+
+        Editor.selectedEntity = null;
+        targetElement.remove();
+    };
+
+    update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+        this.renderEntityList(sidebar, registry, assetStore, eventBus);
         this.renderLevelSettings(sidebar);
         this.renderSaveButtons(sidebar, registry, assetStore);
     }
 
-    private renderEntityList = (sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) => {
+    private renderEntityList = (
+        sidebar: HTMLElement,
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+    ) => {
         const entityList = sidebar.querySelector('#entity-list');
 
         if (!entityList) {
@@ -64,17 +94,11 @@ export default class RenderSidebarSystem extends System {
         const entitiesIds = registry.getAllEntities();
 
         for (const entity of entitiesIds) {
-            entityList.appendChild(this.getEntityListElement(entity, sidebar, registry, assetStore, entityList));
+            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus));
         }
     };
 
-    private getEntityListElement = (
-        entity: Entity,
-        sidebar: HTMLElement,
-        registry: Registry,
-        assetStore: AssetStore,
-        entityList: Element,
-    ) => {
+    private getEntityListElement = (entity: Entity, registry: Registry, assetStore: AssetStore, eventBus: EventBus) => {
         const entityComponents = entity.getComponents();
 
         const li = document.createElement('li');
@@ -91,34 +115,29 @@ export default class RenderSidebarSystem extends System {
         const duplicateButton = document.createElement('button');
         duplicateButton.innerText = 'DUPLICATE';
         duplicateButton.onclick = () => {
-            const entityCopy = registry.createEntity();
-            const components = entity.getComponents();
-
-            for (const component of components) {
-                const ComponentClassConstructor = component.constructor;
-
-                const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
-                const parameterValues: (keyof Component)[] = [];
-
-                for (const param of parameters) {
-                    parameterValues.push(component[param as keyof Component]);
-                }
-
-                entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
-            }
-
-            entityList.appendChild(this.getEntityListElement(entityCopy, sidebar, registry, assetStore, entityList));
-            this.onEntitySelect(new EntitySelectEvent(entityCopy), sidebar);
-            Editor.selectedEntity = entityCopy.getId();
-
+            // const entityCopy = registry.createEntity();
+            // const components = entity.getComponents();
+            // for (const component of components) {
+            //     const ComponentClassConstructor = component.constructor;
+            //     const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
+            //     const parameterValues: (keyof Component)[] = [];
+            //     for (const param of parameters) {
+            //         parameterValues.push(component[param as keyof Component]);
+            //     }
+            //     entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
+            // }
+            // entityList.appendChild(this.getEntityListElement(entityCopy, sidebar, registry, assetStore, entityList));
+            // this.onEntitySelect(new EntitySelectEvent(entityCopy), sidebar);
+            // Editor.selectedEntity = entityCopy.getId();
             // TODO: does not work properly, should be done in sync with game loop
         };
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
         deleteButton.onclick = () => {
-            entity.kill();
-            li.remove();
+            // entity.kill();
+            // li.remove();
+            eventBus.emitEvent(EntityDeleteEvent, entity);
         };
 
         header.append(title);
