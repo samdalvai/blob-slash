@@ -75,13 +75,21 @@ export default class RenderSidebarSystem extends System {
             const title = document.createElement('h3');
             title.textContent = `Entity id: ${entity.getId()}`;
 
+            const duplicateButton = document.createElement('button');
+            duplicateButton.innerText = 'DUPLICATE';
+            duplicateButton.onclick = () => {
+                // TODO: implement duplicate mechanism
+            };
+
             const deleteButton = document.createElement('button');
             deleteButton.innerText = 'DELETE';
             deleteButton.onclick = () => {
                 entity.kill();
                 li.remove();
             };
+
             header.append(title);
+            header.append(duplicateButton);
             header.append(deleteButton);
             li.appendChild(header);
 
