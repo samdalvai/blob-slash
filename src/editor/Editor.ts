@@ -356,8 +356,8 @@ export default class Editor extends Engine {
         // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
         // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
-        this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
-        this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
+        // this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+        // this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
         this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
         this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
         // this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
