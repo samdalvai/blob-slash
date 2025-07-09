@@ -80,7 +80,7 @@ export default class EntityDragSystem extends System {
             }
         }
 
-        if (!entityClicked && event.coordinates.x >= sidebarOffset) {
+        if (!entityClicked) {
             Editor.selectedEntity = null;
         }
     };
