@@ -400,13 +400,13 @@ export default class RenderSidebarSystem extends System {
                 if (isVector(propertyValue)) {
                     const vectorContainer = document.createElement('div');
 
-                    const textInput1 = this.createInput('number', propertyName + '-y-' + entityId, propertyValue.x);
+                    const textInput1 = this.createInput('number', propertyName + '-x-' + entityId, propertyValue.x);
                     textInput1.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].x = parseInt(target.value);
                     });
 
-                    const textInput2 = this.createInput('number', propertyName + '-x-' + entityId, propertyValue.y);
+                    const textInput2 = this.createInput('number', propertyName + '-y-' + entityId, propertyValue.y);
                     textInput2.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName].y = parseInt(target.value);
