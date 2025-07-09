@@ -93,15 +93,22 @@ export default class RenderSidebarSystem extends System {
 
         const originalEntity = event.entity;
         const entityCopy = originalEntity.registry.createEntity();
-        const components = originalEntity.getComponents();
-        for (const component of components) {
-            const ComponentClassConstructor = component.constructor;
-            const parameters = getComponentConstructorParamNames(ComponentClassConstructor);
-            const parameterValues: (keyof Component)[] = [];
+        const originalEntityComponents = originalEntity.getComponents();
+
+        for (const component of originalEntityComponents) {
+            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
+            const parameters = getComponentConstructorParamNames(ComponentClass);
+            const parameterValues: any[] = [];
+
             for (const param of parameters) {
-                parameterValues.push(component[param as keyof Component]);
+                if (typeof component[param as keyof Component] === 'object') {
+                    parameterValues.push({ ...(component[param as keyof Component] as object) });
+                } else {
+                    parameterValues.push(component[param as keyof Component]);
+                }
             }
-            entityCopy.addComponent(ComponentClassConstructor as ComponentClass<Component>, ...parameterValues);
+
+            entityCopy.addComponent(ComponentClass, ...parameterValues);
         }
 
         entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus));
@@ -129,9 +136,9 @@ export default class RenderSidebarSystem extends System {
 
         entityList.innerHTML = '';
 
-        const entitiesIds = registry.getAllEntities();
+        const entities = registry.getAllEntities();
 
-        for (const entity of entitiesIds) {
+        for (const entity of entities) {
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus));
         }
     };
