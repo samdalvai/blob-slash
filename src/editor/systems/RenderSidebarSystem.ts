@@ -377,15 +377,13 @@ export default class RenderSidebarSystem extends System {
         if (Array.isArray(propertyValue)) {
             const arrayContainer = document.createElement('div');
             for (const property of propertyValue as Array<any>) {
-                arrayContainer.append(
-                    this.createListItemWithInput(propertyName, propertyName, property, component, entityId),
-                );
+                arrayContainer.append(this.createListItemWithInput(propertyName, property, component, entityId));
             }
 
             return arrayContainer;
         }
 
-        return this.createListItemWithInput(propertyName, propertyName, propertyValue, component, entityId);
+        return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
     };
 
     private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
@@ -418,7 +416,24 @@ export default class RenderSidebarSystem extends System {
     };
 
     private createListItemWithInput = (
+        propertyName: string,
+        propertyValue: string | number | boolean | object,
+        component: Component,
+        entityId: number,
+    ) => {
+        return this.createListItemWithInputRec(
+            propertyName,
+            propertyName,
+            propertyName,
+            propertyValue,
+            component,
+            entityId,
+        );
+    };
+
+    private createListItemWithInputRec = (
         id: string,
+        label: string,
         propertyName: string,
         propertyValue: string | number | boolean | object,
         component: Component,
@@ -432,7 +447,7 @@ export default class RenderSidebarSystem extends System {
                     (component as any)[propertyName] = target.value;
                 });
 
-                const propertyLi = this.createListItem(propertyName, textInput);
+                const propertyLi = this.createListItem(label, textInput);
                 return propertyLi;
             }
             case 'number': {
@@ -441,7 +456,7 @@ export default class RenderSidebarSystem extends System {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
                 });
-                const propertyLi = this.createListItem(propertyName, textInput);
+                const propertyLi = this.createListItem(label, textInput);
                 return propertyLi;
             }
             case 'boolean': {
@@ -450,21 +465,22 @@ export default class RenderSidebarSystem extends System {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
                 });
-                const propertyLi = this.createListItem(propertyName, textInput);
+                const propertyLi = this.createListItem(label, textInput);
                 return propertyLi;
             }
             case 'object': {
                 const objectContainer = document.createElement('div');
 
                 for (const property in propertyValue) {
-                        const listItemWithInput = this.createListItemWithInput(
-                            id,
-                            property,
-                            propertyValue[property as keyof typeof propertyValue],
-                            propertyValue,
-                            entityId,
-                        );
-                        objectContainer.append(listItemWithInput);
+                    const listItemWithInput = this.createListItemWithInputRec(
+                        id,
+                        label + '-' + property,
+                        property,
+                        propertyValue[property as keyof typeof propertyValue],
+                        propertyValue,
+                        entityId,
+                    );
+                    objectContainer.append(listItemWithInput);
                 }
 
                 return objectContainer;
