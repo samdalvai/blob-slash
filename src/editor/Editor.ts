@@ -333,8 +333,8 @@ export default class Editor extends Engine {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     update = (deltaTime: number) => {
-        if (!this.leftSidebar) {
-            throw new Error('Failed to get leftSidebar element.');
+        if (!this.leftSidebar || !this.canvas) {
+            throw new Error('Failed to get leftSidebar or canvas element.');
         }
 
         // Reset all event handlers for the current frame
@@ -388,7 +388,12 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
         if (!this.panEnabled) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(this.leftSidebar);
+            this.registry
+                .getSystem(EditorSystems.EntityDragSystem)
+                ?.update(
+                    this.leftSidebar.getBoundingClientRect().width,
+                    this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
+                );
         }
     };
 
