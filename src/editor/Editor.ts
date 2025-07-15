@@ -22,7 +22,7 @@ export default class Editor extends Engine {
     private mousePressed: boolean;
     private panEnabled: boolean;
     private zoom: number;
-    private shouldleftSidebarUpdate: boolean;
+    private shouldSidebarUpdate: boolean;
 
     // Global Editor objects
     static selectedEntity: number | null;
@@ -31,10 +31,7 @@ export default class Editor extends Engine {
     static showGrid = true;
     static gridSquareSide = 64;
     static alertShown = false;
-    static dynamicSystemsActive = false;
-    static activeSystems: {
-        [key: string]: boolean;
-    } = {};
+    static activeSystems: Record<keyof typeof GameSystems, boolean> = {} as Record<keyof typeof GameSystems, boolean>;
 
     constructor() {
         super();
@@ -44,7 +41,7 @@ export default class Editor extends Engine {
         this.mousePressed = false;
         this.panEnabled = false;
         this.zoom = 1;
-        this.shouldleftSidebarUpdate = true;
+        this.shouldSidebarUpdate = true;
 
         this.isDebug = true;
     }
@@ -114,10 +111,14 @@ export default class Editor extends Engine {
         window.closeAlert = closeAlert;
 
         for (const systemKey in GameSystems) {
+            if (systemKey.includes('Debug')) {
+                continue;
+            }
+
             if (GameSystems[systemKey as keyof typeof GameSystems] === GameSystems.RenderSystem) {
-                Editor.activeSystems[systemKey] = true;
+                Editor.activeSystems[systemKey as keyof typeof GameSystems] = true;
             } else {
-                Editor.activeSystems[systemKey] = false;
+                Editor.activeSystems[systemKey as keyof typeof GameSystems] = false;
             }
         }
     };
@@ -359,19 +360,28 @@ export default class Editor extends Engine {
         this.registry.update();
 
         // Perform the subscription of the events for all systems
-        if (Editor.dynamicSystemsActive) {
+        Editor.activeSystems['PlayerDetectionSystem'] &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['EntityFollowSystem'] &&
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['MovementSystem'] &&
             this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
-        }
 
-        // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['RangedAttackEmitSystem'] &&
+            this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['DamageSystem'] &&
+            this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['CameraShakeSystem'] &&
+            this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['SoundSystem'] &&
+            this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['DeadBodyOnDeathSystem'] &&
+            this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['PlayerControlSystem'] &&
+            this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
+        Editor.activeSystems['AnimationOnHitSystem'] &&
+            this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+
         if (!this.panEnabled) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
@@ -383,24 +393,30 @@ export default class Editor extends Engine {
             ?.subscribeToEvents(this.eventBus, this.leftSidebar, this.assetStore);
 
         // Invoke all the systems that need to update
-        if (Editor.dynamicSystemsActive) {
+        Editor.activeSystems['MovementSystem'] &&
             this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
-            this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+        Editor.activeSystems['LifetimeSystem'] && this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+        Editor.activeSystems['PlayerDetectionSystem'] &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
-            this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
-            this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
-            this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
-        }
+        Editor.activeSystems['ScriptingSystem'] && this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
+        Editor.activeSystems['EntityFollowSystem'] && this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
+        Editor.activeSystems['ParticleEmitSystem'] && this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
 
-        // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
-        this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
-        // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
-        this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
-        this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
-        // this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
-        this.registry.getSystem(GameSystems.DamageSystem)?.update();
-        this.registry.getSystem(GameSystems.AnimationSystem)?.update();
-        this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
+        Editor.activeSystems['CameraMovementSystem'] &&
+            this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
+        Editor.activeSystems['CollisionSystem'] &&
+            this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
+        Editor.activeSystems['RangedAttackEmitSystem'] &&
+            this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
+        Editor.activeSystems['EntityDestinationSystem'] &&
+            this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
+        Editor.activeSystems['EntityEffectSystem'] &&
+            this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
+        Editor.activeSystems['EntityHighlightSystem'] &&
+            this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
+        Editor.activeSystems['DamageSystem'] && this.registry.getSystem(GameSystems.DamageSystem)?.update();
+        Editor.activeSystems['AnimationSystem'] && this.registry.getSystem(GameSystems.AnimationSystem)?.update();
+        Editor.activeSystems['SpriteStateSystem'] && this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
         if (!this.panEnabled) {
             this.registry
@@ -416,7 +432,7 @@ export default class Editor extends Engine {
         if (!this.canvas || !this.ctx || !this.leftSidebar || !this.rightSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
-    
+
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -425,17 +441,26 @@ export default class Editor extends Engine {
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render game related systems
-        Editor.activeSystems['RenderSystem'] && this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
-        this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        // this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
-        this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
-        // TODO: to be removed
-        // this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
-        // this.registry
-        //     .getSystem(GameSystems.RenderCursorSystem)
-        //     ?.update(this.ctx, this.assetStore, this.registry, this.mousePosition);
+        Editor.activeSystems['RenderSystem'] &&
+            this.registry
+                .getSystem(GameSystems.RenderSystem)
+                ?.update(this.ctx, this.assetStore, this.camera, this.zoom);
+        Editor.activeSystems['RenderHealthBarSystem'] &&
+            this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
+        Editor.activeSystems['CameraShakeSystem'] &&
+            this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
+        Editor.activeSystems['RenderTextSystem'] &&
+            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
+        Editor.activeSystems['RenderParticleSystem'] &&
+            this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
+        Editor.activeSystems['RenderLightingSystem'] &&
+            this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
+        Editor.activeSystems['RenderGUISystem'] &&
+            this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
+        Editor.activeSystems['RenderCursorSystem'] &&
+            this.registry
+                .getSystem(GameSystems.RenderCursorSystem)
+                ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         // Render debug systems
         this.registry
@@ -453,12 +478,12 @@ export default class Editor extends Engine {
             .getSystem(GameSystems.DebugCursorCoordinatesSystem)
             ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
-        if (this.shouldleftSidebarUpdate) {
+        if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
                 ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.eventBus);
 
-            this.shouldleftSidebarUpdate = false;
+            this.shouldSidebarUpdate = false;
         }
     };
 }
