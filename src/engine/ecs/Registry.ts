@@ -136,6 +136,11 @@ export default class Registry {
             entityCopy.addComponent(ComponentClass, ...parameterValues);
         }
 
+        const group = entity.getGroup();
+        if (group !== undefined) {
+            entityCopy.group(group);
+        }
+
         return entityCopy;
     };
 
