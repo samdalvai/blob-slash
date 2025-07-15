@@ -19,20 +19,20 @@ export default class RenderSidebarSystem extends System {
         super();
     }
 
-    subscribeToEvents(eventBus: EventBus, sidebar: HTMLElement | null, assetStore: AssetStore) {
-        eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, sidebar));
-        eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, sidebar));
+    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null, assetStore: AssetStore) {
+        eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
+        eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
-            this.onEntityDuplicate(event, sidebar, assetStore, eventBus),
+            this.onEntityDuplicate(event, leftSidebar, assetStore, eventBus),
         );
     }
 
-    onEntitySelect = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
-        if (!sidebar) {
-            throw new Error('Could not retrieve sidebar');
+    onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
+        if (!leftSidebar) {
+            throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = sidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list');
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -50,12 +50,12 @@ export default class RenderSidebarSystem extends System {
         });
     };
 
-    onEntityDelete = (event: EntitySelectEvent, sidebar: HTMLElement | null) => {
-        if (!sidebar) {
-            throw new Error('Could not retrieve sidebar');
+    onEntityDelete = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
+        if (!leftSidebar) {
+            throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = sidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list');
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -75,15 +75,15 @@ export default class RenderSidebarSystem extends System {
 
     onEntityDuplicate = (
         event: EntitySelectEvent,
-        sidebar: HTMLElement | null,
+        leftSidebar: HTMLElement | null,
         assetStore: AssetStore,
         eventBus: EventBus,
     ) => {
-        if (!sidebar) {
-            throw new Error('Could not retrieve sidebar');
+        if (!leftSidebar) {
+            throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = sidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list');
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -97,19 +97,20 @@ export default class RenderSidebarSystem extends System {
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
     };
 
-    update(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
-        this.renderEntityList(sidebar, registry, assetStore, eventBus);
-        this.renderLevelSettings(sidebar);
-        this.renderSaveButtons(sidebar, registry, assetStore);
+    // TODO: move settings to right sidebar
+    update(leftSidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+        this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
+        this.renderLevelSettings(leftSidebar);
+        this.renderSaveButtons(leftSidebar, registry, assetStore);
     }
 
     private renderEntityList = (
-        sidebar: HTMLElement,
+        leftSidebar: HTMLElement,
         registry: Registry,
         assetStore: AssetStore,
         eventBus: EventBus,
     ) => {
-        const entityList = sidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list');
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -216,13 +217,13 @@ export default class RenderSidebarSystem extends System {
         return li;
     };
 
-    private renderLevelSettings = (sidebar: HTMLElement) => {
-        const gameWidthInput = sidebar.querySelector('#map-width') as HTMLInputElement;
-        const gameHeightInput = sidebar.querySelector('#map-height') as HTMLInputElement;
-        const dynamicSystemsInput = sidebar.querySelector('#enable-dynamic') as HTMLInputElement;
-        const snapGridInput = sidebar.querySelector('#snap-grid') as HTMLInputElement;
-        const showGridInput = sidebar.querySelector('#show-grid') as HTMLInputElement;
-        const gridSideInput = sidebar.querySelector('#grid-side') as HTMLInputElement;
+    private renderLevelSettings = (leftSidebar: HTMLElement) => {
+        const gameWidthInput = leftSidebar.querySelector('#map-width') as HTMLInputElement;
+        const gameHeightInput = leftSidebar.querySelector('#map-height') as HTMLInputElement;
+        const dynamicSystemsInput = leftSidebar.querySelector('#enable-dynamic') as HTMLInputElement;
+        const snapGridInput = leftSidebar.querySelector('#snap-grid') as HTMLInputElement;
+        const showGridInput = leftSidebar.querySelector('#show-grid') as HTMLInputElement;
+        const gridSideInput = leftSidebar.querySelector('#grid-side') as HTMLInputElement;
 
         if (
             !gameWidthInput ||
@@ -274,9 +275,9 @@ export default class RenderSidebarSystem extends System {
         });
     };
 
-    private renderSaveButtons(sidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
-        const saveToJsonButton = sidebar.querySelector('#save-to-json') as HTMLButtonElement;
-        const saveToLocalButton = sidebar.querySelector('#save-to-local') as HTMLButtonElement;
+    private renderSaveButtons(leftSidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
+        const saveToJsonButton = leftSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const saveToLocalButton = leftSidebar.querySelector('#save-to-local') as HTMLButtonElement;
 
         if (!saveToJsonButton || !saveToLocalButton) {
             throw new Error('Could not retrieve level save button(s)');

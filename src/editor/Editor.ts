@@ -15,13 +15,14 @@ declare global {
 
 export default class Editor extends Engine {
     // Objects for rendering
-    private sidebar: HTMLElement | null;
+    private leftSidebar: HTMLElement | null;
+    private rightSidebar: HTMLElement | null;
 
     // Editor status properties
     private mousePressed: boolean;
     private panEnabled: boolean;
     private zoom: number;
-    private shouldSidebarUpdate: boolean;
+    private shouldleftSidebarUpdate: boolean;
 
     // Global Editor objects
     static selectedEntity: number | null;
@@ -34,24 +35,28 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
-        this.sidebar = null;
+        this.leftSidebar = null;
+        this.rightSidebar = null;
 
         this.mousePressed = false;
         this.panEnabled = false;
         this.zoom = 1;
-        this.shouldSidebarUpdate = true;
+        this.shouldleftSidebarUpdate = true;
 
         this.isDebug = true;
     }
 
-    resize = (canvas: HTMLCanvasElement, camera: Rectangle, sidebar: HTMLElement) => {
-        canvas.width = window.innerWidth - sidebar.getBoundingClientRect().width;
+    resize = (canvas: HTMLCanvasElement, camera: Rectangle, leftSidebar: HTMLElement, rightSidebar: HTMLElement) => {
+        canvas.width =
+            window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
         canvas.height = window.innerHeight;
 
-        camera.width = window.innerWidth - sidebar.getBoundingClientRect().width;
+        camera.width =
+            window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
         camera.height = window.innerHeight;
 
-        Engine.windowWidth = window.innerWidth - sidebar.getBoundingClientRect().width;
+        Engine.windowWidth =
+            window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
         Engine.windowHeight = window.innerHeight;
 
         const ctx = canvas.getContext('2d');
@@ -68,7 +73,8 @@ export default class Editor extends Engine {
     initialize = () => {
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-        const sidebar = document.getElementById('sidebar') as HTMLElement;
+        const leftSidebar = document.getElementById('leftSidebar') as HTMLElement;
+        const rightSidebar = document.getElementById('rightSidebar') as HTMLElement;
 
         if (!canvas) {
             throw new Error('Failed to get canvas.');
@@ -78,22 +84,27 @@ export default class Editor extends Engine {
             throw new Error('Failed to get 2D context for the canvas.');
         }
 
-        if (!sidebar) {
-            throw new Error('Failed to get sidebar element.');
+        if (!leftSidebar) {
+            throw new Error('Failed to get leftSidebar element.');
+        }
+
+        if (!rightSidebar) {
+            throw new Error('Failed to get leftSidebar element.');
         }
 
         this.canvas = canvas;
         this.ctx = ctx;
-        this.sidebar = sidebar;
+        this.leftSidebar = leftSidebar;
+        this.rightSidebar = rightSidebar;
 
-        this.resize(canvas, this.camera, this.sidebar);
+        this.resize(canvas, this.camera, this.leftSidebar, this.rightSidebar);
         // canvas.style.cursor = 'none';
 
         this.isRunning = true;
 
         window.addEventListener('resize', () => {
-            if (this.canvas && this.camera && this.sidebar) {
-                this.resize(this.canvas, this.camera, this.sidebar);
+            if (this.canvas && this.camera && this.leftSidebar && this.rightSidebar) {
+                this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar);
             }
         });
 
@@ -196,12 +207,12 @@ export default class Editor extends Engine {
 
             switch (inputEvent.type) {
                 case 'mousemove': {
-                    if (!this.sidebar) {
-                        throw new Error('Failed to get sidebar element.');
+                    if (!this.leftSidebar) {
+                        throw new Error('Failed to get leftSidebar element.');
                     }
 
                     const mouseX =
-                        (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
+                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
                     const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
                     Engine.mousePositionScreen = {
@@ -230,15 +241,17 @@ export default class Editor extends Engine {
                     break;
                 }
                 case 'mousedown':
-                    if (!this.sidebar) {
-                        throw new Error('Failed to get sidebar element.');
+                    if (!this.leftSidebar) {
+                        throw new Error('Failed to get leftSidebar element.');
                     }
 
                     this.mousePressed = true;
                     this.eventBus.emitEvent(
                         GameEvents.MousePressedEvent,
                         {
-                            x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
+                            x:
+                                (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom +
+                                this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button,
@@ -250,15 +263,17 @@ export default class Editor extends Engine {
 
                     break;
                 case 'mouseup':
-                    if (!this.sidebar) {
-                        throw new Error('Failed to get sidebar element.');
+                    if (!this.leftSidebar) {
+                        throw new Error('Failed to get leftSidebar element.');
                     }
 
                     this.mousePressed = false;
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
                         {
-                            x: (inputEvent.x - this.sidebar.getBoundingClientRect().width) / this.zoom + this.camera.x,
+                            x:
+                                (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom +
+                                this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
                         inputEvent.button === 0 ? 'left' : 'right',
@@ -278,15 +293,15 @@ export default class Editor extends Engine {
                 return;
             }
 
-            if (!this.sidebar) {
-                throw new Error('Sidebar is not defined');
+            if (!this.leftSidebar) {
+                throw new Error('leftSidebar is not defined');
             }
 
-            if (Engine.mousePositionScreen.x <= this.sidebar.getBoundingClientRect().width) {
+            if (Engine.mousePositionScreen.x <= this.leftSidebar.getBoundingClientRect().width) {
                 return;
             }
 
-            const mouseXOnCanvas = Engine.mousePositionScreen.x - this.sidebar.getBoundingClientRect().width;
+            const mouseXOnCanvas = Engine.mousePositionScreen.x - this.leftSidebar.getBoundingClientRect().width;
             const mouseYOnCanvas = Engine.mousePositionScreen.y;
 
             const mouseWorldXBefore = this.camera.x + mouseXOnCanvas / this.zoom;
@@ -318,8 +333,8 @@ export default class Editor extends Engine {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     update = (deltaTime: number) => {
-        if (!this.sidebar) {
-            throw new Error('Failed to get sidebar element.');
+        if (!this.leftSidebar) {
+            throw new Error('Failed to get leftSidebar element.');
         }
 
         // Reset all event handlers for the current frame
@@ -334,7 +349,7 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
             this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
         }
-        
+
         // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
@@ -345,12 +360,12 @@ export default class Editor extends Engine {
         if (!this.panEnabled) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.sidebar.getBoundingClientRect().width);
+                ?.subscribeToEvents(this.eventBus, this.leftSidebar.getBoundingClientRect().width);
         }
 
         this.registry
             .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.sidebar, this.assetStore);
+            ?.subscribeToEvents(this.eventBus, this.leftSidebar, this.assetStore);
 
         // Invoke all the systems that need to update
         if (Editor.dynamicSystemsActive) {
@@ -361,7 +376,6 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
             this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
         }
-
 
         // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
@@ -374,12 +388,12 @@ export default class Editor extends Engine {
         this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
         if (!this.panEnabled) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(this.sidebar);
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(this.leftSidebar);
         }
     };
 
     render = () => {
-        if (!this.canvas || !this.ctx || !this.sidebar) {
+        if (!this.canvas || !this.ctx || !this.leftSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
 
@@ -417,14 +431,14 @@ export default class Editor extends Engine {
 
         this.registry
             .getSystem(GameSystems.DebugCursorCoordinatesSystem)
-            ?.update(this.ctx, this.sidebar ? -1 * this.sidebar?.getBoundingClientRect().width : 0);
+            ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
-        if (this.shouldSidebarUpdate) {
+        if (this.shouldleftSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(this.sidebar, this.registry, this.assetStore, this.eventBus);
+                ?.update(this.leftSidebar, this.registry, this.assetStore, this.eventBus);
 
-            this.shouldSidebarUpdate = false;
+            this.shouldleftSidebarUpdate = false;
         }
     };
 }
