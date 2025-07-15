@@ -233,11 +233,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve active systems list');
         }
 
-        for (const systemKey in GameSystems) {
-            if (systemKey.includes('Debug')) {
-                continue;
-            }
-            
+        for (const systemKey in GameSystems) {          
             const checkBoxInput = this.createInput('checkbox', systemKey, Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems]);
             checkBoxInput.addEventListener('input', event => {
                 const target = event.target as HTMLInputElement;

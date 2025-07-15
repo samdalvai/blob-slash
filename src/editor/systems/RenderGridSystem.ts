@@ -9,7 +9,6 @@ export default class RenderGridSystem extends System {
     }
 
     update = (ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) => {
-        console.log("Show grid? ", Editor.editorSettings.showGrid);
         if (!Editor.editorSettings.showGrid) {
             return;
         }
