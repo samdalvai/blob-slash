@@ -219,16 +219,25 @@ export default class RenderSidebarSystem extends System {
     private renderLevelSettings = (sidebar: HTMLElement) => {
         const gameWidthInput = sidebar.querySelector('#map-width') as HTMLInputElement;
         const gameHeightInput = sidebar.querySelector('#map-height') as HTMLInputElement;
+        const dynamicSystemsInput = sidebar.querySelector('#enable-dynamic') as HTMLInputElement;
         const snapGridInput = sidebar.querySelector('#snap-grid') as HTMLInputElement;
         const showGridInput = sidebar.querySelector('#show-grid') as HTMLInputElement;
         const gridSideInput = sidebar.querySelector('#grid-side') as HTMLInputElement;
 
-        if (!gameWidthInput || !gameHeightInput || !snapGridInput || !showGridInput || !gridSideInput) {
+        if (
+            !gameWidthInput ||
+            !gameHeightInput ||
+            !dynamicSystemsInput ||
+            !snapGridInput ||
+            !showGridInput ||
+            !gridSideInput
+        ) {
             throw new Error('Could not retrieve level settings element(s)');
         }
 
         gameWidthInput.value = Engine.mapWidth.toString();
         gameHeightInput.value = Engine.mapHeight.toString();
+        dynamicSystemsInput.checked = Editor.dynamicSystemsActive;
         snapGridInput.checked = Editor.snapToGrid;
         showGridInput.checked = Editor.showGrid;
         gridSideInput.value = Editor.gridSquareSide.toString();
@@ -241,6 +250,12 @@ export default class RenderSidebarSystem extends System {
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
+        });
+
+        // TODO: allow user to define which systems are active?? E.g. one input per system
+        dynamicSystemsInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Editor.dynamicSystemsActive = target.checked;
         });
 
         snapGridInput.addEventListener('input', event => {
