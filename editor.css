@@ -117,7 +117,7 @@ button {
     list-style: none;
     padding-left: 0;
     overflow-y: scroll;
-    max-height: 50vh;
+    max-height: 60vh;
 }
 
 /* Styles by class */
