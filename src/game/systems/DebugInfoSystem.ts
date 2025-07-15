@@ -17,11 +17,11 @@ export default class DebugInfoSystem extends System {
         camera: Rectangle,
         zoom?: number,
     ) {
-        const x = Engine.windowWidth - 300;
+        const x = Engine.windowWidth - 350;
         const y = 50;
 
         ctx.font = '16px Arial';
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'red';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(

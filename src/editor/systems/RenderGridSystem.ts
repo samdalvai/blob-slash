@@ -9,7 +9,8 @@ export default class RenderGridSystem extends System {
     }
 
     update = (ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) => {
-        if (!Editor.showGrid) {
+        console.log("Show grid? ", Editor.editorSettings.showGrid);
+        if (!Editor.editorSettings.showGrid) {
             return;
         }
 
@@ -26,7 +27,7 @@ export default class RenderGridSystem extends System {
             ctx.lineTo((Game.mapWidth - camera.x) * zoom, (offset - camera.y) * zoom);
             ctx.stroke();
 
-            offset += Editor.gridSquareSide;
+            offset += Editor.editorSettings.gridSquareSide;
         }
 
         offset = 0;
@@ -37,7 +38,7 @@ export default class RenderGridSystem extends System {
             ctx.lineTo((offset - camera.x) * zoom, (Game.mapHeight - camera.y) * zoom);
             ctx.stroke();
 
-            offset += Editor.gridSquareSide;
+            offset += Editor.editorSettings.gridSquareSide;
         }
 
         ctx.restore();

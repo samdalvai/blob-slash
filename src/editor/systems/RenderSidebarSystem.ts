@@ -14,6 +14,7 @@ import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
+import { saveEditorSettingsToLocalStorage } from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
     constructor() {
@@ -237,10 +238,11 @@ export default class RenderSidebarSystem extends System {
                 continue;
             }
             
-            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.activeSystems[systemKey as keyof typeof GameSystems]);
+            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems]);
             checkBoxInput.addEventListener('input', event => {
                 const target = event.target as HTMLInputElement;
-                Editor.activeSystems[systemKey as keyof typeof GameSystems] = target.checked;
+                Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems] = target.checked;
+                saveEditorSettingsToLocalStorage()
             });
             const propertyLi = this.createListItem(systemKey, checkBoxInput);
             activeSystemsList.appendChild(propertyLi);
@@ -266,33 +268,38 @@ export default class RenderSidebarSystem extends System {
 
         gameWidthInput.value = Engine.mapWidth.toString();
         gameHeightInput.value = Engine.mapHeight.toString();
-        snapGridInput.checked = Editor.snapToGrid;
-        showGridInput.checked = Editor.showGrid;
-        gridSideInput.value = Editor.gridSquareSide.toString();
+        snapGridInput.checked = Editor.editorSettings.snapToGrid;
+        showGridInput.checked = Editor.editorSettings.showGrid;
+        gridSideInput.value = Editor.editorSettings.gridSquareSide.toString();
 
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapWidth = parseInt(target.value);
+            saveEditorSettingsToLocalStorage()
         });
 
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
+            saveEditorSettingsToLocalStorage()
         });
 
         snapGridInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
-            Editor.snapToGrid = target.checked;
+            Editor.editorSettings.snapToGrid = target.checked;
+            saveEditorSettingsToLocalStorage()
         });
 
         showGridInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
-            Editor.showGrid = target.checked;
+            Editor.editorSettings.showGrid = target.checked;
+            saveEditorSettingsToLocalStorage()
         });
 
         gridSideInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
-            Editor.gridSquareSide = parseInt(target.value);
+            Editor.editorSettings.gridSquareSide = parseInt(target.value);
+            saveEditorSettingsToLocalStorage()
         });
     };
 
