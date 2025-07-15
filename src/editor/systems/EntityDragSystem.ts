@@ -89,11 +89,12 @@ export default class EntityDragSystem extends System {
         Editor.entityDragOffset = null;
     };
 
-    update = (leftSidebar: HTMLElement) => {
+    update = (canvasXMin: number, canvasXMax: number) => {
         if (
             !Editor.entityDragOffset ||
             Editor.selectedEntity === null ||
-            Engine.mousePositionScreen.x <= leftSidebar.getBoundingClientRect().width
+            Engine.mousePositionScreen.x < canvasXMin ||
+            Engine.mousePositionScreen.x > canvasXMax
         ) {
             return;
         }
