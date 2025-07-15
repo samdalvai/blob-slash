@@ -16,14 +16,14 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, sidebarOffset: number) {
+    subscribeToEvents(eventBus: EventBus, leftSidebarOffset: number) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event =>
-            this.onMousePressed(event, eventBus, sidebarOffset),
+            this.onMousePressed(event, eventBus, leftSidebarOffset),
         );
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
     }
 
-    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, sidebarOffset: number) => {
+    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, leftSidebarOffset: number) => {
         if (event.button !== MouseButton.LEFT) {
             return;
         }
@@ -89,11 +89,11 @@ export default class EntityDragSystem extends System {
         Editor.entityDragOffset = null;
     };
 
-    update = (sidebar: HTMLElement) => {
+    update = (leftSidebar: HTMLElement) => {
         if (
             !Editor.entityDragOffset ||
             Editor.selectedEntity === null ||
-            Engine.mousePositionScreen.x <= sidebar.getBoundingClientRect().width
+            Engine.mousePositionScreen.x <= leftSidebar.getBoundingClientRect().width
         ) {
             return;
         }
@@ -139,7 +139,7 @@ export default class EntityDragSystem extends System {
         transform.position.x = newPositionX;
         transform.position.y = newPositionY;
 
-        // Update sidebar component position for the entity
+        // Update leftSidebar component position for the entity
         const positionXInput = document.getElementById('position-x-' + entity.getId()) as HTMLInputElement;
         const positionYInput = document.getElementById('position-y-' + entity.getId()) as HTMLInputElement;
 
