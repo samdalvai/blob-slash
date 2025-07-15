@@ -416,7 +416,7 @@ export default class Editor extends Engine {
         if (!this.canvas || !this.ctx || !this.leftSidebar || !this.rightSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
-
+    
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -425,7 +425,7 @@ export default class Editor extends Engine {
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render game related systems
-        this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
+        Editor.activeSystems['RenderSystem'] && this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera, this.zoom);
         this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
         // this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
