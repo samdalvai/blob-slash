@@ -233,10 +233,14 @@ export default class RenderSidebarSystem extends System {
         }
 
         for (const systemKey in GameSystems) {
-            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.activeSystems[systemKey]);
+            if (systemKey.includes('Debug')) {
+                continue;
+            }
+            
+            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.activeSystems[systemKey as keyof typeof GameSystems]);
             checkBoxInput.addEventListener('input', event => {
                 const target = event.target as HTMLInputElement;
-                Editor.activeSystems[systemKey] = target.checked;
+                Editor.activeSystems[systemKey as keyof typeof GameSystems] = target.checked;
             });
             const propertyLi = this.createListItem(systemKey, checkBoxInput);
             activeSystemsList.appendChild(propertyLi);
@@ -246,7 +250,6 @@ export default class RenderSidebarSystem extends System {
     private renderLevelSettings = (rightSidebar: HTMLElement) => {
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
         const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
-        const dynamicSystemsInput = rightSidebar.querySelector('#enable-dynamic') as HTMLInputElement;
         const snapGridInput = rightSidebar.querySelector('#snap-grid') as HTMLInputElement;
         const showGridInput = rightSidebar.querySelector('#show-grid') as HTMLInputElement;
         const gridSideInput = rightSidebar.querySelector('#grid-side') as HTMLInputElement;
@@ -254,7 +257,6 @@ export default class RenderSidebarSystem extends System {
         if (
             !gameWidthInput ||
             !gameHeightInput ||
-            !dynamicSystemsInput ||
             !snapGridInput ||
             !showGridInput ||
             !gridSideInput
@@ -264,7 +266,6 @@ export default class RenderSidebarSystem extends System {
 
         gameWidthInput.value = Engine.mapWidth.toString();
         gameHeightInput.value = Engine.mapHeight.toString();
-        dynamicSystemsInput.checked = Editor.dynamicSystemsActive;
         snapGridInput.checked = Editor.snapToGrid;
         showGridInput.checked = Editor.showGrid;
         gridSideInput.value = Editor.gridSquareSide.toString();
@@ -277,12 +278,6 @@ export default class RenderSidebarSystem extends System {
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
-        });
-
-        // TODO: allow user to define which systems are active?? E.g. one input per system
-        dynamicSystemsInput.addEventListener('input', event => {
-            const target = event.target as HTMLInputElement;
-            Editor.dynamicSystemsActive = target.checked;
         });
 
         snapGridInput.addEventListener('input', event => {
