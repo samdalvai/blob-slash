@@ -102,6 +102,21 @@ describe('Testing deserialization related functions', () => {
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
     });
 
+    test('Should extract component constructor parameter names with arrays as parameters', () => {
+        class MyComponent extends Component {
+            myProperty1: number[];
+            myProperty2: { x: number; y: number }[];
+
+            constructor(myProperty1 = [], myProperty2: { x: number; y: number }[]) {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
     test('Should extract component constructor parameter names with boolean types', () => {
         class MyComponent extends Component {
             myProperty1: boolean;

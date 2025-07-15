@@ -8,7 +8,6 @@ import EventBus from '../../engine/event-bus/EventBus';
 import { getComponentConstructorParamNames } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
-import { isRectangle, isVector } from '../../engine/utils/vector';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
@@ -106,6 +105,12 @@ export default class RenderSidebarSystem extends System {
                 } else {
                     parameterValues.push(component[param as keyof Component]);
                 }
+            }
+
+            if (component.constructor.name === 'ScriptComponent') {
+                console.log("Original componen parameters: ", parameters);
+                console.log("Original component: ", component);
+                console.log("parameterValues: ", parameterValues);
             }
 
             entityCopy.addComponent(ComponentClass, ...parameterValues);
@@ -472,15 +477,16 @@ export default class RenderSidebarSystem extends System {
                 const objectContainer = document.createElement('div');
 
                 for (const property in propertyValue) {
-                    const listItemWithInput = this.createListItemWithInputRec(
-                        id,
-                        label + '-' + property,
-                        property,
-                        propertyValue[property as keyof typeof propertyValue],
-                        propertyValue,
-                        entityId,
+                    objectContainer.append(
+                        this.createListItemWithInputRec(
+                            id,
+                            label + '-' + property,
+                            property,
+                            propertyValue[property as keyof typeof propertyValue],
+                            propertyValue,
+                            entityId,
+                        ),
                     );
-                    objectContainer.append(listItemWithInput);
                 }
 
                 return objectContainer;
