@@ -398,7 +398,7 @@ export default class Editor extends Engine {
     };
 
     render = () => {
-        if (!this.canvas || !this.ctx || !this.leftSidebar) {
+        if (!this.canvas || !this.ctx || !this.leftSidebar || !this.rightSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
 
@@ -441,7 +441,7 @@ export default class Editor extends Engine {
         if (this.shouldleftSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(this.leftSidebar, this.registry, this.assetStore, this.eventBus);
+                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.eventBus);
 
             this.shouldleftSidebarUpdate = false;
         }

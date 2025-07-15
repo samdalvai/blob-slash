@@ -75,7 +75,7 @@ button {
     list-style: none;
     padding-left: 0;
     overflow-y: scroll;
-    max-height: 60vh;
+    max-height: 90vh;
 }
 
 #entity-list li {

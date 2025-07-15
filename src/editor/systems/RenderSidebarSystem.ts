@@ -98,10 +98,10 @@ export default class RenderSidebarSystem extends System {
     };
 
     // TODO: move settings to right sidebar
-    update(leftSidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+    update(leftSidebar: HTMLElement, rightSidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
         this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
-        this.renderLevelSettings(leftSidebar);
-        this.renderSaveButtons(leftSidebar, registry, assetStore);
+        this.renderLevelSettings(rightSidebar);
+        this.renderSaveButtons(rightSidebar, registry, assetStore);
     }
 
     private renderEntityList = (
@@ -217,13 +217,13 @@ export default class RenderSidebarSystem extends System {
         return li;
     };
 
-    private renderLevelSettings = (leftSidebar: HTMLElement) => {
-        const gameWidthInput = leftSidebar.querySelector('#map-width') as HTMLInputElement;
-        const gameHeightInput = leftSidebar.querySelector('#map-height') as HTMLInputElement;
-        const dynamicSystemsInput = leftSidebar.querySelector('#enable-dynamic') as HTMLInputElement;
-        const snapGridInput = leftSidebar.querySelector('#snap-grid') as HTMLInputElement;
-        const showGridInput = leftSidebar.querySelector('#show-grid') as HTMLInputElement;
-        const gridSideInput = leftSidebar.querySelector('#grid-side') as HTMLInputElement;
+    private renderLevelSettings = (rightSidebar: HTMLElement) => {
+        const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
+        const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
+        const dynamicSystemsInput = rightSidebar.querySelector('#enable-dynamic') as HTMLInputElement;
+        const snapGridInput = rightSidebar.querySelector('#snap-grid') as HTMLInputElement;
+        const showGridInput = rightSidebar.querySelector('#show-grid') as HTMLInputElement;
+        const gridSideInput = rightSidebar.querySelector('#grid-side') as HTMLInputElement;
 
         if (
             !gameWidthInput ||
@@ -275,9 +275,9 @@ export default class RenderSidebarSystem extends System {
         });
     };
 
-    private renderSaveButtons(leftSidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
-        const saveToJsonButton = leftSidebar.querySelector('#save-to-json') as HTMLButtonElement;
-        const saveToLocalButton = leftSidebar.querySelector('#save-to-local') as HTMLButtonElement;
+    private renderSaveButtons(rightSidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
+        const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const saveToLocalButton = rightSidebar.querySelector('#save-to-local') as HTMLButtonElement;
 
         if (!saveToJsonButton || !saveToLocalButton) {
             throw new Error('Could not retrieve level save button(s)');
