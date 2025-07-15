@@ -8,6 +8,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
+import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
@@ -98,8 +99,15 @@ export default class RenderSidebarSystem extends System {
     };
 
     // TODO: move settings to right sidebar
-    update(leftSidebar: HTMLElement, rightSidebar: HTMLElement, registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+    update(
+        leftSidebar: HTMLElement,
+        rightSidebar: HTMLElement,
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+    ) {
         this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
+        this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
         this.renderSaveButtons(rightSidebar, registry, assetStore);
     }
@@ -215,6 +223,24 @@ export default class RenderSidebarSystem extends System {
         li.appendChild(forms);
 
         return li;
+    };
+
+    private renderActiveSystems = (rightSidebar: HTMLElement) => {
+        const activeSystemsList = rightSidebar.querySelector('#active-systems');
+
+        if (!activeSystemsList) {
+            throw new Error('Could not retrieve active systems list');
+        }
+
+        for (const systemKey in GameSystems) {
+            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.activeSystems[systemKey]);
+            checkBoxInput.addEventListener('input', event => {
+                const target = event.target as HTMLInputElement;
+                Editor.activeSystems[systemKey] = target.checked;
+            });
+            const propertyLi = this.createListItem(systemKey, checkBoxInput);
+            activeSystemsList.appendChild(propertyLi);
+        }
     };
 
     private renderLevelSettings = (rightSidebar: HTMLElement) => {
@@ -448,21 +474,25 @@ export default class RenderSidebarSystem extends System {
                 return propertyLi;
             }
             case 'number': {
-                const textInput = this.createInput('number', id + '-' + propertyName + '-' + entityId, propertyValue);
-                textInput.addEventListener('input', event => {
+                const numberInput = this.createInput('number', id + '-' + propertyName + '-' + entityId, propertyValue);
+                numberInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
                 });
-                const propertyLi = this.createListItem(label, textInput);
+                const propertyLi = this.createListItem(label, numberInput);
                 return propertyLi;
             }
             case 'boolean': {
-                const textInput = this.createInput('checkbox', id + '-' + propertyName + '-' + entityId, propertyValue);
-                textInput.addEventListener('input', event => {
+                const checkBoxInput = this.createInput(
+                    'checkbox',
+                    id + '-' + propertyName + '-' + entityId,
+                    propertyValue,
+                );
+                checkBoxInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
                 });
-                const propertyLi = this.createListItem(label, textInput);
+                const propertyLi = this.createListItem(label, checkBoxInput);
                 return propertyLi;
             }
             case 'object': {
