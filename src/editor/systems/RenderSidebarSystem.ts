@@ -377,13 +377,15 @@ export default class RenderSidebarSystem extends System {
         if (Array.isArray(propertyValue)) {
             const arrayContainer = document.createElement('div');
             for (const property of propertyValue as Array<any>) {
-                arrayContainer.append(this.createListItemWithInput(propertyName, property, component, entityId));
+                arrayContainer.append(
+                    this.createListItemWithInput(propertyName, propertyName, property, component, entityId),
+                );
             }
 
             return arrayContainer;
         }
 
-        return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
+        return this.createListItemWithInput(propertyName, propertyName, propertyValue, component, entityId);
     };
 
     private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
@@ -416,6 +418,7 @@ export default class RenderSidebarSystem extends System {
     };
 
     private createListItemWithInput = (
+        id: string,
         propertyName: string,
         propertyValue: string | number | boolean | object,
         component: Component,
@@ -423,7 +426,7 @@ export default class RenderSidebarSystem extends System {
     ) => {
         switch (typeof propertyValue) {
             case 'string': {
-                const textInput = this.createInput('text', propertyName + '-' + entityId, propertyValue);
+                const textInput = this.createInput('text', id + '-' + propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.value;
@@ -433,7 +436,7 @@ export default class RenderSidebarSystem extends System {
                 return propertyLi;
             }
             case 'number': {
-                const textInput = this.createInput('number', propertyName + '-' + entityId, propertyValue);
+                const textInput = this.createInput('number', id + '-' + propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
@@ -442,7 +445,7 @@ export default class RenderSidebarSystem extends System {
                 return propertyLi;
             }
             case 'boolean': {
-                const textInput = this.createInput('checkbox', propertyName + '-' + entityId, propertyValue);
+                const textInput = this.createInput('checkbox', id + '-' + propertyName + '-' + entityId, propertyValue);
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
@@ -455,10 +458,16 @@ export default class RenderSidebarSystem extends System {
 
                 for (const property in propertyValue) {
                     if (typeof propertyValue[property as keyof typeof propertyValue] !== 'object') {
-                        console.log("propertyName: ", propertyName);
-                        console.log("property: ", property);
-                        console.log("propertyValue: ", propertyValue);
-                        const listItemWithInput = this.createListItemWithInput(property, propertyValue[property as keyof typeof propertyValue], propertyValue, entityId)
+                        console.log('propertyName: ', propertyName);
+                        console.log('property: ', property);
+                        console.log('propertyValue: ', propertyValue);
+                        const listItemWithInput = this.createListItemWithInput(
+                            id,
+                            property,
+                            propertyValue[property as keyof typeof propertyValue],
+                            propertyValue,
+                            entityId,
+                        );
                         objectContainer.append(listItemWithInput);
                         // const textInput = this.createInput(
                         //     'number',
