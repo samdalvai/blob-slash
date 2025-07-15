@@ -100,17 +100,13 @@ export default class RenderSidebarSystem extends System {
             const parameterValues: any[] = [];
 
             for (const param of parameters) {
-                if (typeof component[param as keyof Component] === 'object') {
+                if (Array.isArray(component[param as keyof Component])) {
+                    parameterValues.push([...component[param as keyof Component]]);
+                } else if (typeof component[param as keyof Component] === 'object') {
                     parameterValues.push({ ...(component[param as keyof Component] as object) });
                 } else {
                     parameterValues.push(component[param as keyof Component]);
                 }
-            }
-
-            if (component.constructor.name === 'ScriptComponent') {
-                console.log("Original componen parameters: ", parameters);
-                console.log("Original component: ", component);
-                console.log("parameterValues: ", parameterValues);
             }
 
             entityCopy.addComponent(ComponentClass, ...parameterValues);
