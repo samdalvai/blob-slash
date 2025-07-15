@@ -404,19 +404,10 @@ export default class RenderSidebarSystem extends System {
                 return propertyLi;
             }
             case 'object': {
-                if (isVector(propertyValue)) {
-                    const vectorContainer = document.createElement('div');
+                if (isVector(propertyValue) || isRectangle(propertyValue)) {
+                    const objectContainer = document.createElement('div');
 
-                    console.log('propertyValue: ', propertyValue);
                     for (const property in propertyValue) {
-                        console.log('property: ', property);
-                        console.log('value: ', propertyValue[property as keyof typeof propertyValue]);
-                        console.log('component: ', component);
-                        console.log('component property: ', (component as any)[propertyName]);
-                        console.log(
-                            'component property value: ',
-                            (component as any)[propertyName][property as keyof typeof propertyValue],
-                        );
                         const textInput = this.createInput(
                             'number',
                             propertyName + '-' + property + '-' + entityId,
@@ -429,10 +420,10 @@ export default class RenderSidebarSystem extends System {
                             );
                         });
                         const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
-                        vectorContainer.append(propertyLi);
+                        objectContainer.append(propertyLi);
                     }
 
-                    return vectorContainer;
+                    return objectContainer;
                     // const vectorContainer = document.createElement('div');
 
                     // const textInput1 = this.createInput('number', propertyName + '-x-' + entityId, propertyValue.x);
