@@ -32,6 +32,9 @@ export default class Editor extends Engine {
     static gridSquareSide = 64;
     static alertShown = false;
     static dynamicSystemsActive = false;
+    static activeSystems: {
+        [key: string]: boolean;
+    } = {};
 
     constructor() {
         super();
@@ -109,6 +112,14 @@ export default class Editor extends Engine {
         });
 
         window.closeAlert = closeAlert;
+
+        for (const systemKey in GameSystems) {
+            if (GameSystems[systemKey as keyof typeof GameSystems] === GameSystems.RenderSystem) {
+                Editor.activeSystems[systemKey] = true;
+            } else {
+                Editor.activeSystems[systemKey] = false;
+            }
+        }
     };
 
     setup = async () => {

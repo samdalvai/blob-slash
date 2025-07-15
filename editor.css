@@ -105,6 +105,13 @@ button {
     width: 100%;
 }
 
+#active-systems {
+    list-style: none;
+    padding-left: 0;
+    overflow-y: scroll;
+    max-height: 50vh;
+}
+
 /* Styles by class */
 
 .custom-alert {
