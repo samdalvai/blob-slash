@@ -1,11 +1,10 @@
 import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
-import Component, { ComponentClass } from '../../engine/ecs/Component';
+import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
-import { getComponentConstructorParamNames } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
@@ -91,26 +90,7 @@ export default class RenderSidebarSystem extends System {
         }
 
         const originalEntity = event.entity;
-        const entityCopy = originalEntity.registry.createEntity();
-        const originalEntityComponents = originalEntity.getComponents();
-
-        for (const component of originalEntityComponents) {
-            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
-            const parameters = getComponentConstructorParamNames(ComponentClass);
-            const parameterValues: any[] = [];
-
-            for (const param of parameters) {
-                if (Array.isArray(component[param as keyof Component])) {
-                    parameterValues.push([...component[param as keyof Component]]);
-                } else if (typeof component[param as keyof Component] === 'object') {
-                    parameterValues.push({ ...(component[param as keyof Component] as object) });
-                } else {
-                    parameterValues.push(component[param as keyof Component]);
-                }
-            }
-
-            entityCopy.addComponent(ComponentClass, ...parameterValues);
-        }
+        const entityCopy = event.entity.duplicate();
 
         entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus));
 
