@@ -455,20 +455,25 @@ export default class RenderSidebarSystem extends System {
 
                 for (const property in propertyValue) {
                     if (typeof propertyValue[property as keyof typeof propertyValue] !== 'object') {
-                        const textInput = this.createInput(
-                            'number',
-                            propertyName + '-' + property + '-' + entityId,
-                            propertyValue[property as keyof typeof propertyValue],
-                        );
+                        console.log("propertyName: ", propertyName);
+                        console.log("property: ", property);
+                        console.log("propertyValue: ", propertyValue);
+                        const listItemWithInput = this.createListItemWithInput(property, propertyValue[property as keyof typeof propertyValue], propertyValue, entityId)
+                        objectContainer.append(listItemWithInput);
+                        // const textInput = this.createInput(
+                        //     'number',
+                        //     propertyName + '-' + property + '-' + entityId,
+                        //     propertyValue[property as keyof typeof propertyValue],
+                        // );
 
-                        textInput.addEventListener('input', event => {
-                            const target = event.target as HTMLInputElement;
-                            (propertyValue[property as keyof typeof propertyValue] as number) = parseFloat(
-                                target.value,
-                            );
-                        });
-                        const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
-                        objectContainer.append(propertyLi);
+                        // textInput.addEventListener('input', event => {
+                        //     const target = event.target as HTMLInputElement;
+                        //     (propertyValue[property as keyof typeof propertyValue] as number) = parseFloat(
+                        //         target.value,
+                        //     );
+                        // });
+                        // const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
+                        // objectContainer.append(propertyLi);
                     } else {
                         // if (component.constructor.name === 'ScriptComponent') {
                         //     console.log('property name: ', property);
