@@ -304,11 +304,15 @@ export default class Editor extends Engine {
                 return;
             }
 
-            if (!this.leftSidebar) {
-                throw new Error('leftSidebar is not defined');
+            if (!this.leftSidebar || !this.canvas) {
+                throw new Error('leftSidebar or canvas is not defined');
             }
 
-            if (Engine.mousePositionScreen.x <= this.leftSidebar.getBoundingClientRect().width) {
+            if (
+                Engine.mousePositionScreen.x < this.leftSidebar.getBoundingClientRect().width ||
+                Engine.mousePositionScreen.x >
+                    this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width
+            ) {
                 return;
             }
 

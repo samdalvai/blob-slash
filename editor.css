@@ -86,6 +86,14 @@ button {
     border-radius: 4px;
 }
 
+#active-systems li {
+    padding: 6px;
+    cursor: pointer;
+    background-color: #2a2a2a;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+
 #entity-list span {
     overflow: hidden;
     text-overflow: ellipsis;
