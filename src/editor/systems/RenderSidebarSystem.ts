@@ -454,24 +454,29 @@ export default class RenderSidebarSystem extends System {
                 const objectContainer = document.createElement('div');
 
                 for (const property in propertyValue) {
-                    if (component.constructor.name === 'ScriptComponent') {
-                        console.log("property: ", property);
-                        console.log("propertyValue: ", propertyValue);
-                        console.log("propertyValue[property]: ", propertyValue[property as keyof typeof propertyValue]);
+                    if (typeof propertyValue[property as keyof typeof propertyValue] !== 'object') {
+                        const textInput = this.createInput(
+                            'number',
+                            propertyName + '-' + property + '-' + entityId,
+                            propertyValue[property as keyof typeof propertyValue],
+                        );
+
+                        textInput.addEventListener('input', event => {
+                            const target = event.target as HTMLInputElement;
+                            propertyValue[property as keyof typeof propertyValue] = parseFloat(target.value);
+                        });
+                        const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
+                        objectContainer.append(propertyLi);
+                    } else {
+                        if (component.constructor.name === 'ScriptComponent') {
+                            console.log('property: ', property);
+                            console.log('propertyValue: ', propertyValue);
+                            console.log(
+                                'propertyValue[property]: ',
+                                propertyValue[property as keyof typeof propertyValue],
+                            );
+                        }
                     }
-
-                    const textInput = this.createInput(
-                        'number',
-                        propertyName + '-' + property + '-' + entityId,
-                        propertyValue[property as keyof typeof propertyValue],
-                    );
-
-                    textInput.addEventListener('input', event => {
-                        const target = event.target as HTMLInputElement;
-                        propertyValue[property as keyof typeof propertyValue] = parseFloat(target.value);
-                    });
-                    const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
-                    objectContainer.append(propertyLi);
                 }
 
                 return objectContainer;
