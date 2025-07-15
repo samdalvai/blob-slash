@@ -21,6 +21,10 @@ export default class Entity {
         this.registry.killEntity(this);
     };
 
+    duplicate = () => {
+        return this.registry.duplicateEntity(this);
+    }
+
     tag = (tag: string) => {
         this.registry.tagEntity(this, tag);
     };

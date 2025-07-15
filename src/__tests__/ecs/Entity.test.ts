@@ -3,6 +3,7 @@ import { expect } from '@jest/globals';
 import Component, { IComponent } from '../../engine/ecs/Component';
 import Registry from '../../engine/ecs/Registry';
 import { ISystem } from '../../engine/ecs/System';
+import { TransformComponent } from '../../game/components';
 
 describe('Testing Entity related functions', () => {
     beforeEach(() => {
@@ -54,5 +55,35 @@ describe('Testing Entity related functions', () => {
         expect(components[0]).toEqual(entity1.getComponent(MyComponent1));
         expect(components[1]).toEqual(entity1.getComponent(MyComponent2));
         expect(components.length).toBe(2);
+    });
+
+    test('Should duplicate entity with its components', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+
+        const entityCopy = entity.duplicate();
+        const components = entityCopy.getComponents();
+        expect(components[0]).toEqual(entity.getComponent(TransformComponent));
+        expect(components.length).toBe(1);
+    });
+
+    test('Should duplicate entity with its components and change them independently', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+
+        const entityCopy = entity.duplicate();
+
+        const originalTransform = entity.getComponent(TransformComponent);
+        originalTransform!.position.x = 200;
+        originalTransform!.position.y = 200;
+
+        const components = entityCopy.getComponents();
+        expect(100).toEqual(entityCopy.getComponent(TransformComponent)!.position.x);
+        expect(100).toEqual(entityCopy.getComponent(TransformComponent)!.position.y);
+        expect(components.length).toBe(1);
     });
 });

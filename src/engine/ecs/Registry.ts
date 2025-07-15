@@ -1,3 +1,5 @@
+import * as GameComponents from '../../game/components';
+import { getComponentConstructorParamNames } from '../serialization/deserialization';
 import Component, { ComponentClass } from './Component';
 import Entity from './Entity';
 import Pool, { IPool } from './Pool';
@@ -110,6 +112,31 @@ export default class Registry {
 
         entity.toBeKilled = true;
         this.entitiesToBeKilled.push(entity);
+    };
+
+    duplicateEntity = (entity: Entity) => {
+        const entityCopy = entity.registry.createEntity();
+        const originalEntityComponents = entity.getComponents();
+
+        for (const component of originalEntityComponents) {
+            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
+            const parameters = getComponentConstructorParamNames(ComponentClass);
+            const parameterValues: any[] = [];
+
+            for (const param of parameters) {
+                if (Array.isArray(component[param as keyof Component])) {
+                    parameterValues.push([...component[param as keyof Component]]);
+                } else if (typeof component[param as keyof Component] === 'object') {
+                    parameterValues.push({ ...(component[param as keyof Component] as object) });
+                } else {
+                    parameterValues.push(component[param as keyof Component]);
+                }
+            }
+
+            entityCopy.addComponent(ComponentClass, ...parameterValues);
+        }
+
+        return entityCopy;
     };
 
     getAllEntities = () => {
