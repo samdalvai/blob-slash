@@ -453,11 +453,12 @@ export default class RenderSidebarSystem extends System {
             case 'object': {
                 const objectContainer = document.createElement('div');
 
-                if (component.constructor.name === 'ScriptComponent') {
-                    console.log('propertyValue ', propertyValue);
-                }
-
                 for (const property in propertyValue) {
+                    if (component.constructor.name === 'ScriptComponent') {
+                        console.log("property: ", property);
+                        console.log("propertyValue: ", propertyValue[property as keyof typeof propertyValue]);
+                    }
+
                     const textInput = this.createInput(
                         'number',
                         propertyName + '-' + property + '-' + entityId,
@@ -466,14 +467,7 @@ export default class RenderSidebarSystem extends System {
 
                     textInput.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
-                        (component as any)[propertyName][property as keyof typeof propertyValue] = parseFloat(
-                            target.value,
-                        );
-                        // TODO: does not work for arrays
-                        if (component.constructor.name === 'ScriptComponent') {
-                            console.log('Updating ', propertyValue);
-                            console.log('Updating ', propertyValue[property as keyof typeof propertyValue]);
-                        }
+                        propertyValue[property as keyof typeof propertyValue] = parseFloat(target.value);
                     });
                     const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
                     objectContainer.append(propertyLi);
@@ -481,10 +475,10 @@ export default class RenderSidebarSystem extends System {
 
                 return objectContainer;
             }
+            default:
+                throw new Error(
+                    `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
+                );
         }
-
-        throw new Error(
-            `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
-        );
     };
 }
