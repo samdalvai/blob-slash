@@ -336,7 +336,7 @@ export default class RenderSidebarSystem extends System {
 
     private getPropertyInput = (
         propertyName: string,
-        propertyValue: number | boolean | Vector | Rectangle,
+        propertyValue: string | number | boolean | Vector | Rectangle,
         component: Component,
         entityId: number,
         assetStore: AssetStore,
@@ -374,6 +374,56 @@ export default class RenderSidebarSystem extends System {
             return propertyLi;
         }
 
+        if (Array.isArray(propertyValue)) {
+            const arrayContainer = document.createElement('div');
+            (propertyValue as Array<any>).forEach((property, index) => {
+                console.log(property);
+                arrayContainer.append(
+                    this.createListItemWithInput(propertyName + '-' + index, property, component, entityId),
+                );
+            });
+
+            return arrayContainer;
+        }
+
+        return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
+    };
+
+    private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
+        const li = document.createElement('li');
+        li.className = 'd-flex space-between align-center';
+
+        const span = document.createElement('span');
+        span.innerText = label;
+        span.className = 'label-text';
+
+        li.append(span);
+        li.append(input);
+        return li;
+    };
+
+    private createInput = (
+        type: 'text' | 'number' | 'checkbox',
+        id: string,
+        value: string | number | boolean,
+    ): HTMLInputElement => {
+        const input = document.createElement('input');
+        input.type = type;
+        input.id = id;
+        if (type === 'checkbox') {
+            input.checked = Boolean(value);
+        } else {
+            input.value = String(value);
+        }
+        return input;
+    };
+
+    private createListItemWithInput = (
+        propertyName: string,
+        propertyValue: string | number | boolean | Vector | Rectangle,
+        component: Component,
+        entityId: number,
+    ) => {
         switch (typeof propertyValue) {
             case 'string': {
                 const textInput = this.createInput('text', propertyName + '-' + entityId, propertyValue);
@@ -404,137 +454,30 @@ export default class RenderSidebarSystem extends System {
                 return propertyLi;
             }
             case 'object': {
-                if (isVector(propertyValue) || isRectangle(propertyValue)) {
-                    const objectContainer = document.createElement('div');
+                const objectContainer = document.createElement('div');
 
-                    for (const property in propertyValue) {
-                        const textInput = this.createInput(
-                            'number',
-                            propertyName + '-' + property + '-' + entityId,
-                            propertyValue[property as keyof typeof propertyValue],
+                for (const property in propertyValue) {
+                    const textInput = this.createInput(
+                        'number',
+                        propertyName + '-' + property + '-' + entityId,
+                        propertyValue[property as keyof typeof propertyValue],
+                    );
+                    textInput.addEventListener('input', event => {
+                        const target = event.target as HTMLInputElement;
+                        (component as any)[propertyName][property as keyof typeof propertyValue] = parseFloat(
+                            target.value,
                         );
-                        textInput.addEventListener('input', event => {
-                            const target = event.target as HTMLInputElement;
-                            (component as any)[propertyName][property as keyof typeof propertyValue] = parseFloat(
-                                target.value,
-                            );
-                        });
-                        const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
-                        objectContainer.append(propertyLi);
-                    }
-
-                    return objectContainer;
-                    // const vectorContainer = document.createElement('div');
-
-                    // const textInput1 = this.createInput('number', propertyName + '-x-' + entityId, propertyValue.x);
-                    // textInput1.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].x = parseInt(target.value);
-                    // });
-
-                    // const textInput2 = this.createInput('number', propertyName + '-y-' + entityId, propertyValue.y);
-                    // textInput2.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].y = parseInt(target.value);
-                    // });
-
-                    // const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
-                    // const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
-
-                    // vectorContainer.append(propertyLi1);
-                    // vectorContainer.append(propertyLi2);
-
-                    // return vectorContainer;
+                    });
+                    const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
+                    objectContainer.append(propertyLi);
                 }
 
-                if (isRectangle(propertyValue)) {
-                    // const vectorContainer = document.createElement('div');
-                    // const textInput1 = this.createInput(
-                    //     'number',
-                    //     propertyName + '-x-' + entityId,
-                    //     (propertyValue as Rectangle).x,
-                    // );
-                    // textInput1.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].x = parseInt(target.value);
-                    // });
-                    // const textInput2 = this.createInput(
-                    //     'number',
-                    //     propertyName + '-y-' + entityId,
-                    //     (propertyValue as Rectangle).y,
-                    // );
-                    // textInput2.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].y = parseInt(target.value);
-                    // });
-                    // const textInput3 = this.createInput(
-                    //     'number',
-                    //     propertyName + '-width-' + entityId,
-                    //     (propertyValue as Rectangle).width,
-                    // );
-                    // textInput3.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].width = parseInt(target.value);
-                    // });
-                    // const textInput4 = this.createInput(
-                    //     'number',
-                    //     propertyName + '-height-' + entityId,
-                    //     (propertyValue as Rectangle).height,
-                    // );
-                    // textInput4.addEventListener('input', event => {
-                    //     const target = event.target as HTMLInputElement;
-                    //     (component as any)[propertyName].height = parseInt(target.value);
-                    // });
-                    // const propertyLi1 = this.createListItem(propertyName + ' (x)', textInput1);
-                    // const propertyLi2 = this.createListItem(propertyName + ' (y)', textInput2);
-                    // const propertyLi3 = this.createListItem(propertyName + ' (width)', textInput3);
-                    // const propertyLi4 = this.createListItem(propertyName + ' (height)', textInput4);
-                    // vectorContainer.append(propertyLi1);
-                    // vectorContainer.append(propertyLi2);
-                    // vectorContainer.append(propertyLi3);
-                    // vectorContainer.append(propertyLi4);
-                    // return vectorContainer;
-                }
-
-                if (Array.isArray(propertyValue)) {
-                    console.log('Is array');
-                }
-
-                console.warn(
-                    `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
-                );
-                return null;
-                //throw new Error(`Uknown type of property ${propertyName} with value ${propertyValue}`);
+                return objectContainer;
             }
         }
-    };
 
-    private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
-        const li = document.createElement('li');
-        li.className = 'd-flex space-between align-center';
-
-        const span = document.createElement('span');
-        span.innerText = label;
-        span.className = 'label-text';
-
-        li.append(span);
-        li.append(input);
-        return li;
-    };
-
-    private createInput = (
-        type: 'text' | 'number' | 'checkbox',
-        id: string,
-        value: string | number | boolean,
-    ): HTMLInputElement => {
-        const input = document.createElement('input');
-        input.type = type;
-        input.id = id;
-        if (type === 'checkbox') {
-            input.checked = Boolean(value);
-        } else {
-            input.value = String(value);
-        }
-        return input;
+        throw new Error(
+            `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
+        );
     };
 }
