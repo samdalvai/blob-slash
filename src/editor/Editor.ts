@@ -116,11 +116,7 @@ export default class Editor extends Engine {
         window.closeAlert = closeAlert;
 
         for (const systemKey in GameSystems) {
-            if (GameSystems[systemKey as keyof typeof GameSystems] === GameSystems.RenderSystem) {
-                Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems] = true;
-            } else {
-                Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems] = false;
-            }
+            Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems] = false;
         }
 
         const localEditorSettings = loadEditorSettingsFromLocalStorage();
