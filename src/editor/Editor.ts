@@ -30,6 +30,7 @@ export default class Editor extends Engine {
     static showGrid = true;
     static gridSquareSide = 64;
     static alertShown = false;
+    static dynamicSystemsActive = false;
 
     constructor() {
         super();
@@ -328,14 +329,17 @@ export default class Editor extends Engine {
         this.registry.update();
 
         // Perform the subscription of the events for all systems
-        // this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
+        if (Editor.dynamicSystemsActive) {
+            this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
+            this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
+            this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
+        }
+        
         // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
-        // this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         // this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
         if (!this.panEnabled) {
@@ -349,15 +353,19 @@ export default class Editor extends Engine {
             ?.subscribeToEvents(this.eventBus, this.sidebar, this.assetStore);
 
         // Invoke all the systems that need to update
-        this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
-        this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
-        this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
-        // this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
+        if (Editor.dynamicSystemsActive) {
+            this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
+            this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+            this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
+            this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
+            this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
+            this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
+        }
+
+
         // this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
         // this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
-        // this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
-        // this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
         this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
         this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
         // this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
