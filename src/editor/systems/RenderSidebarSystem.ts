@@ -376,12 +376,9 @@ export default class RenderSidebarSystem extends System {
 
         if (Array.isArray(propertyValue)) {
             const arrayContainer = document.createElement('div');
-            (propertyValue as Array<any>).forEach((property, index) => {
-                console.log(property);
-                arrayContainer.append(
-                    this.createListItemWithInput(propertyName + '-' + index, property, component, entityId),
-                );
-            });
+            for (const property of propertyValue as Array<any>) {
+                arrayContainer.append(this.createListItemWithInput(propertyName, property, component, entityId));
+            }
 
             return arrayContainer;
         }
@@ -456,17 +453,27 @@ export default class RenderSidebarSystem extends System {
             case 'object': {
                 const objectContainer = document.createElement('div');
 
+                if (component.constructor.name === 'ScriptComponent') {
+                    console.log('propertyValue ', propertyValue);
+                }
+
                 for (const property in propertyValue) {
                     const textInput = this.createInput(
                         'number',
                         propertyName + '-' + property + '-' + entityId,
                         propertyValue[property as keyof typeof propertyValue],
                     );
+
                     textInput.addEventListener('input', event => {
                         const target = event.target as HTMLInputElement;
                         (component as any)[propertyName][property as keyof typeof propertyValue] = parseFloat(
                             target.value,
                         );
+                        // TODO: does not work for arrays
+                        if (component.constructor.name === 'ScriptComponent') {
+                            console.log('Updating ', propertyValue);
+                            console.log('Updating ', propertyValue[property as keyof typeof propertyValue]);
+                        }
                     });
                     const propertyLi = this.createListItem(propertyName + ' (' + property + ')', textInput);
                     objectContainer.append(propertyLi);
