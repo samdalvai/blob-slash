@@ -86,4 +86,16 @@ describe('Testing Entity related functions', () => {
         expect(100).toEqual(entityCopy.getComponent(TransformComponent)!.position.y);
         expect(components.length).toBe(1);
     });
+
+    test('Should duplicate entity group', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.tag('test-tag');
+        entity.group('test-group');
+
+        const entityCopy = entity.duplicate();
+        expect(entityCopy.getTag()).toEqual(undefined);
+        expect(entityCopy.getGroup()).toEqual('test-group');
+    });
 });
