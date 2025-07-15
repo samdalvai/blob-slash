@@ -114,10 +114,10 @@ export default class EntityDragSystem extends System {
             const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
             const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
 
-            if (Editor.snapToGrid) {
-                const diffX = Engine.mousePositionWorld.x % Editor.gridSquareSide;
-                const diffY = Engine.mousePositionWorld.y % Editor.gridSquareSide;
-
+            if (Editor.editorSettings.snapToGrid) {
+                const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
+                const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
+                
                 this.updateEntityPosition(
                     entity,
                     transform,
