@@ -8,6 +8,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
+import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
@@ -27,6 +28,7 @@ export default class RenderSidebarSystem extends System {
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, assetStore, eventBus),
         );
+        eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
@@ -37,7 +39,7 @@ export default class RenderSidebarSystem extends System {
         this.scrollToListElement(leftSidebar, `#entity-${event.entity.getId()}`);
     };
 
-    onEntityDelete = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
+    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -86,7 +88,27 @@ export default class RenderSidebarSystem extends System {
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
     };
 
-    // TODO: move settings to right sidebar
+    onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
+        if (!leftSidebar) {
+            throw new Error('Could not retrieve leftSidebar');
+        }
+
+        const entityList = leftSidebar.querySelector('#entity-list');
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
+
+        if (targetElement) {
+            if (event.entity.getId() === Editor.selectedEntity) {
+                Editor.selectedEntity = null;
+            }
+            targetElement.remove();
+        }
+    };
+
     update(
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
@@ -119,6 +141,18 @@ export default class RenderSidebarSystem extends System {
         for (const entity of entities) {
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
         }
+
+        const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
+
+        if (!addEntityButton) {
+            throw new Error('Could not find add entity button');
+        }
+
+        addEntityButton.onclick = () => {
+            const entity = registry.createEntity();
+            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
+            eventBus.emitEvent(EntitySelectEvent, entity);
+        };
     };
 
     private getEntityListElement = (
@@ -346,8 +380,8 @@ export default class RenderSidebarSystem extends System {
                 );
             }
             componentContainerToDelete.remove();
-            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents]
-            entity.removeComponent(ComponentClass)
+            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
+            entity.removeComponent(ComponentClass);
 
             entity.registry.removeEntityFromSystems(entity);
             entity.registry.addEntityToSystems(entity);

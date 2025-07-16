@@ -401,7 +401,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['MovementSystem'] &&
             this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
         Editor.editorSettings.activeSystems['LifetimeSystem'] &&
-            this.registry.getSystem(GameSystems.LifetimeSystem)?.update();
+            this.registry.getSystem(GameSystems.LifetimeSystem)?.update(this.eventBus);
         Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
         Editor.editorSettings.activeSystems['ScriptingSystem'] &&
