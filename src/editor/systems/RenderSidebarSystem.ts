@@ -79,7 +79,9 @@ export default class RenderSidebarSystem extends System {
         const originalEntity = event.entity;
         const entityCopy = event.entity.duplicate();
 
-        entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus, leftSidebar));
+        entityList.appendChild(
+            this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus, leftSidebar),
+        );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
     };
@@ -187,7 +189,7 @@ export default class RenderSidebarSystem extends System {
                 registry.removeEntityFromSystems(entity);
                 registry.addEntityToSystems(entity);
 
-                const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
+                const componentContainer = this.getComponentContainer(component, entity, assetStore);
                 li.appendChild(componentContainer);
 
                 this.scrollToListElement(leftSidebar, `#${component.constructor.name}-${entity.getId()}`);
@@ -213,7 +215,7 @@ export default class RenderSidebarSystem extends System {
         componentSelector.appendChild(select);
         li.appendChild(componentSelector);
 
-        const forms = this.getComponentsForms(entityComponents, entity.getId(), assetStore);
+        const forms = this.getComponentsForms(entityComponents, entity, assetStore);
         li.appendChild(forms);
 
         return li;
@@ -304,24 +306,24 @@ export default class RenderSidebarSystem extends System {
 
     private getComponentsForms = (
         entityComponents: Component[],
-        entityId: number,
+        entity: Entity,
         assetStore: AssetStore,
     ): HTMLElement => {
         const container = document.createElement('div');
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
-            const componentContainer = this.getComponentContainer(component, entityId, assetStore);
+            const componentContainer = this.getComponentContainer(component, entity, assetStore);
             container.append(componentContainer);
         }
 
         return container;
     };
 
-    private getComponentContainer = (component: Component, entityId: number, assetStore: AssetStore) => {
+    private getComponentContainer = (component: Component, entity: Entity, assetStore: AssetStore) => {
         const componentContainer = document.createElement('div');
         componentContainer.className = 'pb-2';
-        componentContainer.id = component.constructor.name + '-' + entityId;
+        componentContainer.id = component.constructor.name + '-' + entity.getId();
 
         const componentHeader = document.createElement('div');
         componentHeader.className = 'd-flex space-between align-center';
@@ -333,7 +335,22 @@ export default class RenderSidebarSystem extends System {
         const removeButton = document.createElement('button');
         removeButton.innerText = 'REMOVE';
         removeButton.onclick = () => {
-            console.log('Removing component');
+            const componentContainerToDelete = document.getElementById(
+                component.constructor.name + '-' + entity.getId(),
+            );
+
+            if (!componentContainerToDelete) {
+                throw new Error(
+                    'Could not find component container to delete with id ' +
+                        (component.constructor.name + '-' + entity.getId()),
+                );
+            }
+            componentContainerToDelete.remove();
+            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents]
+            entity.removeComponent(ComponentClass)
+
+            entity.registry.removeEntityFromSystems(entity);
+            entity.registry.addEntityToSystems(entity);
         };
 
         componentHeader.append(title);
@@ -343,7 +360,7 @@ export default class RenderSidebarSystem extends System {
         const properties = Object.keys(component);
 
         for (const key of properties) {
-            const form = this.getPropertyInput(key, (component as any)[key], component, entityId, assetStore);
+            const form = this.getPropertyInput(key, (component as any)[key], component, entity.getId(), assetStore);
 
             if (form) {
                 componentContainer.append(form);
