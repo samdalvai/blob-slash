@@ -34,22 +34,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = leftSidebar.querySelector('#entity-list');
-
-        if (!entityList) {
-            throw new Error('Could not retrieve entity list');
-        }
-
-        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
-
-        if (!targetElement) {
-            throw new Error('Could not find target element in entity list');
-        }
-
-        targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
+        this.scrollToListElement(leftSidebar, `#entity-${event.entity.getId()}`);
     };
 
     onEntityDelete = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
@@ -94,7 +79,7 @@ export default class RenderSidebarSystem extends System {
         const originalEntity = event.entity;
         const entityCopy = event.entity.duplicate();
 
-        entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus));
+        entityList.appendChild(this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus, leftSidebar));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
     };
@@ -130,11 +115,17 @@ export default class RenderSidebarSystem extends System {
         const entities = registry.getAllEntities();
 
         for (const entity of entities) {
-            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus));
+            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
         }
     };
 
-    private getEntityListElement = (entity: Entity, registry: Registry, assetStore: AssetStore, eventBus: EventBus) => {
+    private getEntityListElement = (
+        entity: Entity,
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+        leftSidebar: HTMLElement,
+    ) => {
         const entityComponents = entity.getComponents();
 
         const li = document.createElement('li');
@@ -198,6 +189,8 @@ export default class RenderSidebarSystem extends System {
 
                 const componentContainer = this.getComponentContainer(component, entity.getId(), assetStore);
                 li.appendChild(componentContainer);
+
+                this.scrollToListElement(leftSidebar, `#${component.constructor.name}-${entity.getId()}`);
             }
         };
 
@@ -233,12 +226,16 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve active systems list');
         }
 
-        for (const systemKey in GameSystems) {          
-            const checkBoxInput = this.createInput('checkbox', systemKey, Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems]);
+        for (const systemKey in GameSystems) {
+            const checkBoxInput = this.createInput(
+                'checkbox',
+                systemKey,
+                Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems],
+            );
             checkBoxInput.addEventListener('input', event => {
                 const target = event.target as HTMLInputElement;
                 Editor.editorSettings.activeSystems[systemKey as keyof typeof GameSystems] = target.checked;
-                saveEditorSettingsToLocalStorage()
+                saveEditorSettingsToLocalStorage();
             });
             const propertyLi = this.createListItem(systemKey, checkBoxInput);
             activeSystemsList.appendChild(propertyLi);
@@ -252,13 +249,7 @@ export default class RenderSidebarSystem extends System {
         const showGridInput = rightSidebar.querySelector('#show-grid') as HTMLInputElement;
         const gridSideInput = rightSidebar.querySelector('#grid-side') as HTMLInputElement;
 
-        if (
-            !gameWidthInput ||
-            !gameHeightInput ||
-            !snapGridInput ||
-            !showGridInput ||
-            !gridSideInput
-        ) {
+        if (!gameWidthInput || !gameHeightInput || !snapGridInput || !showGridInput || !gridSideInput) {
             throw new Error('Could not retrieve level settings element(s)');
         }
 
@@ -271,31 +262,31 @@ export default class RenderSidebarSystem extends System {
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapWidth = parseInt(target.value);
-            saveEditorSettingsToLocalStorage()
+            saveEditorSettingsToLocalStorage();
         });
 
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
-            saveEditorSettingsToLocalStorage()
+            saveEditorSettingsToLocalStorage();
         });
 
         snapGridInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Editor.editorSettings.snapToGrid = target.checked;
-            saveEditorSettingsToLocalStorage()
+            saveEditorSettingsToLocalStorage();
         });
 
         showGridInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Editor.editorSettings.showGrid = target.checked;
-            saveEditorSettingsToLocalStorage()
+            saveEditorSettingsToLocalStorage();
         });
 
         gridSideInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Editor.editorSettings.gridSquareSide = parseInt(target.value);
-            saveEditorSettingsToLocalStorage()
+            saveEditorSettingsToLocalStorage();
         });
     };
 
@@ -330,10 +321,24 @@ export default class RenderSidebarSystem extends System {
     private getComponentContainer = (component: Component, entityId: number, assetStore: AssetStore) => {
         const componentContainer = document.createElement('div');
         componentContainer.className = 'pb-2';
+        componentContainer.id = component.constructor.name + '-' + entityId;
+
+        const componentHeader = document.createElement('div');
+        componentHeader.className = 'd-flex space-between align-center';
+
         const title = document.createElement('span');
         const componentName = component.constructor.name;
         title.innerText = '* ' + componentName;
-        componentContainer.append(title);
+
+        const removeButton = document.createElement('button');
+        removeButton.innerText = 'REMOVE';
+        removeButton.onclick = () => {
+            console.log('Removing component');
+        };
+
+        componentHeader.append(title);
+        componentHeader.append(removeButton);
+        componentContainer.append(componentHeader);
 
         const properties = Object.keys(component);
 
@@ -516,5 +521,24 @@ export default class RenderSidebarSystem extends System {
                     `Uknown type of property ${propertyName} with value ${propertyValue} for component ${component.constructor.name}`,
                 );
         }
+    };
+
+    private scrollToListElement = (sidebar: HTMLElement, elementId: string) => {
+        const entityList = sidebar.querySelector('#entity-list');
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        const targetElement = entityList.querySelector(elementId);
+
+        if (!targetElement) {
+            throw new Error('Could not find target element in entity list');
+        }
+
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
     };
 }
