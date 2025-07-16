@@ -153,7 +153,7 @@ export default class Game extends Engine {
         this.registry.getSystem(Systems.CameraMovementSystem)?.update(this.camera);
         this.registry.getSystem(Systems.CollisionSystem)?.update(this.eventBus);
         this.registry.getSystem(Systems.RangedAttackEmitSystem)?.update();
-        this.registry.getSystem(Systems.LifetimeSystem)?.update();
+        this.registry.getSystem(Systems.LifetimeSystem)?.update(this.eventBus);
         this.registry.getSystem(Systems.ParticleEmitSystem)?.update();
         this.registry.getSystem(Systems.EntityDestinationSystem)?.update();
         this.registry.getSystem(Systems.EntityEffectSystem)?.update(this.registry);
