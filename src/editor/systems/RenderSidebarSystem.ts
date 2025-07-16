@@ -365,6 +365,7 @@ export default class RenderSidebarSystem extends System {
         const title = document.createElement('span');
         const componentName = component.constructor.name;
         title.innerText = '* ' + componentName;
+        title.style.textDecoration = 'underline';
 
         const removeButton = document.createElement('button');
         removeButton.innerText = 'REMOVE';
