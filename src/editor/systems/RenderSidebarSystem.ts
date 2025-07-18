@@ -127,7 +127,7 @@ export default class RenderSidebarSystem extends System {
         this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
-        this.renderLevelManagement(rightSidebar, registry, assetStore, levelManager);
+        this.renderLevelManagement(rightSidebar, leftSidebar, registry, assetStore, eventBus, levelManager);
     }
 
     private renderEntityList = (
@@ -336,16 +336,21 @@ export default class RenderSidebarSystem extends System {
 
     private renderLevelManagement(
         rightSidebar: HTMLElement,
+        leftSidebar: HTMLElement,
         registry: Registry,
         assetStore: AssetStore,
+        eventBus: EventBus,
         levelManager: LevelManager,
     ) {
+        // TODO: Handle resetting entity list and level settings on new level select
+
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
+        const newLevelButton = rightSidebar.querySelector('#new-level') as HTMLButtonElement;
         const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
         const fileInput = document.getElementById('file-input') as HTMLInputElement;
 
-        if (!localStorageLevelsSelect || !saveToJsonButton || !loadFromJsonButton || !fileInput) {
+        if (!localStorageLevelsSelect || !newLevelButton || !saveToJsonButton || !loadFromJsonButton || !fileInput) {
             throw new Error('Could not retrieve level management element(s)');
         }
 
@@ -368,6 +373,42 @@ export default class RenderSidebarSystem extends System {
             registry.clear();
             await levelManager.loadLevelFromLocalStorage(registry, levelId);
         });
+
+        newLevelButton.onclick = async () => {
+            const levelKeys = getAllLevelKeysFromLocalStorage();
+            const nextLevelId = getNextLevelId(levelKeys);
+
+            const newLevelMap: LevelMap = {
+                textures: [],
+                sounds: [],
+                mapWidth: 64 * 10,
+                mapHeight: 64 * 10,
+                entities: [],
+            };
+
+            saveLevelMapToLocalStorage(nextLevelId, newLevelMap);
+            const option = document.createElement('option');
+            option.value = nextLevelId;
+            option.textContent = nextLevelId;
+            localStorageLevelsSelect.appendChild(option);
+
+            localStorageLevelsSelect.value = nextLevelId;
+            registry.clear();
+            await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
+
+            // TODO: extract in a method to clear and restore all elements
+            const entityList = leftSidebar.querySelector('#entity-list');
+            const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
+            const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
+
+            if (!entityList || !gameWidthInput || !gameHeightInput) {
+                throw new Error('Could not identify sidebar element(s)');
+            }
+
+            entityList.innerHTML = '';
+            gameWidthInput.value = newLevelMap.mapWidth.toString();
+            gameHeightInput.value = newLevelMap.mapHeight.toString();
+        };
 
         saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
         loadFromJsonButton.onclick = () => {
