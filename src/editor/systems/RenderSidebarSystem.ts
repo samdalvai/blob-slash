@@ -196,7 +196,7 @@ export default class RenderSidebarSystem extends System {
         componentSelector.className = 'd-flex align-center space-between pt-2';
 
         const addComponentButton = document.createElement('button');
-        addComponentButton.innerText = 'Add component';
+        addComponentButton.innerText = 'ADD COMPONENT';
         addComponentButton.onclick = () => {
             const entityComponentSelector = document.getElementById(
                 'component-select-' + entity.getId(),
@@ -424,6 +424,8 @@ export default class RenderSidebarSystem extends System {
         }
 
         if (component.constructor.name === 'SpriteComponent' && propertyName === 'assetId') {
+            const container = document.createElement('div');
+
             const select = document.createElement('select');
             select.id = propertyName + '-' + entityId;
 
@@ -448,7 +450,9 @@ export default class RenderSidebarSystem extends System {
                 (component as any)[propertyName] = target.value;
             });
 
-            const propertyLi = this.createListItem(propertyName, select);
+            container.append(select);
+
+            const propertyLi = this.createListItem(propertyName, container);
             return propertyLi;
         }
 
@@ -464,7 +468,7 @@ export default class RenderSidebarSystem extends System {
         return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
     };
 
-    private createListItem = (label: string, input: HTMLInputElement | HTMLSelectElement): HTMLLIElement => {
+    private createListItem = (label: string, input: HTMLElement): HTMLLIElement => {
         const li = document.createElement('li');
         li.className = 'd-flex space-between align-center';
 
