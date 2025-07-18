@@ -18,8 +18,14 @@ export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): voi
     console.log('Level snapshot saved to json');
 };
 
-export const saveLevelToLocalStorage = (levelId: string, registry: Registry, assetStore: AssetStore) => {
+export const saveCurrentLevelToLocalStorage = (levelId: string, registry: Registry, assetStore: AssetStore) => {
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
+    localStorage.setItem(levelId, jsonString);
+    console.log('Level snapshot saved to local storage');
+};
+
+export const saveLevelMapToLocalStorage = (levelId: string, levelMap: LevelMap) => {
+    const jsonString = JSON.stringify(levelMap, null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');
 };
