@@ -177,8 +177,8 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
 
-        await this.levelManager.addLevel('snapshot', '/assets/levels/snapshot.json');
-        await this.levelManager.loadLevel(this.registry, 'snapshot');
+        await this.levelManager.addLevelToAssets('snapshot', '/assets/levels/snapshot.json');
+        await this.levelManager.loadLevelFromAssets(this.registry, 'snapshot');
     };
 
     processInput = () => {
@@ -507,7 +507,7 @@ export default class Editor extends Engine {
         if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.eventBus);
+                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.eventBus, this.levelManager);
 
             this.shouldSidebarUpdate = false;
         }

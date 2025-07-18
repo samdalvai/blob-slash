@@ -2,6 +2,7 @@ import Engine from '../Engine';
 import AssetStore from '../asset-store/AssetStore';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
+import { loadLevelFromLocalStorage } from '../serialization/persistence';
 // import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 
@@ -12,19 +13,26 @@ export default class LevelManager {
         this.assetStore = assetStore;
     }
 
-    public async addLevel(levelId: string, levelFilePath: string) {
+    public async addLevelToAssets(levelId: string, levelFilePath: string) {
         console.log('Loading level ' + levelId);
         await this.assetStore.addJson(levelId, levelFilePath);
     }
 
-    public async loadLevel(registry: Registry, levelId: string) {
+    public async loadLevelFromAssets(registry: Registry, levelId: string) {
         const level = this.assetStore.getJson(levelId) as LevelMap;
-        await this.loadAssets(level);
-        // const level = loadLevelFromLocalStorage();
-        // if (!levelLocal) {
-        //     throw new Error('Could not read level from local storage');
-        // }
 
+        await this.loadAssets(level);
+        this.loadEntities(registry, level);
+        this.setMapBoundaries(level);
+    }
+
+    public async loadLevelFromLocalStorage(registry: Registry, levelId: string) {
+        const level = loadLevelFromLocalStorage(levelId);
+        if (!level) {
+            throw new Error('Could not read level from local storage');
+        }
+
+        await this.loadAssets(level);
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);
     }

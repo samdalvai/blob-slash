@@ -5,6 +5,7 @@ import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
+import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
@@ -15,7 +16,7 @@ import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
-import { saveEditorSettingsToLocalStorage } from '../persistence/persistence';
+import { getAllLevelKeysFromLocalStorage, saveEditorSettingsToLocalStorage } from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
     constructor() {
@@ -115,11 +116,12 @@ export default class RenderSidebarSystem extends System {
         registry: Registry,
         assetStore: AssetStore,
         eventBus: EventBus,
+        levelManager: LevelManager,
     ) {
         this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
-        this.renderSaveButtons(rightSidebar, registry, assetStore);
+        this.renderLevelManagement(rightSidebar, registry, assetStore, levelManager);
     }
 
     private renderEntityList = (
@@ -326,16 +328,89 @@ export default class RenderSidebarSystem extends System {
         });
     };
 
-    private renderSaveButtons(rightSidebar: HTMLElement, registry: Registry, assetStore: AssetStore) {
-        const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
-        const saveToLocalButton = rightSidebar.querySelector('#save-to-local') as HTMLButtonElement;
+    private renderLevelManagement(
+        rightSidebar: HTMLElement,
+        registry: Registry,
+        assetStore: AssetStore,
+        levelManager: LevelManager,
+    ) {
+        const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
+        //const loadLevelButton = rightSidebar.querySelector('#load-level') as HTMLButtonElement;
 
-        if (!saveToJsonButton || !saveToLocalButton) {
-            throw new Error('Could not retrieve level save button(s)');
+        if (!localStorageLevelsSelect) {
+            throw new Error('Could not retrieve level management element(s)');
         }
 
-        saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
-        saveToLocalButton.onclick = () => saveLevelToLocalStorage('level', registry, assetStore);
+        const levelKeys = getAllLevelKeysFromLocalStorage();
+        const options: { value: string; text: string }[] = [];
+        for (const key of levelKeys) {
+            options.push({ value: key, text: key });
+        }
+
+        options.forEach(optionData => {
+            const option = document.createElement('option');
+            option.value = optionData.value;
+            option.textContent = optionData.text;
+            localStorageLevelsSelect.appendChild(option);
+        });
+
+        localStorageLevelsSelect.addEventListener('change', async (event: Event): Promise<void> => {
+            const target = event.target as HTMLSelectElement;
+            const levelId = target.value;
+            registry.clear();
+            await levelManager.loadLevelFromLocalStorage(registry, levelId);
+        });
+
+        // loadLevelButton.onclick = () => {
+        //     console.log('current value: ', localStorageLevels.value);
+        // };
+
+        // const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        // const saveToLocalButton = rightSidebar.querySelector('#save-to-local') as HTMLButtonElement;
+
+        // if (!saveToJsonButton || !saveToLocalButton) {
+        //     throw new Error('Could not retrieve level save button(s)');
+        // }
+
+        // saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
+        // saveToLocalButton.onclick = () => saveLevelToLocalStorage('level-1', registry, assetStore);
+
+        // getAllLevelsFromLocalStorage();
+
+        /*
+        const select = document.createElement('select');
+            select.id = propertyName + '-' + entityId;
+
+            const textureIds = assetStore.getAllTexturesIds();
+            const options: { value: string; text: string }[] = [];
+
+            for (const textureId of textureIds) {
+                options.push({ value: textureId, text: textureId });
+            }
+
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                select.appendChild(option);
+            });
+
+            select.value = (component as any)[propertyName];
+
+            select.addEventListener('change', (event: Event): void => {
+                const target = event.target as HTMLSelectElement;
+                (component as any)[propertyName] = target.value;
+
+                const currentSpriteImage = document.getElementById('spritesheet-' + entityId) as HTMLImageElement;
+
+                if (!currentSpriteImage) {
+                    throw new Error('Could not find spritesheet image for entity with id ' + entityId);
+                }
+
+                const newAssetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
+                currentSpriteImage.src = newAssetImg.src;
+                currentSpriteImage.style.maxHeight = (newAssetImg.height > 100 ? newAssetImg.height : 100) + 'px';
+            });*/
     }
 
     private getComponentsForms = (
