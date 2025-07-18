@@ -1,11 +1,13 @@
 import Engine from '../engine/Engine';
+import { saveLevelMapToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
+import { LevelMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
-import { loadEditorSettingsFromLocalStorage } from './persistence/persistence';
+import { getAllLevelKeysFromLocalStorage, loadEditorSettingsFromLocalStorage } from './persistence/persistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
 
@@ -177,8 +179,23 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
 
-        await this.levelManager.addLevelToAssets('snapshot', '/assets/levels/snapshot.json');
-        await this.levelManager.loadLevelFromAssets(this.registry, 'snapshot');
+        const levelKeys = getAllLevelKeysFromLocalStorage();
+
+        if (levelKeys.length > 0) {
+            await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
+        } else {
+            console.log('No level available, loading default empty level');
+            const newLevelMap: LevelMap = {
+                textures: [],
+                sounds: [],
+                mapWidth: 64 * 10,
+                mapHeight: 64 * 10,
+                entities: [],
+            };
+
+            saveLevelMapToLocalStorage('level-0', newLevelMap);
+            await this.levelManager.loadLevelFromLocalStorage(this.registry, 'level-0');
+        }
     };
 
     processInput = () => {
@@ -507,7 +524,14 @@ export default class Editor extends Engine {
         if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.eventBus, this.levelManager);
+                ?.update(
+                    this.leftSidebar,
+                    this.rightSidebar,
+                    this.registry,
+                    this.assetStore,
+                    this.eventBus,
+                    this.levelManager,
+                );
 
             this.shouldSidebarUpdate = false;
         }
