@@ -109,19 +109,15 @@ span {
     background-color: #3a3a3a;
 }
 
-#save-buttons div {
-    width: 50%;
-}
-
-#save-buttons div button {
-    width: 100%;
-}
-
 #active-systems {
     list-style: none;
     padding-left: 0;
     overflow-y: scroll;
     max-height: 60vh;
+}
+
+#json-buttons div {
+    flex: 1;
 }
 
 /* Styles by class */
