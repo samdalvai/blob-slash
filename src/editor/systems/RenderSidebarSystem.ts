@@ -6,7 +6,11 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveLevelMapToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
+import {
+    loadLevelFromLocalStorage,
+    saveLevelMapToLocalStorage,
+    saveLevelToJson,
+} from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isValidLevelMap } from '../../engine/utils/level';
@@ -342,8 +346,6 @@ export default class RenderSidebarSystem extends System {
         eventBus: EventBus,
         levelManager: LevelManager,
     ) {
-        // TODO: Handle resetting entity list and level settings on new level select
-
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
         const newLevelButton = rightSidebar.querySelector('#new-level') as HTMLButtonElement;
         const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
@@ -372,6 +374,21 @@ export default class RenderSidebarSystem extends System {
             const levelId = target.value;
             registry.clear();
             await levelManager.loadLevelFromLocalStorage(registry, levelId);
+
+            this.renderEntityList(leftSidebar, registry, assetStore, eventBus);
+            const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
+            const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
+
+            if (!gameWidthInput || !gameHeightInput) {
+                throw new Error('Could not identify sidebar element(s)');
+            }
+
+            const level = loadLevelFromLocalStorage(levelId);
+            if (!level) {
+                throw new Error('Could not read level from local storage');
+            }
+            gameWidthInput.value = level.mapWidth.toString();
+            gameHeightInput.value = level.mapHeight.toString();
         });
 
         newLevelButton.onclick = async () => {
@@ -396,7 +413,6 @@ export default class RenderSidebarSystem extends System {
             registry.clear();
             await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
 
-            // TODO: extract in a method to clear and restore all elements
             const entityList = leftSidebar.querySelector('#entity-list');
             const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
             const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
