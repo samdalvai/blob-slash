@@ -425,6 +425,7 @@ export default class RenderSidebarSystem extends System {
 
         if (component.constructor.name === 'SpriteComponent' && propertyName === 'assetId') {
             const container = document.createElement('div');
+            container.className = 'd-flex flex-col';
 
             const select = document.createElement('select');
             select.id = propertyName + '-' + entityId;
@@ -448,12 +449,34 @@ export default class RenderSidebarSystem extends System {
             select.addEventListener('change', (event: Event): void => {
                 const target = event.target as HTMLSelectElement;
                 (component as any)[propertyName] = target.value;
+
+                const currentSpriteImage = document.getElementById('spritesheet-' + entityId) as HTMLImageElement;
+
+                if (!currentSpriteImage) {
+                    throw new Error('Could not find spritesheet image for entity with id ' + entityId);
+                }
+
+                const newAssetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
+                currentSpriteImage.src = newAssetImg.src;
+                currentSpriteImage.style.maxHeight = (newAssetImg.height > 100 ? newAssetImg.height : 100) + 'px';
             });
 
-            container.append(select);
+            const propertyLi = this.createListItem(propertyName, select);
 
-            const propertyLi = this.createListItem(propertyName, container);
-            return propertyLi;
+            const spriteImage = document.createElement('img');
+            const assetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
+            spriteImage.src = assetImg.src;
+            spriteImage.style.objectFit = 'contain';
+            spriteImage.style.maxHeight = assetImg.height + 'px';
+            spriteImage.style.maxWidth = '100%';
+            spriteImage.style.height = 'auto';
+            spriteImage.style.width = 'auto';
+            spriteImage.id = 'spritesheet-' + entityId;
+
+            container.append(propertyLi);
+            container.append(spriteImage);
+
+            return container;
         }
 
         if (Array.isArray(propertyValue)) {
