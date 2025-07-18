@@ -6,13 +6,10 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import {
-    saveCurrentLevelToLocalStorage,
-    saveLevelMapToLocalStorage,
-    saveLevelToJson,
-} from '../../engine/serialization/persistence';
+import { saveLevelMapToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
+import { isValidLevelMap } from '../../engine/utils/level';
 import * as GameComponents from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
@@ -390,6 +387,11 @@ export default class RenderSidebarSystem extends System {
                         const nextLevelId = getNextLevelId(levelKeys);
 
                         const levelMap = data as LevelMap;
+
+                        if (!isValidLevelMap(levelMap)) {
+                            throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
+                        }
+
                         saveLevelMapToLocalStorage(nextLevelId, levelMap);
 
                         const option = document.createElement('option');
@@ -402,6 +404,9 @@ export default class RenderSidebarSystem extends System {
                         await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
+                        showAlert('Selected json is not a valid level map');
+                    } finally {
+                        fileInput.value = '';
                     }
                 };
 
