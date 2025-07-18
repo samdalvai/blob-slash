@@ -14,7 +14,6 @@ h3,
 h4 {
     margin-top: 0;
     margin-bottom: 0;
-    width: 100%;
 }
 
 input {
@@ -27,12 +26,10 @@ input[type='checkbox'] {
 
 select {
     height: 30px;
-    width: 100%;
 }
 
 button {
     height: 30px;
-    width: 100%;
 }
 
 /* Styles by id */
