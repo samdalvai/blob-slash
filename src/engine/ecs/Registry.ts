@@ -424,6 +424,7 @@ export default class Registry {
     ////////////////////////////////////////////////////////////////////////////////
 
     clear = () => {
+        this.entities.clear();
         this.numEntities = 0;
         this.componentPools = [];
         this.entityComponentSignatures = [];
