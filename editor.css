@@ -14,6 +14,7 @@ h3,
 h4 {
     margin-top: 0;
     margin-bottom: 0;
+    width: 100%;
 }
 
 input {
@@ -26,10 +27,15 @@ input[type='checkbox'] {
 
 select {
     height: 30px;
+    width: 100%;
 }
 
 button {
     height: 30px;
+    width: 100%;
+}
+span {
+    width: 100%;
 }
 
 /* Styles by id */
@@ -97,7 +103,6 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1;
 }
 
 #entity-list li:hover {
