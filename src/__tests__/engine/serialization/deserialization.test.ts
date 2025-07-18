@@ -1,15 +1,15 @@
 import { expect } from '@jest/globals';
 
-import Component from '../../engine/ecs/Component';
-import Registry from '../../engine/ecs/Registry';
+import Component from '../../../engine/ecs/Component';
+import Registry from '../../../engine/ecs/Registry';
 import {
     deserializeEntities,
     deserializeEntity,
     getComponentConstructorParamNames,
-} from '../../engine/serialization/deserialization';
-import { EntityMap } from '../../engine/types/map';
-import TransformComponent from '../../game/components/TransformComponent';
-import RigidBodyComponent from '../../game/components/RigidBodyComponent';
+} from '../../../engine/serialization/deserialization';
+import { EntityMap } from '../../../engine/types/map';
+import TransformComponent from '../../../game/components/TransformComponent';
+import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 
 describe('Testing deserialization related functions', () => {
     test('Should extract component constructor parameter names', () => {

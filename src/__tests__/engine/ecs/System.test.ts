@@ -1,8 +1,8 @@
 import { expect } from '@jest/globals';
 
-import Component, { IComponent } from '../../engine/ecs/Component';
-import Registry from '../../engine/ecs/Registry';
-import System, { ISystem } from '../../engine/ecs/System';
+import Component, { IComponent } from '../../../engine/ecs/Component';
+import Registry from '../../../engine/ecs/Registry';
+import System, { ISystem } from '../../../engine/ecs/System';
 
 describe('Testing System related functions', () => {
     beforeEach(() => {

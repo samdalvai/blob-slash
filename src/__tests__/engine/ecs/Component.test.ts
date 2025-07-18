@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals';
 
-import Component, { IComponent } from '../../engine/ecs/Component';
+import Component, { IComponent } from '../../../engine/ecs/Component';
 
 describe('Testing Component related functions', () => {
     beforeEach(() => {
