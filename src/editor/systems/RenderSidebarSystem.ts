@@ -6,7 +6,12 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
+import {
+    saveCurrentLevelToLocalStorage,
+    saveLevelMapToLocalStorage,
+    saveLevelToJson,
+} from '../../engine/serialization/persistence';
+import { LevelMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
@@ -378,71 +383,31 @@ export default class RenderSidebarSystem extends System {
                 const file: File = files[0];
 
                 const reader = new FileReader();
-                reader.onload = () => {
+                reader.onload = async () => {
                     try {
                         const data = JSON.parse(reader.result as string);
-                        console.log('Parsed JSON:', data);
                         const levelKeys = getAllLevelKeysFromLocalStorage();
-                        const nextKey = getNextLevelId(levelKeys);
-                        console.log(nextKey);
+                        const nextLevelId = getNextLevelId(levelKeys);
+
+                        const levelMap = data as LevelMap;
+                        saveLevelMapToLocalStorage(nextLevelId, levelMap);
+
+                        const option = document.createElement('option');
+                        option.value = nextLevelId;
+                        option.textContent = nextLevelId;
+                        localStorageLevelsSelect.appendChild(option);
+
+                        localStorageLevelsSelect.value = nextLevelId;
+                        registry.clear();
+                        await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                     }
                 };
+
                 reader.readAsText(file);
             }
         });
-
-        // loadLevelButton.onclick = () => {
-        //     console.log('current value: ', localStorageLevels.value);
-        // };
-
-        // const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
-        // const saveToLocalButton = rightSidebar.querySelector('#save-to-local') as HTMLButtonElement;
-
-        // if (!saveToJsonButton || !saveToLocalButton) {
-        //     throw new Error('Could not retrieve level save button(s)');
-        // }
-
-        // saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
-        // saveToLocalButton.onclick = () => saveLevelToLocalStorage('level-1', registry, assetStore);
-
-        // getAllLevelsFromLocalStorage();
-
-        /*
-        const select = document.createElement('select');
-            select.id = propertyName + '-' + entityId;
-
-            const textureIds = assetStore.getAllTexturesIds();
-            const options: { value: string; text: string }[] = [];
-
-            for (const textureId of textureIds) {
-                options.push({ value: textureId, text: textureId });
-            }
-
-            options.forEach(optionData => {
-                const option = document.createElement('option');
-                option.value = optionData.value;
-                option.textContent = optionData.text;
-                select.appendChild(option);
-            });
-
-            select.value = (component as any)[propertyName];
-
-            select.addEventListener('change', (event: Event): void => {
-                const target = event.target as HTMLSelectElement;
-                (component as any)[propertyName] = target.value;
-
-                const currentSpriteImage = document.getElementById('spritesheet-' + entityId) as HTMLImageElement;
-
-                if (!currentSpriteImage) {
-                    throw new Error('Could not find spritesheet image for entity with id ' + entityId);
-                }
-
-                const newAssetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
-                currentSpriteImage.src = newAssetImg.src;
-                currentSpriteImage.style.maxHeight = (newAssetImg.height > 100 ? newAssetImg.height : 100) + 'px';
-            });*/
     }
 
     private getComponentsForms = (
