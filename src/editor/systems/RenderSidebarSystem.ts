@@ -335,9 +335,11 @@ export default class RenderSidebarSystem extends System {
         levelManager: LevelManager,
     ) {
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
-        //const loadLevelButton = rightSidebar.querySelector('#load-level') as HTMLButtonElement;
+        const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
+        const fileInput = document.getElementById('file-input') as HTMLInputElement;
 
-        if (!localStorageLevelsSelect) {
+        if (!localStorageLevelsSelect || !saveToJsonButton || !loadFromJsonButton || !fileInput) {
             throw new Error('Could not retrieve level management element(s)');
         }
 
@@ -359,6 +361,31 @@ export default class RenderSidebarSystem extends System {
             const levelId = target.value;
             registry.clear();
             await levelManager.loadLevelFromLocalStorage(registry, levelId);
+        });
+
+        saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
+        loadFromJsonButton.onclick = () => {
+            fileInput.click();
+        };
+
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            if (files && files.length > 0) {
+                const file: File = files[0];
+                console.log(file.name);
+                console.log(file.type);
+                // Example: read contents
+                const reader = new FileReader();
+                reader.onload = () => {
+                    try {
+                        const data = JSON.parse(reader.result as string);
+                        console.log('Parsed JSON:', data);
+                    } catch (e) {
+                        console.error('Invalid JSON:', e);
+                    }
+                };
+                reader.readAsText(file);
+            }
         });
 
         // loadLevelButton.onclick = () => {
