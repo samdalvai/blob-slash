@@ -1,14 +1,14 @@
 import { expect } from '@jest/globals';
 
-import Engine from '../../engine/Engine';
-import AssetStore from '../../engine/asset-store/AssetStore';
-import Component from '../../engine/ecs/Component';
-import Entity from '../../engine/ecs/Entity';
-import Registry from '../../engine/ecs/Registry';
-import { serializeEntities, serializeEntity, serializeLevel } from '../../engine/serialization/serialization';
-import { EntityMap, LevelMap } from '../../engine/types/map';
-import RigidBodyComponent from '../../game/components/RigidBodyComponent';
-import TransformComponent from '../../game/components/TransformComponent';
+import Engine from '../../../engine/Engine';
+import AssetStore from '../../../engine/asset-store/AssetStore';
+import Component from '../../../engine/ecs/Component';
+import Entity from '../../../engine/ecs/Entity';
+import Registry from '../../../engine/ecs/Registry';
+import { serializeEntities, serializeEntity, serializeLevel } from '../../../engine/serialization/serialization';
+import { EntityMap, LevelMap } from '../../../engine/types/map';
+import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
+import TransformComponent from '../../../game/components/TransformComponent';
 
 describe('Testing serialization related functions', () => {
     test('Should serialize entity with one component to a valid Entity Map', () => {

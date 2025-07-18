@@ -16,7 +16,11 @@ import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
-import { getAllLevelKeysFromLocalStorage, saveEditorSettingsToLocalStorage } from '../persistence/persistence';
+import {
+    getAllLevelKeysFromLocalStorage,
+    getNextLevelId,
+    saveEditorSettingsToLocalStorage,
+} from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
     constructor() {
@@ -372,14 +376,15 @@ export default class RenderSidebarSystem extends System {
             const files = fileInput.files;
             if (files && files.length > 0) {
                 const file: File = files[0];
-                console.log(file.name);
-                console.log(file.type);
-                // Example: read contents
+
                 const reader = new FileReader();
                 reader.onload = () => {
                     try {
                         const data = JSON.parse(reader.result as string);
                         console.log('Parsed JSON:', data);
+                        const levelKeys = getAllLevelKeysFromLocalStorage();
+                        const nextKey = getNextLevelId(levelKeys);
+                        console.log(nextKey);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                     }

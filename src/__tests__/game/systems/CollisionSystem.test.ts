@@ -1,11 +1,11 @@
 import { expect } from '@jest/globals';
 
-import BoxColliderComponent from '../../game/components/BoxColliderComponent';
-import TransformComponent from '../../game/components/TransformComponent';
-import Registry from '../../engine/ecs/Registry';
-import EventBus from '../../engine/event-bus/EventBus';
-import CollisionEvent from '../../game/events/CollisionEvent';
-import CollisionSystem from '../../game/systems/CollisionSystem';
+import BoxColliderComponent from '../../../game/components/BoxColliderComponent';
+import TransformComponent from '../../../game/components/TransformComponent';
+import Registry from '../../../engine/ecs/Registry';
+import EventBus from '../../../engine/event-bus/EventBus';
+import CollisionEvent from '../../../game/events/CollisionEvent';
+import CollisionSystem from '../../../game/systems/CollisionSystem';
 
 describe('Testing Collision system related functions', () => {
     test('Two entities having a box collider intersecting should collide with one another', () => {

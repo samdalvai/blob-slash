@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 
-import Component, { IComponent } from '../../engine/ecs/Component';
-import Pool from '../../engine/ecs/Pool';
+import Component, { IComponent } from '../../../engine/ecs/Component';
+import Pool from '../../../engine/ecs/Pool';
 
 describe('Testing Pool related functions', () => {
     beforeEach(() => {

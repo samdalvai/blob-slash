@@ -1,9 +1,9 @@
 import { expect } from '@jest/globals';
 
-import Component, { IComponent } from '../../engine/ecs/Component';
-import Registry from '../../engine/ecs/Registry';
-import { ISystem } from '../../engine/ecs/System';
-import { TransformComponent } from '../../game/components';
+import Component, { IComponent } from '../../../engine/ecs/Component';
+import Registry from '../../../engine/ecs/Registry';
+import { ISystem } from '../../../engine/ecs/System';
+import { TransformComponent } from '../../../game/components';
 
 describe('Testing Entity related functions', () => {
     beforeEach(() => {

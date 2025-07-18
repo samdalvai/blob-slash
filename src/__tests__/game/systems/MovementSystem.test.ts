@@ -1,10 +1,10 @@
 import { expect } from '@jest/globals';
 
-import RigidBodyComponent from '../../game/components/RigidBodyComponent';
-import TransformComponent from '../../game/components/TransformComponent';
-import Registry from '../../engine/ecs/Registry';
-import MovementSystem from '../../game/systems/MovementSystem';
-import Engine from '../../engine/Engine';
+import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
+import TransformComponent from '../../../game/components/TransformComponent';
+import Registry from '../../../engine/ecs/Registry';
+import MovementSystem from '../../../game/systems/MovementSystem';
+import Engine from '../../../engine/Engine';
 
 describe('Testing Movement system related functions', () => {
     beforeEach(() => {
