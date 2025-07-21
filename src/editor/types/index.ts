@@ -5,4 +5,5 @@ export type EditorSettings = {
     snapToGrid: boolean;
     showGrid: boolean;
     gridSquareSide: number;
+    selectedLevel: string | null;
 };
