@@ -18,7 +18,11 @@ export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): voi
     console.log('Level snapshot saved to json');
 };
 
-export const saveCurrentLevelToLocalStorage = (levelId: string, registry: Registry, assetStore: AssetStore) => {
+export const saveCurrentLevelToLocalStorage = (levelId: string | null, registry: Registry, assetStore: AssetStore) => {
+    if (!levelId) {
+        throw new Error('Could not determine currently selected level');
+    }
+
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');

@@ -419,9 +419,7 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         if (!this.panEnabled) {
-            this.registry
-                .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.leftSidebar.getBoundingClientRect().width);
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
         }
 
         this.registry
@@ -466,6 +464,8 @@ export default class Editor extends Engine {
                 ?.update(
                     this.leftSidebar.getBoundingClientRect().width,
                     this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
+                    this.registry,
+                    this.assetStore,
                 );
         }
     };
