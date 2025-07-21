@@ -457,7 +457,7 @@ export default class RenderSidebarSystem extends System {
             const optionToDelete = rightSidebar.querySelector(
                 '#' + Editor.editorSettings.selectedLevel,
             ) as HTMLSelectElement;
-            console.log(optionToDelete);
+
             if (!optionToDelete) {
                 throw new Error('Could not locate option with id ' + Editor.editorSettings.selectedLevel);
             }
@@ -524,6 +524,8 @@ export default class RenderSidebarSystem extends System {
                         localStorageLevelsSelect.value = nextLevelId;
                         registry.clear();
                         await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
+                        Editor.editorSettings.selectedLevel = nextLevelId;
+                        saveEditorSettingsToLocalStorage();
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
