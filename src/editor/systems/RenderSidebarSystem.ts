@@ -568,7 +568,7 @@ export default class RenderSidebarSystem extends System {
             const options: { value: string; text: string }[] = [];
 
             for (const textureId of textureIds) {
-                options.push({ value: textureId, text: textureId });
+                options.push({ value: textureId, text: textureId ? textureId : 'Unknown' });
             }
 
             options.forEach(optionData => {

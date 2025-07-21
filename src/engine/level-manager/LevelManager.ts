@@ -39,6 +39,7 @@ export default class LevelManager {
 
     private async loadAssets(level: LevelMap) {
         console.log('Loading assets');
+
         for (const texture of level.textures) {
             await this.assetStore.addTexture(texture.assetId, texture.filePath);
         }
