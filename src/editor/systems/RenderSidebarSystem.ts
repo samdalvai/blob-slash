@@ -402,9 +402,7 @@ export default class RenderSidebarSystem extends System {
             gameWidthInput.value = level.mapWidth.toString();
             gameHeightInput.value = level.mapHeight.toString();
 
-            localStorageLevelsSelect.value = levelId;
-            Editor.editorSettings.selectedLevel = levelId;
-            saveEditorSettingsToLocalStorage();
+            this.handleLevelSelect(levelId, localStorageLevelsSelect);
         });
 
         newLevelButton.onclick = async () => {
@@ -442,9 +440,7 @@ export default class RenderSidebarSystem extends System {
             gameWidthInput.value = newLevelMap.mapWidth.toString();
             gameHeightInput.value = newLevelMap.mapHeight.toString();
 
-            localStorageLevelsSelect.value = nextLevelId;
-            Editor.editorSettings.selectedLevel = nextLevelId;
-            saveEditorSettingsToLocalStorage();
+            this.handleLevelSelect(nextLevelId, localStorageLevelsSelect);
         };
 
         deleteLevelButton.onclick = async () => {
@@ -468,9 +464,7 @@ export default class RenderSidebarSystem extends System {
 
             if (levelKeys.length > 0) {
                 await levelManager.loadLevelFromLocalStorage(registry, levelKeys[0]);
-                Editor.editorSettings.selectedLevel = levelKeys[0];
-                localStorageLevelsSelect.value = levelKeys[0];
-                saveEditorSettingsToLocalStorage();
+                this.handleLevelSelect(levelKeys[0], localStorageLevelsSelect);
             } else {
                 // TODO: extract this in a reusable method
                 console.log('No level available, loading default empty level');
@@ -485,9 +479,7 @@ export default class RenderSidebarSystem extends System {
 
                 saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
                 await levelManager.loadLevelFromLocalStorage(registry, defaultLevelId);
-                Editor.editorSettings.selectedLevel = defaultLevelId;
-                localStorageLevelsSelect.value = defaultLevelId;
-                saveEditorSettingsToLocalStorage();
+                this.handleLevelSelect(defaultLevelId, localStorageLevelsSelect);
             }
         };
 
@@ -521,11 +513,9 @@ export default class RenderSidebarSystem extends System {
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
-                        localStorageLevelsSelect.value = nextLevelId;
                         registry.clear();
                         await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
-                        Editor.editorSettings.selectedLevel = nextLevelId;
-                        saveEditorSettingsToLocalStorage();
+                        this.handleLevelSelect(nextLevelId, localStorageLevelsSelect);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
@@ -538,6 +528,12 @@ export default class RenderSidebarSystem extends System {
             }
         });
     }
+
+    private handleLevelSelect = (levelId: string, levelSelectElement: HTMLSelectElement) => {
+        Editor.editorSettings.selectedLevel = levelId;
+        levelSelectElement.value = levelId;
+        saveEditorSettingsToLocalStorage();
+    };
 
     private getComponentsForms = (
         entityComponents: Component[],
