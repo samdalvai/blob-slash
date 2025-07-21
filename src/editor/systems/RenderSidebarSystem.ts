@@ -369,6 +369,8 @@ export default class RenderSidebarSystem extends System {
             localStorageLevelsSelect.appendChild(option);
         });
 
+        localStorageLevelsSelect.value = Editor.editorSettings.selectedLevel ?? options[0].value;
+
         localStorageLevelsSelect.addEventListener('change', async (event: Event): Promise<void> => {
             const target = event.target as HTMLSelectElement;
             const levelId = target.value;
@@ -389,6 +391,10 @@ export default class RenderSidebarSystem extends System {
             }
             gameWidthInput.value = level.mapWidth.toString();
             gameHeightInput.value = level.mapHeight.toString();
+
+            localStorageLevelsSelect.value = levelId;
+            Editor.editorSettings.selectedLevel = levelId;
+            saveEditorSettingsToLocalStorage();
         });
 
         newLevelButton.onclick = async () => {
@@ -424,6 +430,10 @@ export default class RenderSidebarSystem extends System {
             entityList.innerHTML = '';
             gameWidthInput.value = newLevelMap.mapWidth.toString();
             gameHeightInput.value = newLevelMap.mapHeight.toString();
+
+            localStorageLevelsSelect.value = nextLevelId;
+            Editor.editorSettings.selectedLevel = nextLevelId;
+            saveEditorSettingsToLocalStorage();
         };
 
         saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);

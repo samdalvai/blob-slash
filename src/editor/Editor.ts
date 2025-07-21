@@ -7,7 +7,11 @@ import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
-import { getAllLevelKeysFromLocalStorage, loadEditorSettingsFromLocalStorage } from './persistence/persistence';
+import {
+    getAllLevelKeysFromLocalStorage,
+    loadEditorSettingsFromLocalStorage,
+    saveEditorSettingsToLocalStorage,
+} from './persistence/persistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
 
@@ -38,6 +42,7 @@ export default class Editor extends Engine {
         snapToGrid: false,
         showGrid: false,
         gridSquareSide: 64,
+        selectedLevel: null,
     };
 
     constructor() {
@@ -128,6 +133,7 @@ export default class Editor extends Engine {
             Editor.editorSettings.snapToGrid = localEditorSettings.snapToGrid;
             Editor.editorSettings.showGrid = localEditorSettings.showGrid;
             Editor.editorSettings.gridSquareSide = localEditorSettings.gridSquareSide;
+            Editor.editorSettings.selectedLevel = localEditorSettings.selectedLevel;
         }
     };
 
@@ -182,9 +188,14 @@ export default class Editor extends Engine {
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
         if (levelKeys.length > 0) {
-            await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
+            if (Editor.editorSettings.selectedLevel) {
+                await this.levelManager.loadLevelFromLocalStorage(this.registry, Editor.editorSettings.selectedLevel);
+            } else {
+                await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
+            }
         } else {
             console.log('No level available, loading default empty level');
+            const defaultLevelId = 'level-0';
             const newLevelMap: LevelMap = {
                 textures: [],
                 sounds: [],
@@ -193,8 +204,10 @@ export default class Editor extends Engine {
                 entities: [],
             };
 
-            saveLevelMapToLocalStorage('level-0', newLevelMap);
-            await this.levelManager.loadLevelFromLocalStorage(this.registry, 'level-0');
+            saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
+            await this.levelManager.loadLevelFromLocalStorage(this.registry, defaultLevelId);
+            Editor.editorSettings.selectedLevel = defaultLevelId;
+            saveEditorSettingsToLocalStorage();
         }
     };
 
