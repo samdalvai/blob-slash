@@ -17,6 +17,10 @@ export default class AssetStore {
         this.soundsFilePaths = [];
     }
 
+    loadUknownSpriteTexture() {
+        this.addTexture('', './assets/sprites/unknown.png');
+    }
+
     addTexture(assetId: string, filePath: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const texture = new Image();
