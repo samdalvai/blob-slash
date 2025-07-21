@@ -478,6 +478,12 @@ export default class RenderSidebarSystem extends System {
                 };
 
                 saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
+                const option = document.createElement('option');
+                option.value = defaultLevelId;
+                option.id = defaultLevelId;
+                option.textContent = defaultLevelId;
+                localStorageLevelsSelect.appendChild(option);
+
                 await levelManager.loadLevelFromLocalStorage(registry, defaultLevelId);
                 this.handleLevelSelect(defaultLevelId, localStorageLevelsSelect);
             }
