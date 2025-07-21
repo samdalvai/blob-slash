@@ -1,7 +1,10 @@
 import Engine from '../../engine/Engine';
+import AssetStore from '../../engine/asset-store/AssetStore';
 import Entity from '../../engine/ecs/Entity';
+import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
+import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { MouseButton } from '../../engine/types/control';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
@@ -16,14 +19,14 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, leftSidebarOffset: number) {
+    subscribeToEvents(eventBus: EventBus) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event =>
-            this.onMousePressed(event, eventBus, leftSidebarOffset),
+            this.onMousePressed(event, eventBus),
         );
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
     }
 
-    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, leftSidebarOffset: number) => {
+    onMousePressed = (event: MousePressedEvent, eventBus: EventBus) => {
         if (event.button !== MouseButton.LEFT) {
             return;
         }
@@ -89,7 +92,7 @@ export default class EntityDragSystem extends System {
         Editor.entityDragOffset = null;
     };
 
-    update = (canvasXMin: number, canvasXMax: number) => {
+    update = (canvasXMin: number, canvasXMax: number, registry: Registry, assetStore: AssetStore) => {
         if (
             !Editor.entityDragOffset ||
             Editor.selectedEntity === null ||
@@ -128,6 +131,7 @@ export default class EntityDragSystem extends System {
             }
 
             this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
         }
     };
 

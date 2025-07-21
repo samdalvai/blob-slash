@@ -8,6 +8,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import {
     loadLevelFromLocalStorage,
+    saveCurrentLevelToLocalStorage,
     saveLevelMapToLocalStorage,
     saveLevelToJson,
 } from '../../engine/serialization/persistence';
@@ -36,7 +37,9 @@ export default class RenderSidebarSystem extends System {
 
     subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null, assetStore: AssetStore) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
+        eventBus.subscribeToEvent(EntityDeleteEvent, this, event =>
+            this.onEntityDelete(event, leftSidebar, assetStore),
+        );
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, assetStore, eventBus),
         );
@@ -51,7 +54,7 @@ export default class RenderSidebarSystem extends System {
         this.scrollToListElement(leftSidebar, `#entity-${event.entity.getId()}`);
     };
 
-    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null) => {
+    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null, assetStore: AssetStore) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -72,6 +75,7 @@ export default class RenderSidebarSystem extends System {
 
         Editor.selectedEntity = null;
         targetElement.remove();
+        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, event.entity.registry, assetStore);
     };
 
     onEntityDuplicate = (
@@ -98,6 +102,7 @@ export default class RenderSidebarSystem extends System {
         );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
+        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, originalEntity.registry, assetStore);
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
@@ -165,6 +170,7 @@ export default class RenderSidebarSystem extends System {
             const entity = registry.createEntity();
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
             eventBus.emitEvent(EntitySelectEvent, entity);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
         };
     };
 
@@ -236,7 +242,7 @@ export default class RenderSidebarSystem extends System {
                 registry.removeEntityFromSystems(entity);
                 registry.addEntityToSystems(entity);
 
-                const componentContainer = this.getComponentContainer(component, entity, assetStore);
+                const componentContainer = this.getComponentContainer(component, entity, assetStore, registry);
                 li.appendChild(componentContainer);
 
                 this.scrollToListElement(leftSidebar, `#${component.constructor.name}-${entity.getId()}`);
@@ -262,7 +268,7 @@ export default class RenderSidebarSystem extends System {
         componentSelector.appendChild(select);
         li.appendChild(componentSelector);
 
-        const forms = this.getComponentsForms(entityComponents, entity, assetStore);
+        const forms = this.getComponentsForms(entityComponents, entity, assetStore, registry);
         li.appendChild(forms);
 
         return li;
@@ -545,19 +551,25 @@ export default class RenderSidebarSystem extends System {
         entityComponents: Component[],
         entity: Entity,
         assetStore: AssetStore,
+        registry: Registry,
     ): HTMLElement => {
         const container = document.createElement('div');
         container.className = 'pt-2';
 
         for (const component of entityComponents) {
-            const componentContainer = this.getComponentContainer(component, entity, assetStore);
+            const componentContainer = this.getComponentContainer(component, entity, assetStore, registry);
             container.append(componentContainer);
         }
 
         return container;
     };
 
-    private getComponentContainer = (component: Component, entity: Entity, assetStore: AssetStore) => {
+    private getComponentContainer = (
+        component: Component,
+        entity: Entity,
+        assetStore: AssetStore,
+        registry: Registry,
+    ) => {
         const componentContainer = document.createElement('div');
         componentContainer.className = 'pb-2';
         componentContainer.id = component.constructor.name + '-' + entity.getId();
@@ -598,7 +610,14 @@ export default class RenderSidebarSystem extends System {
         const properties = Object.keys(component);
 
         for (const key of properties) {
-            const form = this.getPropertyInput(key, (component as any)[key], component, entity.getId(), assetStore);
+            const form = this.getPropertyInput(
+                key,
+                (component as any)[key],
+                component,
+                entity.getId(),
+                assetStore,
+                registry,
+            );
 
             if (form) {
                 componentContainer.append(form);
@@ -621,6 +640,7 @@ export default class RenderSidebarSystem extends System {
         component: Component,
         entityId: number,
         assetStore: AssetStore,
+        registry: Registry,
     ) => {
         if (propertyValue === null) {
             return null;
@@ -659,6 +679,7 @@ export default class RenderSidebarSystem extends System {
                     throw new Error('Could not find spritesheet image for entity with id ' + entityId);
                 }
 
+                saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 const newAssetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
                 currentSpriteImage.src = newAssetImg.src;
                 currentSpriteImage.style.maxHeight = (newAssetImg.height > 100 ? newAssetImg.height : 100) + 'px';
@@ -685,13 +706,15 @@ export default class RenderSidebarSystem extends System {
         if (Array.isArray(propertyValue)) {
             const arrayContainer = document.createElement('div');
             for (const property of propertyValue as Array<any>) {
-                arrayContainer.append(this.createListItemWithInput(propertyName, property, component, entityId));
+                arrayContainer.append(
+                    this.createListItemWithInput(propertyName, property, component, entityId, registry, assetStore),
+                );
             }
 
             return arrayContainer;
         }
 
-        return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
+        return this.createListItemWithInput(propertyName, propertyValue, component, entityId, registry, assetStore);
     };
 
     private createListItem = (label: string, input: HTMLElement): HTMLLIElement => {
@@ -728,6 +751,8 @@ export default class RenderSidebarSystem extends System {
         propertyValue: string | number | boolean | object,
         component: Component,
         entityId: number,
+        registry: Registry,
+        assetStore: AssetStore,
     ) => {
         return this.createListItemWithInputRec(
             propertyName,
@@ -736,6 +761,8 @@ export default class RenderSidebarSystem extends System {
             propertyValue,
             component,
             entityId,
+            registry,
+            assetStore,
         );
     };
 
@@ -746,6 +773,8 @@ export default class RenderSidebarSystem extends System {
         propertyValue: string | number | boolean | object,
         component: Component,
         entityId: number,
+        registry: Registry,
+        assetStore: AssetStore,
     ) => {
         switch (typeof propertyValue) {
             case 'string': {
@@ -753,6 +782,7 @@ export default class RenderSidebarSystem extends System {
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.value;
+                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 });
 
                 const propertyLi = this.createListItem(label, textInput);
@@ -763,6 +793,7 @@ export default class RenderSidebarSystem extends System {
                 numberInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
+                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 });
                 const propertyLi = this.createListItem(label, numberInput);
                 return propertyLi;
@@ -776,6 +807,7 @@ export default class RenderSidebarSystem extends System {
                 checkBoxInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
+                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 });
                 const propertyLi = this.createListItem(label, checkBoxInput);
                 return propertyLi;
@@ -792,6 +824,8 @@ export default class RenderSidebarSystem extends System {
                             propertyValue[property as keyof typeof propertyValue],
                             propertyValue,
                             entityId,
+                            registry,
+                            assetStore,
                         ),
                     );
                 }
