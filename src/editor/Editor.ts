@@ -194,6 +194,7 @@ export default class Editor extends Engine {
                 await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
             }
         } else {
+            // TODO: extract this in a reusable method
             console.log('No level available, loading default empty level');
             const defaultLevelId = 'level-0';
             const newLevelMap: LevelMap = {

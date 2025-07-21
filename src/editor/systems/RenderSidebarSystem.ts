@@ -23,6 +23,7 @@ import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { showAlert } from '../gui';
 import {
+    deleteLevelInLocalStorage,
     getAllLevelKeysFromLocalStorage,
     getNextLevelId,
     saveEditorSettingsToLocalStorage,
@@ -348,11 +349,19 @@ export default class RenderSidebarSystem extends System {
     ) {
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
         const newLevelButton = rightSidebar.querySelector('#new-level') as HTMLButtonElement;
+        const deleteLevelButton = rightSidebar.querySelector('#delete-level') as HTMLButtonElement;
         const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
         const fileInput = document.getElementById('file-input') as HTMLInputElement;
 
-        if (!localStorageLevelsSelect || !newLevelButton || !saveToJsonButton || !loadFromJsonButton || !fileInput) {
+        if (
+            !localStorageLevelsSelect ||
+            !newLevelButton ||
+            !deleteLevelButton ||
+            !saveToJsonButton ||
+            !loadFromJsonButton ||
+            !fileInput
+        ) {
             throw new Error('Could not retrieve level management element(s)');
         }
 
@@ -365,6 +374,7 @@ export default class RenderSidebarSystem extends System {
         options.forEach(optionData => {
             const option = document.createElement('option');
             option.value = optionData.value;
+            option.id = optionData.value;
             option.textContent = optionData.text;
             localStorageLevelsSelect.appendChild(option);
         });
@@ -412,6 +422,7 @@ export default class RenderSidebarSystem extends System {
             saveLevelMapToLocalStorage(nextLevelId, newLevelMap);
             const option = document.createElement('option');
             option.value = nextLevelId;
+            option.id = nextLevelId;
             option.textContent = nextLevelId;
             localStorageLevelsSelect.appendChild(option);
 
@@ -434,6 +445,50 @@ export default class RenderSidebarSystem extends System {
             localStorageLevelsSelect.value = nextLevelId;
             Editor.editorSettings.selectedLevel = nextLevelId;
             saveEditorSettingsToLocalStorage();
+        };
+
+        deleteLevelButton.onclick = async () => {
+            // TODO: add confirmation for deletion of level
+            if (!Editor.editorSettings.selectedLevel) {
+                throw new Error('No level selected');
+            }
+
+            deleteLevelInLocalStorage(Editor.editorSettings.selectedLevel);
+            const optionToDelete = rightSidebar.querySelector(
+                '#' + Editor.editorSettings.selectedLevel,
+            ) as HTMLSelectElement;
+            console.log(optionToDelete);
+            if (!optionToDelete) {
+                throw new Error('Could not locate option with id ' + Editor.editorSettings.selectedLevel);
+            }
+
+            optionToDelete.remove();
+
+            const levelKeys = getAllLevelKeysFromLocalStorage();
+
+            if (levelKeys.length > 0) {
+                await levelManager.loadLevelFromLocalStorage(registry, levelKeys[0]);
+                Editor.editorSettings.selectedLevel = levelKeys[0];
+                localStorageLevelsSelect.value = levelKeys[0];
+                saveEditorSettingsToLocalStorage();
+            } else {
+                // TODO: extract this in a reusable method
+                console.log('No level available, loading default empty level');
+                const defaultLevelId = 'level-0';
+                const newLevelMap: LevelMap = {
+                    textures: [],
+                    sounds: [],
+                    mapWidth: 64 * 10,
+                    mapHeight: 64 * 10,
+                    entities: [],
+                };
+
+                saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
+                await levelManager.loadLevelFromLocalStorage(registry, defaultLevelId);
+                Editor.editorSettings.selectedLevel = defaultLevelId;
+                localStorageLevelsSelect.value = defaultLevelId;
+                saveEditorSettingsToLocalStorage();
+            }
         };
 
         saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
