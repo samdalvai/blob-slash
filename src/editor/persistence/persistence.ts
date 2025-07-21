@@ -27,21 +27,13 @@ export const getAllLevelKeysFromLocalStorage = () => {
         }
     }
 
-    return levelKeys;
+    return sortLevelKeys(levelKeys);
 };
 
 export const getNextLevelId = (levelKeys: string[]) => {
     let availableId = 0;
 
-    const sortedLevelKeys = levelKeys.sort((keyA, keyB) => {
-        const numberPartA = keyA.replace('level-', '');
-        const numberPartParsedA = parseInt(numberPartA);
-
-        const numberPartB = keyB.replace('level-', '');
-        const numberPartParsedB = parseInt(numberPartB);
-
-        return numberPartParsedA - numberPartParsedB;
-    });
+    const sortedLevelKeys = sortLevelKeys(levelKeys);
 
     for (const key of sortedLevelKeys) {
         const numberPart = key.replace('level-', '');
@@ -55,4 +47,18 @@ export const getNextLevelId = (levelKeys: string[]) => {
     }
 
     return 'level-' + availableId;
+};
+
+export const sortLevelKeys = (levelKeys: string[]) => {
+    const sortedKeys = levelKeys.sort((keyA, keyB) => {
+        const numberPartA = keyA.replace('level-', '');
+        const numberPartParsedA = parseInt(numberPartA);
+
+        const numberPartB = keyB.replace('level-', '');
+        const numberPartParsedB = parseInt(numberPartB);
+
+        return numberPartParsedA - numberPartParsedB;
+    });
+
+    return sortedKeys;
 };
