@@ -113,11 +113,7 @@ span {
     list-style: none;
     padding-left: 0;
     overflow-y: scroll;
-    max-height: 60vh;
-}
-
-#json-buttons div {
-    flex: 1;
+    max-height: 55vh;
 }
 
 /* Styles by class */
@@ -184,4 +180,8 @@ span {
 
 .align-center {
     align-items: center;
+}
+
+.flex-1 {
+    flex: 1;
 }

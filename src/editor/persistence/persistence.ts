@@ -7,6 +7,10 @@ export const saveEditorSettingsToLocalStorage = () => {
     localStorage.setItem('editor-settings', jsonString);
 };
 
+export const deleteLevelInLocalStorage = (levelId: string) => {
+    localStorage.removeItem(levelId);
+};
+
 export const loadEditorSettingsFromLocalStorage = (): EditorSettings | undefined => {
     const jsonString = localStorage.getItem('editor-settings') as any;
     return jsonString ? (JSON.parse(jsonString) as EditorSettings) : undefined;
