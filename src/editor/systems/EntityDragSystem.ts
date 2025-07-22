@@ -19,15 +19,17 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, event =>
-            this.onMousePressed(event, eventBus),
-        );
+    subscribeToEvents(eventBus: EventBus, canvas: HTMLCanvasElement) {
+        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
     }
 
-    onMousePressed = (event: MousePressedEvent, eventBus: EventBus) => {
-        if (event.button !== MouseButton.LEFT) {
+    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, canvas: HTMLCanvasElement) => {
+        if (
+            Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
+            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
+            event.button !== MouseButton.LEFT
+        ) {
             return;
         }
 
@@ -79,7 +81,7 @@ export default class EntityDragSystem extends System {
                     y: event.coordinates.y - transform.position.y,
                 };
 
-                continue;
+                return;
             }
         }
 
@@ -120,13 +122,14 @@ export default class EntityDragSystem extends System {
             if (Editor.editorSettings.snapToGrid) {
                 const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
                 const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
-                
+
                 this.updateEntityPosition(
                     entity,
                     transform,
                     Engine.mousePositionWorld.x - diffX,
                     Engine.mousePositionWorld.y - diffY,
                 );
+                saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 return;
             }
 
