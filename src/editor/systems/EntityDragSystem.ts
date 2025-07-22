@@ -13,6 +13,16 @@ import Editor from '../Editor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class EntityDragSystem extends System {
+    private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // TODO: extact this logic into a class
+    private saveWithDebounce = (registry: Registry, assetStore: AssetStore) => {
+        if (this.saveDebounceTimer) clearTimeout(this.saveDebounceTimer);
+        this.saveDebounceTimer = setTimeout(() => {
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+        }, 300);
+    };
+
     constructor() {
         super();
         this.requireComponent(TransformComponent);
@@ -164,6 +174,6 @@ export default class EntityDragSystem extends System {
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
 
-        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+        this.saveWithDebounce(registry, assetStore);
     };
 }

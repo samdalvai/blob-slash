@@ -31,6 +31,16 @@ import {
 } from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
+    private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // TODO: extact this logic into a class
+    private saveWithDebounce = (registry: Registry, assetStore: AssetStore) => {
+        if (this.saveDebounceTimer) clearTimeout(this.saveDebounceTimer);
+        this.saveDebounceTimer = setTimeout(() => {
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+        }, 300);
+    };
+
     constructor() {
         super();
     }
@@ -75,7 +85,7 @@ export default class RenderSidebarSystem extends System {
 
         Editor.selectedEntity = null;
         targetElement.remove();
-        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, event.entity.registry, assetStore);
+        this.saveWithDebounce(event.entity.registry, assetStore);
     };
 
     onEntityDuplicate = (
@@ -102,7 +112,7 @@ export default class RenderSidebarSystem extends System {
         );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, originalEntity.registry, assetStore);
+        this.saveWithDebounce(originalEntity.registry, assetStore);
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
@@ -170,7 +180,7 @@ export default class RenderSidebarSystem extends System {
             const entity = registry.createEntity();
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
             eventBus.emitEvent(EntitySelectEvent, entity);
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+            this.saveWithDebounce(registry, assetStore);
         };
     };
 
@@ -679,7 +689,7 @@ export default class RenderSidebarSystem extends System {
                     throw new Error('Could not find spritesheet image for entity with id ' + entityId);
                 }
 
-                saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+                this.saveWithDebounce(registry, assetStore);
                 const newAssetImg = assetStore.getTexture((component as GameComponents.SpriteComponent).assetId);
                 currentSpriteImage.src = newAssetImg.src;
                 currentSpriteImage.style.maxHeight = (newAssetImg.height > 100 ? newAssetImg.height : 100) + 'px';
@@ -782,7 +792,7 @@ export default class RenderSidebarSystem extends System {
                 textInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.value;
-                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+                    this.saveWithDebounce(registry, assetStore);
                 });
 
                 const propertyLi = this.createListItem(label, textInput);
@@ -793,7 +803,7 @@ export default class RenderSidebarSystem extends System {
                 numberInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = parseFloat(target.value);
-                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+                    this.saveWithDebounce(registry, assetStore);
                 });
                 const propertyLi = this.createListItem(label, numberInput);
                 return propertyLi;
@@ -807,7 +817,7 @@ export default class RenderSidebarSystem extends System {
                 checkBoxInput.addEventListener('input', event => {
                     const target = event.target as HTMLInputElement;
                     (component as any)[propertyName] = target.checked;
-                    saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+                    this.saveWithDebounce(registry, assetStore);
                 });
                 const propertyLi = this.createListItem(label, checkBoxInput);
                 return propertyLi;
