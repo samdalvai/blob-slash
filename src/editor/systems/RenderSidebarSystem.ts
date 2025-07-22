@@ -574,6 +574,19 @@ export default class RenderSidebarSystem extends System {
         return container;
     };
 
+    private removeComponent = (component: Component, entity: Entity, containerId: string) => {
+        const container = document.getElementById(containerId);
+        if (!container) throw new Error(`Component container not found: ${containerId}`);
+        container.remove();
+
+        const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
+        if (!ComponentClass) throw new Error(`Component class not found: ${component.constructor.name}`);
+
+        entity.removeComponent(ComponentClass);
+        entity.registry.removeEntityFromSystems(entity);
+        entity.registry.addEntityToSystems(entity);
+    };
+
     private getComponentContainer = (
         component: Component,
         entity: Entity,
@@ -595,22 +608,8 @@ export default class RenderSidebarSystem extends System {
         const removeButton = document.createElement('button');
         removeButton.innerText = 'REMOVE';
         removeButton.onclick = () => {
-            const componentContainerToDelete = document.getElementById(
-                component.constructor.name + '-' + entity.getId(),
-            );
-
-            if (!componentContainerToDelete) {
-                throw new Error(
-                    'Could not find component container to delete with id ' +
-                        (component.constructor.name + '-' + entity.getId()),
-                );
-            }
-            componentContainerToDelete.remove();
-            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
-            entity.removeComponent(ComponentClass);
-
-            entity.registry.removeEntityFromSystems(entity);
-            entity.registry.addEntityToSystems(entity);
+            this.removeComponent(component, entity, componentContainer.id);
+            this.saveWithDebounce(registry, assetStore);
         };
 
         componentHeader.append(title);
