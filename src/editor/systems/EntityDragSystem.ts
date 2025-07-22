@@ -81,7 +81,7 @@ export default class EntityDragSystem extends System {
                     y: event.coordinates.y - transform.position.y,
                 };
 
-                return;
+                continue;
             }
         }
 
@@ -125,25 +125,31 @@ export default class EntityDragSystem extends System {
 
                 this.updateEntityPosition(
                     entity,
+                    registry,
+                    assetStore,
                     transform,
                     Engine.mousePositionWorld.x - diffX,
                     Engine.mousePositionWorld.y - diffY,
                 );
-                saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
                 return;
             }
 
-            this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY);
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
+            this.updateEntityPosition(entity, registry, assetStore, transform, mousePositionX, mousePositionY);
         }
     };
 
     private updateEntityPosition = (
         entity: Entity,
+        registry: Registry,
+        assetStore: AssetStore,
         transform: TransformComponent,
         newPositionX: number,
         newPositionY: number,
     ) => {
+        if (transform.position.x === newPositionX && transform.position.y === newPositionY) {
+            return;
+        }
+
         transform.position.x = newPositionX;
         transform.position.y = newPositionY;
 
@@ -157,5 +163,7 @@ export default class EntityDragSystem extends System {
 
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
+
+        saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
     };
 }

@@ -465,6 +465,7 @@ export default class Editor extends Engine {
                 .getSystem(EditorSystems.EntityDragSystem)
                 ?.update(
                     this.leftSidebar.getBoundingClientRect().width,
+                    // TODO: we can use canvas x and width instead of leftSidebar
                     this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
                     this.registry,
                     this.assetStore,
