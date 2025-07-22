@@ -419,7 +419,9 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         if (!this.panEnabled) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus);
+            this.registry
+                .getSystem(EditorSystems.EntityDragSystem)
+                ?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
         this.registry
