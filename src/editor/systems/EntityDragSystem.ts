@@ -1,28 +1,16 @@
 import Engine from '../../engine/Engine';
-import AssetStore from '../../engine/asset-store/AssetStore';
 import Entity from '../../engine/ecs/Entity';
-import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
-import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { MouseButton } from '../../engine/types/control';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import { MousePressedEvent, MouseReleasedEvent } from '../../game/events';
 import Editor from '../Editor';
+import EntityEditor from '../entity-editor/EntityEditor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class EntityDragSystem extends System {
-    private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
-
-    // TODO: extact this logic into a class
-    private saveWithDebounce = (registry: Registry, assetStore: AssetStore) => {
-        if (this.saveDebounceTimer) clearTimeout(this.saveDebounceTimer);
-        this.saveDebounceTimer = setTimeout(() => {
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
-        }, 300);
-    };
-
     constructor() {
         super();
         this.requireComponent(TransformComponent);
@@ -104,7 +92,12 @@ export default class EntityDragSystem extends System {
         Editor.entityDragOffset = null;
     };
 
-    update = (canvasXMin: number, canvasXMax: number, registry: Registry, assetStore: AssetStore) => {
+    // TODO: we can use canvas x and width instead of leftSidebar
+    update = (
+        canvasXMin: number,
+        canvasXMax: number,
+        entityEditor: EntityEditor,
+    ) => {
         if (
             !Editor.entityDragOffset ||
             Editor.selectedEntity === null ||
@@ -135,26 +128,24 @@ export default class EntityDragSystem extends System {
 
                 this.updateEntityPosition(
                     entity,
-                    registry,
-                    assetStore,
                     transform,
                     Engine.mousePositionWorld.x - diffX,
                     Engine.mousePositionWorld.y - diffY,
+                    entityEditor,
                 );
                 return;
             }
 
-            this.updateEntityPosition(entity, registry, assetStore, transform, mousePositionX, mousePositionY);
+            this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
         }
     };
 
     private updateEntityPosition = (
         entity: Entity,
-        registry: Registry,
-        assetStore: AssetStore,
         transform: TransformComponent,
         newPositionX: number,
         newPositionY: number,
+        entityEditor: EntityEditor,
     ) => {
         if (transform.position.x === newPositionX && transform.position.y === newPositionY) {
             return;
@@ -174,6 +165,6 @@ export default class EntityDragSystem extends System {
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
 
-        this.saveWithDebounce(registry, assetStore);
+        entityEditor.saveWithDebounce();
     };
 }
