@@ -187,7 +187,7 @@ export default class Editor extends Engine {
         // Editor related systems
         this.registry.addSystem(EditorSystems.RenderSpriteBoxSystem);
         this.registry.addSystem(EditorSystems.RenderGameBorderSystem);
-        this.registry.addSystem(EditorSystems.RenderSidebarSystem);
+        this.registry.addSystem(EditorSystems.RenderSidebarSystem, this.entityEditor);
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
 

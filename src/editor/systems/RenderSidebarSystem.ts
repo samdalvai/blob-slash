@@ -8,7 +8,6 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import {
     loadLevelFromLocalStorage,
-    saveCurrentLevelToLocalStorage,
     saveLevelMapToLocalStorage,
     saveLevelToJson,
 } from '../../engine/serialization/persistence';
@@ -19,6 +18,7 @@ import * as GameComponents from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
+import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
@@ -34,18 +34,12 @@ import {
  * TODO: split this system into multiple ones and create a class for Entity Editing, this class does too many things
  */
 export default class RenderSidebarSystem extends System {
-    private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+    private entityEditor: EntityEditor;
 
-    // TODO: extact this logic into a class
-    private saveWithDebounce = (registry: Registry, assetStore: AssetStore) => {
-        if (this.saveDebounceTimer) clearTimeout(this.saveDebounceTimer);
-        this.saveDebounceTimer = setTimeout(() => {
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, registry, assetStore);
-        }, 300);
-    };
-
-    constructor() {
+    constructor(entityEditor: EntityEditor) {
         super();
+
+        this.entityEditor = entityEditor;
     }
 
     subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null, assetStore: AssetStore) {
@@ -88,7 +82,7 @@ export default class RenderSidebarSystem extends System {
 
         Editor.selectedEntity = null;
         targetElement.remove();
-        this.saveWithDebounce(event.entity.registry, assetStore);
+        this.entityEditor.saveWithDebounce();
     };
 
     onEntityDuplicate = (
@@ -115,7 +109,7 @@ export default class RenderSidebarSystem extends System {
         );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        this.saveWithDebounce(originalEntity.registry, assetStore);
+        this.entityEditor.saveWithDebounce();
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
@@ -183,7 +177,7 @@ export default class RenderSidebarSystem extends System {
             const entity = registry.createEntity();
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
             eventBus.emitEvent(EntitySelectEvent, entity);
-            this.saveWithDebounce(registry, assetStore);
+            this.entityEditor.saveWithDebounce();
         };
     };
 
@@ -231,7 +225,7 @@ export default class RenderSidebarSystem extends System {
         addComponentButton.innerText = 'ADD COMPONENT';
         addComponentButton.onclick = () => {
             this.addComponent(entity, componentList, registry, assetStore, leftSidebar);
-            this.saveWithDebounce(registry, assetStore);
+            this.entityEditor.saveWithDebounce();
         };
 
         const select = document.createElement('select');
@@ -623,7 +617,7 @@ export default class RenderSidebarSystem extends System {
         removeButton.innerText = 'REMOVE';
         removeButton.onclick = () => {
             this.removeComponent(component, entity, componentContainer.id);
-            this.saveWithDebounce(registry, assetStore);
+            this.entityEditor.saveWithDebounce();
         };
 
         componentHeader.append(title);
@@ -670,7 +664,7 @@ export default class RenderSidebarSystem extends System {
         }
 
         if (component.constructor.name === 'SpriteComponent' && propertyName === 'assetId') {
-            return this.createSpriteSelector(propertyName, component, entityId, assetStore, registry);
+            return this.createSpriteSelector(propertyName, component, entityId, assetStore);
         }
 
         if (Array.isArray(propertyValue)) {
@@ -692,7 +686,6 @@ export default class RenderSidebarSystem extends System {
         component: Component,
         entityId: number,
         assetStore: AssetStore,
-        registry: Registry,
     ): HTMLElement => {
         const container = document.createElement('div');
         container.className = 'd-flex flex-col';
@@ -719,7 +712,7 @@ export default class RenderSidebarSystem extends System {
             img.src = newAssetImg.src;
             img.style.maxHeight = `${Math.max(newAssetImg.height, 100)}px`;
 
-            this.saveWithDebounce(registry, assetStore);
+            this.entityEditor.saveWithDebounce();
         });
 
         const propertyLi = this.createListItem(propertyName, select);
@@ -797,7 +790,7 @@ export default class RenderSidebarSystem extends System {
     ) => {
         const updateProperty = (newValue: any) => {
             (component as any)[propertyName] = newValue;
-            this.saveWithDebounce(registry, assetStore);
+            this.entityEditor.saveWithDebounce();
         };
 
         switch (typeof propertyValue) {
