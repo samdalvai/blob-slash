@@ -785,50 +785,35 @@ export default class RenderSidebarSystem extends System {
         registry: Registry,
         assetStore: AssetStore,
     ) => {
+        const updateProperty = (newValue: any) => {
+            (component as any)[propertyName] = newValue;
+            this.saveWithDebounce(registry, assetStore);
+        };
+
         switch (typeof propertyValue) {
             case 'string': {
-                const textInput = this.createInput('text', id + '-' + propertyName + '-' + entityId, propertyValue);
-                textInput.addEventListener('input', event => {
-                    const target = event.target as HTMLInputElement;
-                    (component as any)[propertyName] = target.value;
-                    this.saveWithDebounce(registry, assetStore);
-                });
-
-                const propertyLi = this.createListItem(label, textInput);
-                return propertyLi;
+                const input = this.createInput('text', `${id}-${propertyName}-${entityId}`, propertyValue);
+                input.addEventListener('input', e => updateProperty((e.target as HTMLInputElement).value));
+                return this.createListItem(label, input);
             }
             case 'number': {
-                const numberInput = this.createInput('number', id + '-' + propertyName + '-' + entityId, propertyValue);
-                numberInput.addEventListener('input', event => {
-                    const target = event.target as HTMLInputElement;
-                    (component as any)[propertyName] = parseFloat(target.value);
-                    this.saveWithDebounce(registry, assetStore);
-                });
-                const propertyLi = this.createListItem(label, numberInput);
-                return propertyLi;
+                const input = this.createInput('number', `${id}-${propertyName}-${entityId}`, propertyValue);
+                input.addEventListener('input', e => updateProperty(parseFloat((e.target as HTMLInputElement).value)));
+                return this.createListItem(label, input);
             }
             case 'boolean': {
-                const checkBoxInput = this.createInput(
-                    'checkbox',
-                    id + '-' + propertyName + '-' + entityId,
-                    propertyValue,
-                );
-                checkBoxInput.addEventListener('input', event => {
-                    const target = event.target as HTMLInputElement;
-                    (component as any)[propertyName] = target.checked;
-                    this.saveWithDebounce(registry, assetStore);
-                });
-                const propertyLi = this.createListItem(label, checkBoxInput);
-                return propertyLi;
+                const input = this.createInput('checkbox', `${id}-${propertyName}-${entityId}`, propertyValue);
+                input.addEventListener('input', e => updateProperty((e.target as HTMLInputElement).checked));
+                return this.createListItem(label, input);
             }
             case 'object': {
-                const objectContainer = document.createElement('div');
+                const container = document.createElement('div');
 
                 for (const property in propertyValue) {
-                    objectContainer.append(
+                    container.append(
                         this.createListItemWithInputRec(
                             id,
-                            label + '-' + property,
+                            `${label}-${property}`,
                             property,
                             propertyValue[property as keyof typeof propertyValue],
                             propertyValue,
@@ -839,7 +824,7 @@ export default class RenderSidebarSystem extends System {
                     );
                 }
 
-                return objectContainer;
+                return container;
             }
             default:
                 throw new Error(
