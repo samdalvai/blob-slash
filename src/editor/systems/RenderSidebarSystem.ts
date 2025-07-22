@@ -45,7 +45,7 @@ export default class RenderSidebarSystem extends System {
     subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null, assetStore: AssetStore) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event =>
-            this.onEntityDelete(event, leftSidebar, assetStore),
+            this.onEntityDelete(event, leftSidebar),
         );
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, assetStore, eventBus),
@@ -61,7 +61,7 @@ export default class RenderSidebarSystem extends System {
         this.scrollToListElement(leftSidebar, `#entity-${event.entity.getId()}`);
     };
 
-    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null, assetStore: AssetStore) => {
+    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -296,13 +296,13 @@ export default class RenderSidebarSystem extends System {
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapWidth = parseInt(target.value);
-            saveEditorSettingsToLocalStorage();
+            this.entityEditor.saveWithDebounce();
         });
 
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
-            saveEditorSettingsToLocalStorage();
+            this.entityEditor.saveWithDebounce();
         });
 
         snapGridInput.addEventListener('input', event => {
