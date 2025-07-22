@@ -5,6 +5,7 @@ import { LevelMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
+import EntityEditor from './entity-editor/EntityEditor';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
 import {
@@ -22,6 +23,9 @@ declare global {
 }
 
 export default class Editor extends Engine {
+    // Object for Editor
+    private entityEditor: EntityEditor;
+
     // Objects for rendering
     private leftSidebar: HTMLElement | null;
     private rightSidebar: HTMLElement | null;
@@ -47,6 +51,8 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
+        this.entityEditor = new EntityEditor(this.registry, this.assetStore);
+
         this.leftSidebar = null;
         this.rightSidebar = null;
 
@@ -419,9 +425,7 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         if (!this.panEnabled) {
-            this.registry
-                .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas);
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
         this.registry
@@ -461,15 +465,12 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
         if (!this.panEnabled) {
-            this.registry
-                .getSystem(EditorSystems.EntityDragSystem)
-                ?.update(
-                    this.leftSidebar.getBoundingClientRect().width,
-                    // TODO: we can use canvas x and width instead of leftSidebar
-                    this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
-                    this.registry,
-                    this.assetStore,
-                );
+            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(
+                this.leftSidebar.getBoundingClientRect().width,
+                // TODO: we can use canvas x and width instead of leftSidebar
+                this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
+                this.entityEditor,
+            );
         }
     };
 
