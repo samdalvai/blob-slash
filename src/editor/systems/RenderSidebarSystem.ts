@@ -30,6 +30,9 @@ import {
     saveEditorSettingsToLocalStorage,
 } from '../persistence/persistence';
 
+/**
+ * TODO: split this system into multiple ones and create a class for Entity Editing, this class does too many things
+ */
 export default class RenderSidebarSystem extends System {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
