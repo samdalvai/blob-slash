@@ -18,6 +18,10 @@ export default class AssetStore {
     }
 
     loadUknownSpriteTexture() {
+        // TODO: unknown sprite is loaded multiple times
+        console.log('Has uknown? ', this.textures.has(''));
+        console.log("textures: ", this.textures);
+
         this.addTexture('', './assets/sprites/unknown.png');
     }
 
