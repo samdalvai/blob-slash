@@ -44,9 +44,7 @@ export default class RenderSidebarSystem extends System {
 
     subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null, assetStore: AssetStore) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityDeleteEvent, this, event =>
-            this.onEntityDelete(event, leftSidebar),
-        );
+        eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, assetStore, eventBus),
         );
@@ -66,23 +64,13 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = leftSidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
         }
 
-        event.entity.kill();
-
-        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
-
-        if (!targetElement) {
-            throw new Error('Could not find target element in entity list');
-        }
-
-        Editor.selectedEntity = null;
-        targetElement.remove();
-        this.entityEditor.saveLevel();
+        this.removeEntity(event.entity, entityList);
     };
 
     onEntityDuplicate = (
@@ -95,7 +83,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve leftSidebar');
         }
 
-        const entityList = leftSidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -105,7 +93,14 @@ export default class RenderSidebarSystem extends System {
         const entityCopy = event.entity.duplicate();
 
         entityList.appendChild(
-            this.getEntityListElement(entityCopy, originalEntity.registry, assetStore, eventBus, leftSidebar),
+            this.getEntityListElement(
+                entityCopy,
+                originalEntity.registry,
+                assetStore,
+                eventBus,
+                leftSidebar,
+                entityList,
+            ),
         );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
@@ -153,7 +148,7 @@ export default class RenderSidebarSystem extends System {
         assetStore: AssetStore,
         eventBus: EventBus,
     ) => {
-        const entityList = leftSidebar.querySelector('#entity-list');
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
         if (!entityList) {
             throw new Error('Could not retrieve entity list');
@@ -164,7 +159,9 @@ export default class RenderSidebarSystem extends System {
         const entities = registry.getAllEntities();
 
         for (const entity of entities) {
-            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
+            entityList.appendChild(
+                this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar, entityList),
+            );
         }
 
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
@@ -174,11 +171,37 @@ export default class RenderSidebarSystem extends System {
         }
 
         addEntityButton.onclick = () => {
-            const entity = registry.createEntity();
-            entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
-            eventBus.emitEvent(EntitySelectEvent, entity);
-            this.entityEditor.saveLevel();
+            this.addEntity(registry, assetStore, eventBus, entityList, leftSidebar);
         };
+    };
+
+    private addEntity = (
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+        entityList: HTMLLIElement,
+        leftSidebar: HTMLElement,
+    ) => {
+        const entity = registry.createEntity();
+        entityList.appendChild(
+            this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar, entityList),
+        );
+        eventBus.emitEvent(EntitySelectEvent, entity);
+        this.entityEditor.saveLevel();
+    };
+
+    private removeEntity = (entity: Entity, entityList: HTMLLIElement) => {
+        entity.kill();
+
+        const targetElement = entityList.querySelector(`#entity-${entity.getId()}`);
+
+        if (!targetElement) {
+            throw new Error('Could not find target element in entity list');
+        }
+
+        Editor.selectedEntity = null;
+        targetElement.remove();
+        this.entityEditor.saveLevel();
     };
 
     private getEntityListElement = (
@@ -187,6 +210,7 @@ export default class RenderSidebarSystem extends System {
         assetStore: AssetStore,
         eventBus: EventBus,
         leftSidebar: HTMLElement,
+        entityList: HTMLLIElement,
     ) => {
         const entityComponents = entity.getComponents();
 
@@ -209,9 +233,7 @@ export default class RenderSidebarSystem extends System {
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
-        deleteButton.onclick = () => {
-            eventBus.emitEvent(EntityDeleteEvent, entity);
-        };
+        deleteButton.onclick = () => this.removeEntity(entity, entityList);
 
         header.append(title);
         header.append(duplicateButton);
@@ -223,10 +245,7 @@ export default class RenderSidebarSystem extends System {
 
         const addComponentButton = document.createElement('button');
         addComponentButton.innerText = 'ADD COMPONENT';
-        addComponentButton.onclick = () => {
-            this.addComponent(entity, componentList, registry, assetStore, leftSidebar);
-            this.entityEditor.saveLevel();
-        };
+        addComponentButton.onclick = () => this.addComponent(entity, componentList, registry, assetStore, leftSidebar);
 
         const select = document.createElement('select');
         select.id = 'component-select-' + entity.getId();
@@ -580,6 +599,8 @@ export default class RenderSidebarSystem extends System {
 
             this.scrollToListElement(leftSidebar, `#${component.constructor.name}-${entity.getId()}`);
         }
+
+        this.entityEditor.saveLevel();
     };
 
     private removeComponent = (component: Component, entity: Entity, containerId: string) => {
