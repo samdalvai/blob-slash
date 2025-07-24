@@ -165,6 +165,6 @@ export default class EntityDragSystem extends System {
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
 
-        entityEditor.saveWithDebounce();
+        entityEditor.saveLevel();
     };
 }

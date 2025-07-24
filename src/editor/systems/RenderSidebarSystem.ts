@@ -82,7 +82,7 @@ export default class RenderSidebarSystem extends System {
 
         Editor.selectedEntity = null;
         targetElement.remove();
-        this.entityEditor.saveWithDebounce();
+        this.entityEditor.saveLevel();
     };
 
     onEntityDuplicate = (
@@ -109,7 +109,7 @@ export default class RenderSidebarSystem extends System {
         );
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        this.entityEditor.saveWithDebounce();
+        this.entityEditor.saveLevel();
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
@@ -177,7 +177,7 @@ export default class RenderSidebarSystem extends System {
             const entity = registry.createEntity();
             entityList.appendChild(this.getEntityListElement(entity, registry, assetStore, eventBus, leftSidebar));
             eventBus.emitEvent(EntitySelectEvent, entity);
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         };
     };
 
@@ -225,7 +225,7 @@ export default class RenderSidebarSystem extends System {
         addComponentButton.innerText = 'ADD COMPONENT';
         addComponentButton.onclick = () => {
             this.addComponent(entity, componentList, registry, assetStore, leftSidebar);
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         };
 
         const select = document.createElement('select');
@@ -296,13 +296,13 @@ export default class RenderSidebarSystem extends System {
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapWidth = parseInt(target.value);
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         });
 
         gameHeightInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
             Engine.mapHeight = parseInt(target.value);
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         });
 
         snapGridInput.addEventListener('input', event => {
@@ -617,7 +617,7 @@ export default class RenderSidebarSystem extends System {
         removeButton.innerText = 'REMOVE';
         removeButton.onclick = () => {
             this.removeComponent(component, entity, componentContainer.id);
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         };
 
         componentHeader.append(title);
@@ -712,7 +712,7 @@ export default class RenderSidebarSystem extends System {
             img.src = newAssetImg.src;
             img.style.maxHeight = `${Math.max(newAssetImg.height, 100)}px`;
 
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         });
 
         const propertyLi = this.createListItem(propertyName, select);
@@ -790,7 +790,7 @@ export default class RenderSidebarSystem extends System {
     ) => {
         const updateProperty = (newValue: any) => {
             (component as any)[propertyName] = newValue;
-            this.entityEditor.saveWithDebounce();
+            this.entityEditor.saveLevel();
         };
 
         switch (typeof propertyValue) {

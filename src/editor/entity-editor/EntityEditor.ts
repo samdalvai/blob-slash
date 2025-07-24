@@ -13,7 +13,7 @@ export default class EntityEditor {
         this.assetStore = assetStore;
     }
 
-    public saveWithDebounce = () => {
+    public saveLevel = () => {
         if (this.saveDebounceTimer) {
             clearTimeout(this.saveDebounceTimer);
         }
