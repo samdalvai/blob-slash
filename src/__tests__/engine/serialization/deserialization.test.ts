@@ -8,8 +8,8 @@ import {
     getComponentConstructorParamNames,
 } from '../../../engine/serialization/deserialization';
 import { EntityMap } from '../../../engine/types/map';
-import TransformComponent from '../../../game/components/TransformComponent';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
+import TransformComponent from '../../../game/components/TransformComponent';
 
 describe('Testing deserialization related functions', () => {
     test('Should extract component constructor parameter names', () => {
@@ -138,7 +138,26 @@ describe('Testing deserialization related functions', () => {
             myProperty2: string;
 
             // eslint-disable-next-line quotes
-            constructor(myProperty1 = "hello", myProperty2 = 'whatever') {
+            constructor(myProperty1 = 'hello', myProperty2 = 'whatever') {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should extract component constructor parameter names with string types and constant as default initializer', () => {
+        const DEFAULT_VALUE = 'test';
+
+        class MyComponent extends Component {
+            myProperty1: string;
+            myProperty2: string;
+
+            // TODO: does not work when run from the browser
+            // eslint-disable-next-line quotes
+            constructor(myProperty1 = DEFAULT_VALUE, myProperty2 = 'whatever') {
                 super();
                 this.myProperty1 = myProperty1;
                 this.myProperty2 = myProperty2;
