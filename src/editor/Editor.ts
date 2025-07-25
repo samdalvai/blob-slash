@@ -51,7 +51,7 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
-        this.entityEditor = new EntityEditor(this.registry, this.assetStore);
+        this.entityEditor = new EntityEditor(this.registry, this.assetStore, this.eventBus);
 
         this.leftSidebar = null;
         this.rightSidebar = null;
@@ -430,7 +430,7 @@ export default class Editor extends Engine {
 
         this.registry
             .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.leftSidebar, this.assetStore);
+            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
@@ -547,7 +547,6 @@ export default class Editor extends Engine {
                     this.rightSidebar,
                     this.registry,
                     this.assetStore,
-                    this.eventBus,
                     this.levelManager,
                 );
 
