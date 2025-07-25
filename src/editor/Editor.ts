@@ -1,7 +1,6 @@
 import Engine from '../engine/Engine';
 import { saveLevelMapToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
-import { LevelMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
