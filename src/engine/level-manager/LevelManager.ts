@@ -62,4 +62,17 @@ export default class LevelManager {
         Engine.mapWidth = level.mapWidth;
         Engine.mapHeight = level.mapHeight;
     }
+
+    public getDefaultLevel = () => {
+        const defaultLevelId = 'level-0';
+        const newLevelMap: LevelMap = {
+            textures: [],
+            sounds: [],
+            mapWidth: 64 * 10,
+            mapHeight: 64 * 10,
+            entities: [],
+        };
+
+        return { levelId: defaultLevelId, level: newLevelMap };
+    };
 }

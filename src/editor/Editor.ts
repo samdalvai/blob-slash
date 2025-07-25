@@ -200,20 +200,11 @@ export default class Editor extends Engine {
                 await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
             }
         } else {
-            // TODO: extract this in a reusable method
             console.log('No level available, loading default empty level');
-            const defaultLevelId = 'level-0';
-            const newLevelMap: LevelMap = {
-                textures: [],
-                sounds: [],
-                mapWidth: 64 * 10,
-                mapHeight: 64 * 10,
-                entities: [],
-            };
-
-            saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
-            await this.levelManager.loadLevelFromLocalStorage(this.registry, defaultLevelId);
-            Editor.editorSettings.selectedLevel = defaultLevelId;
+            const { levelId, level } = this.levelManager.getDefaultLevel();
+            saveLevelMapToLocalStorage(levelId, level);
+            await this.levelManager.loadLevelFromLocalStorage(this.registry, levelId);
+            Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
         }
     };
@@ -428,9 +419,7 @@ export default class Editor extends Engine {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
-        this.registry
-            .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
+        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
@@ -542,13 +531,7 @@ export default class Editor extends Engine {
         if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(
-                    this.leftSidebar,
-                    this.rightSidebar,
-                    this.registry,
-                    this.assetStore,
-                    this.levelManager,
-                );
+                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.levelManager);
 
             this.shouldSidebarUpdate = false;
         }
