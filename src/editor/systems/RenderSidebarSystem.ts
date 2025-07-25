@@ -748,7 +748,12 @@ export default class RenderSidebarSystem extends System {
         spriteImage.style.maxWidth = '100%';
         spriteImage.id = `spritesheet-${entityId}`;
 
+        const spritePicker = document.createElement('button');
+        spritePicker.style.marginTop = '10px';
+        spritePicker.innerText = 'Load sprite';
+
         container.append(propertyLi, spriteImage);
+        container.append(spritePicker);
         return container;
     };
 
