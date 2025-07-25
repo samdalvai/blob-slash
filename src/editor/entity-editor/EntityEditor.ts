@@ -302,6 +302,32 @@ export default class EntityEditor {
         spritePicker.style.marginTop = '10px';
         spritePicker.innerText = 'Load sprite';
 
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.png';
+        fileInput.style.display = 'none';
+
+        fileInput.addEventListener('change', async () => {
+            const files = fileInput.files;
+            if (files && files.length > 0) {
+                const file: File = files[0];
+                const fileName = file.name;
+                console.log('file name: ', file.name);
+                try {
+                    await this.assetStore.addTexture(fileName.replace('.png', ''), './assets/sprites/' + fileName);
+                } catch (error) {
+                    try {
+                        await this.assetStore.addTexture(fileName.replace('.png', ''), './assets/tilemaps/' + fileName);
+                    } catch (error) {
+                        showAlert('Could not load file with name ' + fileName + ' from assets');
+                    }
+                }
+            }
+        });
+
+        spritePicker.append(fileInput);
+        spritePicker.onclick = () => fileInput.click();
+
         container.append(propertyLi, spriteImage);
         container.append(spritePicker);
         return container;
