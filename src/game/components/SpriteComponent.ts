@@ -1,3 +1,4 @@
+import { DEFAULT_TEXTURE } from '../../engine/asset-store/AssetStore';
 import Component from '../../engine/ecs/Component';
 import { Flip, Rectangle, Vector } from '../../engine/types/utils';
 
@@ -12,7 +13,7 @@ export default class SpriteComponent extends Component {
     transparency: number;
 
     constructor(
-        assetId = '',
+        assetId = DEFAULT_TEXTURE,
         width = 0,
         height = 0,
         zIndex = 0,
