@@ -721,6 +721,8 @@ export default class RenderSidebarSystem extends System {
             select.appendChild(option);
         });
 
+        // TODO: add button to pick asset not already loaded
+
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {
             const target = e.target as HTMLSelectElement;
