@@ -59,7 +59,6 @@ export default abstract class Engine {
 
         Engine.mousePositionScreen = { x: 0, y: 0 };
         Engine.mousePositionWorld = { x: 0, y: 0 };
-        this.assetStore.loadUknownSpriteTexture();
     }
 
     protected initialize = () => {

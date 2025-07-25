@@ -1,5 +1,7 @@
 import { Asset } from '../types/map';
 
+export const DEFAULT_TEXTURE = '__default__';
+
 export default class AssetStore {
     private textures: Map<string, HTMLImageElement>;
     private sounds: Map<string, HTMLAudioElement>;
@@ -17,14 +19,6 @@ export default class AssetStore {
         this.soundsFilePaths = [];
     }
 
-    loadUknownSpriteTexture() {
-        // TODO: unknown sprite is loaded multiple times
-        console.log('Has uknown? ', this.textures.has(''));
-        console.log("textures: ", this.textures);
-
-        this.addTexture('', './assets/sprites/unknown.png');
-    }
-
     addTexture(assetId: string, filePath: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const texture = new Image();
@@ -33,7 +27,10 @@ export default class AssetStore {
             texture.onload = () => {
                 console.log('Texture added to the AssetStore with id ' + assetId);
                 this.textures.set(assetId, texture);
-                this.texturesFilePaths.push({ assetId, filePath });
+
+                if (assetId !== DEFAULT_TEXTURE) {
+                    this.texturesFilePaths.push({ assetId, filePath });
+                }
                 resolve();
             };
 
