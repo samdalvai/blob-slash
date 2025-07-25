@@ -342,26 +342,17 @@ export default class RenderSidebarSystem extends System {
                 await levelManager.loadLevelFromLocalStorage(registry, levelKeys[0]);
                 this.handleLevelSelect(levelKeys[0], localStorageLevelsSelect);
             } else {
-                // TODO: extract this in a reusable method
                 console.log('No level available, loading default empty level');
-                const defaultLevelId = 'level-0';
-                const newLevelMap: LevelMap = {
-                    textures: [],
-                    sounds: [],
-                    mapWidth: 64 * 10,
-                    mapHeight: 64 * 10,
-                    entities: [],
-                };
-
-                saveLevelMapToLocalStorage(defaultLevelId, newLevelMap);
+                const { levelId, level } = levelManager.getDefaultLevel();
+                saveLevelMapToLocalStorage(levelId, level);
                 const option = document.createElement('option');
-                option.value = defaultLevelId;
-                option.id = defaultLevelId;
-                option.textContent = defaultLevelId;
+                option.value = levelId;
+                option.id = levelId;
+                option.textContent = levelId;
                 localStorageLevelsSelect.appendChild(option);
 
-                await levelManager.loadLevelFromLocalStorage(registry, defaultLevelId);
-                this.handleLevelSelect(defaultLevelId, localStorageLevelsSelect);
+                await levelManager.loadLevelFromLocalStorage(registry, levelId);
+                this.handleLevelSelect(levelId, localStorageLevelsSelect);
             }
         };
 
