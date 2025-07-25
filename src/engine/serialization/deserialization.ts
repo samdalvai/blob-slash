@@ -48,14 +48,18 @@ export const getComponentConstructorParamNames = <T extends Component>(component
         throw new Error(`'Error, could not parse constructor for component class ${component}`);
     }
 
+    // TODO: improve this constructor matcher, it fails for constants, e.g.
+    // assetId = DEFAULT_TEXTURE
     const paramNames = constructorMatch[0]
         .replace('constructor', '')
         .replace('= false', '')
         .replace('= true', '')
         .replace('= []', '')
         .replace(/\{([\s\S]*?)\}/g, '')
+        .replace(/\{([\s\S]*?)\}/g, '')
         .replace(/'(.*?)'/g, '')
         .replace(/"(.*?)"/g, '')
+        .replace(/= [^,)]+/g, '')
         .replace(/[()=,]/g, ' ')
         .split(' ')
         .filter(param => param !== '')

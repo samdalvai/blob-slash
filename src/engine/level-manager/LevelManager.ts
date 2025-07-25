@@ -1,5 +1,5 @@
 import Engine from '../Engine';
-import AssetStore, { DEFAULT_TEXTURE } from '../asset-store/AssetStore';
+import AssetStore from '../asset-store/AssetStore';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
 import { loadLevelFromLocalStorage } from '../serialization/persistence';
@@ -39,7 +39,7 @@ export default class LevelManager {
 
     private async loadAssets(level: LevelMap) {
         console.log('Loading default texture');
-        await this.assetStore.addTexture(DEFAULT_TEXTURE, './assets/sprites/default.png');
+        await this.assetStore.addTexture('__default__', './assets/sprites/default.png');
 
         console.log('Loading assets');
         for (const texture of level.textures) {

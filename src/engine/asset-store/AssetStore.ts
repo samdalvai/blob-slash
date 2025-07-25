@@ -1,7 +1,5 @@
 import { Asset } from '../types/map';
 
-export const DEFAULT_TEXTURE = '__default__';
-
 export default class AssetStore {
     private textures: Map<string, HTMLImageElement>;
     private sounds: Map<string, HTMLAudioElement>;
@@ -28,7 +26,7 @@ export default class AssetStore {
                 console.log('Texture added to the AssetStore with id ' + assetId);
                 this.textures.set(assetId, texture);
 
-                if (assetId !== DEFAULT_TEXTURE) {
+                if (assetId !== '__default__') {
                     this.texturesFilePaths.push({ assetId, filePath });
                 }
                 resolve();
