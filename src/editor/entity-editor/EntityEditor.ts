@@ -312,16 +312,51 @@ export default class EntityEditor {
             if (files && files.length > 0) {
                 const file: File = files[0];
                 const fileName = file.name;
-                console.log('file name: ', file.name);
+                const assetId = fileName.replace('.png', '');
+
                 try {
-                    await this.assetStore.addTexture(fileName.replace('.png', ''), './assets/sprites/' + fileName);
+                    await this.assetStore.addTexture(assetId, './assets/sprites/' + fileName);
                 } catch (error) {
                     try {
-                        await this.assetStore.addTexture(fileName.replace('.png', ''), './assets/tilemaps/' + fileName);
+                        await this.assetStore.addTexture(assetId, './assets/tilemaps/' + fileName);
                     } catch (error) {
-                        showAlert('Could not load file with name ' + fileName + ' from assets');
+                        showAlert(
+                            'Could not load file with name ' +
+                                fileName +
+                                ' from assets, the sprite mus be under dist/assets/sprites or dist/assets/tilemaps',
+                        );
+                        return;
                     }
                 }
+
+                console.log('loaded');
+
+                const allEntities = this.registry.getAllEntities();
+
+                for (const entity of allEntities) {
+                    if (entity.hasComponent(GameComponents.SpriteComponent)) {
+                        const entitySpriteSelect = document.getElementById('assetId-' + entity.getId());
+                        console.log(entitySpriteSelect);
+                        if (!entitySpriteSelect) {
+                            throw new Error('Could not find sprite select element for entityt ' + entity.getId());
+                        }
+
+                        const option = document.createElement('option');
+                        option.textContent = assetId;
+                        option.value = assetId;
+                        entitySpriteSelect.appendChild(option);
+                    }
+                }
+                select.value = assetId;
+                // TODO: the image height is not changed
+                const newAssetImg = this.assetStore.getTexture(assetId);
+                spriteImage.src = newAssetImg.src;
+                spriteImage.style.objectFit = 'contain';
+                spriteImage.style.maxHeight = `${assetImg.height}px`;
+                spriteImage.style.maxWidth = '100%';
+                (component as GameComponents.SpriteComponent).assetId = assetId;
+                
+                //this.saveLevel();
             }
         });
 
