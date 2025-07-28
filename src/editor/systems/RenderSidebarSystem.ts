@@ -384,5 +384,7 @@ export default class RenderSidebarSystem extends System {
         gameHeightInput.value = level.mapHeight.toString();
         levelSelect.value = levelId;
         Editor.editorSettings.selectedLevel = levelId;
+
+        saveEditorSettingsToLocalStorage();
     };
 }
