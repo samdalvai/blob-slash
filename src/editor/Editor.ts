@@ -31,7 +31,8 @@ export default class Editor extends Engine {
 
     // Editor status properties
     private mousePressed: boolean;
-    private panEnabled: boolean;
+    private commandPressed: boolean;
+    private shiftPressed: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
 
@@ -56,7 +57,8 @@ export default class Editor extends Engine {
         this.rightSidebar = null;
 
         this.mousePressed = false;
-        this.panEnabled = false;
+        this.commandPressed = false;
+        this.shiftPressed = false;
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
 
@@ -227,14 +229,30 @@ export default class Editor extends Engine {
             switch (inputEvent.type) {
                 case 'keydown':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.panEnabled = true;
+                        this.commandPressed = true;
+                    }
+
+                    if (inputEvent.code === 'ShiftLeft') {
+                        this.shiftPressed = true;
+                    }
+
+                    if (this.commandPressed && inputEvent.code === 'KeyZ') {
+                        console.log('Undo');
+                    }
+
+                    if (this.commandPressed && this.shiftPressed && inputEvent.code === 'KeyZ') {
+                        console.log('Redo');
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.panEnabled = false;
+                        this.commandPressed = false;
+                    }
+
+                    if (inputEvent.code === 'ShiftLeft') {
+                        this.shiftPressed = false;
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyReleasedEvent, inputEvent.code);
@@ -266,7 +284,7 @@ export default class Editor extends Engine {
                     };
 
                     // Handles mouse pad pan
-                    if (this.mousePressed && this.panEnabled) {
+                    if (this.mousePressed && this.commandPressed) {
                         const dx = mouseX - Engine.mousePositionWorld.x;
                         const dy = mouseY - Engine.mousePositionWorld.y;
 
@@ -303,7 +321,7 @@ export default class Editor extends Engine {
                     );
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
-                        this.panEnabled = true;
+                        this.commandPressed = true;
                     }
 
                     break;
@@ -325,7 +343,7 @@ export default class Editor extends Engine {
                     );
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
-                        this.panEnabled = false;
+                        this.commandPressed = false;
                     }
                     break;
             }
@@ -414,7 +432,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
-        if (!this.panEnabled) {
+        if (!this.commandPressed) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
@@ -452,7 +470,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['SpriteStateSystem'] &&
             this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
-        if (!this.panEnabled) {
+        if (!this.commandPressed) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(
                 this.leftSidebar.getBoundingClientRect().width,
                 // TODO: we can use canvas x and width instead of leftSidebar
