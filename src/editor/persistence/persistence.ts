@@ -66,13 +66,30 @@ export const sortLevelKeys = (levelKeys: string[]) => {
     return sortedKeys;
 };
 
+export const getLevelVersions = (levelId: string) => {
+    const jsonString = localStorage.getItem('history');
+
+    if (!jsonString) {
+        return null;
+    }
+
+    const levelHistory = JSON.parse(jsonString) as LevelHistory;
+    const currentLevelVersions = levelHistory[levelId];
+
+    if (!currentLevelVersions) {
+        return null;
+    }
+
+    return currentLevelVersions;
+};
+
 export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
     const jsonString = localStorage.getItem('history');
 
     if (!jsonString) {
         const newLevelVersions: LevelVersion[] = [];
         newLevelVersions.push({
-            date: new Date(),
+            date: new Date().toISOString(),
             snapShot: levelMap,
             current: true,
         });
@@ -89,7 +106,7 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
     if (!currentLevelVersions) {
         const newLevelVersions: LevelVersion[] = [];
         newLevelVersions.push({
-            date: new Date(),
+            date: new Date().toISOString(),
             snapShot: levelMap,
             current: true,
         });
@@ -100,10 +117,21 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
 
     currentLevelVersions.forEach(version => (version.current = false));
     currentLevelVersions.push({
-        date: new Date(),
+        date: new Date().toISOString(),
         snapShot: levelMap,
         current: true,
     });
 
     localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+};
+
+export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: LevelVersion[]) => {
+    const jsonString = localStorage.getItem('history');
+
+    if (jsonString) {
+        const levelHistory = JSON.parse(jsonString) as LevelHistory;
+        levelHistory[levelId] = levelVersions;
+
+        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+    }
 };

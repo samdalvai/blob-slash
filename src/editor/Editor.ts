@@ -51,7 +51,7 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
-        this.entityEditor = new EntityEditor(this.registry, this.assetStore, this.eventBus);
+        this.entityEditor = new EntityEditor(this.registry, this.assetStore, this.eventBus, this.levelManager);
 
         this.leftSidebar = null;
         this.rightSidebar = null;

@@ -3,6 +3,7 @@ import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
+import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
@@ -10,18 +11,24 @@ import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
-import { saveLevelVersionToLocalStorage } from '../persistence/persistence';
+import {
+    getLevelVersions,
+    saveLevelVersionToLocalStorage,
+    saveLevelVersionsToLocalStorage,
+} from '../persistence/persistence';
 
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private registry: Registry;
     private assetStore: AssetStore;
     private eventBus: EventBus;
+    private levelManager: LevelManager;
 
-    constructor(registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+    constructor(registry: Registry, assetStore: AssetStore, eventBus: EventBus, levelManager: LevelManager) {
         this.registry = registry;
         this.assetStore = assetStore;
         this.eventBus = eventBus;
+        this.levelManager = levelManager;
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -46,12 +53,42 @@ export default class EntityEditor {
         }, 300);
     };
 
-    public undoLevelChange = () => {
-        console.log('Undoing');
+    public undoLevelChange = async () => {
+        if (Editor.editorSettings.selectedLevel) {
+            const currentLevelVersions = getLevelVersions(Editor.editorSettings.selectedLevel);
+            if (currentLevelVersions) {
+                const sortedVersions = [...currentLevelVersions].sort(
+                    (versionA, versionB) => new Date(versionB.date).getTime() - new Date(versionA.date).getTime(),
+                );
+
+                let i = 0;
+
+                while (i < sortedVersions.length) {
+                    if (sortedVersions[i].current) {
+                        break;
+                    }
+
+                    i++;
+                }
+
+                if (i === sortedVersions.length - 1) {
+                    return;
+                }
+
+                sortedVersions[i].current = false;
+                sortedVersions[i + 1].current = true;
+
+                saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
+                this.registry.clear();
+                await this.levelManager.loadLevelFromLevelMap(this.registry, sortedVersions[i + 1].snapShot);
+            }
+        }
     };
 
     public redoLevelChange = () => {
         console.log('Redoing');
+
+        // TODO: select the level version after the current one, if any
     };
 
     ////////////////////////////////////////////////////////////////////////////////
