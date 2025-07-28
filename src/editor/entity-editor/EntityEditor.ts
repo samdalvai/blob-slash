@@ -348,14 +348,15 @@ export default class EntityEditor {
                     }
                 }
                 select.value = assetId;
-                // TODO: the image height is not changed
+                
                 const newAssetImg = this.assetStore.getTexture(assetId);
                 spriteImage.src = newAssetImg.src;
                 spriteImage.style.objectFit = 'contain';
-                spriteImage.style.maxHeight = `${assetImg.height}px`;
+                spriteImage.style.maxHeight = `${newAssetImg.height}px`;
                 spriteImage.style.maxWidth = '100%';
                 (component as GameComponents.SpriteComponent).assetId = assetId;
                 
+                // TODO: enable saving level when sprite image is loaded
                 //this.saveLevel();
             }
         });
