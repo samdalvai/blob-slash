@@ -1,5 +1,6 @@
+import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
-import { EditorSettings } from '../types';
+import { EditorSettings, LevelHistory, LevelVersion } from '../types';
 
 export const saveEditorSettingsToLocalStorage = () => {
     const settings: EditorSettings = Editor.editorSettings;
@@ -61,4 +62,42 @@ export const sortLevelKeys = (levelKeys: string[]) => {
     });
 
     return sortedKeys;
+};
+
+export const saveLevelVersionToLocalStorare = (levelId: string, levelMap: LevelMap) => {
+    const jsonString = localStorage.getItem('history');
+
+    if (!jsonString) {
+        const newLevelVersions: LevelVersion[] = [];
+        newLevelVersions.push({
+            date: new Date(),
+            snapShot: levelMap,
+        });
+
+        const levelHistory: LevelHistory = {};
+        levelHistory[levelId] = newLevelVersions;
+        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+        return;
+    }
+
+    const levelHistory = JSON.parse(jsonString) as LevelHistory;
+    const currentLevelVersions = levelHistory[levelId];
+
+    if (!currentLevelVersions) {
+        const newLevelVersions: LevelVersion[] = [];
+        newLevelVersions.push({
+            date: new Date(),
+            snapShot: levelMap,
+        });
+        levelHistory[levelId] = newLevelVersions;
+        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+        return;
+    }
+
+    currentLevelVersions.push({
+        date: new Date(),
+        snapShot: levelMap,
+    });
+
+    localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
 };

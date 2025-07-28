@@ -10,6 +10,7 @@ import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import { saveLevelVersionToLocalStorare } from '../persistence/persistence';
 
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -29,7 +30,15 @@ export default class EntityEditor {
         }
 
         this.saveDebounceTimer = setTimeout(() => {
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+            const levelMap = saveCurrentLevelToLocalStorage(
+                Editor.editorSettings.selectedLevel,
+                this.registry,
+                this.assetStore,
+            );
+
+            if (Editor.editorSettings.selectedLevel) {
+                saveLevelVersionToLocalStorare(Editor.editorSettings.selectedLevel, levelMap);
+            }
         }, 300);
     };
 
@@ -348,14 +357,14 @@ export default class EntityEditor {
                     }
                 }
                 select.value = assetId;
-                
+
                 const newAssetImg = this.assetStore.getTexture(assetId);
                 spriteImage.src = newAssetImg.src;
                 spriteImage.style.objectFit = 'contain';
                 spriteImage.style.maxHeight = `${newAssetImg.height}px`;
                 spriteImage.style.maxWidth = '100%';
                 (component as GameComponents.SpriteComponent).assetId = assetId;
-                
+
                 // TODO: enable saving level when sprite image is loaded
                 //this.saveLevel();
             }

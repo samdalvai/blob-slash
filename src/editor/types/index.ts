@@ -1,3 +1,4 @@
+import { LevelMap } from '../../engine/types/map';
 import * as GameSystems from '../../game/systems';
 
 export type EditorSettings = {
@@ -6,4 +7,13 @@ export type EditorSettings = {
     showGrid: boolean;
     gridSquareSide: number;
     selectedLevel: string | null;
+};
+
+export type LevelVersion = {
+    date: Date;
+    snapShot: LevelMap;
+};
+
+export type LevelHistory = {
+    [key: string]: LevelVersion[];
 };
