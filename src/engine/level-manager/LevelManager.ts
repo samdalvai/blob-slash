@@ -34,6 +34,8 @@ export default class LevelManager {
             throw new Error('Could not read level from local storage');
         }
 
+        registry.clear();
+
         await this.loadAssets(level);
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);

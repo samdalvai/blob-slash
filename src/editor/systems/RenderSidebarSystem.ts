@@ -4,11 +4,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import {
-    loadLevelFromLocalStorage,
-    saveLevelMapToLocalStorage,
-    saveLevelToJson,
-} from '../../engine/serialization/persistence';
+import { saveLevelMapToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
@@ -26,9 +22,6 @@ import {
     saveEditorSettingsToLocalStorage,
 } from '../persistence/persistence';
 
-/**
- * TODO: split this system into multiple ones and create a class for Entity Editing, this class does too many things
- */
 export default class RenderSidebarSystem extends System {
     private entityEditor: EntityEditor;
 
@@ -260,26 +253,8 @@ export default class RenderSidebarSystem extends System {
         localStorageLevelsSelect.addEventListener('change', async (event: Event): Promise<void> => {
             const target = event.target as HTMLSelectElement;
             const levelId = target.value;
-            // registry.clear();
-            // const levelTest = await levelManager.loadLevelFromLocalStorage(registry, levelId);
-            // console.log('Level: ', levelTest);
 
-            // this.renderEntityList(leftSidebar, registry);
-            // const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
-            // const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
-
-            // if (!gameWidthInput || !gameHeightInput) {
-            //     throw new Error('Could not identify sidebar element(s)');
-            // }
-
-            // const level = loadLevelFromLocalStorage(levelId);
-            // if (!level) {
-            //     throw new Error('Could not read level from local storage');
-            // }
-            // gameWidthInput.value = level.mapWidth.toString();
-            // gameHeightInput.value = level.mapHeight.toString();
-
-            // this.handleLevelSelect(levelId, localStorageLevelsSelect);
+            await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
         });
 
         newLevelButton.onclick = async () => {
@@ -301,23 +276,7 @@ export default class RenderSidebarSystem extends System {
             option.textContent = nextLevelId;
             localStorageLevelsSelect.appendChild(option);
 
-            // localStorageLevelsSelect.value = nextLevelId;
-            // registry.clear();
-            // await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
-
-            // const entityList = leftSidebar.querySelector('#entity-list');
-            // const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
-            // const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
-
-            // if (!entityList || !gameWidthInput || !gameHeightInput) {
-            //     throw new Error('Could not identify sidebar element(s)');
-            // }
-
-            // entityList.innerHTML = '';
-            // gameWidthInput.value = newLevelMap.mapWidth.toString();
-            // gameHeightInput.value = newLevelMap.mapHeight.toString();
-
-            // this.handleLevelSelect(nextLevelId, localStorageLevelsSelect);
+            await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
         };
 
         deleteLevelButton.onclick = async () => {
@@ -340,13 +299,8 @@ export default class RenderSidebarSystem extends System {
             const levelKeys = getAllLevelKeysFromLocalStorage();
 
             if (levelKeys.length > 0) {
-                // registry.clear();
-                // await levelManager.loadLevelFromLocalStorage(registry, levelKeys[0]);
-                // this.handleLevelSelect(levelKeys[0], localStorageLevelsSelect);
-                // this.renderEntityList(leftSidebar, registry);
+                await this.handleLevelSelect(levelKeys[0], levelManager, registry, leftSidebar, rightSidebar);
             } else {
-                // TODO: generalize logic for loading level with registry clear and so on
-                // Also, we need to set game map width and height
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel();
                 saveLevelMapToLocalStorage(levelId, level);
@@ -356,10 +310,7 @@ export default class RenderSidebarSystem extends System {
                 option.textContent = levelId;
                 localStorageLevelsSelect.appendChild(option);
 
-                // registry.clear();
-                // await levelManager.loadLevelFromLocalStorage(registry, levelId);
-                // this.handleLevelSelect(levelId, localStorageLevelsSelect);
-                // this.renderEntityList(leftSidebar, registry);
+                await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
             }
         };
 
@@ -393,9 +344,7 @@ export default class RenderSidebarSystem extends System {
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
-                        // registry.clear();
-                        // await levelManager.loadLevelFromLocalStorage(registry, nextLevelId);
-                        // this.handleLevelSelect(nextLevelId, localStorageLevelsSelect);
+                        await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
@@ -409,16 +358,6 @@ export default class RenderSidebarSystem extends System {
         });
     }
 
-    /**
-     * TODO:
-     * 1. Load level from local storage
-     * 2. Clear registry
-     * 3. Render sidebar entities
-     * 4. Render level settings map dimensions
-     * 5. Set Editor.editorSettings.selectedLevel to new level id
-     * 6. Set select element value to new level id
-     *
-     */
     private handleLevelSelect = async (
         levelId: string,
         levelManager: LevelManager,
@@ -430,8 +369,6 @@ export default class RenderSidebarSystem extends System {
         if (!level) {
             throw new Error('Could not read level from local storage');
         }
-
-        registry.clear();
 
         this.renderEntityList(leftSidebar, registry);
 
