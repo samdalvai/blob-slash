@@ -261,7 +261,8 @@ export default class RenderSidebarSystem extends System {
             const target = event.target as HTMLSelectElement;
             const levelId = target.value;
             registry.clear();
-            await levelManager.loadLevelFromLocalStorage(registry, levelId);
+            const levelTest = await levelManager.loadLevelFromLocalStorage(registry, levelId);
+            console.log('Level: ', levelTest);
 
             this.renderEntityList(leftSidebar, registry);
             const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
@@ -408,6 +409,16 @@ export default class RenderSidebarSystem extends System {
         });
     }
 
+    /**
+     * TODO:
+     * 1. Load level from local storage
+     * 2. Clear registry
+     * 3. Render sidebar entities
+     * 4. Render level settings map dimensions
+     * 5. Set Editor.editorSettings.selectedLevel to new level id
+     * 6. Set select element value to new level id
+     * 
+     */
     private handleLevelSelect = (levelId: string, levelSelectElement: HTMLSelectElement) => {
         Editor.editorSettings.selectedLevel = levelId;
         levelSelectElement.value = levelId;
