@@ -345,6 +345,7 @@ export default class RenderSidebarSystem extends System {
                 this.renderEntityList(leftSidebar, registry);
             } else {
                 // TODO: generalize logic for loading level with registry clear and so on
+                // Also, we need to set game map width and height
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel();
                 saveLevelMapToLocalStorage(levelId, level);
