@@ -37,6 +37,7 @@ export default class LevelManager {
             throw new Error('Could not read level from local storage');
         }
 
+        this.assetStore.clearAssets();
         registry.clear();
 
         await this.loadAssets(level);
