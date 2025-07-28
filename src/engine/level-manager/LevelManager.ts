@@ -20,7 +20,10 @@ export default class LevelManager {
 
     public async loadLevelFromAssets(registry: Registry, levelId: string) {
         const level = this.assetStore.getJson(levelId) as LevelMap;
+        return this.loadLevelFromLevelMap(registry, level);
+    }
 
+    public async loadLevelFromLevelMap(registry: Registry, level: LevelMap) {
         await this.loadAssets(level);
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);
