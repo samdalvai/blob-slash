@@ -339,9 +339,12 @@ export default class RenderSidebarSystem extends System {
             const levelKeys = getAllLevelKeysFromLocalStorage();
 
             if (levelKeys.length > 0) {
+                registry.clear();
                 await levelManager.loadLevelFromLocalStorage(registry, levelKeys[0]);
                 this.handleLevelSelect(levelKeys[0], localStorageLevelsSelect);
+                this.renderEntityList(leftSidebar, registry);
             } else {
+                // TODO: generalize logic for loading level with registry clear and so on
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel();
                 saveLevelMapToLocalStorage(levelId, level);
@@ -351,8 +354,10 @@ export default class RenderSidebarSystem extends System {
                 option.textContent = levelId;
                 localStorageLevelsSelect.appendChild(option);
 
+                registry.clear();
                 await levelManager.loadLevelFromLocalStorage(registry, levelId);
                 this.handleLevelSelect(levelId, localStorageLevelsSelect);
+                this.renderEntityList(leftSidebar, registry);
             }
         };
 
