@@ -1,3 +1,5 @@
+import { version } from 'process';
+
 import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
 import { EditorSettings, LevelHistory, LevelVersion } from '../types';
@@ -64,7 +66,7 @@ export const sortLevelKeys = (levelKeys: string[]) => {
     return sortedKeys;
 };
 
-export const saveLevelVersionToLocalStorare = (levelId: string, levelMap: LevelMap) => {
+export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
     const jsonString = localStorage.getItem('history');
 
     if (!jsonString) {
@@ -72,6 +74,7 @@ export const saveLevelVersionToLocalStorare = (levelId: string, levelMap: LevelM
         newLevelVersions.push({
             date: new Date(),
             snapShot: levelMap,
+            current: true,
         });
 
         const levelHistory: LevelHistory = {};
@@ -88,15 +91,18 @@ export const saveLevelVersionToLocalStorare = (levelId: string, levelMap: LevelM
         newLevelVersions.push({
             date: new Date(),
             snapShot: levelMap,
+            current: true,
         });
         levelHistory[levelId] = newLevelVersions;
         localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
         return;
     }
 
+    currentLevelVersions.forEach(version => (version.current = false));
     currentLevelVersions.push({
         date: new Date(),
         snapShot: levelMap,
+        current: true,
     });
 
     localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));

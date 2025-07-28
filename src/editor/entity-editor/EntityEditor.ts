@@ -10,7 +10,7 @@ import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
-import { saveLevelVersionToLocalStorare } from '../persistence/persistence';
+import { saveLevelVersionToLocalStorage } from '../persistence/persistence';
 
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -37,7 +37,7 @@ export default class EntityEditor {
             );
 
             if (Editor.editorSettings.selectedLevel) {
-                saveLevelVersionToLocalStorare(Editor.editorSettings.selectedLevel, levelMap);
+                saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, levelMap);
             }
         }, 300);
     };
