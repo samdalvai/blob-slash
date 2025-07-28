@@ -24,6 +24,10 @@ export default class EntityEditor {
         this.eventBus = eventBus;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    // Level management
+    ////////////////////////////////////////////////////////////////////////////////
+
     public saveLevel = () => {
         if (this.saveDebounceTimer) {
             clearTimeout(this.saveDebounceTimer);
@@ -40,6 +44,14 @@ export default class EntityEditor {
                 saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, levelMap);
             }
         }, 300);
+    };
+
+    public undoLevelChange = () => {
+        console.log('Undoing');
+    };
+
+    public redoLevelChange = () => {
+        console.log('Redoing');
     };
 
     ////////////////////////////////////////////////////////////////////////////////

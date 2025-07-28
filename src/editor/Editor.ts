@@ -237,11 +237,11 @@ export default class Editor extends Engine {
                     }
 
                     if (this.commandPressed && inputEvent.code === 'KeyZ') {
-                        console.log('Undo');
+                        this.entityEditor.undoLevelChange();
                     }
 
                     if (this.commandPressed && this.shiftPressed && inputEvent.code === 'KeyZ') {
-                        console.log('Redo');
+                        this.entityEditor.redoLevelChange();
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
