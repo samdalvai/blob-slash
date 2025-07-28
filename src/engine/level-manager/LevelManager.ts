@@ -24,6 +24,8 @@ export default class LevelManager {
         await this.loadAssets(level);
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);
+
+        return level;
     }
 
     public async loadLevelFromLocalStorage(registry: Registry, levelId: string) {
@@ -35,6 +37,8 @@ export default class LevelManager {
         await this.loadAssets(level);
         this.loadEntities(registry, level);
         this.setMapBoundaries(level);
+
+        return level;
     }
 
     private async loadAssets(level: LevelMap) {
