@@ -1,5 +1,3 @@
-import { version } from 'process';
-
 import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
 import { EditorSettings, LevelHistory, LevelVersion } from '../types';
