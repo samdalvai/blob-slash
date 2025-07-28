@@ -71,9 +71,273 @@
     {
       "assetId": "explosion-small-blue-texture",
       "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "desert-texture",
+      "filePath": "./assets/tilemaps/desert.png"
+    },
+    {
+      "assetId": "tiles-dark-texture",
+      "filePath": "./assets/tilemaps/tiles_dark.png"
+    },
+    {
+      "assetId": "slime-texture",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "player-texture",
+      "filePath": "./assets/sprites/player_full.png"
+    },
+    {
+      "assetId": "skeleton-texture",
+      "filePath": "./assets/sprites/skeleton_full.png"
+    },
+    {
+      "assetId": "magic-sphere-texture",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "magic-bubble-texture",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "fire-circle-texture",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "teleport-texture",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "tree-texture",
+      "filePath": "./assets/sprites/tree.png"
+    },
+    {
+      "assetId": "torch-texture",
+      "filePath": "./assets/sprites/torch.png"
+    },
+    {
+      "assetId": "skills-menu-texture",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "cooldown-skill-texture",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "mouse-menu-texture",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "destination-circle-texture",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "smear-animation-texture",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "explosion-small-blue-texture",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "desert-texture",
+      "filePath": "./assets/tilemaps/desert.png"
+    },
+    {
+      "assetId": "tiles-dark-texture",
+      "filePath": "./assets/tilemaps/tiles_dark.png"
+    },
+    {
+      "assetId": "slime-texture",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "player-texture",
+      "filePath": "./assets/sprites/player_full.png"
+    },
+    {
+      "assetId": "skeleton-texture",
+      "filePath": "./assets/sprites/skeleton_full.png"
+    },
+    {
+      "assetId": "magic-sphere-texture",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "magic-bubble-texture",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "fire-circle-texture",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "teleport-texture",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "tree-texture",
+      "filePath": "./assets/sprites/tree.png"
+    },
+    {
+      "assetId": "torch-texture",
+      "filePath": "./assets/sprites/torch.png"
+    },
+    {
+      "assetId": "skills-menu-texture",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "cooldown-skill-texture",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "mouse-menu-texture",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "destination-circle-texture",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "smear-animation-texture",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "explosion-small-blue-texture",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "desert-texture",
+      "filePath": "./assets/tilemaps/desert.png"
+    },
+    {
+      "assetId": "tiles-dark-texture",
+      "filePath": "./assets/tilemaps/tiles_dark.png"
+    },
+    {
+      "assetId": "slime-texture",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "player-texture",
+      "filePath": "./assets/sprites/player_full.png"
+    },
+    {
+      "assetId": "skeleton-texture",
+      "filePath": "./assets/sprites/skeleton_full.png"
+    },
+    {
+      "assetId": "magic-sphere-texture",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "magic-bubble-texture",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "fire-circle-texture",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "teleport-texture",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "tree-texture",
+      "filePath": "./assets/sprites/tree.png"
+    },
+    {
+      "assetId": "torch-texture",
+      "filePath": "./assets/sprites/torch.png"
+    },
+    {
+      "assetId": "skills-menu-texture",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "cooldown-skill-texture",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "mouse-menu-texture",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "destination-circle-texture",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "smear-animation-texture",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "explosion-small-blue-texture",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
     }
   ],
   "sounds": [
+    {
+      "assetId": "entity-hit-sound",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport-sound",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash-sound",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee-attack-sound",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    },
+    {
+      "assetId": "entity-hit-sound",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport-sound",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash-sound",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee-attack-sound",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    },
+    {
+      "assetId": "entity-hit-sound",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport-sound",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash-sound",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee-attack-sound",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    },
     {
       "assetId": "entity-hit-sound",
       "filePath": "./assets/sounds/entity_hit.wav"
@@ -98,26 +362,6 @@
       "tag": "player",
       "components": [
         {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 240,
-              "y": 100
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "LightEmitComponent",
-          "properties": {
-            "lightRadius": 250
-          }
-        },
-        {
           "name": "SpriteComponent",
           "properties": {
             "assetId": "player-texture",
@@ -133,6 +377,26 @@
             "flip": 0,
             "isFixed": false,
             "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 130,
+              "y": 79
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 250
           }
         },
         {
@@ -251,20 +515,6 @@
       "group": "enemies",
       "components": [
         {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 300,
-              "y": 500
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0
-          }
-        },
-        {
           "name": "SpriteComponent",
           "properties": {
             "assetId": "slime-texture",
@@ -280,6 +530,20 @@
             "flip": 0,
             "isFixed": false,
             "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 300,
+              "y": 500
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
           }
         },
         {
@@ -384,7 +648,7 @@
               }
             ],
             "currentActionIndex": 1,
-            "actionStart": 3006.5
+            "actionStart": 2182
           }
         },
         {
@@ -426,20 +690,6 @@
       "group": "enemies",
       "components": [
         {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 500,
-              "y": 500
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        },
-        {
           "name": "SpriteComponent",
           "properties": {
             "assetId": "skeleton-texture",
@@ -455,6 +705,20 @@
             "flip": 32,
             "isFixed": false,
             "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 500,
+              "y": 500
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
           }
         },
         {
@@ -559,7 +823,7 @@
               }
             ],
             "currentActionIndex": 1,
-            "actionStart": 3006.5
+            "actionStart": 2182
           }
         },
         {
@@ -600,11 +864,29 @@
     {
       "components": [
         {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 96,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 200,
-              "y": 200
+              "x": 144,
+              "y": 220
             },
             "scale": {
               "x": 1,
@@ -620,28 +902,10 @@
           }
         },
         {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "torch-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 2,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 1,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -650,7 +914,7 @@
         {
           "name": "ParticleEmitComponent",
           "properties": {
-            "lastEmission": 3508.60000000149,
+            "lastEmission": 0,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -688,11 +952,29 @@
     {
       "components": [
         {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 96,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 500,
-              "y": 200
+              "x": 372,
+              "y": 220
             },
             "scale": {
               "x": 1,
@@ -708,28 +990,10 @@
           }
         },
         {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "torch-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 2,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 1,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -738,7 +1002,7 @@
         {
           "name": "ParticleEmitComponent",
           "properties": {
-            "lastEmission": 3508.60000000149,
+            "lastEmission": 0,
             "dimension": 2,
             "duration": 1000,
             "color": "rgba(255,0,0,1)",
@@ -777,30 +1041,16 @@
       "group": "obstacles",
       "components": [
         {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 600,
-              "y": 200
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0
-          }
-        },
-        {
           "name": "SpriteComponent",
           "properties": {
             "assetId": "tree-texture",
-            "width": 32,
+            "width": 16,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
               "x": 0,
               "y": 0,
-              "width": 32,
+              "width": 16,
               "height": 32
             },
             "flip": 0,
@@ -809,10 +1059,24 @@
           }
         },
         {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 524,
+              "y": 193
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
           "name": "BoxColliderComponent",
           "properties": {
-            "width": 18,
-            "height": 30,
+            "width": 16,
+            "height": 16,
             "offset": {
               "x": 0,
               "y": 0
@@ -825,6 +1089,24 @@
     {
       "components": [
         {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
           "name": "TransformComponent",
           "properties": {
             "position": {
@@ -837,7 +1119,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -855,11 +1141,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -873,7 +1155,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -891,11 +1177,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -909,7 +1191,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -927,11 +1213,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -945,7 +1227,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -963,11 +1249,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -981,7 +1263,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -999,11 +1285,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1017,7 +1299,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1035,11 +1321,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1053,7 +1335,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1071,11 +1357,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1089,7 +1371,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1107,11 +1393,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1125,7 +1407,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1143,11 +1429,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1161,7 +1443,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1179,11 +1465,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1197,7 +1479,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1215,11 +1501,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1233,7 +1515,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1251,11 +1537,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1269,7 +1551,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1287,11 +1573,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1305,7 +1587,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1323,11 +1609,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1341,7 +1623,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1359,11 +1645,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1377,7 +1659,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1395,11 +1681,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1413,7 +1695,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1431,11 +1717,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1449,7 +1731,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1467,11 +1753,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1485,7 +1767,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1503,11 +1789,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1521,7 +1803,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1539,11 +1825,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1557,7 +1839,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1575,11 +1861,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1593,7 +1875,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1611,11 +1897,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1629,7 +1911,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1647,11 +1933,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1665,7 +1947,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1683,11 +1969,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1701,7 +1983,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1719,11 +2005,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1737,7 +2019,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1755,11 +2041,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1773,7 +2055,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1791,11 +2077,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1809,7 +2091,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1827,11 +2113,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1845,7 +2127,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1863,11 +2149,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1881,7 +2163,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1899,11 +2185,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1917,7 +2199,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1935,11 +2221,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1953,7 +2235,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -1971,11 +2257,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -1989,7 +2271,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2007,11 +2293,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2025,7 +2307,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2043,11 +2329,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2061,7 +2343,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2079,11 +2365,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2097,7 +2379,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2115,11 +2401,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2133,7 +2415,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2151,11 +2437,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2169,7 +2451,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2187,11 +2473,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2205,7 +2487,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2223,11 +2509,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2241,7 +2523,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2259,11 +2545,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2277,7 +2559,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2295,11 +2581,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2313,7 +2595,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2331,11 +2617,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2349,7 +2631,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2367,11 +2653,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2385,7 +2667,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2403,11 +2689,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2421,7 +2703,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2439,11 +2725,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2457,7 +2739,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2475,11 +2761,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2493,7 +2775,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2511,11 +2797,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2529,7 +2811,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2547,11 +2833,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2565,7 +2847,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2583,11 +2869,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2601,7 +2883,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2619,11 +2905,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2637,7 +2919,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2655,11 +2941,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2673,7 +2955,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2691,11 +2977,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2709,7 +2991,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2727,11 +3013,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2745,7 +3027,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2763,11 +3049,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2781,7 +3063,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2799,11 +3085,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2817,7 +3099,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2835,11 +3121,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2853,7 +3135,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2871,11 +3157,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2889,7 +3171,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2907,11 +3193,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2925,7 +3207,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2943,11 +3229,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2961,7 +3243,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -2979,11 +3265,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -2997,7 +3279,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3015,11 +3301,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3033,7 +3315,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3051,11 +3337,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3069,7 +3351,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3087,11 +3373,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3105,7 +3387,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3123,11 +3409,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3141,7 +3423,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3159,11 +3445,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3177,7 +3459,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3195,11 +3481,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3213,7 +3495,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3231,11 +3517,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3249,7 +3531,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3267,11 +3553,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3285,7 +3567,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3303,11 +3589,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3321,7 +3603,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3339,11 +3625,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3357,7 +3639,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3375,11 +3661,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3393,7 +3675,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3411,11 +3697,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3429,7 +3711,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3447,11 +3733,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3465,7 +3747,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3483,11 +3769,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3501,7 +3783,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3519,11 +3805,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3537,7 +3819,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3555,11 +3841,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3573,7 +3855,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3591,11 +3877,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3609,7 +3891,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3627,11 +3913,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3645,7 +3927,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3663,11 +3949,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3681,7 +3963,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3699,11 +3985,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3717,7 +3999,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3735,11 +4021,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3753,7 +4035,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3771,11 +4057,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3789,7 +4071,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3807,11 +4093,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3825,7 +4107,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3843,11 +4129,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3861,7 +4143,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3879,11 +4165,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3897,7 +4179,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3915,11 +4201,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3933,7 +4215,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3951,11 +4237,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -3969,7 +4251,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -3987,11 +4273,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4005,7 +4287,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4023,11 +4309,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4041,7 +4323,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4059,11 +4345,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4077,7 +4359,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4095,11 +4381,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4113,7 +4395,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4131,11 +4417,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4149,7 +4431,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4167,11 +4453,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4185,7 +4467,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4203,11 +4489,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4221,7 +4503,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4239,11 +4525,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4257,7 +4539,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4275,11 +4561,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4293,7 +4575,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4311,11 +4597,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4329,7 +4611,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4347,11 +4633,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4365,7 +4647,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4383,11 +4669,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4401,7 +4683,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4419,11 +4705,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4437,7 +4719,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4455,11 +4741,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4473,7 +4755,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4491,11 +4777,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4509,7 +4791,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4527,11 +4813,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4545,7 +4827,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4563,11 +4849,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4581,7 +4863,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4599,11 +4885,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4617,7 +4899,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4635,11 +4921,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4653,7 +4935,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4671,11 +4957,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4689,7 +4971,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4707,11 +4993,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4725,7 +5007,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4743,11 +5029,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4761,7 +5043,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4779,11 +5065,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4797,7 +5079,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4815,11 +5101,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4833,7 +5115,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4851,11 +5137,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4869,7 +5151,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4887,11 +5173,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4905,7 +5187,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4923,11 +5209,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4941,7 +5223,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4959,11 +5245,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -4977,7 +5259,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -4995,11 +5281,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5013,7 +5295,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5031,11 +5317,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5049,7 +5331,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5067,11 +5353,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5085,7 +5367,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5103,11 +5389,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5121,7 +5403,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5139,11 +5425,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5157,7 +5439,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5175,11 +5461,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5193,7 +5475,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5211,11 +5497,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5229,7 +5511,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5247,11 +5533,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5265,7 +5547,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5283,11 +5569,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5301,7 +5583,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5319,11 +5605,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5337,7 +5619,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5355,11 +5641,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5373,7 +5655,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5391,11 +5677,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5409,7 +5691,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5427,11 +5713,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5445,7 +5727,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5463,11 +5749,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5481,7 +5763,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5499,11 +5785,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5517,7 +5799,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5535,11 +5821,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5553,7 +5835,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5571,11 +5857,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5589,7 +5871,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5607,11 +5893,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5625,7 +5907,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5643,11 +5929,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5661,7 +5943,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5679,11 +5965,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5697,7 +5979,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5715,11 +6001,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5733,7 +6015,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5751,11 +6037,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5769,7 +6051,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5787,11 +6073,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5805,7 +6087,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5823,11 +6109,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5841,7 +6123,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5859,11 +6145,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5877,7 +6159,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5895,11 +6181,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5913,7 +6195,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5931,11 +6217,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5949,7 +6231,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -5967,11 +6253,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -5985,7 +6267,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6003,11 +6289,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6021,7 +6303,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6039,11 +6325,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6057,7 +6339,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6075,11 +6361,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6093,7 +6375,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6111,11 +6397,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6129,7 +6411,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6147,11 +6433,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6165,7 +6447,11 @@
             },
             "rotation": 0
           }
-        },
+        }
+      ]
+    },
+    {
+      "components": [
         {
           "name": "SpriteComponent",
           "properties": {
@@ -6183,11 +6469,7 @@
             "isFixed": false,
             "transparency": 1
           }
-        }
-      ]
-    },
-    {
-      "components": [
+        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6201,36 +6483,11 @@
             },
             "rotation": 0
           }
-        },
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tiles-dark-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 0,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
         }
       ]
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6246,6 +6503,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6269,13 +6533,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6291,6 +6548,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6314,13 +6578,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6336,6 +6593,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6359,13 +6623,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6381,6 +6638,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6404,13 +6668,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6426,6 +6683,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6449,13 +6713,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6471,6 +6728,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6494,13 +6758,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6516,6 +6773,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6539,13 +6803,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6561,6 +6818,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6584,13 +6848,6 @@
     },
     {
       "components": [
-        {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
         {
           "name": "TransformComponent",
           "properties": {
@@ -6606,6 +6863,13 @@
           }
         },
         {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
+          }
+        },
+        {
           "name": "RigidBodyComponent",
           "properties": {
             "velocity": {
@@ -6630,13 +6894,6 @@
     {
       "components": [
         {
-          "name": "ParticleComponent",
-          "properties": {
-            "dimension": 2,
-            "color": "rgba(255,0,0,1)"
-          }
-        },
-        {
           "name": "TransformComponent",
           "properties": {
             "position": {
@@ -6648,6 +6905,13 @@
               "y": 1
             },
             "rotation": 0
+          }
+        },
+        {
+          "name": "ParticleComponent",
+          "properties": {
+            "dimension": 2,
+            "color": "rgba(255,0,0,1)"
           }
         },
         {
@@ -6668,6 +6932,290 @@
           "properties": {
             "lifetime": 1000,
             "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree-texture",
+            "width": 16,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 588,
+              "y": 193
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree-texture",
+            "width": 16,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 524,
+              "y": 259
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree-texture",
+            "width": 16,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 524,
+              "y": 226
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree-texture",
+            "width": 16,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 556,
+              "y": 193
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 96,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 553,
+              "y": 128
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 3,
+            "frameSpeedRate": 10,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "ParticleEmitComponent",
+          "properties": {
+            "lastEmission": 0,
+            "dimension": 2,
+            "duration": 1000,
+            "color": "rgba(255,0,0,1)",
+            "emitFrequency": 200,
+            "emitRadius": 5,
+            "offsetX": 16,
+            "offsetY": 0,
+            "particleVelocity": {
+              "x": 0,
+              "y": -50
+            }
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 10,
+            "height": 5,
+            "offsetX": -0.5,
+            "offsetY": -5
           }
         }
       ]
