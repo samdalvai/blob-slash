@@ -12,6 +12,7 @@ export type EditorSettings = {
 export type LevelVersion = {
     date: Date;
     snapShot: LevelMap;
+    current: boolean;
 };
 
 export type LevelHistory = {
