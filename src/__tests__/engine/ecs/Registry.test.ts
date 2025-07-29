@@ -77,8 +77,6 @@ describe('Testing Registry related functions', () => {
         entity.addComponent(MyComponent1);
         entity.addComponent(MyComponent2);
 
-        console.log(registry.entityComponentSignatures);
-
         expect(registry.entityComponentSignatures[0].test(0)).toBe(true);
         expect(registry.entityComponentSignatures[0].test(1)).toBe(true);
     });
