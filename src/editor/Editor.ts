@@ -11,7 +11,6 @@ import {
     getAllLevelKeysFromLocalStorage,
     loadEditorSettingsFromLocalStorage,
     saveEditorSettingsToLocalStorage,
-    saveLevelVersionToLocalStorage,
 } from './persistence/persistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
@@ -197,11 +196,11 @@ export default class Editor extends Engine {
 
         if (levelKeys.length > 0) {
             if (Editor.editorSettings.selectedLevel) {
-                const level = await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
-                saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
+                await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
+                // saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
             } else {
-                const level = await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
-                saveLevelVersionToLocalStorage(levelKeys[0], level);
+                await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
+                // saveLevelVersionToLocalStorage(levelKeys[0], level);
             }
         } else {
             console.log('No level available, loading default empty level');
@@ -210,7 +209,7 @@ export default class Editor extends Engine {
             await this.levelManager.loadLevelFromLocalStorage(levelId);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
-            saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
+            // saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
         }
     };
 

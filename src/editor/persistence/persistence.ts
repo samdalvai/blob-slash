@@ -1,8 +1,6 @@
-import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
-import { EditorSettings, LevelHistory, LevelVersion } from '../types';
+import { EditorSettings } from '../types';
 
-const HISTORY_KEY = 'history';
 const EDITOR_SETTINGS_KEY = 'editor-settings';
 const LEVEL_KEY = 'level';
 
@@ -68,86 +66,86 @@ export const sortLevelKeys = (levelKeys: string[]) => {
     return sortedKeys;
 };
 
-export const getLevelVersions = (levelId: string) => {
-    const jsonString = localStorage.getItem(HISTORY_KEY);
+// export const getLevelVersions = (levelId: string) => {
+//     const jsonString = localStorage.getItem(HISTORY_KEY);
 
-    if (!jsonString) {
-        return null;
-    }
+//     if (!jsonString) {
+//         return null;
+//     }
 
-    const levelHistory = JSON.parse(jsonString) as LevelHistory;
-    const currentLevelVersions = levelHistory[levelId];
+//     const levelHistory = JSON.parse(jsonString) as LevelHistory;
+//     const currentLevelVersions = levelHistory[levelId];
 
-    if (!currentLevelVersions) {
-        return null;
-    }
+//     if (!currentLevelVersions) {
+//         return null;
+//     }
 
-    return currentLevelVersions;
-};
+//     return currentLevelVersions;
+// };
 
-// TODO: use a diffing mechanism to reduce space occupied
-// or use an in memory history system
-export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
-    const jsonString = localStorage.getItem(HISTORY_KEY);
+// // TODO: use a diffing mechanism to reduce space occupied
+// // or use an in memory history system
+// export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
+//     const jsonString = localStorage.getItem(HISTORY_KEY);
 
-    if (!jsonString) {
-        const newLevelVersions: LevelVersion[] = [];
-        newLevelVersions.push({
-            date: new Date().toISOString(),
-            snapShot: levelMap,
-            current: true,
-        });
+//     if (!jsonString) {
+//         const newLevelVersions: LevelVersion[] = [];
+//         newLevelVersions.push({
+//             date: new Date().toISOString(),
+//             snapShot: levelMap,
+//             current: true,
+//         });
 
-        const levelHistory: LevelHistory = {};
-        levelHistory[levelId] = newLevelVersions;
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
-        return;
-    }
+//         const levelHistory: LevelHistory = {};
+//         levelHistory[levelId] = newLevelVersions;
+//         localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
+//         return;
+//     }
 
-    const levelHistory = JSON.parse(jsonString) as LevelHistory;
-    const currentLevelVersions = levelHistory[levelId];
+//     const levelHistory = JSON.parse(jsonString) as LevelHistory;
+//     const currentLevelVersions = levelHistory[levelId];
 
-    if (!currentLevelVersions) {
-        const newLevelVersions: LevelVersion[] = [];
-        newLevelVersions.push({
-            date: new Date().toISOString(),
-            snapShot: levelMap,
-            current: true,
-        });
-        levelHistory[levelId] = newLevelVersions;
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
-        return;
-    }
+//     if (!currentLevelVersions) {
+//         const newLevelVersions: LevelVersion[] = [];
+//         newLevelVersions.push({
+//             date: new Date().toISOString(),
+//             snapShot: levelMap,
+//             current: true,
+//         });
+//         levelHistory[levelId] = newLevelVersions;
+//         localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
+//         return;
+//     }
 
-    if (
-        currentLevelVersions.length === 0 ||
-        JSON.stringify(currentLevelVersions[currentLevelVersions.length - 1].snapShot) !== JSON.stringify(levelMap)
-    ) {
-        currentLevelVersions.forEach(version => (version.current = false));
-        currentLevelVersions.push({
-            date: new Date().toISOString(),
-            snapShot: levelMap,
-            current: true,
-        });
-    }
+//     if (
+//         currentLevelVersions.length === 0 ||
+//         JSON.stringify(currentLevelVersions[currentLevelVersions.length - 1].snapShot) !== JSON.stringify(levelMap)
+//     ) {
+//         currentLevelVersions.forEach(version => (version.current = false));
+//         currentLevelVersions.push({
+//             date: new Date().toISOString(),
+//             snapShot: levelMap,
+//             current: true,
+//         });
+//     }
 
-    if (currentLevelVersions.length > 20) {
-        currentLevelVersions.shift();
-    }
+//     if (currentLevelVersions.length > 20) {
+//         currentLevelVersions.shift();
+//     }
 
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
-    // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
-};
+//     localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
+//     // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
+// };
 
-export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: LevelVersion[]) => {
-    const jsonString = localStorage.getItem(HISTORY_KEY);
+// export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: LevelVersion[]) => {
+//     const jsonString = localStorage.getItem(HISTORY_KEY);
 
-    if (jsonString) {
-        const levelHistory = JSON.parse(jsonString) as LevelHistory;
-        levelHistory[levelId] = levelVersions;
+//     if (jsonString) {
+//         const levelHistory = JSON.parse(jsonString) as LevelHistory;
+//         levelHistory[levelId] = levelVersions;
 
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
-    }
+//         localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
+//     }
 
-    // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
-};
+//     // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
+// };
