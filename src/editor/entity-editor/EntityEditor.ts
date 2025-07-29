@@ -79,8 +79,11 @@ export default class EntityEditor {
                 sortedVersions[i + 1].current = true;
 
                 saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
+                this.assetStore.clear();
                 this.registry.clear();
                 await this.levelManager.loadLevelFromLevelMap(this.registry, sortedVersions[i + 1].snapShot);
+
+                // TODO rerender entity list
             }
         }
     };
