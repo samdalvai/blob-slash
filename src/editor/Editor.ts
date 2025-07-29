@@ -1,5 +1,5 @@
 import Engine from '../engine/Engine';
-import { saveLevelMapToLocalStorage } from '../engine/serialization/persistence';
+import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
@@ -206,7 +206,7 @@ export default class Editor extends Engine {
         } else {
             console.log('No level available, loading default empty level');
             const { levelId, level } = this.levelManager.getDefaultLevel();
-            saveLevelMapToLocalStorage(levelId, level);
+            saveLevelToLocalStorage(levelId, level);
             await this.levelManager.loadLevelFromLocalStorage(levelId);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();

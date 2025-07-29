@@ -1,5 +1,3 @@
-import { version } from 'process';
-
 import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
 import { EditorSettings, LevelHistory, LevelVersion } from '../types';
@@ -14,13 +12,13 @@ export const saveEditorSettingsToLocalStorage = () => {
     localStorage.setItem(EDITOR_SETTINGS_KEY, jsonString);
 };
 
-export const deleteLevelInLocalStorage = (levelId: string) => {
-    localStorage.removeItem(levelId);
-};
-
 export const loadEditorSettingsFromLocalStorage = (): EditorSettings | undefined => {
     const jsonString = localStorage.getItem(EDITOR_SETTINGS_KEY) as any;
     return jsonString ? (JSON.parse(jsonString) as EditorSettings) : undefined;
+};
+
+export const deleteLevelFromLocalStorage = (levelId: string) => {
+    localStorage.removeItem(levelId);
 };
 
 export const getAllLevelKeysFromLocalStorage = () => {
@@ -121,7 +119,6 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
         return;
     }
 
-    
     if (
         currentLevelVersions.length === 0 ||
         JSON.stringify(currentLevelVersions[currentLevelVersions.length - 1].snapShot) !== JSON.stringify(levelMap)

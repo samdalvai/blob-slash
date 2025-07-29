@@ -30,7 +30,7 @@ export const saveCurrentLevelToLocalStorage = (levelId: string | null, registry:
     return currentLevelMap;
 };
 
-export const saveLevelMapToLocalStorage = (levelId: string, levelMap: LevelMap) => {
+export const saveLevelToLocalStorage = (levelId: string, levelMap: LevelMap) => {
     const jsonString = JSON.stringify(levelMap, null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');

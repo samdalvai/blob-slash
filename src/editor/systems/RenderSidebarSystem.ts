@@ -4,7 +4,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveLevelMapToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
+import { saveLevelToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
@@ -17,7 +17,7 @@ import EntityListUpdateEvent from '../events/EntityListUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
-    deleteLevelInLocalStorage,
+    deleteLevelFromLocalStorage,
     getAllLevelKeysFromLocalStorage,
     getNextLevelId,
     saveEditorSettingsToLocalStorage,
@@ -272,7 +272,7 @@ export default class RenderSidebarSystem extends System {
                 entities: [],
             };
 
-            saveLevelMapToLocalStorage(nextLevelId, newLevelMap);
+            saveLevelToLocalStorage(nextLevelId, newLevelMap);
             const option = document.createElement('option');
             option.value = nextLevelId;
             option.id = nextLevelId;
@@ -288,7 +288,7 @@ export default class RenderSidebarSystem extends System {
                 throw new Error('No level selected');
             }
 
-            deleteLevelInLocalStorage(Editor.editorSettings.selectedLevel);
+            deleteLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
             const optionToDelete = rightSidebar.querySelector(
                 '#' + Editor.editorSettings.selectedLevel,
             ) as HTMLSelectElement;
@@ -306,7 +306,7 @@ export default class RenderSidebarSystem extends System {
             } else {
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel();
-                saveLevelMapToLocalStorage(levelId, level);
+                saveLevelToLocalStorage(levelId, level);
                 const option = document.createElement('option');
                 option.value = levelId;
                 option.id = levelId;
@@ -340,7 +340,7 @@ export default class RenderSidebarSystem extends System {
                             throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
                         }
 
-                        saveLevelMapToLocalStorage(nextLevelId, levelMap);
+                        saveLevelToLocalStorage(nextLevelId, levelMap);
 
                         const option = document.createElement('option');
                         option.value = nextLevelId;
