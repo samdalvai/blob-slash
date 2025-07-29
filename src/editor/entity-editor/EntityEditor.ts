@@ -86,10 +86,36 @@ export default class EntityEditor {
         }
     };
 
-    public redoLevelChange = () => {
-        console.log('Redoing');
+    public redoLevelChange = async () => {
+        if (Editor.editorSettings.selectedLevel) {
+            const currentLevelVersions = getLevelVersions(Editor.editorSettings.selectedLevel);
+            if (currentLevelVersions) {
+                const sortedVersions = [...currentLevelVersions].sort(
+                    (versionA, versionB) => new Date(versionB.date).getTime() - new Date(versionA.date).getTime(),
+                );
 
-        // TODO: select the level version after the current one, if any
+                let i = sortedVersions.length - 1;
+
+                while (i > 0) {
+                    if (sortedVersions[i].current) {
+                        break;
+                    }
+
+                    i--;
+                }
+
+                if (i === 0) {
+                    return;
+                }
+
+                sortedVersions[i].current = false;
+                sortedVersions[i - 1].current = true;
+
+                saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
+                await this.levelManager.loadLevelFromLevelMap(sortedVersions[i - 1].snapShot);
+                this.eventBus.emitEvent(EntityListUpdateEvent);
+            }
+        }
     };
 
     ////////////////////////////////////////////////////////////////////////////////

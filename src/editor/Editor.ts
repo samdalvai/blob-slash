@@ -208,6 +208,8 @@ export default class Editor extends Engine {
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
         }
+
+        this.entityEditor.saveLevel();
     };
 
     processInput = () => {
@@ -237,11 +239,11 @@ export default class Editor extends Engine {
                     }
 
                     if (this.commandPressed && inputEvent.code === 'KeyZ') {
-                        this.entityEditor.undoLevelChange();
-                    }
-
-                    if (this.commandPressed && this.shiftPressed && inputEvent.code === 'KeyZ') {
-                        this.entityEditor.redoLevelChange();
+                        if (this.shiftPressed) {
+                            this.entityEditor.redoLevelChange();
+                        } else {
+                            this.entityEditor.undoLevelChange();
+                        }
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
@@ -436,7 +438,9 @@ export default class Editor extends Engine {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
-        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.registry, this.eventBus, this.leftSidebar);
+        this.registry
+            .getSystem(EditorSystems.RenderSidebarSystem)
+            ?.subscribeToEvents(this.registry, this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
