@@ -85,6 +85,8 @@ export const getLevelVersions = (levelId: string) => {
     return currentLevelVersions;
 };
 
+// TODO: use a diffing mechanism to reduce space occupied
+// or use an in memory history system
 export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
     const jsonString = localStorage.getItem(HISTORY_KEY);
 
