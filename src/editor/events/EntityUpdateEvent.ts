@@ -1,6 +1,6 @@
 import GameEvent from '../../engine/event-bus/GameEvent';
 
-export default class EntityListUpdateEvent extends GameEvent {
+export default class EntityUpdateEvent extends GameEvent {
     constructor() {
         super();
     }

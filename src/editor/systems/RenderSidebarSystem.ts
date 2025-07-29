@@ -13,7 +13,7 @@ import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
-import EntityListUpdateEvent from '../events/EntityListUpdateEvent';
+import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
@@ -39,7 +39,7 @@ export default class RenderSidebarSystem extends System {
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityListUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
