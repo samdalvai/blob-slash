@@ -6,9 +6,11 @@ import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 
 export default class LevelManager {
+    private registry: Registry;
     private assetStore: AssetStore;
 
-    constructor(assetStore: AssetStore) {
+    constructor(registry: Registry, assetStore: AssetStore) {
+        this.registry = registry;
         this.assetStore = assetStore;
     }
 
@@ -17,30 +19,33 @@ export default class LevelManager {
         await this.assetStore.addJson(levelId, levelFilePath);
     }
 
-    public async loadLevelFromAssets(registry: Registry, levelId: string) {
+    public async loadLevelFromAssets(levelId: string) {
         const level = this.assetStore.getJson(levelId) as LevelMap;
-        return this.loadLevelFromLevelMap(registry, level);
+        return this.loadLevelFromLevelMap(level);
     }
 
-    public async loadLevelFromLevelMap(registry: Registry, level: LevelMap) {
+    public async loadLevelFromLevelMap(level: LevelMap) {
+        this.assetStore.clear();
+        this.registry.clear();
+
         await this.loadAssets(level);
-        this.loadEntities(registry, level);
+        this.loadEntities(level);
         this.setMapBoundaries(level);
 
         return level;
     }
 
-    public async loadLevelFromLocalStorage(registry: Registry, levelId: string) {
+    public async loadLevelFromLocalStorage(levelId: string) {
         const level = loadLevelFromLocalStorage(levelId);
         if (!level) {
             throw new Error('Could not read level from local storage');
         }
 
         this.assetStore.clear();
-        registry.clear();
+        this.registry.clear();
 
         await this.loadAssets(level);
-        this.loadEntities(registry, level);
+        this.loadEntities(level);
         this.setMapBoundaries(level);
 
         return level;
@@ -60,9 +65,9 @@ export default class LevelManager {
         }
     }
 
-    private loadEntities(registry: Registry, level: LevelMap) {
+    private loadEntities(level: LevelMap) {
         console.log('Loading entities');
-        deserializeEntities(level.entities, registry);
+        deserializeEntities(level.entities, this.registry);
     }
 
     private setMapBoundaries(level: LevelMap) {

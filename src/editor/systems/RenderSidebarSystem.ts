@@ -365,7 +365,7 @@ export default class RenderSidebarSystem extends System {
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
     ) => {
-        const level = await levelManager.loadLevelFromLocalStorage(registry, levelId);
+        const level = await levelManager.loadLevelFromLocalStorage(levelId);
         if (!level) {
             throw new Error('Could not read level from local storage');
         }
