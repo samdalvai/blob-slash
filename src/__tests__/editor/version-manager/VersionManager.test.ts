@@ -102,4 +102,11 @@ describe('Testing version manager related functions', () => {
 
         expect(versionManager.getCurrentLevelVersion('test')).toEqual(level2);
     });
+
+    test('Should throw error when setting non existent level version', () => {
+        const versionManager = new VersionManager();
+
+        expect(() => versionManager.setPreviousLevelVersion('test')).toThrowError();
+        expect(() => versionManager.setNextLevelVersion('test')).toThrowError();
+    });
 });
