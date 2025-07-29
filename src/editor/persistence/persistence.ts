@@ -120,6 +120,10 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
         current: true,
     });
 
+    if (currentLevelVersions.length > 20) {
+        currentLevelVersions.shift();
+    }
+
     localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
 };
 

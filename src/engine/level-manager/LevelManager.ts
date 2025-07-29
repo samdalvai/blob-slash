@@ -3,7 +3,6 @@ import AssetStore from '../asset-store/AssetStore';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
 import { loadLevelFromLocalStorage } from '../serialization/persistence';
-// import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 
 export default class LevelManager {
@@ -37,7 +36,7 @@ export default class LevelManager {
             throw new Error('Could not read level from local storage');
         }
 
-        this.assetStore.clearAssets();
+        this.assetStore.clear();
         registry.clear();
 
         await this.loadAssets(level);
