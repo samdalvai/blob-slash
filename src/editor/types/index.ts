@@ -10,7 +10,7 @@ export type EditorSettings = {
 };
 
 export type LevelVersion = {
-    date: Date;
+    date: string;
     snapShot: LevelMap;
     current: boolean;
 };
