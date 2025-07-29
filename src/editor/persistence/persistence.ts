@@ -1,3 +1,5 @@
+import { version } from 'process';
+
 import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
 import { EditorSettings, LevelHistory, LevelVersion } from '../types';
@@ -119,12 +121,18 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
         return;
     }
 
-    currentLevelVersions.forEach(version => (version.current = false));
-    currentLevelVersions.push({
-        date: new Date().toISOString(),
-        snapShot: levelMap,
-        current: true,
-    });
+    
+    if (
+        currentLevelVersions.length === 0 ||
+        JSON.stringify(currentLevelVersions[currentLevelVersions.length - 1].snapShot) !== JSON.stringify(levelMap)
+    ) {
+        currentLevelVersions.forEach(version => (version.current = false));
+        currentLevelVersions.push({
+            date: new Date().toISOString(),
+            snapShot: levelMap,
+            current: true,
+        });
+    }
 
     if (currentLevelVersions.length > 20) {
         currentLevelVersions.shift();
