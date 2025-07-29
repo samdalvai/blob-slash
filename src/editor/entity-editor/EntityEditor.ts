@@ -82,7 +82,6 @@ export default class EntityEditor {
                 this.assetStore.clear();
                 this.registry.clear();
                 await this.levelManager.loadLevelFromLevelMap(this.registry, sortedVersions[i + 1].snapShot);
-
                 // TODO rerender entity list
             }
         }
