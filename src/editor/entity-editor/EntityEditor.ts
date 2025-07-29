@@ -9,6 +9,7 @@ import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
+import EntityListUpdateEvent from '../events/EntityListUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
@@ -80,7 +81,7 @@ export default class EntityEditor {
 
                 saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
                 await this.levelManager.loadLevelFromLevelMap(sortedVersions[i + 1].snapShot);
-                // TODO rerender entity list
+                this.eventBus.emitEvent(EntityListUpdateEvent);
             }
         }
     };

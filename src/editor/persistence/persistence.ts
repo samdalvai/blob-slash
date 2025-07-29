@@ -131,7 +131,7 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
     }
 
     localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
-    console.log(JSON.stringify(localStorage).length / 1024, 'KB');
+    // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
 };
 
 export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: LevelVersion[]) => {
@@ -144,5 +144,5 @@ export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: 
         localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
     }
 
-    console.log(JSON.stringify(localStorage).length / 1024, 'KB');
+    // console.log(JSON.stringify(localStorage).length / 1024, 'KB');
 };

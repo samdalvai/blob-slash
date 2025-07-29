@@ -13,6 +13,7 @@ import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
+import EntityListUpdateEvent from '../events/EntityListUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
@@ -30,16 +31,17 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null) {
+    subscribeToEvents(registry: Registry, eventBus: EventBus, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
+        eventBus.subscribeToEvent(EntityListUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
     }
 
-    onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
+    onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -47,7 +49,7 @@ export default class RenderSidebarSystem extends System {
         scrollToListElement('#entity-list', `#entity-${event.entity.getId()}`);
     };
 
-    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null) => {
+    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -61,7 +63,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.removeEntity(event.entity, entityList);
     };
 
-    onEntityDuplicate = (event: EntitySelectEvent, leftSidebar: HTMLElement | null, eventBus: EventBus) => {
+    onEntityDuplicate = (event: EntitySelectEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -80,7 +82,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.saveLevel();
     };
 
-    onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
+    onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
