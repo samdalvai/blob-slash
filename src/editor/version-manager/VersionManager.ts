@@ -45,4 +45,32 @@ export default class VersionManager {
 
         return currentVersions[currentLevelVersionIndex];
     };
+
+    setNextLevelVersion = (levelId: string) => {
+        const currentVersions = this.levelVersions.get(levelId);
+        const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
+
+        if (!currentVersions || currentLevelVersionIndex === undefined) {
+            throw new Error('Could not find any version for level with id ' + levelId);
+        }
+
+        const nextLevelVersionIndex =
+            currentLevelVersionIndex === currentVersions.length - 1
+                ? currentLevelVersionIndex
+                : currentLevelVersionIndex + 1;
+        this.levelVersionIndex.set(levelId, nextLevelVersionIndex);
+    };
+
+    setPreviousLevelVersion = (levelId: string) => {
+        const currentVersions = this.levelVersions.get(levelId);
+        const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
+
+        if (!currentVersions || currentLevelVersionIndex === undefined) {
+            throw new Error('Could not find any version for level with id ' + levelId);
+        }
+
+        const previousLevelVersionIndex =
+            currentLevelVersionIndex === 0 ? currentLevelVersionIndex : currentLevelVersionIndex - 1;
+        this.levelVersionIndex.set(levelId, previousLevelVersionIndex);
+    };
 }

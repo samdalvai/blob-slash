@@ -49,4 +49,57 @@ describe('Testing version manager related functions', () => {
         expect(versionManager.getLevelVersionIndex('test')).toBe(1);
         expect(versionManager.getCurrentLevelVersion('test')).toEqual(level2);
     });
+
+    test('Should set level version to a previous one', () => {
+        const versionManager = new VersionManager();
+
+        const level1: LevelMap = {
+            textures: [],
+            sounds: [],
+            mapWidth: 100,
+            mapHeight: 100,
+            entities: [],
+        };
+
+        const level2: LevelMap = {
+            textures: [],
+            sounds: [],
+            mapWidth: 200,
+            mapHeight: 200,
+            entities: [],
+        };
+
+        versionManager.addLevelVersion('test', level1);
+        versionManager.addLevelVersion('test', level2);
+        versionManager.setPreviousLevelVersion('test');
+
+        expect(versionManager.getCurrentLevelVersion('test')).toEqual(level1);
+    });
+
+    test('Should set level version to the next one', () => {
+        const versionManager = new VersionManager();
+
+        const level1: LevelMap = {
+            textures: [],
+            sounds: [],
+            mapWidth: 100,
+            mapHeight: 100,
+            entities: [],
+        };
+
+        const level2: LevelMap = {
+            textures: [],
+            sounds: [],
+            mapWidth: 200,
+            mapHeight: 200,
+            entities: [],
+        };
+
+        versionManager.addLevelVersion('test', level1);
+        versionManager.addLevelVersion('test', level2);
+        versionManager.setPreviousLevelVersion('test');
+        versionManager.setNextLevelVersion('test');
+
+        expect(versionManager.getCurrentLevelVersion('test')).toEqual(level2);
+    });
 });
