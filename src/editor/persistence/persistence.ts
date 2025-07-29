@@ -2,10 +2,14 @@ import { LevelMap } from '../../engine/types/map';
 import Editor from '../Editor';
 import { EditorSettings, LevelHistory, LevelVersion } from '../types';
 
+const HISTORY_KEY = 'history';
+const EDITOR_SETTINGS_KEY = 'editor-settings';
+const LEVEL_KEY = 'level';
+
 export const saveEditorSettingsToLocalStorage = () => {
     const settings: EditorSettings = Editor.editorSettings;
     const jsonString = JSON.stringify(settings, null, 2);
-    localStorage.setItem('editor-settings', jsonString);
+    localStorage.setItem(EDITOR_SETTINGS_KEY, jsonString);
 };
 
 export const deleteLevelInLocalStorage = (levelId: string) => {
@@ -13,7 +17,7 @@ export const deleteLevelInLocalStorage = (levelId: string) => {
 };
 
 export const loadEditorSettingsFromLocalStorage = (): EditorSettings | undefined => {
-    const jsonString = localStorage.getItem('editor-settings') as any;
+    const jsonString = localStorage.getItem(EDITOR_SETTINGS_KEY) as any;
     return jsonString ? (JSON.parse(jsonString) as EditorSettings) : undefined;
 };
 
@@ -23,7 +27,7 @@ export const getAllLevelKeysFromLocalStorage = () => {
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
 
-        if (key && key.startsWith('level')) {
+        if (key && key.startsWith(LEVEL_KEY)) {
             levelKeys.push(key);
         }
     }
@@ -37,7 +41,7 @@ export const getNextLevelId = (levelKeys: string[]) => {
     const sortedLevelKeys = sortLevelKeys(levelKeys);
 
     for (const key of sortedLevelKeys) {
-        const numberPart = key.replace('level-', '');
+        const numberPart = key.replace(LEVEL_KEY + '-', '');
         const numberPartParsed = parseInt(numberPart);
 
         if (numberPartParsed !== availableId) {
@@ -47,15 +51,15 @@ export const getNextLevelId = (levelKeys: string[]) => {
         availableId++;
     }
 
-    return 'level-' + availableId;
+    return LEVEL_KEY + '-' + availableId;
 };
 
 export const sortLevelKeys = (levelKeys: string[]) => {
     const sortedKeys = levelKeys.sort((keyA, keyB) => {
-        const numberPartA = keyA.replace('level-', '');
+        const numberPartA = keyA.replace(LEVEL_KEY + '-', '');
         const numberPartParsedA = parseInt(numberPartA);
 
-        const numberPartB = keyB.replace('level-', '');
+        const numberPartB = keyB.replace(LEVEL_KEY + '-', '');
         const numberPartParsedB = parseInt(numberPartB);
 
         return numberPartParsedA - numberPartParsedB;
@@ -65,7 +69,7 @@ export const sortLevelKeys = (levelKeys: string[]) => {
 };
 
 export const getLevelVersions = (levelId: string) => {
-    const jsonString = localStorage.getItem('history');
+    const jsonString = localStorage.getItem(HISTORY_KEY);
 
     if (!jsonString) {
         return null;
@@ -82,7 +86,7 @@ export const getLevelVersions = (levelId: string) => {
 };
 
 export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelMap) => {
-    const jsonString = localStorage.getItem('history');
+    const jsonString = localStorage.getItem(HISTORY_KEY);
 
     if (!jsonString) {
         const newLevelVersions: LevelVersion[] = [];
@@ -94,7 +98,7 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
 
         const levelHistory: LevelHistory = {};
         levelHistory[levelId] = newLevelVersions;
-        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
         return;
     }
 
@@ -109,7 +113,7 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
             current: true,
         });
         levelHistory[levelId] = newLevelVersions;
-        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
         return;
     }
 
@@ -124,16 +128,16 @@ export const saveLevelVersionToLocalStorage = (levelId: string, levelMap: LevelM
         currentLevelVersions.shift();
     }
 
-    localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
 };
 
 export const saveLevelVersionsToLocalStorage = (levelId: string, levelVersions: LevelVersion[]) => {
-    const jsonString = localStorage.getItem('history');
+    const jsonString = localStorage.getItem(HISTORY_KEY);
 
     if (jsonString) {
         const levelHistory = JSON.parse(jsonString) as LevelHistory;
         levelHistory[levelId] = levelVersions;
 
-        localStorage.setItem('history', JSON.stringify(levelHistory, null, 2));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(levelHistory, null, 2));
     }
 };
