@@ -21,6 +21,7 @@ import {
     getAllLevelKeysFromLocalStorage,
     getNextLevelId,
     saveEditorSettingsToLocalStorage,
+    saveLevelVersionToLocalStorage,
 } from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
@@ -388,5 +389,6 @@ export default class RenderSidebarSystem extends System {
         Editor.editorSettings.selectedLevel = levelId;
 
         saveEditorSettingsToLocalStorage();
+        saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
     };
 }
