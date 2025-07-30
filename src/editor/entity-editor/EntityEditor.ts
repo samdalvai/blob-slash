@@ -198,6 +198,35 @@ export default class EntityEditor {
         header.append(deleteButton);
         componentList.appendChild(header);
 
+        const entityTagInput = createInput('text', entity.getId() + '-tag', entity.getTag() ?? '');
+        entityTagInput.addEventListener('input', e => {
+            const value = (e.target as HTMLInputElement).value;
+            entity.removeTag();
+
+            if (value !== '') {
+                entity.tag(value);
+            }
+
+            this.saveLevel();
+        });
+        const entityTagListItem = createListItem('Entity tag', entityTagInput);
+
+        const entityGroupInput = createInput('text', entity.getId() + '-group', entity.getGroup() ?? '');
+        entityGroupInput.addEventListener('input', e => {
+            const value = (e.target as HTMLInputElement).value;
+            entity.removeGroup();
+
+            if (value !== '') {
+                entity.group(value);
+            }
+
+            this.saveLevel();
+        });
+        const entityGroupListItem = createListItem('Entity group', entityGroupInput);
+
+        componentList.append(entityTagListItem);
+        componentList.append(entityGroupListItem);
+
         const componentSelector = document.createElement('div');
         componentSelector.className = 'd-flex align-center space-between pt-2';
 
