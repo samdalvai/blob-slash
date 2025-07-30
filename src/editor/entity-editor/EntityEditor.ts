@@ -14,7 +14,6 @@ import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import VersionManager from '../version-manager/VersionManager';
 
-// TODO: entities tags and groups are not handled by the editor
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private registry: Registry;
