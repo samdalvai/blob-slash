@@ -16,6 +16,8 @@ export default class VersionManager {
         if (!currentVersions) {
             this.levelVersions.set(levelId, [level]);
             this.levelVersionIndex.set(levelId, 0);
+            console.log('levelVersions: ', this.levelVersions);
+            console.log('levelVersionIndex: ', this.levelVersionIndex);
             return;
         }
 
@@ -23,8 +25,10 @@ export default class VersionManager {
             throw new Error('No version index defined for level with id ' + levelId);
         }
 
-        this.levelVersionIndex.set(levelId, currentLevelVersionIndex + 1);
         currentVersions.push(level);
+        this.levelVersionIndex.set(levelId, currentVersions.length - 1);
+        console.log('levelVersions: ', this.levelVersions);
+        console.log('levelVersionIndex: ', this.levelVersionIndex);
     };
 
     getLevelVersions = (levelId: string) => {
@@ -38,6 +42,8 @@ export default class VersionManager {
     getCurrentLevelVersion = (levelId: string) => {
         const currentVersions = this.levelVersions.get(levelId);
         const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
+
+        console.log('returning level version with index: ', currentLevelVersionIndex);
 
         if (!currentVersions || currentLevelVersionIndex === undefined) {
             throw new Error('Could not find any version for level with id ' + levelId);
@@ -59,6 +65,7 @@ export default class VersionManager {
                 ? currentLevelVersionIndex
                 : currentLevelVersionIndex + 1;
         this.levelVersionIndex.set(levelId, nextLevelVersionIndex);
+        console.log('levelVersionIndex: ', this.levelVersionIndex);
     };
 
     setPreviousLevelVersion = (levelId: string) => {
@@ -72,5 +79,6 @@ export default class VersionManager {
         const previousLevelVersionIndex =
             currentLevelVersionIndex === 0 ? currentLevelVersionIndex : currentLevelVersionIndex - 1;
         this.levelVersionIndex.set(levelId, previousLevelVersionIndex);
+        console.log('levelVersionIndex: ', this.levelVersionIndex);
     };
 }

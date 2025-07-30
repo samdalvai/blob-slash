@@ -14,6 +14,7 @@ import {
 } from './persistence/persistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
+import VersionManager from './version-manager/VersionManager';
 
 declare global {
     interface Window {
@@ -23,6 +24,7 @@ declare global {
 
 export default class Editor extends Engine {
     // Object for Editor
+    private versionManager: VersionManager;
     private entityEditor: EntityEditor;
 
     // Objects for rendering
@@ -51,7 +53,14 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
-        this.entityEditor = new EntityEditor(this.registry, this.assetStore, this.eventBus, this.levelManager);
+        this.versionManager = new VersionManager();
+        this.entityEditor = new EntityEditor(
+            this.registry,
+            this.assetStore,
+            this.eventBus,
+            this.levelManager,
+            this.versionManager,
+        );
 
         this.leftSidebar = null;
         this.rightSidebar = null;
@@ -196,11 +205,11 @@ export default class Editor extends Engine {
 
         if (levelKeys.length > 0) {
             if (Editor.editorSettings.selectedLevel) {
-                await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
-                // saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
+                const level = await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
+                this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
             } else {
-                await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
-                // saveLevelVersionToLocalStorage(levelKeys[0], level);
+                const level = await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
+                this.versionManager.addLevelVersion(levelKeys[0], level);
             }
         } else {
             console.log('No level available, loading default empty level');
@@ -209,7 +218,7 @@ export default class Editor extends Engine {
             await this.levelManager.loadLevelFromLocalStorage(levelId);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
-            // saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, level);
+            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
         }
     };
 
