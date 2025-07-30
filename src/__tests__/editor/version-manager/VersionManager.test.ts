@@ -17,7 +17,7 @@ describe('Testing version manager related functions', () => {
 
         versionManager.addLevelVersion('test', level);
         expect(versionManager.getLevelVersions('test')?.length).toBe(1);
-        expect(versionManager.getLevelVersions('test')![0]).toEqual(level);
+        expect(versionManager.getLevelVersions('test')![0]).toEqual(JSON.stringify(level));
         expect(versionManager.getLevelVersionIndex('test')).toBe(0);
         expect(versionManager.getCurrentLevelVersion('test')).toEqual(level);
     });
@@ -45,7 +45,7 @@ describe('Testing version manager related functions', () => {
         versionManager.addLevelVersion('test', level2);
 
         expect(versionManager.getLevelVersions('test')?.length).toBe(2);
-        expect(versionManager.getLevelVersions('test')![1]).toEqual(level2);
+        expect(versionManager.getLevelVersions('test')![1]).toEqual(JSON.stringify(level2));
         expect(versionManager.getLevelVersionIndex('test')).toBe(1);
         expect(versionManager.getCurrentLevelVersion('test')).toEqual(level2);
     });

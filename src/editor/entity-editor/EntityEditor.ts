@@ -14,6 +14,7 @@ import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import VersionManager from '../version-manager/VersionManager';
 
+// TODO: entities tags and groups are not handled by the editor
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private registry: Registry;
@@ -58,12 +59,14 @@ export default class EntityEditor {
         }, 300);
     };
 
+    // TODO: Check why if pressed too often leads to error for same entity being tagged already
     public undoLevelChange = async () => {
         if (Editor.editorSettings.selectedLevel) {
             this.versionManager.setPreviousLevelVersion(Editor.editorSettings.selectedLevel);
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
             this.eventBus.emitEvent(EntityUpdateEvent);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
         }
     };
 
@@ -73,6 +76,7 @@ export default class EntityEditor {
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
             this.eventBus.emitEvent(EntityUpdateEvent);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
         }
     };
 

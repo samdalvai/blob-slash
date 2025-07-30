@@ -1,7 +1,7 @@
 import { LevelMap } from '../../engine/types/map';
 
 export default class VersionManager {
-    private levelVersions: Map<string, LevelMap[]>;
+    private levelVersions: Map<string, string[]>;
     private levelVersionIndex: Map<string, number>;
 
     constructor() {
@@ -9,15 +9,15 @@ export default class VersionManager {
         this.levelVersionIndex = new Map();
     }
 
+    // TODO [BUG]: components having objects as properties are saved in the same way across versions
+    // as a workaround we stringify the level
     addLevelVersion = (levelId: string, level: LevelMap) => {
         const currentVersions = this.levelVersions.get(levelId);
         const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
 
         if (!currentVersions) {
-            this.levelVersions.set(levelId, [level]);
+            this.levelVersions.set(levelId, [JSON.stringify(level)]);
             this.levelVersionIndex.set(levelId, 0);
-            console.log('levelVersions: ', this.levelVersions);
-            console.log('levelVersionIndex: ', this.levelVersionIndex);
             return;
         }
 
@@ -25,10 +25,8 @@ export default class VersionManager {
             throw new Error('No version index defined for level with id ' + levelId);
         }
 
-        currentVersions.push(level);
+        currentVersions.push(JSON.stringify(level));
         this.levelVersionIndex.set(levelId, currentVersions.length - 1);
-        console.log('levelVersions: ', this.levelVersions);
-        console.log('levelVersionIndex: ', this.levelVersionIndex);
     };
 
     getLevelVersions = (levelId: string) => {
@@ -39,7 +37,7 @@ export default class VersionManager {
         return this.levelVersionIndex.get(levelId);
     };
 
-    getCurrentLevelVersion = (levelId: string) => {
+    getCurrentLevelVersion = (levelId: string): LevelMap => {
         const currentVersions = this.levelVersions.get(levelId);
         const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
 
@@ -49,7 +47,8 @@ export default class VersionManager {
             throw new Error('Could not find any version for level with id ' + levelId);
         }
 
-        return currentVersions[currentLevelVersionIndex];
+        const currentVersionJson = currentVersions[currentLevelVersionIndex];
+        return JSON.parse(currentVersionJson) as LevelMap;
     };
 
     setNextLevelVersion = (levelId: string) => {
