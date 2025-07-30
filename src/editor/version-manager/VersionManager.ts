@@ -10,7 +10,8 @@ export default class VersionManager {
     }
 
     // TODO [BUG]: components having objects as properties are saved in the same way across versions
-    // as a workaround we stringify the level
+    // as a workaround we stringify the level, bug originates in serializeEntity method, reference to
+    // component values are kept
     addLevelVersion = (levelId: string, level: LevelMap) => {
         const currentVersions = this.levelVersions.get(levelId);
         const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
@@ -25,7 +26,12 @@ export default class VersionManager {
             throw new Error('No version index defined for level with id ' + levelId);
         }
 
-        currentVersions.push(JSON.stringify(level));
+        const lastVersion = currentVersions[currentVersions.length -1];
+
+        if (lastVersion !== JSON.stringify(level)) {
+            currentVersions.push(JSON.stringify(level));
+        }
+
         this.levelVersionIndex.set(levelId, currentVersions.length - 1);
     };
 
