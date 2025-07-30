@@ -23,12 +23,14 @@ export const saveCurrentLevelToLocalStorage = (levelId: string | null, registry:
         throw new Error('Could not determine currently selected level');
     }
 
-    const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
+    const currentLevelMap = serializeLevel(registry, assetStore);
+    const jsonString = JSON.stringify(currentLevelMap, null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');
+    return currentLevelMap;
 };
 
-export const saveLevelMapToLocalStorage = (levelId: string, levelMap: LevelMap) => {
+export const saveLevelToLocalStorage = (levelId: string, levelMap: LevelMap) => {
     const jsonString = JSON.stringify(levelMap, null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');

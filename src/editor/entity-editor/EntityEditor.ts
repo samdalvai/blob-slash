@@ -3,25 +3,42 @@ import Component from '../../engine/ecs/Component';
 import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
+import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
+import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import VersionManager from '../version-manager/VersionManager';
 
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private registry: Registry;
     private assetStore: AssetStore;
     private eventBus: EventBus;
+    private levelManager: LevelManager;
+    private versionManager: VersionManager;
 
-    constructor(registry: Registry, assetStore: AssetStore, eventBus: EventBus) {
+    constructor(
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+        levelManager: LevelManager,
+        versionManager: VersionManager,
+    ) {
         this.registry = registry;
         this.assetStore = assetStore;
         this.eventBus = eventBus;
+        this.levelManager = levelManager;
+        this.versionManager = versionManager;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Level management
+    ////////////////////////////////////////////////////////////////////////////////
 
     public saveLevel = () => {
         if (this.saveDebounceTimer) {
@@ -29,8 +46,45 @@ export default class EntityEditor {
         }
 
         this.saveDebounceTimer = setTimeout(() => {
-            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+            const levelMap = saveCurrentLevelToLocalStorage(
+                Editor.editorSettings.selectedLevel,
+                this.registry,
+                this.assetStore,
+            );
+
+            if (Editor.editorSettings.selectedLevel) {
+                this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, levelMap);
+            }
         }, 300);
+    };
+
+    // TODO: Check why if pressed too often leads to error for same entity being tagged already
+    public undoLevelChange = async () => {
+        if (Editor.editorSettings.selectedLevel) {
+            if (this.versionManager.isOldestVersion(Editor.editorSettings.selectedLevel)) {
+                return;
+            }
+
+            this.versionManager.setPreviousLevelVersion(Editor.editorSettings.selectedLevel);
+            const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
+            await this.levelManager.loadLevelFromLevelMap(levelVersion);
+            this.eventBus.emitEvent(EntityUpdateEvent);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+        }
+    };
+
+    public redoLevelChange = async () => {
+        if (Editor.editorSettings.selectedLevel) {
+            if (this.versionManager.isLatestVersion(Editor.editorSettings.selectedLevel)) {
+                return;
+            }
+
+            this.versionManager.setNextLevelVersion(Editor.editorSettings.selectedLevel);
+            const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
+            await this.levelManager.loadLevelFromLevelMap(levelVersion);
+            this.eventBus.emitEvent(EntityUpdateEvent);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+        }
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +196,35 @@ export default class EntityEditor {
         header.append(duplicateButton);
         header.append(deleteButton);
         componentList.appendChild(header);
+
+        const entityTagInput = createInput('text', entity.getId() + '-tag', entity.getTag() ?? '');
+        entityTagInput.addEventListener('input', e => {
+            const value = (e.target as HTMLInputElement).value;
+            entity.removeTag();
+
+            if (value !== '') {
+                entity.tag(value);
+            }
+
+            this.saveLevel();
+        });
+        const entityTagListItem = createListItem('Entity tag', entityTagInput);
+
+        const entityGroupInput = createInput('text', entity.getId() + '-group', entity.getGroup() ?? '');
+        entityGroupInput.addEventListener('input', e => {
+            const value = (e.target as HTMLInputElement).value;
+            entity.removeGroup();
+
+            if (value !== '') {
+                entity.group(value);
+            }
+
+            this.saveLevel();
+        });
+        const entityGroupListItem = createListItem('Entity group', entityGroupInput);
+
+        componentList.append(entityTagListItem);
+        componentList.append(entityGroupListItem);
 
         const componentSelector = document.createElement('div');
         componentSelector.className = 'd-flex align-center space-between pt-2';
@@ -348,14 +431,14 @@ export default class EntityEditor {
                     }
                 }
                 select.value = assetId;
-                
+
                 const newAssetImg = this.assetStore.getTexture(assetId);
                 spriteImage.src = newAssetImg.src;
                 spriteImage.style.objectFit = 'contain';
                 spriteImage.style.maxHeight = `${newAssetImg.height}px`;
                 spriteImage.style.maxWidth = '100%';
                 (component as GameComponents.SpriteComponent).assetId = assetId;
-                
+
                 // TODO: enable saving level when sprite image is loaded
                 //this.saveLevel();
             }

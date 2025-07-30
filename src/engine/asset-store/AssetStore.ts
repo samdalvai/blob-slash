@@ -118,7 +118,7 @@ export default class AssetStore {
         return this.soundsFilePaths;
     }
 
-    clearAssets() {
+    clear() {
         this.textures.clear();
         this.sounds.clear();
         this.jsons.clear();

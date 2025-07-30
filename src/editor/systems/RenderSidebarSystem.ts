@@ -4,7 +4,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveLevelMapToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
+import { saveLevelToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
@@ -13,10 +13,11 @@ import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
+import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
-    deleteLevelInLocalStorage,
+    deleteLevelFromLocalStorage,
     getAllLevelKeysFromLocalStorage,
     getNextLevelId,
     saveEditorSettingsToLocalStorage,
@@ -30,16 +31,17 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement | null) {
+    subscribeToEvents(registry: Registry, eventBus: EventBus, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
     }
 
-    onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement | null) => {
+    onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -47,7 +49,7 @@ export default class RenderSidebarSystem extends System {
         scrollToListElement('#entity-list', `#entity-${event.entity.getId()}`);
     };
 
-    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement | null) => {
+    onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -61,7 +63,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.removeEntity(event.entity, entityList);
     };
 
-    onEntityDuplicate = (event: EntitySelectEvent, leftSidebar: HTMLElement | null, eventBus: EventBus) => {
+    onEntityDuplicate = (event: EntitySelectEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -80,7 +82,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.saveLevel();
     };
 
-    onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement | null) => {
+    onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -269,7 +271,7 @@ export default class RenderSidebarSystem extends System {
                 entities: [],
             };
 
-            saveLevelMapToLocalStorage(nextLevelId, newLevelMap);
+            saveLevelToLocalStorage(nextLevelId, newLevelMap);
             const option = document.createElement('option');
             option.value = nextLevelId;
             option.id = nextLevelId;
@@ -285,7 +287,7 @@ export default class RenderSidebarSystem extends System {
                 throw new Error('No level selected');
             }
 
-            deleteLevelInLocalStorage(Editor.editorSettings.selectedLevel);
+            deleteLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
             const optionToDelete = rightSidebar.querySelector(
                 '#' + Editor.editorSettings.selectedLevel,
             ) as HTMLSelectElement;
@@ -303,7 +305,7 @@ export default class RenderSidebarSystem extends System {
             } else {
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel();
-                saveLevelMapToLocalStorage(levelId, level);
+                saveLevelToLocalStorage(levelId, level);
                 const option = document.createElement('option');
                 option.value = levelId;
                 option.id = levelId;
@@ -337,7 +339,7 @@ export default class RenderSidebarSystem extends System {
                             throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
                         }
 
-                        saveLevelMapToLocalStorage(nextLevelId, levelMap);
+                        saveLevelToLocalStorage(nextLevelId, levelMap);
 
                         const option = document.createElement('option');
                         option.value = nextLevelId;
@@ -365,7 +367,7 @@ export default class RenderSidebarSystem extends System {
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
     ) => {
-        const level = await levelManager.loadLevelFromLocalStorage(registry, levelId);
+        const level = await levelManager.loadLevelFromLocalStorage(levelId);
         if (!level) {
             throw new Error('Could not read level from local storage');
         }
@@ -386,5 +388,6 @@ export default class RenderSidebarSystem extends System {
         Editor.editorSettings.selectedLevel = levelId;
 
         saveEditorSettingsToLocalStorage();
+        this.entityEditor.saveLevel();
     };
 }
