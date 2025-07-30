@@ -23,7 +23,7 @@ export default class Entity {
 
     duplicate = () => {
         return this.registry.duplicateEntity(this);
-    }
+    };
 
     tag = (tag: string) => {
         this.registry.tagEntity(this, tag);
@@ -37,6 +37,10 @@ export default class Entity {
         return this.registry.entityHasTag(this, tag);
     };
 
+    removeTag = () => {
+        this.registry.removeEntityTag(this);
+    };
+
     group = (group: string) => {
         this.registry.groupEntity(this, group);
     };
@@ -47,6 +51,10 @@ export default class Entity {
 
     belongsToGroup = (group: string) => {
         return this.registry.entityBelongsToGroup(this, group);
+    };
+
+    removeGroup = () => {
+        this.registry.removeEntityGroup(this);
     };
 
     addComponent = <T extends Component>(
