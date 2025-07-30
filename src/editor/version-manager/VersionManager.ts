@@ -26,7 +26,7 @@ export default class VersionManager {
             throw new Error('No version index defined for level with id ' + levelId);
         }
 
-        const lastVersion = currentVersions[currentVersions.length -1];
+        const lastVersion = currentVersions[currentVersions.length - 1];
 
         if (lastVersion !== JSON.stringify(level)) {
             currentVersions.push(JSON.stringify(level));
@@ -85,5 +85,27 @@ export default class VersionManager {
             currentLevelVersionIndex === 0 ? currentLevelVersionIndex : currentLevelVersionIndex - 1;
         this.levelVersionIndex.set(levelId, previousLevelVersionIndex);
         console.log('levelVersionIndex: ', this.levelVersionIndex);
+    };
+
+    isLatestVersion = (levelId: string) => {
+        const currentVersions = this.levelVersions.get(levelId);
+        const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
+
+        if (!currentVersions || currentLevelVersionIndex === undefined) {
+            throw new Error('Could not find any version for level with id ' + levelId);
+        }
+
+        return currentVersions.length - 1 === currentLevelVersionIndex;
+    };
+
+    isOldestVersion = (levelId: string) => {
+        const currentVersions = this.levelVersions.get(levelId);
+        const currentLevelVersionIndex = this.levelVersionIndex.get(levelId);
+
+        if (!currentVersions || currentLevelVersionIndex === undefined) {
+            throw new Error('Could not find any version for level with id ' + levelId);
+        }
+
+        return currentLevelVersionIndex === 0;
     };
 }

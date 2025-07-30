@@ -62,6 +62,10 @@ export default class EntityEditor {
     // TODO: Check why if pressed too often leads to error for same entity being tagged already
     public undoLevelChange = async () => {
         if (Editor.editorSettings.selectedLevel) {
+            if (this.versionManager.isOldestVersion(Editor.editorSettings.selectedLevel)) {
+                return;
+            }
+
             this.versionManager.setPreviousLevelVersion(Editor.editorSettings.selectedLevel);
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
@@ -72,6 +76,10 @@ export default class EntityEditor {
 
     public redoLevelChange = async () => {
         if (Editor.editorSettings.selectedLevel) {
+            if (this.versionManager.isLatestVersion(Editor.editorSettings.selectedLevel)) {
+                return;
+            }
+
             this.versionManager.setNextLevelVersion(Editor.editorSettings.selectedLevel);
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
