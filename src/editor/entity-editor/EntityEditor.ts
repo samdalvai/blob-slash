@@ -9,9 +9,10 @@ import { Rectangle, Vector } from '../../engine/types/utils';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
-import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
+import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import VersionManager from '../version-manager/VersionManager';
 
 export default class EntityEditor {
     private saveDebounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -19,12 +20,20 @@ export default class EntityEditor {
     private assetStore: AssetStore;
     private eventBus: EventBus;
     private levelManager: LevelManager;
+    private versionManager: VersionManager;
 
-    constructor(registry: Registry, assetStore: AssetStore, eventBus: EventBus, levelManager: LevelManager) {
+    constructor(
+        registry: Registry,
+        assetStore: AssetStore,
+        eventBus: EventBus,
+        levelManager: LevelManager,
+        versionManager: VersionManager,
+    ) {
         this.registry = registry;
         this.assetStore = assetStore;
         this.eventBus = eventBus;
         this.levelManager = levelManager;
+        this.versionManager = versionManager;
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -44,73 +53,27 @@ export default class EntityEditor {
             );
 
             if (Editor.editorSettings.selectedLevel) {
-                //saveLevelVersionToLocalStorage(Editor.editorSettings.selectedLevel, levelMap);
+                this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, levelMap);
             }
         }, 300);
     };
 
     public undoLevelChange = async () => {
-        // if (Editor.editorSettings.selectedLevel) {
-        //     const currentLevelVersions = getLevelVersions(Editor.editorSettings.selectedLevel);
-        //     if (currentLevelVersions) {
-        //         const sortedVersions = [...currentLevelVersions].sort(
-        //             (versionA, versionB) => new Date(versionB.date).getTime() - new Date(versionA.date).getTime(),
-        //         );
-
-        //         let i = 0;
-
-        //         while (i < sortedVersions.length) {
-        //             if (sortedVersions[i].current) {
-        //                 break;
-        //             }
-
-        //             i++;
-        //         }
-
-        //         if (i === sortedVersions.length - 1) {
-        //             return;
-        //         }
-
-        //         sortedVersions[i].current = false;
-        //         sortedVersions[i + 1].current = true;
-
-        //         saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
-        //         await this.levelManager.loadLevelFromLevelMap(sortedVersions[i + 1].snapShot);
-        //         this.eventBus.emitEvent(EntityUpdateEvent);
-        //     }
-        // }
+        if (Editor.editorSettings.selectedLevel) {
+            this.versionManager.setPreviousLevelVersion(Editor.editorSettings.selectedLevel);
+            const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
+            await this.levelManager.loadLevelFromLevelMap(levelVersion);
+            this.eventBus.emitEvent(EntityUpdateEvent);
+        }
     };
 
     public redoLevelChange = async () => {
-        // if (Editor.editorSettings.selectedLevel) {
-        //     const currentLevelVersions = getLevelVersions(Editor.editorSettings.selectedLevel);
-        //     if (currentLevelVersions) {
-        //         const sortedVersions = [...currentLevelVersions].sort(
-        //             (versionA, versionB) => new Date(versionB.date).getTime() - new Date(versionA.date).getTime(),
-        //         );
-
-        //         let i = sortedVersions.length - 1;
-
-        //         while (i > 0) {
-        //             if (sortedVersions[i].current) {
-        //                 break;
-        //             }
-
-        //             i--;
-        //         }
-
-        //         if (i === 0) {
-        //             return;
-        //         }
-
-        //         sortedVersions[i].current = false;
-        //         sortedVersions[i - 1].current = true;
-
-        //         saveLevelVersionsToLocalStorage(Editor.editorSettings.selectedLevel, sortedVersions);
-        //         await this.levelManager.loadLevelFromLevelMap(sortedVersions[i - 1].snapShot);
-        //         this.eventBus.emitEvent(EntityUpdateEvent);
-        //     }
-        // }
+        if (Editor.editorSettings.selectedLevel) {
+            this.versionManager.setNextLevelVersion(Editor.editorSettings.selectedLevel);
+            const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
+            await this.levelManager.loadLevelFromLevelMap(levelVersion);
+            this.eventBus.emitEvent(EntityUpdateEvent);
+        }
     };
 
     ////////////////////////////////////////////////////////////////////////////////
