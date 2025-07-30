@@ -28,20 +28,21 @@ export default class MovementSystem extends System {
         const b = event.b;
         const collisionNormal = event.collisionNormal;
 
-        // TODO: avoid same entity being killed twice
         if ((a.hasTag('player') || a.belongsToGroup('enemies')) && b.belongsToGroup('obstacles')) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
-
+        
         if (a.belongsToGroup('obstacles') && (b.hasTag('player') || b.belongsToGroup('enemies'))) {
             this.invertCollisionNormal(collisionNormal);
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
-
+        
+        // TODO: avoid same entity being killed twice (is this called twice?)
         if (a.belongsToGroup('projectiles') && b.belongsToGroup('obstacles')) {
             a.kill();
         }
 
+        // TODO: avoid same entity being killed twice (is this called twice?)
         if (a.belongsToGroup('obstacles') && b.belongsToGroup('projectiles')) {
             b.kill();
         }

@@ -1,5 +1,5 @@
 import Engine from '../engine/Engine';
-import { saveLevelMapToLocalStorage } from '../engine/serialization/persistence';
+import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
@@ -14,6 +14,7 @@ import {
 } from './persistence/persistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
+import VersionManager from './version-manager/VersionManager';
 
 declare global {
     interface Window {
@@ -23,6 +24,7 @@ declare global {
 
 export default class Editor extends Engine {
     // Object for Editor
+    private versionManager: VersionManager;
     private entityEditor: EntityEditor;
 
     // Objects for rendering
@@ -31,7 +33,8 @@ export default class Editor extends Engine {
 
     // Editor status properties
     private mousePressed: boolean;
-    private panEnabled: boolean;
+    private commandPressed: boolean;
+    private shiftPressed: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
 
@@ -50,13 +53,21 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
-        this.entityEditor = new EntityEditor(this.registry, this.assetStore, this.eventBus);
+        this.versionManager = new VersionManager();
+        this.entityEditor = new EntityEditor(
+            this.registry,
+            this.assetStore,
+            this.eventBus,
+            this.levelManager,
+            this.versionManager,
+        );
 
         this.leftSidebar = null;
         this.rightSidebar = null;
 
         this.mousePressed = false;
-        this.panEnabled = false;
+        this.commandPressed = false;
+        this.shiftPressed = false;
         this.zoom = 1;
         this.shouldSidebarUpdate = true;
 
@@ -194,17 +205,20 @@ export default class Editor extends Engine {
 
         if (levelKeys.length > 0) {
             if (Editor.editorSettings.selectedLevel) {
-                await this.levelManager.loadLevelFromLocalStorage(this.registry, Editor.editorSettings.selectedLevel);
+                const level = await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
+                this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
             } else {
-                await this.levelManager.loadLevelFromLocalStorage(this.registry, levelKeys[0]);
+                const level = await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
+                this.versionManager.addLevelVersion(levelKeys[0], level);
             }
         } else {
             console.log('No level available, loading default empty level');
             const { levelId, level } = this.levelManager.getDefaultLevel();
-            saveLevelMapToLocalStorage(levelId, level);
-            await this.levelManager.loadLevelFromLocalStorage(this.registry, levelId);
+            saveLevelToLocalStorage(levelId, level);
+            await this.levelManager.loadLevelFromLocalStorage(levelId);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
+            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
         }
     };
 
@@ -227,14 +241,30 @@ export default class Editor extends Engine {
             switch (inputEvent.type) {
                 case 'keydown':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.panEnabled = true;
+                        this.commandPressed = true;
+                    }
+
+                    if (inputEvent.code === 'ShiftLeft') {
+                        this.shiftPressed = true;
+                    }
+
+                    if (this.commandPressed && inputEvent.code === 'KeyZ') {
+                        if (this.shiftPressed) {
+                            this.entityEditor.redoLevelChange();
+                        } else {
+                            this.entityEditor.undoLevelChange();
+                        }
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyPressedEvent, inputEvent.code);
                     break;
                 case 'keyup':
                     if (inputEvent.code === 'MetaLeft') {
-                        this.panEnabled = false;
+                        this.commandPressed = false;
+                    }
+
+                    if (inputEvent.code === 'ShiftLeft') {
+                        this.shiftPressed = false;
                     }
 
                     this.eventBus.emitEvent(GameEvents.KeyReleasedEvent, inputEvent.code);
@@ -266,7 +296,7 @@ export default class Editor extends Engine {
                     };
 
                     // Handles mouse pad pan
-                    if (this.mousePressed && this.panEnabled) {
+                    if (this.mousePressed && this.commandPressed) {
                         const dx = mouseX - Engine.mousePositionWorld.x;
                         const dy = mouseY - Engine.mousePositionWorld.y;
 
@@ -303,7 +333,7 @@ export default class Editor extends Engine {
                     );
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
-                        this.panEnabled = true;
+                        this.commandPressed = true;
                     }
 
                     break;
@@ -325,7 +355,7 @@ export default class Editor extends Engine {
                     );
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
-                        this.panEnabled = false;
+                        this.commandPressed = false;
                     }
                     break;
             }
@@ -414,11 +444,13 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
-        if (!this.panEnabled) {
+        if (!this.commandPressed) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
         }
 
-        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.leftSidebar);
+        this.registry
+            .getSystem(EditorSystems.RenderSidebarSystem)
+            ?.subscribeToEvents(this.registry, this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
@@ -452,7 +484,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['SpriteStateSystem'] &&
             this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
 
-        if (!this.panEnabled) {
+        if (!this.commandPressed) {
             this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(
                 this.leftSidebar.getBoundingClientRect().width,
                 // TODO: we can use canvas x and width instead of leftSidebar

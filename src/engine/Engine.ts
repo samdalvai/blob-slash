@@ -46,7 +46,7 @@ export default abstract class Engine {
         this.assetStore = new AssetStore();
         this.eventBus = new EventBus();
         this.inputManager = new InputManager();
-        this.levelManager = new LevelManager(this.assetStore);
+        this.levelManager = new LevelManager(this.registry, this.assetStore);
 
         this.isRunning = false;
         this.isDebug = false;

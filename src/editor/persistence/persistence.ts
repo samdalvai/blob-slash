@@ -1,19 +1,22 @@
 import Editor from '../Editor';
 import { EditorSettings } from '../types';
 
+const EDITOR_SETTINGS_KEY = 'editor-settings';
+const LEVEL_KEY = 'level';
+
 export const saveEditorSettingsToLocalStorage = () => {
     const settings: EditorSettings = Editor.editorSettings;
     const jsonString = JSON.stringify(settings, null, 2);
-    localStorage.setItem('editor-settings', jsonString);
-};
-
-export const deleteLevelInLocalStorage = (levelId: string) => {
-    localStorage.removeItem(levelId);
+    localStorage.setItem(EDITOR_SETTINGS_KEY, jsonString);
 };
 
 export const loadEditorSettingsFromLocalStorage = (): EditorSettings | undefined => {
-    const jsonString = localStorage.getItem('editor-settings') as any;
+    const jsonString = localStorage.getItem(EDITOR_SETTINGS_KEY) as any;
     return jsonString ? (JSON.parse(jsonString) as EditorSettings) : undefined;
+};
+
+export const deleteLevelFromLocalStorage = (levelId: string) => {
+    localStorage.removeItem(levelId);
 };
 
 export const getAllLevelKeysFromLocalStorage = () => {
@@ -22,7 +25,7 @@ export const getAllLevelKeysFromLocalStorage = () => {
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
 
-        if (key && key.startsWith('level')) {
+        if (key && key.startsWith(LEVEL_KEY)) {
             levelKeys.push(key);
         }
     }
@@ -36,7 +39,7 @@ export const getNextLevelId = (levelKeys: string[]) => {
     const sortedLevelKeys = sortLevelKeys(levelKeys);
 
     for (const key of sortedLevelKeys) {
-        const numberPart = key.replace('level-', '');
+        const numberPart = key.replace(LEVEL_KEY + '-', '');
         const numberPartParsed = parseInt(numberPart);
 
         if (numberPartParsed !== availableId) {
@@ -46,15 +49,15 @@ export const getNextLevelId = (levelKeys: string[]) => {
         availableId++;
     }
 
-    return 'level-' + availableId;
+    return LEVEL_KEY + '-' + availableId;
 };
 
 export const sortLevelKeys = (levelKeys: string[]) => {
     const sortedKeys = levelKeys.sort((keyA, keyB) => {
-        const numberPartA = keyA.replace('level-', '');
+        const numberPartA = keyA.replace(LEVEL_KEY + '-', '');
         const numberPartParsedA = parseInt(numberPartA);
 
-        const numberPartB = keyB.replace('level-', '');
+        const numberPartB = keyB.replace(LEVEL_KEY + '-', '');
         const numberPartParsedB = parseInt(numberPartB);
 
         return numberPartParsedA - numberPartParsedB;
