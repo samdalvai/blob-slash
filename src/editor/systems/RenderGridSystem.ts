@@ -3,6 +3,7 @@ import { Rectangle } from '../../engine/types/utils';
 import Game from '../../game/Game';
 import Editor from '../Editor';
 
+// TODO: show grid on the whole editor view
 export default class RenderGridSystem extends System {
     constructor() {
         super();
