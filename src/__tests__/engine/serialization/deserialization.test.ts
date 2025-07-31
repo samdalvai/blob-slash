@@ -13,6 +13,16 @@ import TransformComponent from '../../../game/components/TransformComponent';
 import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 
 /**
+ * Constructor strings
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+/**
  * Constructors
  * constructor()
  * constructor(detectionRadius = 0, minFollowDistance = 0, followVelocity = 0, followDuration = 0)
