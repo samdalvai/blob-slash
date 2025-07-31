@@ -40,7 +40,7 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
     return entitiesList;
 };
 
-export const getConstructorString = (componentString: string): string => {
+export const parseConstructorString = (componentString: string): string => {
     const constructorMatch = componentString.match(/constructor\(([\s\S]*?)\)/g);
 
     if (!constructorMatch || !constructorMatch[0]) {
@@ -74,7 +74,7 @@ export const getComponentConstructorParamNames = <T extends Component>(component
     // assetId = DEFAULT_TEXTURE, does not work only if imported from another module
     const componentString = component.toString();
     console.log('componentString: ', componentString);
-    const constructorString = getConstructorString(componentString);
+    const constructorString = parseConstructorString(componentString);
     console.log('constructorString: ', constructorString);
     console.log('Parsed parameters: ', parseConstructorParameters(constructorString));
     return parseConstructorParameters(constructorString);
