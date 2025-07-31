@@ -44,23 +44,25 @@ export const parseConstructorString = (componentString: string): string => {
     const indexOfConstructor = componentString.indexOf('constructor');
 
     if (indexOfConstructor === -1) {
-        throw new Error(`'Error, np constructor defined for component ${componentString}`);
+        throw new Error(`'Error, no constructor defined for component ${componentString}`);
     }
 
-    const constructorParamString = componentString.substring(indexOfConstructor + 'constructor'.length);
+    const afterConstructor = componentString.substring(indexOfConstructor + 'constructor'.length);
     let openParenthesis = 0;
 
-    for (let i = 0; i < constructorParamString.length; i++) {
-        if (constructorParamString.charAt(i) === '(') {
+    for (let i = 0; i < afterConstructor.length; i++) {
+        const char = afterConstructor[i];
+
+        if (char === '(') {
             openParenthesis++;
         }
 
-        if (constructorParamString.charAt(i) === ')') {
+        if (char === ')') {
             openParenthesis--;
-        }
 
-        if (i > 0 && openParenthesis === 0) {
-            return constructorParamString.substring(1, i);
+            if (openParenthesis === 0) {
+                return afterConstructor.substring(1, i);
+            }
         }
     }
 

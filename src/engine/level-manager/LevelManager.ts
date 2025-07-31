@@ -4,6 +4,7 @@ import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
 import { loadLevelFromLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
+import { DEFAULT_SPRITE } from '../utils/constants';
 
 export default class LevelManager {
     private registry: Registry;
@@ -53,7 +54,7 @@ export default class LevelManager {
 
     private async loadAssets(level: LevelMap) {
         console.log('Loading default texture');
-        await this.assetStore.addTexture('__default__', './assets/sprites/default.png');
+        await this.assetStore.addTexture(DEFAULT_SPRITE, './assets/sprites/default.png');
 
         console.log('Loading assets');
         for (const texture of level.textures) {
