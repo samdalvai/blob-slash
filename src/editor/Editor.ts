@@ -504,7 +504,6 @@ export default class Editor extends Engine {
 
         // Render Editor systems
         this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render game related systems
         Editor.editorSettings.activeSystems['RenderSystem'] &&
@@ -558,7 +557,10 @@ export default class Editor extends Engine {
                 .getSystem(GameSystems.DebugCursorCoordinatesSystem)
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
+        // Render Editor systems needing overlay
         this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
+
         if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
