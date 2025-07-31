@@ -10,6 +10,33 @@ import {
 import { EntityMap } from '../../../engine/types/map';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
+import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
+
+/**
+ * Constructors
+ * constructor()
+ * constructor(detectionRadius = 0, minFollowDistance = 0, followVelocity = 0, followDuration = 0)
+ * constructor(scripts = [])
+ * constructor(assetId = '__default__', width = 0, height = 0, zIndex = 0, srcRect = {
+        x: 0,
+        y: 0
+    }, flip = 0, isFixed = false, transparency = 1)
+ * constructor(numFrames = 1, frameSpeedRate = 1, isLoop = true)
+ * constructor(assetId = DEFAULT_SPRITE, width = 0, height = 0, zIndex = 0, srcRect = {
+        x: 0,
+        y: 0
+    }, flip = 0, isFixed = false, transparency = 1)
+ * constructor(dimension = 1, duration = 1000, color = 'black', emitFrequency = 100, emitRadius = 100, offsetX = 0, offsetY = 0, particleVelocity = {
+        x: 0,
+        y: 0
+    })
+ * constructor(assetId = (0, _constants.DEFAULT_SPRITE), width = 0, height = 0, zIndex = 0, srcRect = {
+        x: 0,
+        y: 0
+    }, flip = 0, isFixed = false, transparency = 1){
+        if (transparency < 0 || transparency > 1) throw new Error('Transparency must be between 0 and 1')
+ * 
+ */
 
 describe('Testing deserialization related functions', () => {
     test('Should extract component constructor parameter names', () => {
@@ -148,7 +175,7 @@ describe('Testing deserialization related functions', () => {
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
     });
 
-    test('Should extract component constructor parameter names with string types and constant as default initializer', () => {
+    test('Should extract component constructor parameter names with string types and constant as default initializer in the same module', () => {
         const DEFAULT_VALUE = 'test';
 
         class MyComponent extends Component {
@@ -158,6 +185,23 @@ describe('Testing deserialization related functions', () => {
             // TODO: does not work when run from the browser
             // eslint-disable-next-line quotes
             constructor(myProperty1 = DEFAULT_VALUE, myProperty2 = 'whatever') {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should extract component constructor parameter names with string types and constant as default initializer from another module', () => {
+        class MyComponent extends Component {
+            myProperty1: string;
+            myProperty2: string;
+
+            // TODO: does not work when run from the browser
+            // eslint-disable-next-line quotes
+            constructor(myProperty1 = DEFAULT_SPRITE, myProperty2 = 'whatever') {
                 super();
                 this.myProperty1 = myProperty1;
                 this.myProperty2 = myProperty2;
