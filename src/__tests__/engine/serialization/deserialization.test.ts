@@ -13,89 +13,25 @@ import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
 
-/**
- * Constructor strings
- * class MyComponent extends (0, _componentDefault.default) {
-    constructor(){
-        super();
-    }
-}
- * 
- * class HealthComponent extends (0, _componentDefault.default) {
-    constructor(healthPercentage = 0){
-        super();
-        this.healthPercentage = healthPercentage;
-        this.lastDamageTime = 0;
-    }
-}
- * class SpriteComponent extends (0, _componentDefault.default) {
-    constructor(assetId = (0, _constants.DEFAULT_SPRITE), width = 0, height = 0, zIndex = 0, srcRect = {
-        x: 0,
-        y: 0
-    }, flip = 0, isFixed = false, transparency = 1){
-        if (transparency < 0 || transparency > 1) throw new Error('Transparency must be between 0 and 1');
-        super();
-        this.assetId = assetId;
-        this.width = width;
-        this.height = height;
-        this.zIndex = zIndex;
-        this.srcRect = {
-            x: srcRect.x,
-            y: srcRect.y,
-            width,
-            height
-        };
-        this.flip = flip;
-        this.isFixed = isFixed;
-        this.transparency = transparency;
-    }
-}
- * 
- * 
- */
-
-/**
- * Constructors
- * constructor()
- * constructor(detectionRadius = 0, minFollowDistance = 0, followVelocity = 0, followDuration = 0)
- * constructor(scripts = [])
- * constructor(assetId = '__default__', width = 0, height = 0, zIndex = 0, srcRect = {
-        x: 0,
-        y: 0
-    }, flip = 0, isFixed = false, transparency = 1)
- * constructor(numFrames = 1, frameSpeedRate = 1, isLoop = true)
- * constructor(assetId = DEFAULT_SPRITE, width = 0, height = 0, zIndex = 0, srcRect = {
-        x: 0,
-        y: 0
-    }, flip = 0, isFixed = false, transparency = 1)
- * constructor(dimension = 1, duration = 1000, color = 'black', emitFrequency = 100, emitRadius = 100, offsetX = 0, offsetY = 0, particleVelocity = {
-        x: 0,
-        y: 0
-    })
- * constructor(assetId = (0, _constants.DEFAULT_SPRITE), width = 0, height = 0, zIndex = 0, srcRect = {
-        x: 0,
-        y: 0
-    }, flip = 0, isFixed = false, transparency = 1){
-        if (transparency < 0 || transparency > 1) throw new Error('Transparency must be between 0 and 1')
- * 
- */
-
 describe('Testing deserialization related functions', () => {
     test('Should parse constructor string from component string with no parameters', () => {
-        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor() { super(); }}';
-        const expected = 'constructor()';
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor() { super(); }}';
+        const expected = '';
         expect(parseConstructorString(componentString)).toEqual(expected);
     });
 
     test('Should parse constructor string from component string with one parameter', () => {
-        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor(test = 0) { super(); }}';
-        const expected = 'constructor(test = 0)';
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor(test = 0) { super(); }}';
+        const expected = 'test = 0';
         expect(parseConstructorString(componentString)).toEqual(expected);
     });
 
     test('Should parse constructor string from component string with constant from other module ', () => {
-        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor(test = (0, _constants.MY_CONSTANT)) { super(); }}';
-        const expected = 'constructor(test = (0, _constants.MY_CONSTANT))';
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor(test = (0, _constants.MY_CONSTANT)) { super(); }}';
+        const expected = 'test = (0, _constants.MY_CONSTANT)';
         expect(parseConstructorString(componentString)).toEqual(expected);
     });
 
@@ -242,7 +178,6 @@ describe('Testing deserialization related functions', () => {
             myProperty1: string;
             myProperty2: string;
 
-            // TODO: does not work when run from the browser
             // eslint-disable-next-line quotes
             constructor(myProperty1 = DEFAULT_VALUE, myProperty2 = 'whatever') {
                 super();

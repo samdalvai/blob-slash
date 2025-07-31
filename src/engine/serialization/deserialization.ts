@@ -41,27 +41,42 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
 };
 
 export const parseConstructorString = (componentString: string): string => {
-    const constructorMatch = componentString.match(/constructor\(([\s\S]*?)\)/g);
+    const indexOfConstructor = componentString.indexOf('constructor');
 
-    if (!constructorMatch || !constructorMatch[0]) {
-        throw new Error(`'Error, could not parse constructor for component ${componentString}`);
+    if (indexOfConstructor === -1) {
+        throw new Error(`'Error, np constructor defined for component ${componentString}`);
     }
 
-    return constructorMatch[0];
+    const constructorParamString = componentString.substring(indexOfConstructor + 'constructor'.length);
+    let openParenthesis = 0;
+
+    for (let i = 0; i < constructorParamString.length; i++) {
+        if (constructorParamString.charAt(i) === '(') {
+            openParenthesis++;
+        }
+
+        if (constructorParamString.charAt(i) === ')') {
+            openParenthesis--;
+        }
+
+        if (i > 0 && openParenthesis === 0) {
+            return constructorParamString.substring(1, i);
+        }
+    }
+
+    throw new Error(`'Error, could not parse constructor for component ${componentString}`);
 };
 
 export const parseConstructorParameters = (constructorStr: string): string[] => {
     const paramNames = constructorStr
-        .replace('constructor', '')
-        .replace('= false', '')
-        .replace('= true', '')
-        .replace('= []', '')
-        .replace(/\{([\s\S]*?)\}/g, '')
-        .replace(/\{([\s\S]*?)\}/g, '')
-        .replace(/'(.*?)'/g, '')
-        .replace(/"(.*?)"/g, '')
-        .replace(/= [^,)]+/g, '')
-        .replace(/[()=,]/g, ' ')
+        .replace(/= (true|false)/g, '') // Removes "= true" or "= false"
+        .replace('= []', '') // Removes literal "= []"
+        .replace(/\([^)]*\)/g, '') // Removes anything inside parentheses (e.g., function params or groupings)
+        .replace(/\{([\s\S]*?)\}/g, '') // Removes content inside curly braces (non-greedy)
+        .replace(/'(.*?)'/g, '') // Removes anything inside single quotes, including the quotes
+        .replace(/"(.*?)"/g, '') // Removes anything inside double quotes, including the quotes
+        .replace(/= [^,]+/g, '') // Removes default values (e.g., "= 5", "= 'abc'") until `,` or `)`
+        .replace(/[()=,]/g, ' ') // Replaces parentheses, equal signs, and commas with spaces
         .split(' ')
         .filter(param => param !== '')
         .filter(param => !isNumeric(param));
@@ -70,13 +85,8 @@ export const parseConstructorParameters = (constructorStr: string): string[] => 
 };
 
 export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
-    // TODO: improve this constructor matcher, it fails for constants, e.g.
-    // assetId = DEFAULT_TEXTURE, does not work only if imported from another module
     const componentString = component.toString();
-    console.log('componentString: ', componentString);
     const constructorString = parseConstructorString(componentString);
-    console.log('constructorString: ', constructorString);
-    console.log('Parsed parameters: ', parseConstructorParameters(constructorString));
     return parseConstructorParameters(constructorString);
 };
 
