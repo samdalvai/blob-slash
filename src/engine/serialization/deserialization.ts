@@ -77,8 +77,8 @@ export const parseConstructorParameters = (constructorStr: string): string[] => 
         .replace(/\{([\s\S]*?)\}/g, '') // Removes content inside curly braces (non-greedy)
         .replace(/'(.*?)'/g, '') // Removes anything inside single quotes, including the quotes
         .replace(/"(.*?)"/g, '') // Removes anything inside double quotes, including the quotes
-        .replace(/= [^,]+/g, '') // Removes default values (e.g., "= 5", "= 'abc'") until `,` or `)`
-        .replace(/[()=,]/g, ' ') // Replaces parentheses, equal signs, and commas with spaces
+        .replace(/= [^,]+/g, '') // Removes default values (e.g., "= 5", "= 'abc'") until `,`
+        .replace(/[()=,]/g, '') // Removes parentheses, equal signs, and commas
         .split(' ')
         .filter(param => param !== '')
         .filter(param => !isNumeric(param));
