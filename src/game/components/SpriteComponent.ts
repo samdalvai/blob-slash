@@ -13,7 +13,7 @@ export default class SpriteComponent extends Component {
     transparency: number;
 
     constructor(
-        assetId = '__default__',
+        assetId = DEFAULT_SPRITE,
         width = 0,
         height = 0,
         zIndex = 0,

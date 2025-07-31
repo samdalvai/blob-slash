@@ -6,18 +6,50 @@ import {
     deserializeEntities,
     deserializeEntity,
     getComponentConstructorParamNames,
+    parseConstructorString,
 } from '../../../engine/serialization/deserialization';
 import { EntityMap } from '../../../engine/types/map';
+import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
-import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 
 /**
  * Constructor strings
+ * class MyComponent extends (0, _componentDefault.default) {
+    constructor(){
+        super();
+    }
+}
  * 
- * 
- * 
- * 
+ * class HealthComponent extends (0, _componentDefault.default) {
+    constructor(healthPercentage = 0){
+        super();
+        this.healthPercentage = healthPercentage;
+        this.lastDamageTime = 0;
+    }
+}
+ * class SpriteComponent extends (0, _componentDefault.default) {
+    constructor(assetId = (0, _constants.DEFAULT_SPRITE), width = 0, height = 0, zIndex = 0, srcRect = {
+        x: 0,
+        y: 0
+    }, flip = 0, isFixed = false, transparency = 1){
+        if (transparency < 0 || transparency > 1) throw new Error('Transparency must be between 0 and 1');
+        super();
+        this.assetId = assetId;
+        this.width = width;
+        this.height = height;
+        this.zIndex = zIndex;
+        this.srcRect = {
+            x: srcRect.x,
+            y: srcRect.y,
+            width,
+            height
+        };
+        this.flip = flip;
+        this.isFixed = isFixed;
+        this.transparency = transparency;
+    }
+}
  * 
  * 
  */
@@ -49,6 +81,24 @@ import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
  */
 
 describe('Testing deserialization related functions', () => {
+    test('Should parse constructor string from component string with no parameters', () => {
+        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor() { super(); }}';
+        const expected = 'constructor()';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
+    test('Should parse constructor string from component string with one parameter', () => {
+        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor(test = 0) { super(); }}';
+        const expected = 'constructor(test = 0)';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
+    test('Should parse constructor string from component string with constant from other module ', () => {
+        const componentString = 'class MyComponent extends (0, _componentDefault.default) { constructor(test = (0, _constants.MY_CONSTANT)) { super(); }}';
+        const expected = 'constructor(test = (0, _constants.MY_CONSTANT))';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
     test('Should extract component constructor parameter names', () => {
         class MyComponent extends Component {
             myProperty1: number;
