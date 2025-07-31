@@ -40,32 +40,56 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
     return entitiesList;
 };
 
-export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
-    const constructorStr = component.toString();
-    const constructorMatch = constructorStr.match(/constructor\(([\s\S]*?)\)/g);
+export const parseConstructorString = (componentString: string): string => {
+    const indexOfConstructor = componentString.indexOf('constructor');
 
-    if (!constructorMatch || !constructorMatch[0]) {
-        throw new Error(`'Error, could not parse constructor for component class ${component}`);
+    if (indexOfConstructor === -1) {
+        throw new Error(`'Error, no constructor defined for component ${componentString}`);
     }
 
-    // TODO: improve this constructor matcher, it fails for constants, e.g.
-    // assetId = DEFAULT_TEXTURE
-    const paramNames = constructorMatch[0]
-        .replace('constructor', '')
-        .replace('= false', '')
-        .replace('= true', '')
-        .replace('= []', '')
-        .replace(/\{([\s\S]*?)\}/g, '')
-        .replace(/\{([\s\S]*?)\}/g, '')
-        .replace(/'(.*?)'/g, '')
-        .replace(/"(.*?)"/g, '')
-        .replace(/= [^,)]+/g, '')
-        .replace(/[()=,]/g, ' ')
+    const afterConstructor = componentString.substring(indexOfConstructor + 'constructor'.length);
+    let openParenthesis = 0;
+
+    for (let i = 0; i < afterConstructor.length; i++) {
+        const char = afterConstructor[i];
+
+        if (char === '(') {
+            openParenthesis++;
+        }
+
+        if (char === ')') {
+            openParenthesis--;
+
+            if (openParenthesis === 0) {
+                return afterConstructor.substring(1, i);
+            }
+        }
+    }
+
+    throw new Error(`'Error, could not parse constructor for component ${componentString}`);
+};
+
+export const parseConstructorParameters = (constructorStr: string): string[] => {
+    const paramNames = constructorStr
+        .replace(/= (true|false)/g, '') // Removes "= true" or "= false"
+        .replace('= []', '') // Removes literal "= []"
+        .replace(/\([^)]*\)/g, '') // Removes anything inside parentheses (e.g., function params or groupings)
+        .replace(/\{([\s\S]*?)\}/g, '') // Removes content inside curly braces (non-greedy)
+        .replace(/'(.*?)'/g, '') // Removes anything inside single quotes, including the quotes
+        .replace(/"(.*?)"/g, '') // Removes anything inside double quotes, including the quotes
+        .replace(/= [^,]+/g, '') // Removes default values (e.g., "= 5", "= 'abc'") until `,`
+        .replace(/[()=,]/g, '') // Removes parentheses, equal signs, and commas
         .split(' ')
         .filter(param => param !== '')
         .filter(param => !isNumeric(param));
 
     return paramNames;
+};
+
+export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
+    const componentString = component.toString();
+    const constructorString = parseConstructorString(componentString);
+    return parseConstructorParameters(constructorString);
 };
 
 const isNumeric = (str: string) => {

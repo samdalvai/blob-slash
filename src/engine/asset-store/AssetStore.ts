@@ -1,4 +1,5 @@
 import { Asset } from '../types/map';
+import { DEFAULT_SPRITE } from '../utils/constants';
 
 export default class AssetStore {
     private textures: Map<string, HTMLImageElement>;
@@ -26,7 +27,7 @@ export default class AssetStore {
                 console.log('Texture added to the AssetStore with id ' + assetId);
                 this.textures.set(assetId, texture);
 
-                if (assetId !== '__default__') {
+                if (assetId !== DEFAULT_SPRITE) {
                     this.texturesFilePaths.push({ assetId, filePath });
                 }
                 resolve();
