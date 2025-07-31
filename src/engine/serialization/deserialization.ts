@@ -40,17 +40,8 @@ export const deserializeEntities = (entities: EntityMap[], registry: Registry): 
     return entitiesList;
 };
 
-export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
-    const constructorStr = component.toString();
-    const constructorMatch = constructorStr.match(/constructor\(([\s\S]*?)\)/g);
-
-    if (!constructorMatch || !constructorMatch[0]) {
-        throw new Error(`'Error, could not parse constructor for component class ${component}`);
-    }
-
-    // TODO: improve this constructor matcher, it fails for constants, e.g.
-    // assetId = DEFAULT_TEXTURE
-    const paramNames = constructorMatch[0]
+export const parseConstructor = (constructorStr: string): string[] => {
+    const paramNames = constructorStr
         .replace('constructor', '')
         .replace('= false', '')
         .replace('= true', '')
@@ -66,6 +57,20 @@ export const getComponentConstructorParamNames = <T extends Component>(component
         .filter(param => !isNumeric(param));
 
     return paramNames;
+};
+
+export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
+    const constructorStr = component.toString();
+    const constructorMatch = constructorStr.match(/constructor\(([\s\S]*?)\)/g);
+
+    if (!constructorMatch || !constructorMatch[0]) {
+        throw new Error(`'Error, could not parse constructor for component class ${component}`);
+    }
+    console.log(constructorMatch[0]);
+
+    // TODO: improve this constructor matcher, it fails for constants, e.g.
+    // assetId = DEFAULT_TEXTURE
+    return parseConstructor(constructorMatch[0]);
 };
 
 const isNumeric = (str: string) => {
