@@ -1,5 +1,6 @@
 import Component from '../../engine/ecs/Component';
 import { Flip, Rectangle, Vector } from '../../engine/types/utils';
+import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 
 export default class SpriteComponent extends Component {
     assetId: string;
@@ -12,7 +13,7 @@ export default class SpriteComponent extends Component {
     transparency: number;
 
     constructor(
-        assetId = '__default__',
+        assetId = DEFAULT_SPRITE,
         width = 0,
         height = 0,
         zIndex = 0,

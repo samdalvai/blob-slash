@@ -6,12 +6,35 @@ import {
     deserializeEntities,
     deserializeEntity,
     getComponentConstructorParamNames,
+    parseConstructorString,
 } from '../../../engine/serialization/deserialization';
 import { EntityMap } from '../../../engine/types/map';
+import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
 
 describe('Testing deserialization related functions', () => {
+    test('Should parse constructor string from component string with no parameters', () => {
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor() { super(); }}';
+        const expected = '';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
+    test('Should parse constructor string from component string with one parameter', () => {
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor(test = 0) { super(); }}';
+        const expected = 'test = 0';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
+    test('Should parse constructor string from component string with constant from other module ', () => {
+        const componentString =
+            'class MyComponent extends (0, _componentDefault.default) { constructor(test = (0, _constants.MY_CONSTANT)) { super(); }}';
+        const expected = 'test = (0, _constants.MY_CONSTANT)';
+        expect(parseConstructorString(componentString)).toEqual(expected);
+    });
+
     test('Should extract component constructor parameter names', () => {
         class MyComponent extends Component {
             myProperty1: number;
@@ -148,16 +171,32 @@ describe('Testing deserialization related functions', () => {
         expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
     });
 
-    test('Should extract component constructor parameter names with string types and constant as default initializer', () => {
+    test('Should extract component constructor parameter names with string types and constant as default initializer in the same module', () => {
         const DEFAULT_VALUE = 'test';
 
         class MyComponent extends Component {
             myProperty1: string;
             myProperty2: string;
 
-            // TODO: does not work when run from the browser
             // eslint-disable-next-line quotes
             constructor(myProperty1 = DEFAULT_VALUE, myProperty2 = 'whatever') {
+                super();
+                this.myProperty1 = myProperty1;
+                this.myProperty2 = myProperty2;
+            }
+        }
+
+        expect(getComponentConstructorParamNames(MyComponent)).toEqual(['myProperty1', 'myProperty2']);
+    });
+
+    test('Should extract component constructor parameter names with string types and constant as default initializer from another module', () => {
+        class MyComponent extends Component {
+            myProperty1: string;
+            myProperty2: string;
+
+            // TODO: does not work when run from the browser
+            // eslint-disable-next-line quotes
+            constructor(myProperty1 = DEFAULT_SPRITE, myProperty2 = 'whatever') {
                 super();
                 this.myProperty1 = myProperty1;
                 this.myProperty2 = myProperty2;
