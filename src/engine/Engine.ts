@@ -6,9 +6,6 @@ import LevelManager from './level-manager/LevelManager';
 import { GameStatus, Rectangle, Vector } from './types/utils';
 import { sleep } from './utils/time';
 
-const FPS = 60;
-const MILLISECS_PER_FRAME = 1000 / FPS;
-
 export default abstract class Engine {
     // Objects for rendering
     protected canvas: HTMLCanvasElement | null;
@@ -139,6 +136,10 @@ export default abstract class Engine {
 
         console.log('Running Engine');
         //let lastTime = performance.now();
+
+        const FPS = 300;
+        const MILLISECS_PER_FRAME = 1000 / FPS;
+
         let millisecsPreviousFrame = 0;
 
         //const loop = () => {
