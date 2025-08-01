@@ -4,7 +4,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveLevelToLocalStorage, saveLevelToJson } from '../../engine/serialization/persistence';
+import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
@@ -13,8 +13,8 @@ import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
-import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
+import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
 import {
     deleteLevelFromLocalStorage,
@@ -63,7 +63,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.removeEntity(event.entity, entityList);
     };
 
-    onEntityDuplicate = (event: EntitySelectEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+    onEntityDuplicate = (event: EntityDuplicateEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -79,6 +79,7 @@ export default class RenderSidebarSystem extends System {
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
+        Editor.selectedEntity = entityCopy.getId();
         this.entityEditor.saveLevel();
     };
 
