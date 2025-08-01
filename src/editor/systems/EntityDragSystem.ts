@@ -5,7 +5,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import { MousePressedEvent, MouseReleasedEvent } from '../../game/events';
+import { MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';
 import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
@@ -17,9 +17,15 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, canvas: HTMLCanvasElement) {
+    subscribeToEvents(
+        eventBus: EventBus,
+        canvas: HTMLCanvasElement,
+        entityEditor: EntityEditor,
+        mousePressed: boolean,
+    ) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
+        eventBus.subscribeToEvent(MouseMoveEvent, this, event => this.onMouseMove(event, entityEditor, mousePressed));
     }
 
     onMousePressed = (event: MousePressedEvent, eventBus: EventBus, canvas: HTMLCanvasElement) => {
@@ -53,14 +59,14 @@ export default class EntityDragSystem extends System {
                 return entityA.transform.position.y - entityB.transform.position.y;
             }
 
-            return entityA.sprite.zIndex - entityB.sprite.zIndex;
+            return entityB.sprite.zIndex - entityA.sprite.zIndex;
         });
 
         let entityClicked = false;
 
-        for (const entity of renderableEntities) {
-            const sprite = entity.sprite;
-            const transform = entity.transform;
+        for (const renderableEntity of renderableEntities) {
+            const sprite = renderableEntity.sprite;
+            const transform = renderableEntity.transform;
 
             if (
                 event.coordinates.x >= transform.position.x &&
@@ -68,18 +74,17 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== entity.entity.getId()) {
-                    eventBus.emitEvent(EntitySelectEvent, entity.entity);
+                if (Editor.selectedEntity !== renderableEntity.entity.getId()) {
+                    eventBus.emitEvent(EntitySelectEvent, renderableEntity.entity);
                 }
 
-                entityClicked = true;
-                Editor.selectedEntity = entity.entity.getId();
-                Editor.entityDragOffset = {
+                Editor.selectedEntity = renderableEntity.entity.getId();
+                Editor.entityDragStart = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
                 };
-
-                continue;
+                entityClicked = true;
+                break;
             }
         }
 
@@ -89,54 +94,43 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseReleased = () => {
-        Editor.entityDragOffset = null;
+        Editor.entityDragStart = null;
     };
 
-    // TODO: we can use canvas x and width instead of leftSidebar
-    update = (
-        canvasXMin: number,
-        canvasXMax: number,
-        entityEditor: EntityEditor,
-    ) => {
-        if (
-            !Editor.entityDragOffset ||
-            Editor.selectedEntity === null ||
-            Engine.mousePositionScreen.x < canvasXMin ||
-            Engine.mousePositionScreen.x > canvasXMax
-        ) {
-            return;
-        }
+    onMouseMove = (event: MouseMoveEvent, entityEditor: EntityEditor, mousePressed: boolean) => {
+        if (mousePressed && Editor.entityDragStart && Editor.selectedEntity !== null) {
+            for (const entity of this.getSystemEntities()) {
+                if (entity.getId() !== Editor.selectedEntity) {
+                    continue;
+                }
 
-        for (const entity of this.getSystemEntities()) {
-            if (entity.getId() !== Editor.selectedEntity) {
-                continue;
+                const sprite = entity.getComponent(SpriteComponent);
+                const transform = entity.getComponent(TransformComponent);
+
+                if (!sprite || !transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                if (Editor.editorSettings.snapToGrid) {
+                    const newPositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                    const newPositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+
+                    const nearestGridX =
+                        Math.floor(newPositionX / Editor.editorSettings.gridSquareSide) *
+                        Editor.editorSettings.gridSquareSide;
+                    const nearestGridY =
+                        Math.floor(newPositionY / Editor.editorSettings.gridSquareSide) *
+                        Editor.editorSettings.gridSquareSide;
+
+                    this.updateEntityPosition(entity, transform, nearestGridX, nearestGridY, entityEditor);
+
+                    return;
+                }
+
+                const newPositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                const newPositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
             }
-
-            const sprite = entity.getComponent(SpriteComponent);
-            const transform = entity.getComponent(TransformComponent);
-
-            if (!sprite || !transform) {
-                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-            }
-
-            const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
-            const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
-
-            if (Editor.editorSettings.snapToGrid) {
-                const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
-                const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
-
-                this.updateEntityPosition(
-                    entity,
-                    transform,
-                    Engine.mousePositionWorld.x - diffX,
-                    Engine.mousePositionWorld.y - diffY,
-                    entityEditor,
-                );
-                return;
-            }
-
-            this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
         }
     };
 
