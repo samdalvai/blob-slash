@@ -115,27 +115,18 @@ export default class EntityDragSystem extends System {
                 }
 
                 if (Editor.editorSettings.snapToGrid) {
-                    console.log('Snap to ggrid');
-                    /**
-                     *
-                     *
-                     *
-                     *
-                     *
-                     *
-                     *
-                     *
-                     *
-                     */
+                    const newPositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                    const newPositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
 
-                    const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
-                    const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
-                    const newPositionX = Engine.mousePositionWorld.x - diffX;
-                    const newPositionY = Engine.mousePositionWorld.y - diffY;
+                    const nearestGridX =
+                        Math.floor(newPositionX / Editor.editorSettings.gridSquareSide) *
+                        Editor.editorSettings.gridSquareSide;
+                    const nearestGridY =
+                        Math.floor(newPositionY / Editor.editorSettings.gridSquareSide) *
+                        Editor.editorSettings.gridSquareSide;
 
-                    console.log('Snapping to: ', { newPositionX, newPositionY });
+                    this.updateEntityPosition(entity, transform, nearestGridX, nearestGridY, entityEditor);
 
-                    //this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
                     return;
                 }
 
@@ -216,6 +207,6 @@ export default class EntityDragSystem extends System {
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
 
-        //entityEditor.saveLevel();
+        entityEditor.saveLevel();
     };
 }
