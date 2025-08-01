@@ -485,16 +485,6 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationSystem)?.update();
         Editor.editorSettings.activeSystems['SpriteStateSystem'] &&
             this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
-
-        if (!this.commandPressed) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(
-                this.leftSidebar.getBoundingClientRect().width,
-                // TODO: we can use canvas x and width instead of leftSidebar
-                this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
-                this.entityEditor,
-                this.mousePressed,
-            );
-        }
     };
 
     render = () => {
