@@ -59,14 +59,14 @@ export default class EntityDragSystem extends System {
                 return entityA.transform.position.y - entityB.transform.position.y;
             }
 
-            return entityA.sprite.zIndex - entityB.sprite.zIndex;
+            return entityB.sprite.zIndex - entityA.sprite.zIndex;
         });
 
         let entityClicked = false;
 
-        for (const entity of renderableEntities) {
-            const sprite = entity.sprite;
-            const transform = entity.transform;
+        for (const renderableEntity of renderableEntities) {
+            const sprite = renderableEntity.sprite;
+            const transform = renderableEntity.transform;
 
             if (
                 event.coordinates.x >= transform.position.x &&
@@ -74,20 +74,17 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== entity.entity.getId()) {
-                    console.log('Emitting select');
-                    // TODO: entity select is emitted more times than needed
-                    eventBus.emitEvent(EntitySelectEvent, entity.entity);
+                if (Editor.selectedEntity !== renderableEntity.entity.getId()) {
+                    eventBus.emitEvent(EntitySelectEvent, renderableEntity.entity);
                 }
 
-                entityClicked = true;
-                Editor.selectedEntity = entity.entity.getId();
+                Editor.selectedEntity = renderableEntity.entity.getId();
                 Editor.entityDragStart = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
                 };
-
-                continue;
+                entityClicked = true;
+                break;
             }
         }
 
