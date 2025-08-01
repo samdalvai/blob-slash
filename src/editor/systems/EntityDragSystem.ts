@@ -56,17 +56,17 @@ export default class EntityDragSystem extends System {
 
         renderableEntities.sort((entityA, entityB) => {
             if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
-                return entityB.transform.position.y - entityA.transform.position.y;
+                return entityA.transform.position.y - entityB.transform.position.y;
             }
 
-            return entityB.sprite.zIndex - entityA.sprite.zIndex;
+            return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
         let entityClicked = false;
 
-        for (const renderableEntity of renderableEntities) {
-            const sprite = renderableEntity.sprite;
-            const transform = renderableEntity.transform;
+        for (const entity of renderableEntities) {
+            const sprite = entity.sprite;
+            const transform = entity.transform;
 
             if (
                 event.coordinates.x >= transform.position.x &&
@@ -74,17 +74,18 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity?.getId() !== renderableEntity.entity.getId()) {
-                    eventBus.emitEvent(EntitySelectEvent, renderableEntity.entity);
+                if (Editor.selectedEntity !== null && Editor.selectedEntity.getId() !== entity.entity.getId()) {
+                    eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
-                Editor.selectedEntity = renderableEntity.entity;
+                entityClicked = true;
+                Editor.selectedEntity = entity.entity;
                 Editor.entityDragStart = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
                 };
-                entityClicked = true;
-                break;
+
+                continue;
             }
         }
 
