@@ -174,7 +174,7 @@ export default class EntityEditor {
         const componentList = document.createElement('li');
         componentList.id = `entity-${entity.getId()}`;
         componentList.style.border = 'solid 1px white';
-        componentList.onclick = () => (Editor.selectedEntity = entity.getId());
+        componentList.onclick = () => (Editor.selectedEntity = entity);
 
         const header = document.createElement('div');
         header.className = 'd-flex align-center space-between';

@@ -74,11 +74,11 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== renderableEntity.entity.getId()) {
+                if (Editor.selectedEntity?.getId() !== renderableEntity.entity.getId()) {
                     eventBus.emitEvent(EntitySelectEvent, renderableEntity.entity);
                 }
 
-                Editor.selectedEntity = renderableEntity.entity.getId();
+                Editor.selectedEntity = renderableEntity.entity;
                 Editor.entityDragStart = {
                     x: event.coordinates.x - transform.position.x,
                     y: event.coordinates.y - transform.position.y,
@@ -100,7 +100,7 @@ export default class EntityDragSystem extends System {
     onMouseMove = (event: MouseMoveEvent, entityEditor: EntityEditor, mousePressed: boolean) => {
         if (mousePressed && Editor.entityDragStart && Editor.selectedEntity !== null) {
             for (const entity of this.getSystemEntities()) {
-                if (entity.getId() !== Editor.selectedEntity) {
+                if (entity.getId() !== Editor.selectedEntity.getId()) {
                     continue;
                 }
 
