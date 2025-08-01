@@ -75,19 +75,16 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
                 if (Editor.selectedEntity !== entity.entity.getId()) {
-                    console.log("Emitting select");
+                    console.log('Emitting select');
                     eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
                 entityClicked = true;
                 Editor.selectedEntity = entity.entity.getId();
                 Editor.entityDragStart = {
-                    x: event.coordinates.x,
-                    y: event.coordinates.y,
+                    x: event.coordinates.x - transform.position.x,
+                    y: event.coordinates.y - transform.position.y,
                 };
-                // console.log('transform.position.x: ', transform.position.x);
-                // console.log('transform.position.y: ', transform.position.y);
-                // console.log('drag offset: ', Editor.entityDragOffset);
 
                 continue;
             }
@@ -103,17 +100,7 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseMove = (event: MouseMoveEvent, entityEditor: EntityEditor, mousePressed: boolean) => {
-        console.log('mousePressed: ', mousePressed);
-        console.log('Editor.entityDragStart: ', Editor.entityDragStart);
-        console.log('Editor.selectedEntity: ', Editor.selectedEntity);
         if (mousePressed && Editor.entityDragStart && Editor.selectedEntity !== null) {
-            console.log('mouse coordinates: ', event.coordinates);
-            console.log('drag offset: ', Editor.entityDragStart);
-            const diffX = Editor.entityDragStart.x - event.coordinates.x;
-            const diffY = Editor.entityDragStart.y - event.coordinates.y;
-            console.log('diffX: ', diffX);
-            console.log('diffY: ', diffY);
-
             for (const entity of this.getSystemEntities()) {
                 if (entity.getId() !== Editor.selectedEntity) {
                     continue;
@@ -125,18 +112,25 @@ export default class EntityDragSystem extends System {
                 if (!sprite || !transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
-                const newPositionX = transform.position.x - diffX;
-                const newPositionY = transform.position.y - diffY;
 
-                console.log('newPositionX: ', newPositionX);
-                console.log('newPositionY: ', newPositionY);
-                
-                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
+                const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
 
-                Editor.entityDragStart = {
-                    x: event.coordinates.x,
-                    y: event.coordinates.y,
-                };
+                if (Editor.editorSettings.snapToGrid) {
+                    const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
+                    const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
+
+                    this.updateEntityPosition(
+                        entity,
+                        transform,
+                        Engine.mousePositionWorld.x - diffX,
+                        Engine.mousePositionWorld.y - diffY,
+                        entityEditor,
+                    );
+                    return;
+                }
+
+                this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
             }
         }
     };
