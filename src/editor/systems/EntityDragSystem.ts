@@ -114,21 +114,31 @@ export default class EntityDragSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                
                 if (Editor.editorSettings.snapToGrid) {
+                    console.log('Snap to ggrid');
+                    /**
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     */
+
                     const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
                     const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
-                    
-                    this.updateEntityPosition(
-                        entity,
-                        transform,
-                        Engine.mousePositionWorld.x - diffX,
-                        Engine.mousePositionWorld.y - diffY,
-                        entityEditor,
-                    );
+                    const newPositionX = Engine.mousePositionWorld.x - diffX;
+                    const newPositionY = Engine.mousePositionWorld.y - diffY;
+
+                    console.log('Snapping to: ', { newPositionX, newPositionY });
+
+                    //this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
                     return;
                 }
-                
+
                 const newPositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
                 const newPositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
                 this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
