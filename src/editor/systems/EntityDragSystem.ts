@@ -5,7 +5,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import { MousePressedEvent, MouseReleasedEvent } from '../../game/events';
+import { MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';
 import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
@@ -17,9 +17,15 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, canvas: HTMLCanvasElement) {
+    subscribeToEvents(
+        eventBus: EventBus,
+        canvas: HTMLCanvasElement,
+        entityEditor: EntityEditor,
+        mousePressed: boolean,
+    ) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
+        eventBus.subscribeToEvent(MouseMoveEvent, this, event => this.onMouseMove(event, entityEditor, mousePressed));
     }
 
     onMousePressed = (event: MousePressedEvent, eventBus: EventBus, canvas: HTMLCanvasElement) => {
@@ -69,15 +75,19 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
                 if (Editor.selectedEntity !== entity.entity.getId()) {
+                    console.log("Emitting select");
                     eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
                 entityClicked = true;
                 Editor.selectedEntity = entity.entity.getId();
-                Editor.entityDragOffset = {
-                    x: event.coordinates.x - transform.position.x,
-                    y: event.coordinates.y - transform.position.y,
+                Editor.entityDragStart = {
+                    x: event.coordinates.x,
+                    y: event.coordinates.y,
                 };
+                // console.log('transform.position.x: ', transform.position.x);
+                // console.log('transform.position.y: ', transform.position.y);
+                // console.log('drag offset: ', Editor.entityDragOffset);
 
                 continue;
             }
@@ -89,17 +99,53 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseReleased = () => {
-        Editor.entityDragOffset = null;
+        Editor.entityDragStart = null;
     };
 
-    // TODO: we can use canvas x and width instead of leftSidebar
-    update = (
-        canvasXMin: number,
-        canvasXMax: number,
-        entityEditor: EntityEditor,
-    ) => {
+    onMouseMove = (event: MouseMoveEvent, entityEditor: EntityEditor, mousePressed: boolean) => {
+        console.log('mousePressed: ', mousePressed);
+        console.log('Editor.entityDragStart: ', Editor.entityDragStart);
+        console.log('Editor.selectedEntity: ', Editor.selectedEntity);
+        if (mousePressed && Editor.entityDragStart && Editor.selectedEntity !== null) {
+            console.log('mouse coordinates: ', event.coordinates);
+            console.log('drag offset: ', Editor.entityDragStart);
+            const diffX = Editor.entityDragStart.x - event.coordinates.x;
+            const diffY = Editor.entityDragStart.y - event.coordinates.y;
+            console.log('diffX: ', diffX);
+            console.log('diffY: ', diffY);
+
+            for (const entity of this.getSystemEntities()) {
+                if (entity.getId() !== Editor.selectedEntity) {
+                    continue;
+                }
+
+                const sprite = entity.getComponent(SpriteComponent);
+                const transform = entity.getComponent(TransformComponent);
+
+                if (!sprite || !transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+                const newPositionX = transform.position.x - diffX;
+                const newPositionY = transform.position.y - diffY;
+
+                console.log('newPositionX: ', newPositionX);
+                console.log('newPositionY: ', newPositionY);
+                
+                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
+
+                Editor.entityDragStart = {
+                    x: event.coordinates.x,
+                    y: event.coordinates.y,
+                };
+            }
+        }
+    };
+
+    // TODO 1: we can use canvas x and width instead of leftSidebar
+    // TODO 2: can we use mouse move event instead of updating each frame?
+    update = (canvasXMin: number, canvasXMax: number, entityEditor: EntityEditor, mousePressed: boolean) => {
         if (
-            !Editor.entityDragOffset ||
+            !mousePressed ||
             Editor.selectedEntity === null ||
             Engine.mousePositionScreen.x < canvasXMin ||
             Engine.mousePositionScreen.x > canvasXMax
@@ -119,24 +165,24 @@ export default class EntityDragSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
-            const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
+            // const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragOffset.x);
+            // const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragOffset.y);
 
-            if (Editor.editorSettings.snapToGrid) {
-                const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
-                const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
+            // if (Editor.editorSettings.snapToGrid) {
+            //     const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
+            //     const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
 
-                this.updateEntityPosition(
-                    entity,
-                    transform,
-                    Engine.mousePositionWorld.x - diffX,
-                    Engine.mousePositionWorld.y - diffY,
-                    entityEditor,
-                );
-                return;
-            }
+            //     this.updateEntityPosition(
+            //         entity,
+            //         transform,
+            //         Engine.mousePositionWorld.x - diffX,
+            //         Engine.mousePositionWorld.y - diffY,
+            //         entityEditor,
+            //     );
+            //     return;
+            // }
 
-            this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
+            // this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
         }
     };
 
@@ -165,6 +211,6 @@ export default class EntityDragSystem extends System {
         positionXInput.value = transform.position.x.toString();
         positionYInput.value = transform.position.y.toString();
 
-        entityEditor.saveLevel();
+        //entityEditor.saveLevel();
     };
 }
