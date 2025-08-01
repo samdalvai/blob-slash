@@ -98,4 +98,26 @@ describe('Testing Entity related functions', () => {
         expect(entityCopy.getTag()).toEqual(undefined);
         expect(entityCopy.getGroup()).toEqual('test-group');
     });
+
+    test('Duplicated entity coming from a duplicate should be copied from the copied entity and have his components', () => {
+        const registry = new Registry();
+
+        const entity = registry.createEntity();
+        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+
+        const entityCopy1 = entity.duplicate();
+        registry.update();
+
+        const entityCopyTransform1 = entityCopy1.getComponent(TransformComponent);
+        entityCopyTransform1!.position.x = 200;
+        entityCopyTransform1!.position.y = 200;
+        registry.update();
+
+        const entityCopy2 = entityCopy1.duplicate();
+        const components = entityCopy2.getComponents();
+
+        expect(entityCopy2.getComponent(TransformComponent)!.position.x).toEqual(200);
+        expect(entityCopy2.getComponent(TransformComponent)!.position.y).toEqual(200);
+        expect(components.length).toBe(1);
+    });
 });
