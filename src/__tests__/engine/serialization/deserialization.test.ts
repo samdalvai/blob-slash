@@ -194,7 +194,6 @@ describe('Testing deserialization related functions', () => {
             myProperty1: string;
             myProperty2: string;
 
-            // TODO: does not work when run from the browser
             // eslint-disable-next-line quotes
             constructor(myProperty1 = DEFAULT_SPRITE, myProperty2 = 'whatever') {
                 super();
