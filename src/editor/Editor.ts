@@ -40,7 +40,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntity: number | null;
-    static entityDragOffset: Vector | null;
+    static entityDragStart: Vector | null;
     static alertShown = false;
 
     static editorSettings: EditorSettings = {
@@ -445,7 +445,9 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
         if (!this.commandPressed) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.subscribeToEvents(this.eventBus, this.canvas);
+            this.registry
+                .getSystem(EditorSystems.EntityDragSystem)
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.mousePressed);
         }
 
         this.registry
@@ -483,15 +485,6 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.AnimationSystem)?.update();
         Editor.editorSettings.activeSystems['SpriteStateSystem'] &&
             this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
-
-        if (!this.commandPressed) {
-            this.registry.getSystem(EditorSystems.EntityDragSystem)?.update(
-                this.leftSidebar.getBoundingClientRect().width,
-                // TODO: we can use canvas x and width instead of leftSidebar
-                this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width,
-                this.entityEditor,
-            );
-        }
     };
 
     render = () => {
