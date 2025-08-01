@@ -63,6 +63,8 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.removeEntity(event.entity, entityList);
     };
 
+    // TODO: bug occurring cwhen copying a chain of entities, e.g. I copy entity 1, then I copy entity 2,
+    // the copy created is entity 1. It seems that selected entity is wrong
     onEntityDuplicate = (event: EntityDuplicateEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
