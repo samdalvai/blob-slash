@@ -56,7 +56,7 @@ export default class EntityDragSystem extends System {
 
         renderableEntities.sort((entityA, entityB) => {
             if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
-                return entityA.transform.position.y - entityB.transform.position.y;
+                return entityB.transform.position.y - entityA.transform.position.y;
             }
 
             return entityB.sprite.zIndex - entityA.sprite.zIndex;
