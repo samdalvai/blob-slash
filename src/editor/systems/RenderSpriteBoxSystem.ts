@@ -63,7 +63,7 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            if (Editor.selectedEntity !== null && Editor.selectedEntity === renderableEntities[i].entityId) {
+            if (Editor.selectedEntity !== null && Editor.selectedEntity.getId() === renderableEntities[i].entityId) {
                 ctx.save();
                 ctx.strokeStyle = 'green';
                 ctx.lineWidth = 4;

@@ -1,3 +1,4 @@
+import Entity from '../engine/ecs/Entity';
 import Engine from '../engine/Engine';
 import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
@@ -39,8 +40,8 @@ export default class Editor extends Engine {
     private shouldSidebarUpdate: boolean;
 
     // Global Editor objects
-    static selectedEntity: number | null;
-    static entityDragStart: Vector | null;
+    static selectedEntity: Entity | null = null;
+    static entityDragStart: Vector | null = null;
     static alertShown = false;
 
     static editorSettings: EditorSettings = {
