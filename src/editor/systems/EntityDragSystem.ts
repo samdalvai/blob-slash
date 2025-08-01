@@ -76,6 +76,7 @@ export default class EntityDragSystem extends System {
             ) {
                 if (Editor.selectedEntity !== entity.entity.getId()) {
                     console.log('Emitting select');
+                    // TODO: entity select is emitted more times than needed
                     eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
@@ -113,13 +114,11 @@ export default class EntityDragSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                const mousePositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
-                const mousePositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
-
+                
                 if (Editor.editorSettings.snapToGrid) {
                     const diffX = Engine.mousePositionWorld.x % Editor.editorSettings.gridSquareSide;
                     const diffY = Engine.mousePositionWorld.y % Editor.editorSettings.gridSquareSide;
-
+                    
                     this.updateEntityPosition(
                         entity,
                         transform,
@@ -129,8 +128,10 @@ export default class EntityDragSystem extends System {
                     );
                     return;
                 }
-
-                this.updateEntityPosition(entity, transform, mousePositionX, mousePositionY, entityEditor);
+                
+                const newPositionX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                const newPositionY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
             }
         }
     };
