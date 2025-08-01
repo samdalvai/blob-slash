@@ -4,6 +4,10 @@ import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
 import LevelManager from './level-manager/LevelManager';
 import { GameStatus, Rectangle, Vector } from './types/utils';
+import { sleep } from './utils/time';
+
+const FPS = 60;
+const MILLISECS_PER_FRAME = 1000 / FPS;
 
 export default abstract class Engine {
     // Objects for rendering
@@ -134,12 +138,24 @@ export default abstract class Engine {
         await this.setup();
 
         console.log('Running Engine');
-        let lastTime = performance.now();
+        //let lastTime = performance.now();
+        let millisecsPreviousFrame = 0;
 
-        const loop = () => {
-            if (this.isRunning) {
-                const currentTime = performance.now();
-                const deltaTime = (currentTime - lastTime) / 1000.0;
+        //const loop = () => {
+        const loop = async () => {
+            while (this.isRunning) {
+                // if (this.isRunning) {
+                // const currentTime = performance.now();
+                // const deltaTime = (currentTime - lastTime) / 1000.0;
+
+                const timeToWait = MILLISECS_PER_FRAME - (performance.now() - millisecsPreviousFrame);
+                if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
+                    await sleep(timeToWait);
+                }
+
+                // The difference in milliseconds since the last frame, converted to seconds
+                const deltaTime = (performance.now() - millisecsPreviousFrame) / 1000.0;
+                millisecsPreviousFrame = performance.now();
 
                 if (this.isDebug) {
                     this.updateDebugInfo(deltaTime);
@@ -149,12 +165,12 @@ export default abstract class Engine {
                 this.update(deltaTime);
                 this.render();
 
-                lastTime = currentTime;
-
-                requestAnimationFrame(loop);
+                // lastTime = currentTime;
+                // requestAnimationFrame(loop);
             }
         };
 
-        requestAnimationFrame(loop);
+        // requestAnimationFrame(loop);
+        loop();
     };
 }
