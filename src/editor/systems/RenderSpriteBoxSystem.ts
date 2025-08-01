@@ -71,6 +71,10 @@ export default class RenderSpriteBoxSystem extends System {
                 ctx.restore();
             }
 
+            if (Editor.entityDragStart !== null) {
+                continue;
+            }
+
             if (
                 Engine.mousePositionWorld.x >= transform.position.x &&
                 Engine.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
