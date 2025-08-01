@@ -1,9 +1,7 @@
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
-import Game from '../../game/Game';
 import Editor from '../Editor';
 
-// TODO: show grid on the whole editor view
 export default class RenderGridSystem extends System {
     constructor() {
         super();
@@ -19,26 +17,34 @@ export default class RenderGridSystem extends System {
         ctx.strokeStyle = 'lightgray';
         ctx.lineWidth = 1;
 
-        let offset = 0;
+        const gridSize = Editor.editorSettings.gridSquareSide;
 
-        while (offset <= Game.mapHeight) {
+        const canvasWidth = ctx.canvas.width;
+        const canvasHeight = ctx.canvas.height;
+
+        const worldLeft = camera.x;
+        const worldRight = camera.x + canvasWidth / zoom;
+        const worldTop = camera.y;
+        const worldBottom = camera.y + canvasHeight / zoom;
+
+        const startX = Math.floor(worldLeft / gridSize) * gridSize;
+        const endX = Math.ceil(worldRight / gridSize) * gridSize;
+
+        const startY = Math.floor(worldTop / gridSize) * gridSize;
+        const endY = Math.ceil(worldBottom / gridSize) * gridSize;
+
+        for (let y = startY; y <= endY; y += gridSize) {
             ctx.beginPath();
-            ctx.moveTo((0 - camera.x) * zoom, (offset - camera.y) * zoom);
-            ctx.lineTo((Game.mapWidth - camera.x) * zoom, (offset - camera.y) * zoom);
+            ctx.moveTo((worldLeft - camera.x) * zoom, (y - camera.y) * zoom);
+            ctx.lineTo((worldRight - camera.x) * zoom, (y - camera.y) * zoom);
             ctx.stroke();
-
-            offset += Editor.editorSettings.gridSquareSide;
         }
 
-        offset = 0;
-
-        while (offset <= Game.mapWidth) {
+        for (let x = startX; x <= endX; x += gridSize) {
             ctx.beginPath();
-            ctx.moveTo((offset - camera.x) * zoom, (0 - camera.y) * zoom);
-            ctx.lineTo((offset - camera.x) * zoom, (Game.mapHeight - camera.y) * zoom);
+            ctx.moveTo((x - camera.x) * zoom, (worldTop - camera.y) * zoom);
+            ctx.lineTo((x - camera.x) * zoom, (worldBottom - camera.y) * zoom);
             ctx.stroke();
-
-            offset += Editor.editorSettings.gridSquareSide;
         }
 
         ctx.restore();
