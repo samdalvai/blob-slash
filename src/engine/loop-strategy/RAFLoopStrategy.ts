@@ -5,7 +5,7 @@ export default class RAFLoopStrategy extends LoopStrategy {
         let lastTime = performance.now();
 
         const loop = () => {
-            if (!this.engine.isRunning) return;
+            if (!this.engine.running()) return;
 
             const deltaTime = (performance.now() - lastTime) / 1000.0;
             this.engine.runFrame(deltaTime);

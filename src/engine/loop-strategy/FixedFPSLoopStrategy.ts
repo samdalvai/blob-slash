@@ -14,7 +14,7 @@ export default class FixedFPSLoopStrategy extends LoopStrategy {
         const MILLISECS_PER_FRAME = 1000 / this.fps;
         let lastTime = performance.now();
 
-        while (this.engine.isRunning) {
+        while (this.engine.running()) {
             const timeToWait = MILLISECS_PER_FRAME - (performance.now() - lastTime);
             if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
                 await sleep(timeToWait);

@@ -20,7 +20,7 @@ export default abstract class Engine {
     protected levelManager: LevelManager;
 
     // Game status properties
-    public isRunning: boolean;
+    private isRunning: boolean;
     protected isDebug: boolean;
     protected gameStatus: GameStatus;
     private loopStrategy: LoopStrategy | null;
@@ -128,6 +128,8 @@ export default abstract class Engine {
     protected abstract update(deltaTime: number): void;
 
     protected abstract render(): void;
+
+    running = () => this.isRunning;
 
     setLoopStrategy = (loopStrategy: LoopStrategy) => {
         this.loopStrategy = loopStrategy;
