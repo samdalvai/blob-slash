@@ -97,8 +97,6 @@ export default class RenderSystem extends System {
                 ctx.stroke();
             }
 
-            const srcRect: Rectangle = sprite.srcRect;
-
             const dstRect: Rectangle = {
                 x: (transform.position.x - (sprite.isFixed ? 0 : camera.x)) * zoom,
                 y: (transform.position.y - (sprite.isFixed ? 0 : camera.y)) * zoom,
@@ -139,10 +137,10 @@ export default class RenderSystem extends System {
 
             ctx.drawImage(
                 assetStore.getTexture(sprite.assetId),
-                srcRect.x,
-                srcRect.y,
-                srcRect.width,
-                srcRect.height,
+                sprite.srcRect.x,
+                sprite.srcRect.y,
+                sprite.srcRect.width,
+                sprite.srcRect.height,
                 -dstRect.width / 2, // Adjust to draw from the center
                 -dstRect.height / 2,
                 dstRect.width,
