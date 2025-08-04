@@ -7,6 +7,13 @@ import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 
 export default class RenderSystem extends System {
+    private renderQueue: {
+        sprite: SpriteComponent;
+        transform: TransformComponent;
+        shadow?: ShadowComponent;
+        highlight?: HighlightComponent;
+    }[] = [];
+
     constructor() {
         super();
         this.requireComponent(SpriteComponent);
@@ -14,13 +21,6 @@ export default class RenderSystem extends System {
     }
 
     update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle, zoom = 1) {
-        const renderableEntities: {
-            sprite: SpriteComponent;
-            transform: TransformComponent;
-            shadow?: ShadowComponent;
-            highlight?: HighlightComponent;
-        }[] = [];
-
         for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -46,10 +46,10 @@ export default class RenderSystem extends System {
                 ? entity.getComponent(HighlightComponent)
                 : undefined;
 
-            renderableEntities.push({ sprite, transform, shadow, highlight });
+            this.renderQueue.push({ sprite, transform, shadow, highlight });
         }
 
-        renderableEntities.sort((entityA, entityB) => {
+        this.renderQueue.sort((entityA, entityB) => {
             if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
                 return entityA.transform.position.y - entityB.transform.position.y;
             }
@@ -57,7 +57,7 @@ export default class RenderSystem extends System {
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
-        for (const entity of renderableEntities) {
+        for (const entity of this.renderQueue) {
             const sprite = entity.sprite;
             const transform = entity.transform;
 
@@ -96,8 +96,6 @@ export default class RenderSystem extends System {
                 );
                 ctx.stroke();
             }
-
-            const srcRect: Rectangle = sprite.srcRect;
 
             const dstRect: Rectangle = {
                 x: (transform.position.x - (sprite.isFixed ? 0 : camera.x)) * zoom,
@@ -139,10 +137,10 @@ export default class RenderSystem extends System {
 
             ctx.drawImage(
                 assetStore.getTexture(sprite.assetId),
-                srcRect.x,
-                srcRect.y,
-                srcRect.width,
-                srcRect.height,
+                sprite.srcRect.x,
+                sprite.srcRect.y,
+                sprite.srcRect.width,
+                sprite.srcRect.height,
                 -dstRect.width / 2, // Adjust to draw from the center
                 -dstRect.height / 2,
                 dstRect.width,
@@ -151,5 +149,7 @@ export default class RenderSystem extends System {
 
             ctx.restore();
         }
+
+        this.renderQueue.length = 0;
     }
 }
