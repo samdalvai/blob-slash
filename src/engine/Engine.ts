@@ -20,7 +20,7 @@ export default abstract class Engine {
     protected levelManager: LevelManager;
 
     // Game status properties
-    private isRunning: boolean;
+    protected isRunning: boolean;
     protected isDebug: boolean;
     protected gameStatus: GameStatus;
     private loopStrategy: LoopStrategy | null;
