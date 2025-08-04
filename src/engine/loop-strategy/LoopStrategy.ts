@@ -8,6 +8,6 @@ export default class LoopStrategy {
     }
 
     async start() {
-        throw new Error('start() not implemented');
+        throw new Error('No start method defined for loop strategy: ' + this.constructor.name);
     }
 }

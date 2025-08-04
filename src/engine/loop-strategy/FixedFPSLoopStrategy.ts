@@ -22,9 +22,10 @@ export default class FixedFPSLoopStrategy extends LoopStrategy {
 
             const currentTime = performance.now();
             const deltaTime = (currentTime - lastTime) / 1000.0;
-            lastTime = currentTime;
 
             this.engine.runFrame(deltaTime);
+
+            lastTime = performance.now();
         }
     }
 }

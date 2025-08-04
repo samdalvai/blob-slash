@@ -3,8 +3,8 @@ import Registry from './ecs/Registry';
 import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
 import LevelManager from './level-manager/LevelManager';
+import LoopStrategy from './loop-strategy/LoopStrategy';
 import { GameStatus, Rectangle, Vector } from './types/utils';
-import { sleep } from './utils/time';
 
 export default abstract class Engine {
     // Objects for rendering
@@ -23,6 +23,7 @@ export default abstract class Engine {
     public isRunning: boolean;
     protected isDebug: boolean;
     protected gameStatus: GameStatus;
+    private loopStrategy: LoopStrategy | null;
 
     // Debug info
     protected currentFPS: number;
@@ -52,6 +53,7 @@ export default abstract class Engine {
         this.isRunning = false;
         this.isDebug = false;
         this.gameStatus = GameStatus.IDLE;
+        this.loopStrategy = null;
 
         this.currentFPS = 0;
         this.maxFPS = 0;
@@ -127,6 +129,20 @@ export default abstract class Engine {
 
     protected abstract render(): void;
 
+    setLoopStrategy = (loopStrategy: LoopStrategy) => {
+        this.loopStrategy = loopStrategy;
+    };
+
+    runFrame = (deltaTime: number) => {
+        if (this.isDebug) {
+            this.updateDebugInfo(deltaTime);
+        }
+
+        this.processInput();
+        this.update(deltaTime);
+        this.render();
+    };
+
     run = async () => {
         console.log('Initializing Engine');
         this.initialize();
@@ -135,64 +151,10 @@ export default abstract class Engine {
         await this.setup();
 
         console.log('Running Engine');
+        if (!this.loopStrategy) {
+            throw new Error('No loop strategy defined for the engine');
+        }
 
-        const FPS = 60;
-        const MILLISECS_PER_FRAME = 1000 / FPS;
-
-        let lastTime = performance.now();
-
-        const loop = async () => {
-            while (this.isRunning) {
-                const timeToWait = MILLISECS_PER_FRAME - (performance.now() - lastTime);
-                if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
-                    await sleep(timeToWait);
-                }
-
-                const deltaTime = (performance.now() - lastTime) / 1000.0;
-                
-                if (this.isDebug) {
-                    this.updateDebugInfo(deltaTime);
-                }
-                
-                this.processInput();
-                this.update(deltaTime);
-                this.render();
-
-                lastTime = performance.now();
-            }
-        };
-
-        loop();
-    };
-
-    run2 = async () => {
-        console.log('Initializing Engine');
-        this.initialize();
-
-        console.log('Setting up systems');
-        await this.setup();
-
-        console.log('Running Engine');
-        let lastTime = performance.now();
-
-        const loop = () => {
-            if (this.isRunning) {
-                const currentTime = performance.now();
-                const deltaTime = (currentTime - lastTime) / 1000.0;
-
-                if (this.isDebug) {
-                    this.updateDebugInfo(deltaTime);
-                }
-
-                this.processInput();
-                this.update(deltaTime);
-                this.render();
-
-                lastTime = currentTime;
-                requestAnimationFrame(loop);
-            }
-        };
-
-        requestAnimationFrame(loop);
+        await this.loopStrategy.start();
     };
 }
