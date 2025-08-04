@@ -139,25 +139,26 @@ export default abstract class Engine {
         const FPS = 60;
         const MILLISECS_PER_FRAME = 1000 / FPS;
 
-        let millisecsPreviousFrame = 0;
+        let lastTime = performance.now();
 
         const loop = async () => {
             while (this.isRunning) {
-                const timeToWait = MILLISECS_PER_FRAME - (performance.now() - millisecsPreviousFrame);
+                const timeToWait = MILLISECS_PER_FRAME - (performance.now() - lastTime);
                 if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
                     await sleep(timeToWait);
                 }
 
-                const deltaTime = (performance.now() - millisecsPreviousFrame) / 1000.0;
-                millisecsPreviousFrame = performance.now();
-
+                const deltaTime = (performance.now() - lastTime) / 1000.0;
+                
                 if (this.isDebug) {
                     this.updateDebugInfo(deltaTime);
                 }
-
+                
                 this.processInput();
                 this.update(deltaTime);
                 this.render();
+
+                lastTime = performance.now();
             }
         };
 
