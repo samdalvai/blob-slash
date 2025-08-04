@@ -7,11 +7,12 @@ export default class RAFLoopStrategy extends LoopStrategy {
         const loop = () => {
             if (!this.engine.isRunning) return;
 
-            const currentTime = performance.now();
-            const deltaTime = (currentTime - lastTime) / 1000.0;
-            lastTime = currentTime;
-
+            const deltaTime = (performance.now() - lastTime) / 1000.0;
+            
             this.engine.runFrame(deltaTime);
+
+            lastTime = performance.now();
+
             requestAnimationFrame(loop);
         };
 
