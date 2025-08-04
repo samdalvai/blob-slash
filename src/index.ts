@@ -11,7 +11,7 @@ if (!isEditor) {
     game.run();
 } else {
     const editor = new Editor();
-    // editor.setLoopStrategy(new RAFLoopStrategy(editor));
-    editor.setLoopStrategy(new FixedFPSLoopStrategy(editor, 60));
+    editor.setLoopStrategy(new RAFLoopStrategy(editor));
+    // editor.setLoopStrategy(new FixedFPSLoopStrategy(editor, 60));
     editor.run();
 }
