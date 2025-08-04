@@ -21,9 +21,7 @@ export default class FixedFPSLoopStrategy extends LoopStrategy {
             }
 
             const deltaTime = (performance.now() - lastTime) / 1000.0;
-
             this.engine.runFrame(deltaTime);
-
             lastTime = performance.now();
         }
     }
