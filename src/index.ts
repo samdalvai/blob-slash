@@ -8,6 +8,7 @@ const isEditor = Boolean(process.env.IS_EDITOR) || false;
 if (!isEditor) {
     const game = new Game();
     game.setLoopStrategy(new RAFLoopStrategy(game));
+    // game.setLoopStrategy(new FixedFPSLoopStrategy(game, 60));
     game.run();
 } else {
     const editor = new Editor();
