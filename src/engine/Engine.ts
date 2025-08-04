@@ -129,13 +129,13 @@ export default abstract class Engine {
 
     protected abstract render(): void;
 
-    running = () => this.isRunning;
+    public running = () => this.isRunning;
 
-    setLoopStrategy = (loopStrategy: LoopStrategy) => {
+    public setLoopStrategy = (loopStrategy: LoopStrategy) => {
         this.loopStrategy = loopStrategy;
     };
 
-    runFrame = (deltaTime: number) => {
+    public runFrame = (deltaTime: number) => {
         if (this.isDebug) {
             this.updateDebugInfo(deltaTime);
         }
@@ -145,7 +145,7 @@ export default abstract class Engine {
         this.render();
     };
 
-    run = async () => {
+    public run = async () => {
         console.log('Initializing Engine');
         this.initialize();
 
