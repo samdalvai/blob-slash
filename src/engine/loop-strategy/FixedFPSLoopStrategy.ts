@@ -20,8 +20,7 @@ export default class FixedFPSLoopStrategy extends LoopStrategy {
                 await sleep(timeToWait);
             }
 
-            const currentTime = performance.now();
-            const deltaTime = (currentTime - lastTime) / 1000.0;
+            const deltaTime = (performance.now() - lastTime) / 1000.0;
 
             this.engine.runFrame(deltaTime);
 
