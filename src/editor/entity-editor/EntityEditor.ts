@@ -59,6 +59,8 @@ export default class EntityEditor {
     };
 
     // TODO: Check why if pressed too often leads to error for same entity being tagged already
+    // TODO: if Ctrl-Z remains pressed, level is loaded multiple times, need to discard until level
+    // loading is in progress
     public undoLevelChange = async () => {
         if (Editor.editorSettings.selectedLevel) {
             if (this.versionManager.isOldestVersion(Editor.editorSettings.selectedLevel)) {
