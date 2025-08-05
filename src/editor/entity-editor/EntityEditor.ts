@@ -22,6 +22,8 @@ export default class EntityEditor {
     private levelManager: LevelManager;
     private versionManager: VersionManager;
 
+    private levelChangeLock: boolean;
+
     constructor(
         registry: Registry,
         assetStore: AssetStore,
@@ -34,6 +36,8 @@ export default class EntityEditor {
         this.eventBus = eventBus;
         this.levelManager = levelManager;
         this.versionManager = versionManager;
+
+        this.levelChangeLock = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -58,34 +62,43 @@ export default class EntityEditor {
         }, 300);
     };
 
-    // TODO: Check why if pressed too often leads to error for same entity being tagged already
-    // TODO: if Ctrl-Z remains pressed, level is loaded multiple times, need to discard until level
-    // loading is in progress
     public undoLevelChange = async () => {
+        if (this.levelChangeLock) {
+            return;
+        }
+
         if (Editor.editorSettings.selectedLevel) {
             if (this.versionManager.isOldestVersion(Editor.editorSettings.selectedLevel)) {
                 return;
             }
 
+            this.levelChangeLock = true;
             this.versionManager.setPreviousLevelVersion(Editor.editorSettings.selectedLevel);
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
             this.eventBus.emitEvent(EntityUpdateEvent);
             saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+            this.levelChangeLock = false;
         }
     };
 
     public redoLevelChange = async () => {
+        if (this.levelChangeLock) {
+            return;
+        }
+
         if (Editor.editorSettings.selectedLevel) {
             if (this.versionManager.isLatestVersion(Editor.editorSettings.selectedLevel)) {
                 return;
             }
 
+            this.levelChangeLock = true;
             this.versionManager.setNextLevelVersion(Editor.editorSettings.selectedLevel);
             const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
             await this.levelManager.loadLevelFromLevelMap(levelVersion);
             this.eventBus.emitEvent(EntityUpdateEvent);
             saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+            this.levelChangeLock = false;
         }
     };
 
