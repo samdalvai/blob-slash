@@ -1,11 +1,12 @@
-import Entity from '../engine/ecs/Entity';
 import Engine from '../engine/Engine';
+import Entity from '../engine/ecs/Entity';
 import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { MouseButton } from '../engine/types/control';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import EntityEditor from './entity-editor/EntityEditor';
+import EntityDeleteEvent from './events/EntityDeleteEvent';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
 import {
@@ -247,6 +248,11 @@ export default class Editor extends Engine {
 
                     if (inputEvent.code === 'ShiftLeft') {
                         this.shiftPressed = true;
+                    }
+
+                    if (inputEvent.code === 'Delete' && Editor.selectedEntity) {
+                        this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
+                        Editor.selectedEntity = null;
                     }
 
                     if (this.commandPressed && inputEvent.code === 'KeyZ') {
