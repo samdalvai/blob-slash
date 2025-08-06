@@ -16,7 +16,7 @@ export default class RenderGUISystem extends System {
         const skillsMenuHeight = 32;
 
         ctx.drawImage(
-            assetStore.getTexture('skills-menu-texture'),
+            assetStore.getTexture('skills_menu'),
             0,
             0,
             skillsMenuWidth,
@@ -32,7 +32,7 @@ export default class RenderGUISystem extends System {
         const magicBubbleHeight = 128;
 
         ctx.drawImage(
-            assetStore.getTexture('magic-bubble-texture'),
+            assetStore.getTexture('magic_bubble'),
             128,
             0,
             magicBubbleWidth,
@@ -50,7 +50,7 @@ export default class RenderGUISystem extends System {
         const firstSkillPosition = padding + magicBubbleWidth * magicBubbleScale;
 
         ctx.drawImage(
-            assetStore.getTexture('teleport-texture'),
+            assetStore.getTexture('teleport'),
             64,
             0,
             teleportWidth,
@@ -69,7 +69,7 @@ export default class RenderGUISystem extends System {
         const fireCircleleHeight = 128;
 
         ctx.drawImage(
-            assetStore.getTexture('fire-circle-texture'),
+            assetStore.getTexture('fire_circle'),
             256,
             128,
             fireCircleWidth,
@@ -85,7 +85,7 @@ export default class RenderGUISystem extends System {
         const mouseMenuHeight = 32;
 
         ctx.drawImage(
-            assetStore.getTexture('mouse-menu-texture'),
+            assetStore.getTexture('mouse_menu'),
             0,
             0,
             mouseMenuWidth,
@@ -103,7 +103,7 @@ export default class RenderGUISystem extends System {
         const leftClickAttackPosition = 2 * padding + skillsMenuWidth * skillsMenuScale
 
         ctx.drawImage(
-            assetStore.getTexture('magic-sphere-texture'),
+            assetStore.getTexture('magic_sphere'),
             0,
             0,
             magicSphereWidth,
@@ -119,7 +119,7 @@ export default class RenderGUISystem extends System {
         const meleeAttackHeight = 64;
 
         ctx.drawImage(
-            assetStore.getTexture('smear-animation-texture'),
+            assetStore.getTexture('smear64'),
             meleeAttackWidth,
             meleeAttackHeight,
             meleeAttackWidth,
