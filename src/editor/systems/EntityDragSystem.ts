@@ -69,7 +69,7 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== null && Editor.selectedEntity.getId() !== entity.entity.getId()) {
+                if (Editor.selectedEntity === null || Editor.selectedEntity.getId() !== entity.entity.getId()) {
                     eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
