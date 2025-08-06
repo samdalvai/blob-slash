@@ -9,48 +9,8 @@
       "filePath": "./assets/sprites/slime_big_full.png"
     },
     {
-      "assetId": "skills-menu-texture",
-      "filePath": "./assets/sprites/skills_menu.png"
-    },
-    {
-      "assetId": "mouse-menu-texture",
-      "filePath": "./assets/sprites/mouse_menu.png"
-    },
-    {
-      "assetId": "cooldown_skill",
-      "filePath": "./assets/sprites/cooldown_skill.png"
-    },
-    {
-      "assetId": "magic-bubble-texture",
-      "filePath": "./assets/sprites/magic_bubble.png"
-    },
-    {
-      "assetId": "teleport-texture",
-      "filePath": "./assets/sprites/teleport.png"
-    },
-    {
-      "assetId": "fire-circle-texture",
-      "filePath": "./assets/sprites/fire_circle.png"
-    },
-    {
-      "assetId": "magic-sphere-texture",
-      "filePath": "./assets/sprites/magic_sphere.png"
-    },
-    {
-      "assetId": "smear-animation-texture",
-      "filePath": "./assets/sprites/smear64.png"
-    },
-    {
       "assetId": "cursor-texture",
       "filePath": "./assets/sprites/cursor.png"
-    },
-    {
-      "assetId": "destination-circle-texture",
-      "filePath": "./assets/sprites/destination_circle.png"
-    },
-    {
-      "assetId": "cooldown-skill-texture",
-      "filePath": "./assets/sprites/cooldown_skill.png"
     }
   ],
   "sounds": [],
