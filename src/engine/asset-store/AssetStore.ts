@@ -44,7 +44,12 @@ export default class AssetStore {
         const texture = this.textures.get(assetId);
 
         if (!texture) {
-            throw new Error('Could not find texture with asset id: ' + assetId);
+            const defaultSpriteTexture = this.textures.get(DEFAULT_SPRITE);
+            if (!defaultSpriteTexture) {
+                throw new Error('Could not find default texture');
+            }
+
+            return defaultSpriteTexture;
         }
 
         return texture;
