@@ -7,12 +7,14 @@ import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
+import { SpriteComponent, TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
+import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
@@ -37,6 +39,7 @@ export default class RenderSidebarSystem extends System {
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
+        eventBus.subscribeToEvent(EntityPasteEvent, this, event => this.onEntityPaste(event, leftSidebar, eventBus));
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
         eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
     }
@@ -75,6 +78,41 @@ export default class RenderSidebarSystem extends System {
         }
 
         const entityCopy = event.entity.duplicate();
+
+        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+
+        eventBus.emitEvent(EntitySelectEvent, entityCopy);
+        Editor.selectedEntity = entityCopy;
+        this.entityEditor.saveLevel();
+    };
+
+    onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+        if (!leftSidebar) {
+            throw new Error('Could not retrieve leftSidebar');
+        }
+
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        const originalEntity = event.entity;
+
+        if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
+            return;
+        }
+
+        const entityCopy = event.entity.duplicate();
+
+        const copiedTransform = entityCopy.getComponent(TransformComponent);
+
+        if (!copiedTransform) {
+            throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+        }
+
+        copiedTransform.position.x = Engine.mousePositionWorld.x;
+        copiedTransform.position.y = Engine.mousePositionWorld.y;
 
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
 
