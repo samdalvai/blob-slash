@@ -278,6 +278,7 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyX':
+                                // TODO: entity is deleted and cannot be copied again
                                 if (Editor.selectedEntity) {
                                     Editor.copiedEntity = Editor.selectedEntity;
                                     this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
