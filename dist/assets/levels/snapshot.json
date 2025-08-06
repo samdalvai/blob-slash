@@ -91,8 +91,8 @@
       "filePath": "./assets/sounds/melee_attack.wav"
     }
   ],
-  "mapWidth": 1920,
-  "mapHeight": 1600,
+  "mapWidth": 2880,
+  "mapHeight": 2880,
   "entities": [
     {
       "components": [
@@ -104,7 +104,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -138,7 +138,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -192,7 +192,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -226,7 +226,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -416,42 +416,6 @@
           "properties": {
             "position": {
               "x": 128,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tiles-dark-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 0,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 192,
               "y": 0
             },
             "scale": {
@@ -6375,7 +6339,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -6409,7 +6373,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -6904,7 +6868,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -6938,7 +6902,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -6992,7 +6956,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7026,7 +6990,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7080,7 +7044,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7114,7 +7078,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7168,7 +7132,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7202,7 +7166,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7256,7 +7220,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7290,7 +7254,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7344,7 +7308,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7378,7 +7342,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7432,7 +7396,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 96,
+              "x": 64,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7466,7 +7430,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 2,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7521,7 +7485,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 32,
+              "x": 0,
               "y": 192,
               "width": 32,
               "height": 32
@@ -7562,7 +7526,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 1,
+            "currentFrame": 0,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -7647,7 +7611,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 277.6000000014901
+            "actionStart": 97.79999999701977
           }
         },
         {
@@ -7722,78 +7686,6 @@
       ]
     },
     {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tiles-dark-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 0,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 960,
-              "y": 960
-            },
-            "scale": {
-              "x": 30,
-              "y": 20
-            },
-            "rotation": 0
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tiles-dark-texture",
-            "width": 32,
-            "height": 32,
-            "zIndex": 0,
-            "srcRect": {
-              "x": 32,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 0,
-              "y": 640
-            },
-            "scale": {
-              "x": 30,
-              "y": 30
-            },
-            "rotation": 0
-          }
-        }
-      ]
-    },
-    {
       "group": "enemies",
       "components": [
         {
@@ -7804,7 +7696,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 32,
+              "x": 0,
               "y": 192,
               "width": 32,
               "height": 32
@@ -7818,8 +7710,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 129,
-              "y": 625
+              "x": 256,
+              "y": 672
             },
             "scale": {
               "x": 2,
@@ -7845,7 +7737,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 1,
+            "currentFrame": 0,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -7930,7 +7822,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 277.69999999552965
+            "actionStart": 97.89999999850988
           }
         },
         {
@@ -7979,7 +7871,7 @@
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 0,
+              "x": 32,
               "y": 32,
               "width": 32,
               "height": 32
@@ -8030,7 +7922,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -8117,6 +8009,3138 @@
           "properties": {
             "isTeleporting": false,
             "teleportDelay": 500
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 832,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 832,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 832,
+              "y": 896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 832,
+              "y": 768
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 832,
+              "y": 832
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 960,
+              "y": 960
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 960
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 0
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 960
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 1920
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 960,
+              "y": 1920
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1920
+            },
+            "scale": {
+              "x": 30,
+              "y": 30
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tiles-dark-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
           }
         }
       ]
