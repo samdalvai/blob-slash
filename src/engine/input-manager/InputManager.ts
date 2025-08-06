@@ -3,6 +3,8 @@ export default class InputManager {
     mouseInputBuffer: MouseEvent[];
     wheelInputBuffer: WheelEvent[];
 
+    lastWheelEventTime = 0;
+
     constructor() {
         this.keyboardInputBuffer = [];
         this.mouseInputBuffer = [];
@@ -31,6 +33,13 @@ export default class InputManager {
     };
 
     private handleWheelEvent = (event: WheelEvent) => {
+        // Wheel events for mousepads are triggered much faster compared to mouse wheels
+        // whith this logic we prevent scrolling too fast on mouse pads
+        if (performance.now() - this.lastWheelEventTime < 25) {
+            return;
+        }
+
         this.wheelInputBuffer.push(event);
+        this.lastWheelEventTime = performance.now();
     };
 }
