@@ -1,93 +1,97 @@
 {
   "textures": [
     {
-      "assetId": "desert",
+      "assetId": "desert-texture",
       "filePath": "./assets/tilemaps/desert.png"
     },
     {
-      "assetId": "tiles_dark",
+      "assetId": "tiles-dark-texture",
       "filePath": "./assets/tilemaps/tiles_dark.png"
     },
     {
-      "assetId": "slime_big_full",
+      "assetId": "slime-texture",
       "filePath": "./assets/sprites/slime_big_full.png"
     },
     {
-      "assetId": "player_full",
+      "assetId": "player-texture",
       "filePath": "./assets/sprites/player_full.png"
     },
     {
-      "assetId": "skeleton_full",
+      "assetId": "skeleton-texture",
       "filePath": "./assets/sprites/skeleton_full.png"
     },
     {
-      "assetId": "magic_sphere",
+      "assetId": "magic-sphere-texture",
       "filePath": "./assets/sprites/magic_sphere.png"
     },
     {
-      "assetId": "magic_bubble",
+      "assetId": "magic-bubble-texture",
       "filePath": "./assets/sprites/magic_bubble.png"
     },
     {
-      "assetId": "fire_circle",
+      "assetId": "fire-circle-texture",
       "filePath": "./assets/sprites/fire_circle.png"
     },
     {
-      "assetId": "teleport",
+      "assetId": "teleport-texture",
       "filePath": "./assets/sprites/teleport.png"
     },
     {
-      "assetId": "tree",
+      "assetId": "tree-texture",
       "filePath": "./assets/sprites/tree.png"
     },
     {
-      "assetId": "torch",
+      "assetId": "torch-texture",
       "filePath": "./assets/sprites/torch.png"
     },
     {
-      "assetId": "skills_menu",
+      "assetId": "skills-menu-texture",
       "filePath": "./assets/sprites/skills_menu.png"
     },
     {
-      "assetId": "cooldown_skill",
+      "assetId": "cooldown-skill-texture",
       "filePath": "./assets/sprites/cooldown_skill.png"
     },
     {
-      "assetId": "mouse_menu",
+      "assetId": "mouse-menu-texture",
       "filePath": "./assets/sprites/mouse_menu.png"
     },
     {
-      "assetId": "cursor",
+      "assetId": "cursor-texture",
       "filePath": "./assets/sprites/cursor.png"
     },
     {
-      "assetId": "destination_circle",
+      "assetId": "destination-circle-texture",
       "filePath": "./assets/sprites/destination_circle.png"
     },
     {
-      "assetId": "smear64",
+      "assetId": "smear-animation-texture",
       "filePath": "./assets/sprites/smear64.png"
     },
     {
-      "assetId": "explosion_small_blue",
+      "assetId": "explosion-small-blue-texture",
       "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "grass",
+      "filePath": "./assets/tilemaps/grass.png"
     }
   ],
   "sounds": [
     {
-      "assetId": "entity_hit",
+      "assetId": "entity-hit-sound",
       "filePath": "./assets/sounds/entity_hit.wav"
     },
     {
-      "assetId": "teleport",
+      "assetId": "teleport-sound",
       "filePath": "./assets/sounds/teleport.wav"
     },
     {
-      "assetId": "slash",
+      "assetId": "slash-sound",
       "filePath": "./assets/sounds/slash.wav"
     },
     {
-      "assetId": "melee_attack",
+      "assetId": "melee-attack-sound",
       "filePath": "./assets/sounds/melee_attack.wav"
     }
   ],
@@ -99,100 +103,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 256,
-              "y": 224
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "LightEmitComponent",
-          "properties": {
-            "lightRadius": 100
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 4,
-            "currentFrame": 2,
-            "frameSpeedRate": 10,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "ParticleEmitComponent",
-          "properties": {
-            "lastEmission": 0,
-            "dimension": 2,
-            "duration": 1000,
-            "color": "rgba(255,0,0,1)",
-            "emitFrequency": 200,
-            "emitRadius": 5,
-            "offsetX": 16,
-            "offsetY": 0,
-            "particleVelocity": {
-              "x": 0,
-              "y": -50
-            }
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 10,
-            "height": 5,
-            "offsetX": -0.5,
-            "offsetY": -5
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "torch",
-            "width": 32,
-            "height": 32,
-            "zIndex": 2,
-            "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -226,7 +142,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -276,7 +192,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -324,7 +240,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -360,7 +276,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -396,7 +312,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -432,7 +348,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -468,7 +384,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -504,7 +420,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -540,7 +456,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -576,7 +492,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -612,7 +528,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -648,7 +564,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -684,7 +600,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -720,7 +636,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -756,7 +672,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -792,7 +708,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -828,7 +744,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -864,7 +780,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -900,7 +816,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -936,7 +852,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -972,7 +888,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1008,7 +924,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1044,7 +960,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1080,7 +996,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1116,7 +1032,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1152,7 +1068,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1188,7 +1104,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1224,7 +1140,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1260,7 +1176,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1296,7 +1212,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1332,7 +1248,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1368,7 +1284,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1404,7 +1320,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1440,7 +1356,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1476,7 +1392,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1512,7 +1428,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1548,7 +1464,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1584,7 +1500,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1620,7 +1536,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1656,7 +1572,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1692,7 +1608,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1728,7 +1644,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1764,7 +1680,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1800,7 +1716,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1836,7 +1752,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1872,7 +1788,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1908,7 +1824,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1944,7 +1860,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -1980,7 +1896,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2016,7 +1932,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2052,7 +1968,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2088,7 +2004,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2124,7 +2040,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2160,7 +2076,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2196,7 +2112,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2232,7 +2148,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2268,7 +2184,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2304,7 +2220,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2340,7 +2256,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2376,7 +2292,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2412,7 +2328,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2448,7 +2364,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2484,7 +2400,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2520,7 +2436,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2556,7 +2472,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2592,7 +2508,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2628,7 +2544,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2664,7 +2580,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2700,7 +2616,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2736,7 +2652,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2772,7 +2688,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2808,7 +2724,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2844,7 +2760,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2880,7 +2796,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2916,7 +2832,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2952,7 +2868,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -2988,7 +2904,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3024,7 +2940,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3060,7 +2976,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3096,7 +3012,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3132,7 +3048,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3168,7 +3084,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3204,7 +3120,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3240,7 +3156,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3276,7 +3192,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3312,7 +3228,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3348,7 +3264,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3384,7 +3300,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3420,7 +3336,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3456,7 +3372,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3492,7 +3408,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3528,7 +3444,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3564,7 +3480,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3600,7 +3516,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3636,7 +3552,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3672,7 +3588,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3708,7 +3624,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3744,7 +3660,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3780,7 +3696,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3816,7 +3732,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3852,7 +3768,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3888,7 +3804,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3924,7 +3840,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3960,7 +3876,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -3996,7 +3912,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4032,7 +3948,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4068,7 +3984,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4104,7 +4020,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4140,7 +4056,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4176,7 +4092,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4212,7 +4128,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4248,7 +4164,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4284,7 +4200,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4320,7 +4236,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4356,7 +4272,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4392,7 +4308,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4428,7 +4344,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4464,7 +4380,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4500,7 +4416,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4536,7 +4452,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4572,7 +4488,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4608,7 +4524,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4644,7 +4560,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4680,7 +4596,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4716,7 +4632,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4752,7 +4668,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4788,7 +4704,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4824,7 +4740,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4860,7 +4776,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4896,7 +4812,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4932,7 +4848,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -4968,7 +4884,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5004,7 +4920,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5040,7 +4956,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5076,7 +4992,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5112,7 +5028,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5148,7 +5064,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5184,7 +5100,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5220,7 +5136,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5256,7 +5172,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5292,7 +5208,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5328,7 +5244,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5364,7 +5280,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5400,7 +5316,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5436,7 +5352,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5472,7 +5388,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5508,7 +5424,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5544,7 +5460,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5580,7 +5496,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5616,7 +5532,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -5652,7 +5568,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -6139,7 +6055,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6188,7 +6104,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6237,7 +6153,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6286,7 +6202,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6334,12 +6250,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -6373,7 +6289,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -6423,7 +6339,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6472,7 +6388,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6521,7 +6437,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6570,7 +6486,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6619,7 +6535,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6668,7 +6584,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6717,7 +6633,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6766,7 +6682,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6815,7 +6731,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tree",
+            "assetId": "tree-texture",
             "width": 16,
             "height": 32,
             "zIndex": 2,
@@ -6863,12 +6779,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -6902,7 +6818,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -6951,12 +6867,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -6990,7 +6906,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7039,12 +6955,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7078,7 +6994,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7127,12 +7043,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7166,7 +7082,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7215,12 +7131,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7254,7 +7170,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7303,12 +7219,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7342,7 +7258,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7391,12 +7307,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "torch",
+            "assetId": "torch-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 64,
+              "x": 96,
               "y": 0,
               "width": 32,
               "height": 32
@@ -7430,7 +7346,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 10,
             "isLoop": true,
             "startTime": 0
@@ -7480,12 +7396,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "slime_big_full",
+            "assetId": "slime-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 0,
+              "x": 32,
               "y": 192,
               "width": 32,
               "height": 32
@@ -7526,7 +7442,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -7611,7 +7527,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 97.79999999701977
+            "actionStart": 102.80000000004657
           }
         },
         {
@@ -7654,7 +7570,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -7691,12 +7607,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "skeleton_full",
+            "assetId": "skeleton-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 0,
+              "x": 32,
               "y": 192,
               "width": 32,
               "height": 32
@@ -7737,7 +7653,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -7822,7 +7738,7 @@
               }
             ],
             "currentActionIndex": 0,
-            "actionStart": 97.89999999850988
+            "actionStart": 102.80000000004657
           }
         },
         {
@@ -7866,12 +7782,12 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "player_full",
+            "assetId": "player-texture",
             "width": 32,
             "height": 32,
             "zIndex": 2,
             "srcRect": {
-              "x": 32,
+              "x": 64,
               "y": 32,
               "width": 32,
               "height": 32
@@ -7922,7 +7838,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 1,
+            "currentFrame": 2,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -8018,7 +7934,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8054,7 +7970,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8090,7 +8006,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8126,7 +8042,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8162,7 +8078,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8198,7 +8114,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8234,7 +8150,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8270,7 +8186,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8306,7 +8222,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8342,7 +8258,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8378,7 +8294,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8414,7 +8330,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8450,7 +8366,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8486,7 +8402,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8522,7 +8438,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8558,7 +8474,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8594,7 +8510,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8630,7 +8546,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8666,7 +8582,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8702,7 +8618,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8738,7 +8654,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8774,7 +8690,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8810,7 +8726,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8846,7 +8762,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8882,7 +8798,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8918,7 +8834,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8954,7 +8870,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -8990,7 +8906,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9026,7 +8942,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9062,7 +8978,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9098,7 +9014,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9134,7 +9050,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9170,7 +9086,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9206,7 +9122,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9242,7 +9158,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9278,7 +9194,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9314,7 +9230,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9350,7 +9266,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9386,7 +9302,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9422,7 +9338,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9458,7 +9374,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9494,7 +9410,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9530,7 +9446,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9566,7 +9482,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9602,7 +9518,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9638,7 +9554,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9674,7 +9590,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9710,7 +9626,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9746,7 +9662,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9782,7 +9698,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9818,7 +9734,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9854,7 +9770,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9890,7 +9806,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9926,7 +9842,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9962,7 +9878,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -9998,7 +9914,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10034,7 +9950,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10070,7 +9986,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10106,7 +10022,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10142,7 +10058,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10178,7 +10094,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10214,7 +10130,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10250,7 +10166,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10286,7 +10202,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10322,7 +10238,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10358,7 +10274,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10394,7 +10310,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10430,7 +10346,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10466,7 +10382,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10502,7 +10418,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10538,7 +10454,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10574,7 +10490,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10610,7 +10526,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10646,7 +10562,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10682,7 +10598,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10718,7 +10634,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10754,7 +10670,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10790,7 +10706,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10826,7 +10742,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10862,7 +10778,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10898,7 +10814,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10934,7 +10850,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -10970,7 +10886,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11006,7 +10922,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11042,7 +10958,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11078,7 +10994,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11114,7 +11030,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "tiles_dark",
+            "assetId": "tiles-dark-texture",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11135,6 +11051,598 @@
             "position": {
               "x": 192,
               "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch-texture",
+            "width": 32,
+            "height": 32,
+            "zIndex": 2,
+            "srcRect": {
+              "x": 96,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 224
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 3,
+            "frameSpeedRate": 10,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "ParticleEmitComponent",
+          "properties": {
+            "lastEmission": 0,
+            "dimension": 2,
+            "duration": 1000,
+            "color": "rgba(255,0,0,1)",
+            "emitFrequency": 200,
+            "emitRadius": 5,
+            "offsetX": 16,
+            "offsetY": 0,
+            "particleVelocity": {
+              "x": 0,
+              "y": -50
+            }
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 10,
+            "height": 5,
+            "offsetX": -0.5,
+            "offsetY": -5
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 32,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 32,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 32,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -256
             },
             "scale": {
               "x": 2,
