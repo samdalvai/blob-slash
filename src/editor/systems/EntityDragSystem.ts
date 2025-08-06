@@ -25,7 +25,7 @@ export default class EntityDragSystem extends System {
     ) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
         eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
-        eventBus.subscribeToEvent(MouseMoveEvent, this, event => this.onMouseMove(event, entityEditor, mousePressed));
+        eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor, mousePressed));
     }
 
     onMousePressed = (event: MousePressedEvent, eventBus: EventBus, canvas: HTMLCanvasElement) => {
@@ -98,7 +98,7 @@ export default class EntityDragSystem extends System {
         Editor.entityDragStart = null;
     };
 
-    onMouseMove = (event: MouseMoveEvent, entityEditor: EntityEditor, mousePressed: boolean) => {
+    onMouseMove = (entityEditor: EntityEditor, mousePressed: boolean) => {
         if (mousePressed && Editor.entityDragStart && Editor.selectedEntity !== null) {
             for (const entity of this.getSystemEntities()) {
                 if (entity.getId() !== Editor.selectedEntity.getId()) {
