@@ -427,14 +427,11 @@ export default class EntityEditor {
                     }
                 }
 
-                console.log('loaded');
-
                 const allEntities = this.registry.getAllEntities();
 
                 for (const entity of allEntities) {
                     if (entity.hasComponent(GameComponents.SpriteComponent)) {
                         const entitySpriteSelect = document.getElementById('assetId-' + entity.getId());
-                        console.log(entitySpriteSelect);
                         if (!entitySpriteSelect) {
                             throw new Error('Could not find sprite select element for entityt ' + entity.getId());
                         }
@@ -454,8 +451,7 @@ export default class EntityEditor {
                 spriteImage.style.maxWidth = '100%';
                 (component as GameComponents.SpriteComponent).assetId = assetId;
 
-                // TODO: enable saving level when sprite image is loaded
-                //this.saveLevel();
+                this.saveLevel();
             }
         });
 
