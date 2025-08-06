@@ -114,6 +114,12 @@ export default class RenderSidebarSystem extends System {
         copiedTransform.position.x = Engine.mousePositionWorld.x;
         copiedTransform.position.y = Engine.mousePositionWorld.y;
 
+        Editor.entityDragStart = {
+            x: Engine.mousePositionWorld.x - copiedTransform.position.x,
+            y: Engine.mousePositionWorld.y - copiedTransform.position.y,
+        };
+        Editor.isDragging = true;
+
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);

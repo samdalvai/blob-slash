@@ -44,6 +44,7 @@ export default class Editor extends Engine {
     // Global Editor objects
     static selectedEntity: Entity | null = null;
     static copiedEntity: Entity | null = null;
+    static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static alertShown = false;
 
@@ -267,19 +268,16 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyC':
-                                console.log('Entity copied');
                                 if (Editor.selectedEntity) {
                                     Editor.copiedEntity = Editor.selectedEntity;
                                 }
                                 break;
                             case 'KeyV':
-                                console.log('Entity paste');
                                 if (Editor.copiedEntity) {
                                     this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
                                 }
                                 break;
                             case 'KeyX':
-                                console.log('Entity cut');
                                 if (Editor.selectedEntity) {
                                     Editor.copiedEntity = Editor.selectedEntity;
                                     this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
@@ -329,7 +327,7 @@ export default class Editor extends Engine {
                     };
 
                     // Handles mouse pad pan
-                    if (this.mousePressed && this.commandPressed) {
+                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
                         const dx = mouseX - Engine.mousePositionWorld.x;
                         const dy = mouseY - Engine.mousePositionWorld.y;
 
@@ -477,10 +475,10 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
-        if (!this.commandPressed) {
+        if (!this.commandPressed || Editor.isDragging) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.mousePressed);
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor);
         }
 
         this.registry
