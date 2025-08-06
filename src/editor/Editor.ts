@@ -7,6 +7,7 @@ import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import EntityEditor from './entity-editor/EntityEditor';
 import EntityDeleteEvent from './events/EntityDeleteEvent';
+import EntityPasteEvent from './events/EntityPasteEvent';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
 import {
@@ -42,6 +43,8 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntity: Entity | null = null;
+    static copiedEntity: Entity | null = null;
+    static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static alertShown = false;
 
@@ -255,11 +258,33 @@ export default class Editor extends Engine {
                         Editor.selectedEntity = null;
                     }
 
-                    if (this.commandPressed && inputEvent.code === 'KeyZ') {
-                        if (this.shiftPressed) {
-                            this.entityEditor.redoLevelChange();
-                        } else {
-                            this.entityEditor.undoLevelChange();
+                    if (this.commandPressed) {
+                        switch (inputEvent.code) {
+                            case 'KeyZ':
+                                if (this.shiftPressed) {
+                                    this.entityEditor.redoLevelChange();
+                                } else {
+                                    this.entityEditor.undoLevelChange();
+                                }
+                                break;
+                            case 'KeyC':
+                                if (Editor.selectedEntity) {
+                                    Editor.copiedEntity = Editor.selectedEntity;
+                                }
+                                break;
+                            case 'KeyV':
+                                if (Editor.copiedEntity) {
+                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
+                                }
+                                break;
+                            // TODO: entity is deleted and cannot be copied again
+                            // case 'KeyX':
+                            //     if (Editor.selectedEntity) {
+                            //         Editor.copiedEntity = Editor.selectedEntity;
+                            //         this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
+                            //         Editor.selectedEntity = null;
+                            //     }
+                            //     break;
                         }
                     }
 
@@ -303,7 +328,7 @@ export default class Editor extends Engine {
                     };
 
                     // Handles mouse pad pan
-                    if (this.mousePressed && this.commandPressed) {
+                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
                         const dx = mouseX - Engine.mousePositionWorld.x;
                         const dy = mouseY - Engine.mousePositionWorld.y;
 
@@ -394,11 +419,11 @@ export default class Editor extends Engine {
             const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
 
             if (wheelEvent.deltaY < 0) {
-                this.zoom *= 1 + 0.01;
+                this.zoom *= 1 + 0.1;
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
             if (wheelEvent.deltaY > 0) {
-                this.zoom *= 1 - 0.01;
+                this.zoom *= 1 - 0.1;
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
 
@@ -451,10 +476,10 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
 
-        if (!this.commandPressed) {
+        if (!this.commandPressed || Editor.isDragging) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.mousePressed);
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor);
         }
 
         this.registry
