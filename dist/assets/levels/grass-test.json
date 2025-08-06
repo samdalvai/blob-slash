@@ -3,6 +3,54 @@
     {
       "assetId": "grass",
       "filePath": "./assets/tilemaps/grass.png"
+    },
+    {
+      "assetId": "slime_big_full",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "skills-menu-texture",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "mouse-menu-texture",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "cooldown_skill",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "magic-bubble-texture",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "teleport-texture",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "fire-circle-texture",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "magic-sphere-texture",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "smear-animation-texture",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "destination-circle-texture",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "cooldown-skill-texture",
+      "filePath": "./assets/sprites/cooldown_skill.png"
     }
   ],
   "sounds": [],
@@ -14,7 +62,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "__default__",
+            "assetId": "cooldown_skill",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -34,7 +82,7 @@
           "properties": {
             "position": {
               "x": -96,
-              "y": -96
+              "y": -192
             },
             "scale": {
               "x": 1,
@@ -703,42 +751,6 @@
             "height": 32,
             "zIndex": 0,
             "srcRect": {
-              "x": 32,
-              "y": 32,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 0,
-              "y": 544
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass",
-            "width": 32,
-            "height": 32,
-            "zIndex": 0,
-            "srcRect": {
               "x": 0,
               "y": 160,
               "width": 32,
@@ -754,7 +766,7 @@
           "properties": {
             "position": {
               "x": 256,
-              "y": 224
+              "y": 256
             },
             "scale": {
               "x": 2,
@@ -790,7 +802,7 @@
           "properties": {
             "position": {
               "x": 256,
-              "y": 352
+              "y": 384
             },
             "scale": {
               "x": 2,
@@ -826,7 +838,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": 160
+              "y": 192
             },
             "scale": {
               "x": 2,
@@ -862,7 +874,7 @@
           "properties": {
             "position": {
               "x": 320,
-              "y": 160
+              "y": 192
             },
             "scale": {
               "x": 2,
@@ -898,7 +910,7 @@
           "properties": {
             "position": {
               "x": 256,
-              "y": 160
+              "y": 192
             },
             "scale": {
               "x": 2,
@@ -934,7 +946,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": 160
+              "y": 192
             },
             "scale": {
               "x": 2,
@@ -970,7 +982,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": 416
+              "y": 448
             },
             "scale": {
               "x": 2,
@@ -1006,7 +1018,7 @@
           "properties": {
             "position": {
               "x": 320,
-              "y": 416
+              "y": 448
             },
             "scale": {
               "x": 2,
@@ -1042,7 +1054,7 @@
           "properties": {
             "position": {
               "x": 256,
-              "y": 288
+              "y": 320
             },
             "scale": {
               "x": 2,
@@ -1078,7 +1090,7 @@
           "properties": {
             "position": {
               "x": 256,
-              "y": 416
+              "y": 448
             },
             "scale": {
               "x": 2,
@@ -1114,7 +1126,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": 224
+              "y": 256
             },
             "scale": {
               "x": 2,
@@ -1150,7 +1162,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": 288
+              "y": 320
             },
             "scale": {
               "x": 2,
@@ -1186,7 +1198,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": 352
+              "y": 384
             },
             "scale": {
               "x": 2,
@@ -1222,7 +1234,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": 224
+              "y": 256
             },
             "scale": {
               "x": 2,
@@ -1258,7 +1270,7 @@
           "properties": {
             "position": {
               "x": 320,
-              "y": 224
+              "y": 256
             },
             "scale": {
               "x": 2,
@@ -1294,7 +1306,7 @@
           "properties": {
             "position": {
               "x": 320,
-              "y": 352
+              "y": 384
             },
             "scale": {
               "x": 2,
@@ -1625,6 +1637,2789 @@
               "y": 2
             },
             "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 128,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    {
+      "tag": "player",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 32,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 32,
+              "y": 32
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 200
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 5,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "PlayerControlComponent",
+          "properties": {
+            "keysPressed": [],
+            "velocity": 100,
+            "magicBubbleCooldown": 1000,
+            "magicBubbleLastEmissionTime": 0,
+            "teleportCooldown": 200,
+            "teleportLastEmissionTime": 0,
+            "fireCircleCooldown": 3000,
+            "fireCircleLastEmissionTime": 0
           }
         }
       ]
