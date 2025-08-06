@@ -42,6 +42,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntity: Entity | null = null;
+    static copiedEntity: Entity | null = null;
     static entityDragStart: Vector | null = null;
     static alertShown = false;
 
@@ -255,11 +256,24 @@ export default class Editor extends Engine {
                         Editor.selectedEntity = null;
                     }
 
-                    if (this.commandPressed && inputEvent.code === 'KeyZ') {
-                        if (this.shiftPressed) {
-                            this.entityEditor.redoLevelChange();
-                        } else {
-                            this.entityEditor.undoLevelChange();
+                    if (this.commandPressed) {
+                        switch (inputEvent.code) {
+                            case 'KeyZ':
+                                if (this.shiftPressed) {
+                                    this.entityEditor.redoLevelChange();
+                                } else {
+                                    this.entityEditor.undoLevelChange();
+                                }
+                                break;
+                            case 'KeyC':
+                                console.log('Entity copied');
+                                break;
+                            case 'KeyV':
+                                console.log('Entity paste');
+                                break;
+                            case 'KeyX':
+                                console.log('Entity cut');
+                                break;
                         }
                     }
 
@@ -394,11 +408,11 @@ export default class Editor extends Engine {
             const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
 
             if (wheelEvent.deltaY < 0) {
-                this.zoom *= 1 + 0.10;
+                this.zoom *= 1 + 0.1;
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
             if (wheelEvent.deltaY > 0) {
-                this.zoom *= 1 - 0.10;
+                this.zoom *= 1 - 0.1;
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
 
