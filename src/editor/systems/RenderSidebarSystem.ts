@@ -388,6 +388,7 @@ export default class RenderSidebarSystem extends System {
 
                         const option = document.createElement('option');
                         option.value = nextLevelId;
+                        option.id = nextLevelId;
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
