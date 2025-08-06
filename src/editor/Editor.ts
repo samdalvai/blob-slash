@@ -277,14 +277,14 @@ export default class Editor extends Engine {
                                     this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
                                 }
                                 break;
-                            case 'KeyX':
-                                // TODO: entity is deleted and cannot be copied again
-                                if (Editor.selectedEntity) {
-                                    Editor.copiedEntity = Editor.selectedEntity;
-                                    this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
-                                    Editor.selectedEntity = null;
-                                }
-                                break;
+                            // TODO: entity is deleted and cannot be copied again
+                            // case 'KeyX':
+                            //     if (Editor.selectedEntity) {
+                            //         Editor.copiedEntity = Editor.selectedEntity;
+                            //         this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
+                            //         Editor.selectedEntity = null;
+                            //     }
+                            //     break;
                         }
                     }
 
