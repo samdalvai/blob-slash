@@ -7,6 +7,7 @@ import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import EntityEditor from './entity-editor/EntityEditor';
 import EntityDeleteEvent from './events/EntityDeleteEvent';
+import EntityPasteEvent from './events/EntityPasteEvent';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
 import {
@@ -273,6 +274,9 @@ export default class Editor extends Engine {
                                 break;
                             case 'KeyV':
                                 console.log('Entity paste');
+                                if (Editor.copiedEntity) {
+                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
+                                }
                                 break;
                             case 'KeyX':
                                 console.log('Entity cut');
