@@ -66,7 +66,7 @@ export default class RenderCursorSystem extends System {
         assetStore: AssetStore,
     ) => {
         ctx.drawImage(
-            assetStore.getTexture('cursor-texture'),
+            assetStore.getTexture('cursor'),
             32,
             0,
             32,
@@ -84,7 +84,7 @@ export default class RenderCursorSystem extends System {
         assetStore: AssetStore,
     ) => {
         ctx.drawImage(
-            assetStore.getTexture('cursor-texture'),
+            assetStore.getTexture('cursor'),
             0,
             0,
             32,

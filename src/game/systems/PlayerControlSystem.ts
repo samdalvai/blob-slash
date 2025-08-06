@@ -140,7 +140,7 @@ export default class PlayerControlSystem extends System {
                             { x: 1, y: 1 },
                             0,
                         );
-                        meleeAttack.addComponent(SpriteComponent, 'smear-animation-texture', 64, 64, 3, {
+                        meleeAttack.addComponent(SpriteComponent, 'smear64', 64, 64, 3, {
                             x: 0,
                             y: spriteRow * 64,
                         });
@@ -158,7 +158,7 @@ export default class PlayerControlSystem extends System {
                         }
                         meleeAttack.group('melee-attack');
 
-                        this.eventBus.emitEvent(SoundEmitEvent, 'melee-attack-sound');
+                        this.eventBus.emitEvent(SoundEmitEvent, 'melee_attack');
                     }
                     break;
                 default:
@@ -181,7 +181,7 @@ export default class PlayerControlSystem extends System {
         }
 
         const destinationAntimation = this.registry.createEntity();
-        destinationAntimation.addComponent(SpriteComponent, 'destination-circle-texture', 32, 32, 1);
+        destinationAntimation.addComponent(SpriteComponent, 'destination_circle', 32, 32, 1);
         destinationAntimation.addComponent(TransformComponent, { x: x - 16, y: y - 16 });
         destinationAntimation.addComponent(AnimationComponent, 8, 10);
         destinationAntimation.addComponent(LifetimeComponent, 1000);
@@ -258,7 +258,7 @@ export default class PlayerControlSystem extends System {
         );
         bubbleFloor.addComponent(
             SpriteComponent,
-            'magic-bubble-texture',
+            'magic_bubble',
             128,
             128,
             1,
@@ -279,7 +279,7 @@ export default class PlayerControlSystem extends System {
         );
         bubbleTop.addComponent(
             SpriteComponent,
-            'magic-bubble-texture',
+            'magic_bubble',
             128,
             128,
             3,
@@ -349,11 +349,11 @@ export default class PlayerControlSystem extends System {
                 16,
             y: playerTransform.position.y + playerSprite.height * playerTransform.scale.y - teleportSpriteHeight + 10,
         });
-        teleportStart.addComponent(SpriteComponent, 'teleport-texture', teleportSpriteWidth, teleportSpriteHeight, 3);
+        teleportStart.addComponent(SpriteComponent, 'teleport', teleportSpriteWidth, teleportSpriteHeight, 3);
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
 
-        this.eventBus.emitEvent(SoundEmitEvent, 'teleport-sound');
+        this.eventBus.emitEvent(SoundEmitEvent, 'teleport');
 
         playerRigidBody.velocity = { x: 0, y: 0 };
 
@@ -382,7 +382,7 @@ export default class PlayerControlSystem extends System {
             });
             teleportDestination.addComponent(
                 SpriteComponent,
-                'teleport-texture',
+                'teleport',
                 teleportSpriteWidth,
                 teleportSpriteHeight,
                 3,
@@ -411,7 +411,7 @@ export default class PlayerControlSystem extends System {
         );
         fireCircleFloor.addComponent(
             SpriteComponent,
-            'fire-circle-texture',
+            'fire_circle',
             128,
             128,
             1,
@@ -437,7 +437,7 @@ export default class PlayerControlSystem extends System {
             );
             fireCircleFlames.addComponent(
                 SpriteComponent,
-                'fire-circle-texture',
+                'fire_circle',
                 128,
                 128,
                 2,
@@ -466,7 +466,7 @@ export default class PlayerControlSystem extends System {
         const cooldownAnimation = this.registry.createEntity();
         cooldownAnimation.addComponent(
             SpriteComponent,
-            'cooldown-skill-texture',
+            'cooldown_skill',
             32,
             32,
             2,
