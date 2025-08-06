@@ -267,12 +267,20 @@ export default class Editor extends Engine {
                                 break;
                             case 'KeyC':
                                 console.log('Entity copied');
+                                if (Editor.selectedEntity) {
+                                    Editor.copiedEntity = Editor.selectedEntity;
+                                }
                                 break;
                             case 'KeyV':
                                 console.log('Entity paste');
                                 break;
                             case 'KeyX':
                                 console.log('Entity cut');
+                                if (Editor.selectedEntity) {
+                                    Editor.copiedEntity = Editor.selectedEntity;
+                                    this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
+                                    Editor.selectedEntity = null;
+                                }
                                 break;
                         }
                     }
