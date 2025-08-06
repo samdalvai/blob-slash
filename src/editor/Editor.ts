@@ -47,6 +47,7 @@ export default class Editor extends Engine {
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static alertShown = false;
+    static loadingLevel = false;
 
     static editorSettings: EditorSettings = {
         activeSystems: {} as Record<keyof typeof GameSystems, boolean>,
@@ -228,6 +229,10 @@ export default class Editor extends Engine {
     };
 
     processInput = () => {
+        if (Editor.loadingLevel) {
+            return;
+        }
+
         if (Editor.alertShown) {
             this.inputManager.mouseInputBuffer = [];
             this.inputManager.keyboardInputBuffer = [];
@@ -444,6 +449,10 @@ export default class Editor extends Engine {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     update = (deltaTime: number) => {
+        if (Editor.loadingLevel) {
+            return;
+        }
+
         if (!this.leftSidebar || !this.canvas) {
             throw new Error('Failed to get leftSidebar or canvas element.');
         }
@@ -520,6 +529,10 @@ export default class Editor extends Engine {
     };
 
     render = () => {
+        if (Editor.loadingLevel) {
+            return;
+        }
+        
         if (!this.canvas || !this.ctx || !this.leftSidebar || !this.rightSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
