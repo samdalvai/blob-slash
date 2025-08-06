@@ -424,11 +424,11 @@ export default class Editor extends Engine {
             const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
 
             if (wheelEvent.deltaY < 0) {
-                this.zoom *= 1 + 0.1;
+                this.zoom *= 1 + 0.05;
                 this.eventBus.emitEvent(ScrollEvent, 'up');
             }
             if (wheelEvent.deltaY > 0) {
-                this.zoom *= 1 - 0.1;
+                this.zoom *= 1 - 0.05;
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
 

@@ -9,9 +9,6 @@ import CollisionEvent from '../events/CollisionEvent';
 import { Vector } from '../../engine/types/utils';
 import Engine from '../../engine/Engine';
 
-// TODO: a bug happens sometimes where Movement system can't find some entity component,
-// to reproduce shoot projectile at obstacle for some time
-// SOLVED: the same entity was killed twice, this caused an existing entity to be removed from systems
 export default class MovementSystem extends System {
     constructor() {
         super();
