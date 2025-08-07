@@ -9,7 +9,7 @@
       "filePath": "./assets/sprites/slime_big_full.png"
     },
     {
-      "assetId": "cursor",
+      "assetId": "cursor-texture",
       "filePath": "./assets/sprites/cursor.png"
     },
     {
@@ -19,9 +19,70 @@
     {
       "assetId": "grass_water",
       "filePath": "./assets/tilemaps/grass_water.png"
+    },
+    {
+      "assetId": "mouse_menu",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "skills_menu",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "destination_circle",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "cooldown_skill",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "cursor",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "magic_bubble",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "magic_sphere",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "explosion_small_blue",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "smear64",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "teleport",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "fire_circle",
+      "filePath": "./assets/sprites/fire_circle.png"
     }
   ],
-  "sounds": [],
+  "sounds": [
+    {
+      "assetId": "entity_hit",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee_attack",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    }
+  ],
   "mapWidth": 640,
   "mapHeight": 640,
   "entities": [
@@ -30,7 +91,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -216,7 +277,7 @@
             "height": 32,
             "zIndex": 1,
             "srcRect": {
-              "x": 0,
+              "x": 32,
               "y": 32,
               "width": 32,
               "height": 32
@@ -263,7 +324,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 5,
             "isLoop": true,
             "startTime": 0
@@ -296,6 +357,13 @@
             "teleportLastEmissionTime": 0,
             "fireCircleCooldown": 3000,
             "fireCircleLastEmissionTime": 0
+          }
+        },
+        {
+          "name": "TeleportComponent",
+          "properties": {
+            "isTeleporting": false,
+            "teleportDelay": 1000
           }
         }
       ]
