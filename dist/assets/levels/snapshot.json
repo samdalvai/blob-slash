@@ -73,8 +73,8 @@
       "filePath": "./assets/sprites/explosion_small_blue.png"
     },
     {
-      "assetId": "grass",
-      "filePath": "./assets/tilemaps/grass.png"
+      "assetId": "grass_dirt",
+      "filePath": "./assets/tilemaps/grass_dirt.png"
     }
   ],
   "sounds": [
@@ -11154,7 +11154,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11190,7 +11190,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11226,7 +11226,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11262,7 +11262,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11298,7 +11298,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11334,7 +11334,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11370,7 +11370,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11406,7 +11406,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11442,7 +11442,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11478,7 +11478,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11514,7 +11514,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11550,7 +11550,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11586,7 +11586,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
@@ -11622,7 +11622,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "grass",
+            "assetId": "grass_dirt",
             "width": 32,
             "height": 32,
             "zIndex": 0,
