@@ -1,9 +1,9 @@
-import BoxColliderComponent from '../components/BoxColliderComponent';
-import TransformComponent from '../components/TransformComponent';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
-import CollisionEvent from '../events/CollisionEvent';
 import { Vector } from '../../engine/types/utils';
+import BoxColliderComponent from '../components/BoxColliderComponent';
+import TransformComponent from '../components/TransformComponent';
+import CollisionEvent from '../events/CollisionEvent';
 
 export default class CollisionSystem extends System {
     constructor() {
@@ -31,6 +31,10 @@ export default class CollisionSystem extends System {
 
                 // Bypass if we are trying to test the same entity
                 if (a === b) {
+                    continue;
+                }
+
+                if (a.belongsToGroup('obstacles') && b.belongsToGroup('obstacles')) {
                     continue;
                 }
 

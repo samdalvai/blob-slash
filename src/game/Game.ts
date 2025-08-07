@@ -50,7 +50,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
         await this.levelManager.addLevelToAssets('snapshot', '/assets/levels/snapshot.json');
-        await this.levelManager.addLevelToAssets('grass_dirt', '/assets/levels/grass_dirt.json');
+        await this.levelManager.addLevelToAssets('grass', '/assets/levels/grass.json');
         // await this.levelManager.loadLevelFromAssets('snapshot');
         await this.levelManager.loadLevelFromAssets('grass');
         this.gameStatus = GameStatus.PLAYING;
