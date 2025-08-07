@@ -272,11 +272,11 @@
         {
           "name": "BoxColliderComponent",
           "properties": {
-            "width": 32,
-            "height": 32,
+            "width": 30,
+            "height": 20,
             "offset": {
-              "x": 0,
-              "y": 0
+              "x": 1,
+              "y": 5
             },
             "lastCollision": 0
           }
@@ -5787,8 +5787,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 384,
-              "y": -128
+              "x": 800,
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -5836,11 +5836,354 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 480,
-              "y": -128
+              "x": 896,
+              "y": -320
             },
             "scale": {
               "x": 6,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 177,
+              "y": -17
+            },
+            "scale": {
+              "x": 2,
+              "y": 8
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -128
+            },
+            "scale": {
+              "x": 2,
+              "y": 8
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -224
+            },
+            "scale": {
+              "x": 8,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 992,
+              "y": -128
+            },
+            "scale": {
+              "x": 2,
+              "y": 6
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1088,
+              "y": -128
+            },
+            "scale": {
+              "x": 2,
+              "y": 4
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -416
+            },
+            "scale": {
+              "x": 4,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 176,
+              "y": -19
+            },
+            "scale": {
+              "x": 4,
               "y": 2
             },
             "rotation": 0
@@ -5889,154 +6232,7 @@
               "y": 176
             },
             "scale": {
-              "x": 6,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 3715.400000002235
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "cooldown_skill",
-            "width": 32,
-            "height": 32,
-            "zIndex": 1,
-            "srcRect": {
-              "x": 0,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 0
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 704,
-              "y": -128
-            },
-            "scale": {
-              "x": 2,
-              "y": 6
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "cooldown_skill",
-            "width": 32,
-            "height": 32,
-            "zIndex": 1,
-            "srcRect": {
-              "x": 0,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 0
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 176,
-              "y": 47
-            },
-            "scale": {
-              "x": 2,
-              "y": 6
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "cooldown_skill",
-            "width": 32,
-            "height": 32,
-            "zIndex": 1,
-            "srcRect": {
-              "x": 0,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 0
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 176,
-              "y": -18
-            },
-            "scale": {
-              "x": 2,
+              "x": 8,
               "y": 2
             },
             "rotation": 0
@@ -6052,104 +6248,6 @@
               "y": 0
             },
             "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "cooldown_skill",
-            "width": 32,
-            "height": 32,
-            "zIndex": 1,
-            "srcRect": {
-              "x": 0,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 0
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 241,
-              "y": -18
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "cooldown_skill",
-            "width": 32,
-            "height": 32,
-            "zIndex": 1,
-            "srcRect": {
-              "x": 0,
-              "y": 0,
-              "width": 32,
-              "height": 32
-            },
-            "flip": 0,
-            "isFixed": false,
-            "transparency": 0
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": -16,
-              "y": -50
-            },
-            "scale": {
-              "x": 6,
-              "y": 2
-            },
-            "rotation": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 3715.5
           }
         }
       ]
@@ -6180,11 +6278,11 @@
           "properties": {
             "position": {
               "x": -50,
-              "y": 1
+              "y": -17
             },
             "scale": {
               "x": 2,
-              "y": 6
+              "y": 8
             },
             "rotation": 0
           }
@@ -6198,7 +6296,56 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 3715.5
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "cooldown_skill",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "isFixed": false,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -33,
+              "y": -50
+            },
+            "scale": {
+              "x": 8,
+              "y": 2
+            },
+            "rotation": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
           }
         }
       ]
