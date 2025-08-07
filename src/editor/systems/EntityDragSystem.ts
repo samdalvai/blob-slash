@@ -19,7 +19,7 @@ export default class EntityDragSystem extends System {
 
     subscribeToEvents(eventBus: EventBus, canvas: HTMLCanvasElement, entityEditor: EntityEditor) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
-        eventBus.subscribeToEvent(MouseReleasedEvent, this, this.onMouseReleased);
+        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas));
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
     }
 
@@ -69,7 +69,7 @@ export default class EntityDragSystem extends System {
                 event.coordinates.y >= transform.position.y &&
                 event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
             ) {
-                if (Editor.selectedEntity !== null && Editor.selectedEntity.getId() !== entity.entity.getId()) {
+                if (Editor.selectedEntity === null || Editor.selectedEntity.getId() !== entity.entity.getId()) {
                     eventBus.emitEvent(EntitySelectEvent, entity.entity);
                 }
 
@@ -90,7 +90,14 @@ export default class EntityDragSystem extends System {
         }
     };
 
-    onMouseReleased = () => {
+    onMouseReleased = (canvas: HTMLCanvasElement) => {
+        if (
+            Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
+            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width
+        ) {
+            return;
+        }
+
         Editor.entityDragStart = null;
         Editor.isDragging = false;
     };

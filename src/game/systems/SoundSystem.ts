@@ -32,7 +32,7 @@ export default class SoundSystem extends System {
     };
 
     onEntityHit = () => {
-        const hitSound = this.assetStore.getSound('entity-hit-sound');
+        const hitSound = this.assetStore.getSound('entity_hit');
         if (!hitSound) {
             throw new Error('Could not find explosion sound');
         }

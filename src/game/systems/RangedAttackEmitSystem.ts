@@ -145,7 +145,7 @@ export default class RangedAttackEmitSystem extends System {
             projectile.group('projectiles');
             projectile.addComponent(TransformComponent, projectilePosition, { x: 1.0, y: 1.0 }, 0.0);
             projectile.addComponent(RigidBodyComponent, projectileDirection);
-            projectile.addComponent(SpriteComponent, 'magic-sphere-texture', 32, 32, 4);
+            projectile.addComponent(SpriteComponent, 'magic_sphere', 32, 32, 4);
             projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
             projectile.addComponent(
                 ProjectileComponent,
@@ -165,7 +165,7 @@ export default class RangedAttackEmitSystem extends System {
                 const cooldownAnimation = this.registry.createEntity();
                 cooldownAnimation.addComponent(
                     SpriteComponent,
-                    'cooldown-skill-texture',
+                    'cooldown_skill',
                     32,
                     32,
                     2,

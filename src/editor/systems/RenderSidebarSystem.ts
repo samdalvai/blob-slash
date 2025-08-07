@@ -388,6 +388,7 @@ export default class RenderSidebarSystem extends System {
 
                         const option = document.createElement('option');
                         option.value = nextLevelId;
+                        option.id = nextLevelId;
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
@@ -412,6 +413,7 @@ export default class RenderSidebarSystem extends System {
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
     ) => {
+        Editor.loadingLevel = true;
         const level = await levelManager.loadLevelFromLocalStorage(levelId);
         if (!level) {
             throw new Error('Could not read level from local storage');
@@ -434,5 +436,7 @@ export default class RenderSidebarSystem extends System {
 
         saveEditorSettingsToLocalStorage();
         this.entityEditor.saveLevel();
+
+        Editor.loadingLevel = false;
     };
 }
