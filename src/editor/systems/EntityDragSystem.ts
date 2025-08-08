@@ -27,6 +27,7 @@ export default class EntityDragSystem extends System {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
+            Engine.mousePositionScreen.y > canvas.getBoundingClientRect().height ||
             event.button !== MouseButton.LEFT
         ) {
             return;
@@ -93,7 +94,8 @@ export default class EntityDragSystem extends System {
     onMouseReleased = (canvas: HTMLCanvasElement) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
-            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width
+            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
+            Engine.mousePositionScreen.y > canvas.getBoundingClientRect().height
         ) {
             return;
         }

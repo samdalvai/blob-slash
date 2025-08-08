@@ -33,6 +33,7 @@ export default class Editor extends Engine {
     // Objects for rendering
     private leftSidebar: HTMLElement | null;
     private rightSidebar: HTMLElement | null;
+    private bottomBar: HTMLElement | null;
 
     // Editor status properties
     private mousePressed: boolean;
@@ -70,6 +71,7 @@ export default class Editor extends Engine {
 
         this.leftSidebar = null;
         this.rightSidebar = null;
+        this.bottomBar = null;
 
         this.mousePressed = false;
         this.commandPressed = false;
@@ -80,18 +82,24 @@ export default class Editor extends Engine {
         this.isDebug = true;
     }
 
-    resize = (canvas: HTMLCanvasElement, camera: Rectangle, leftSidebar: HTMLElement, rightSidebar: HTMLElement) => {
+    resize = (
+        canvas: HTMLCanvasElement,
+        camera: Rectangle,
+        leftSidebar: HTMLElement,
+        rightSidebar: HTMLElement,
+        bottomBar: HTMLElement,
+    ) => {
         canvas.width =
             window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
-        canvas.height = window.innerHeight;
+        canvas.height = window.innerHeight - bottomBar.getBoundingClientRect().height;
 
         camera.width =
             window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
-        camera.height = window.innerHeight;
+        camera.height = window.innerHeight - bottomBar.getBoundingClientRect().height;
 
         Engine.windowWidth =
             window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
-        Engine.windowHeight = window.innerHeight;
+        Engine.windowHeight = window.innerHeight - bottomBar.getBoundingClientRect().height;
 
         const ctx = canvas.getContext('2d');
 
@@ -109,6 +117,7 @@ export default class Editor extends Engine {
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const leftSidebar = document.getElementById('leftSidebar') as HTMLElement;
         const rightSidebar = document.getElementById('rightSidebar') as HTMLElement;
+        const bottomBar = document.getElementById('bottomBar') as HTMLElement;
 
         if (!canvas) {
             throw new Error('Failed to get canvas.');
@@ -126,19 +135,24 @@ export default class Editor extends Engine {
             throw new Error('Failed to get leftSidebar element.');
         }
 
+        if (!bottomBar) {
+            throw new Error('Failed to get bottomBar element.');
+        }
+
         this.canvas = canvas;
         this.ctx = ctx;
         this.leftSidebar = leftSidebar;
         this.rightSidebar = rightSidebar;
+        this.bottomBar = bottomBar;
 
-        this.resize(canvas, this.camera, this.leftSidebar, this.rightSidebar);
+        this.resize(canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
         // canvas.style.cursor = 'none';
 
         this.isRunning = true;
 
         window.addEventListener('resize', () => {
-            if (this.canvas && this.camera && this.leftSidebar && this.rightSidebar) {
-                this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar);
+            if (this.canvas && this.camera && this.leftSidebar && this.rightSidebar && this.bottomBar) {
+                this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
             }
         });
 
@@ -532,7 +546,7 @@ export default class Editor extends Engine {
         if (Editor.loadingLevel) {
             return;
         }
-        
+
         if (!this.canvas || !this.ctx || !this.leftSidebar || !this.rightSidebar) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
