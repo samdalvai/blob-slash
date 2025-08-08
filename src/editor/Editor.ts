@@ -44,7 +44,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntities: Entity[] = [];
-    static copiedEntity: Entity | null = null;
+    static copiedEntities: Entity[] = [];
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static multipleSelectStart: Vector | null = null;
@@ -293,14 +293,15 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyC':
-                                // TODO: update this to copy handle entities
-                                if (Editor.selectedEntities.length === 1) {
-                                    Editor.copiedEntity = Editor.selectedEntities[0];
+                                if (Editor.selectedEntities.length > 1) {
+                                    Editor.copiedEntities = Editor.selectedEntities;
                                 }
                                 break;
                             case 'KeyV':
-                                if (Editor.copiedEntity) {
-                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
+                                if (Editor.copiedEntities.length > 0) {
+                                    for (const entity of Editor.selectedEntities) {
+                                        this.eventBus.emitEvent(EntityPasteEvent, entity);
+                                    }
                                 }
                                 break;
                             // TODO: entity is deleted and cannot be copied again
