@@ -3,3 +3,4 @@ export { default as RenderSidebarSystem } from './RenderSidebarSystem';
 export { default as RenderSpriteBoxSystem } from './RenderSpriteBoxSystem';
 export { default as EntityDragSystem } from './EntityDragSystem';
 export { default as RenderGridSystem } from './RenderGridSystem';
+export { default as RenderMultipleSelectSystem } from './RenderMultipleSelectSystem';

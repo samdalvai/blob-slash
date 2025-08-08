@@ -47,6 +47,7 @@ export default class Editor extends Engine {
     static copiedEntity: Entity | null = null;
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
+    static multipleSelectStart: Vector | null = null;
     static alertShown = false;
     static loadingLevel = false;
 
@@ -220,6 +221,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderSidebarSystem, this.entityEditor);
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
+        this.registry.addSystem(EditorSystems.RenderMultipleSelectSystem);
 
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
@@ -611,6 +613,7 @@ export default class Editor extends Engine {
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
         // Render Editor systems needing overlay
+        this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
