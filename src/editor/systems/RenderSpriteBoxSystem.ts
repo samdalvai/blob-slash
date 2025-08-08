@@ -80,7 +80,8 @@ export default class RenderSpriteBoxSystem extends System {
                 Engine.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
                 Engine.mousePositionWorld.y >= transform.position.y &&
                 Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y &&
-                !spriteBoxHighlighted
+                !spriteBoxHighlighted &&
+                !Editor.multipleSelectStart
             ) {
                 ctx.save();
                 ctx.strokeStyle = 'white';

@@ -104,7 +104,10 @@ export default class EntityDragSystem extends System {
             }
         } else {
             // Select multiple behaviour
-            
+            Editor.multipleSelectStart = {
+                x: event.coordinates.x,
+                y: event.coordinates.y,
+            };
         }
     };
 
@@ -122,8 +125,7 @@ export default class EntityDragSystem extends System {
             Editor.isDragging = false;
         } else {
             // Select multiple behaviour
-
-
+            Editor.multipleSelectStart = null;
         }
     };
 
