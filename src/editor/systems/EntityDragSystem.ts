@@ -85,7 +85,10 @@ export default class EntityDragSystem extends System {
                     event.coordinates.y >= transform.position.y &&
                     event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
                 ) {
-                    if (Editor.selectedEntities.length === 0 || Editor.selectedEntities[0].getId() !== entity.entity.getId()) {
+                    if (
+                        Editor.selectedEntities.length === 0 ||
+                        Editor.selectedEntities[0].getId() !== entity.entity.getId()
+                    ) {
                         eventBus.emitEvent(EntitySelectEvent, entity.entity);
                     }
 
@@ -161,7 +164,9 @@ export default class EntityDragSystem extends System {
                 }
             }
 
-            console.log('Orverlapping entites: ' + overlappingEnties.length);
+            if (overlappingEnties.length > 0) {
+                Editor.selectedEntities = overlappingEnties;
+            }
 
             Editor.multipleSelectStart = null;
         }
