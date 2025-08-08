@@ -1,6 +1,7 @@
 import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import { rectanglesOverlap } from '../../engine/utils/rectangle';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import Editor from '../Editor';
@@ -89,6 +90,30 @@ export default class RenderSpriteBoxSystem extends System {
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
                 spriteBoxHighlighted = true;
+            }
+
+            if (Editor.multipleSelectStart) {
+                //console.log("checkign");
+                const selectionXStart = (Editor.multipleSelectStart.x - camera.x) * zoom;
+                const selectionYStart = (Editor.multipleSelectStart.y - camera.y) * zoom;
+                const selectionXEnd = (Editor.mousePositionWorld.x - camera.x) * zoom;
+                const selectionYEnd = (Editor.mousePositionWorld.y - camera.y) * zoom;
+
+                const rectSelection: Rectangle = {
+                    x: selectionXStart < selectionXEnd ? selectionXStart : selectionXEnd,
+                    y: selectionYStart < selectionYEnd ? selectionYStart : selectionYEnd,
+                    width: Math.abs(selectionXEnd - selectionXStart),
+                    height: Math.abs(selectionYEnd - selectionYStart),
+                };
+
+                if (rectanglesOverlap(rectSelection, spriteRect)) {
+                    ctx.save();
+                    ctx.strokeStyle = 'white';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                    ctx.restore();
+                    spriteBoxHighlighted = true;
+                }
             }
         }
     }
