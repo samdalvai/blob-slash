@@ -503,7 +503,7 @@ export default class Editor extends Engine {
         if (!this.commandPressed || Editor.isDragging) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor);
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed);
         }
 
         this.registry

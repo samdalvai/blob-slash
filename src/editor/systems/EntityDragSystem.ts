@@ -17,13 +17,25 @@ export default class EntityDragSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    subscribeToEvents(eventBus: EventBus, canvas: HTMLCanvasElement, entityEditor: EntityEditor) {
-        eventBus.subscribeToEvent(MousePressedEvent, this, event => this.onMousePressed(event, eventBus, canvas));
-        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas));
+    subscribeToEvents(
+        eventBus: EventBus,
+        canvas: HTMLCanvasElement,
+        entityEditor: EntityEditor,
+        shiftPressed: boolean,
+    ) {
+        eventBus.subscribeToEvent(MousePressedEvent, this, event =>
+            this.onMousePressed(event, eventBus, canvas, shiftPressed),
+        );
+        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas, shiftPressed));
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
     }
 
-    onMousePressed = (event: MousePressedEvent, eventBus: EventBus, canvas: HTMLCanvasElement) => {
+    onMousePressed = (
+        event: MousePressedEvent,
+        eventBus: EventBus,
+        canvas: HTMLCanvasElement,
+        shiftPressed: boolean,
+    ) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
@@ -58,40 +70,45 @@ export default class EntityDragSystem extends System {
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
-        let entityClicked = false;
+        if (!shiftPressed) {
+            let entityClicked = false;
 
-        for (const entity of renderableEntities) {
-            const sprite = entity.sprite;
-            const transform = entity.transform;
+            for (const entity of renderableEntities) {
+                const sprite = entity.sprite;
+                const transform = entity.transform;
 
-            if (
-                event.coordinates.x >= transform.position.x &&
-                event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
-                event.coordinates.y >= transform.position.y &&
-                event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
-            ) {
-                if (Editor.selectedEntity === null || Editor.selectedEntity.getId() !== entity.entity.getId()) {
-                    eventBus.emitEvent(EntitySelectEvent, entity.entity);
+                if (
+                    event.coordinates.x >= transform.position.x &&
+                    event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
+                    event.coordinates.y >= transform.position.y &&
+                    event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
+                ) {
+                    if (Editor.selectedEntity === null || Editor.selectedEntity.getId() !== entity.entity.getId()) {
+                        eventBus.emitEvent(EntitySelectEvent, entity.entity);
+                    }
+
+                    entityClicked = true;
+                    Editor.selectedEntity = entity.entity;
+                    Editor.entityDragStart = {
+                        x: event.coordinates.x - transform.position.x,
+                        y: event.coordinates.y - transform.position.y,
+                    };
+                    Editor.isDragging = true;
+
+                    continue;
                 }
-
-                entityClicked = true;
-                Editor.selectedEntity = entity.entity;
-                Editor.entityDragStart = {
-                    x: event.coordinates.x - transform.position.x,
-                    y: event.coordinates.y - transform.position.y,
-                };
-                Editor.isDragging = true;
-
-                continue;
             }
-        }
 
-        if (!entityClicked) {
-            Editor.selectedEntity = null;
+            if (!entityClicked) {
+                Editor.selectedEntity = null;
+            }
+        } else {
+            // Select multiple behaviour
+            
         }
     };
 
-    onMouseReleased = (canvas: HTMLCanvasElement) => {
+    onMouseReleased = (canvas: HTMLCanvasElement, shiftPressed: boolean) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
@@ -100,8 +117,14 @@ export default class EntityDragSystem extends System {
             return;
         }
 
-        Editor.entityDragStart = null;
-        Editor.isDragging = false;
+        if (!shiftPressed) {
+            Editor.entityDragStart = null;
+            Editor.isDragging = false;
+        } else {
+            // Select multiple behaviour
+
+
+        }
     };
 
     onMouseMove = (entityEditor: EntityEditor) => {
