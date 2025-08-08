@@ -173,6 +173,7 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseMove = (entityEditor: EntityEditor) => {
+        // TODO: handle dragging multiple entities
         if (Editor.isDragging && Editor.entityDragStart && Editor.selectedEntities.length === 1) {
             for (const entity of this.getSystemEntities()) {
                 if (entity.getId() !== Editor.selectedEntities[0].getId()) {
