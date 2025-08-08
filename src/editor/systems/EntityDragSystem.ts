@@ -92,8 +92,8 @@ export default class EntityDragSystem extends System {
 
                     entityClicked = true;
                     Editor.entityDragStart = {
-                        x: event.coordinates.x - transform.position.x,
-                        y: event.coordinates.y - transform.position.y,
+                        x: event.coordinates.x,
+                        y: event.coordinates.y,
                     };
                     Editor.isDragging = true;
 
@@ -170,6 +170,27 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseMove = (entityEditor: EntityEditor) => {
+        // console.log('Entity drag start: ', Editor.entityDragStart);
+        if (Editor.entityDragStart && Editor.selectedEntities.length > 0) {
+            const diffX = Editor.mousePositionWorld.x - Editor.entityDragStart.x;
+            const diffY = Editor.mousePositionWorld.y - Editor.entityDragStart.y;
+
+            Editor.entityDragStart.x = Editor.mousePositionWorld.x;
+            Editor.entityDragStart.y = Editor.mousePositionWorld.y;
+
+            for (const entity of Editor.selectedEntities) {
+                const sprite = entity.getComponent(SpriteComponent);
+                const transform = entity.getComponent(TransformComponent);
+                if (!sprite || !transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                const newPositionX = transform.position.x + diffX;
+                const newPositionY = transform.position.y + diffY;
+                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
+            }
+        }
+
         // TODO: handle dragging multiple entities
         // if (Editor.isDragging && Editor.entityDragStart && Editor.selectedEntities.length === 1) {
         //     for (const entity of this.getSystemEntities()) {
