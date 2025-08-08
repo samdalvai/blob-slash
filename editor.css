@@ -42,6 +42,7 @@ span {
 
 #game-canvas {
     border: 1px solid black;
+    display: block;
 }
 
 #editor {
@@ -73,6 +74,15 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+#bottomBar {
+    background-color: #1e1e1e;
+    border-top: 2px solid #333;
+    height: 50px;
+    padding-inline: 20px;
+    padding-block: 10px;
+    color: #fff;
 }
 
 #entity-list {
