@@ -43,7 +43,7 @@ export default class Editor extends Engine {
     private shouldSidebarUpdate: boolean;
 
     // Global Editor objects
-    static selectedEntity: Entity | null = null;
+    static selectedEntities: Entity[] = [];
     static copiedEntity: Entity | null = null;
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
@@ -274,9 +274,10 @@ export default class Editor extends Engine {
                         this.shiftPressed = true;
                     }
 
-                    if (inputEvent.code === 'Delete' && Editor.selectedEntity) {
-                        this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
-                        Editor.selectedEntity = null;
+                    // TODO: update this to handle multiple entities
+                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length === 1) {
+                        this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntities[0]);
+                        Editor.selectedEntities.length = 0;
                     }
 
                     if (this.commandPressed) {
@@ -290,8 +291,9 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyC':
-                                if (Editor.selectedEntity) {
-                                    Editor.copiedEntity = Editor.selectedEntity;
+                                // TODO: update this to copy handle entities
+                                if (Editor.selectedEntities.length === 1) {
+                                    Editor.copiedEntity = Editor.selectedEntities[0];
                                 }
                                 break;
                             case 'KeyV':
