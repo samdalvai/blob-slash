@@ -280,6 +280,7 @@ export default class Editor extends Engine {
                     if (this.commandPressed) {
                         switch (inputEvent.code) {
                             case 'KeyZ':
+                                // TODO: provide compatibility for non MacOS keyboards
                                 if (this.shiftPressed) {
                                     this.entityEditor.redoLevelChange();
                                 } else {
