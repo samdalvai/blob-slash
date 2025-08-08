@@ -82,7 +82,7 @@ export default class RenderSidebarSystem extends System {
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        Editor.selectedEntity = entityCopy;
+        Editor.selectedEntities = [entityCopy];
         this.entityEditor.saveLevel();
     };
 
@@ -123,7 +123,7 @@ export default class RenderSidebarSystem extends System {
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        Editor.selectedEntity = entityCopy;
+        Editor.selectedEntities = [entityCopy];
         this.entityEditor.saveLevel();
     };
 
@@ -141,8 +141,8 @@ export default class RenderSidebarSystem extends System {
         const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
         if (targetElement) {
-            if (event.entity.getId() === Editor.selectedEntity?.getId()) {
-                Editor.selectedEntity = null;
+            if (Editor.selectedEntities.length === 1 && event.entity.getId() === Editor.selectedEntities[0].getId()) {
+                Editor.selectedEntities.length = 0;
             }
             targetElement.remove();
         }

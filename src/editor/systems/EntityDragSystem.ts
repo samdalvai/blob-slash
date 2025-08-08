@@ -28,7 +28,7 @@ export default class EntityDragSystem extends System {
         eventBus.subscribeToEvent(MousePressedEvent, this, event =>
             this.onMousePressed(event, eventBus, canvas, shiftPressed),
         );
-        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas, shiftPressed));
+        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas));
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
     }
 
@@ -85,12 +85,12 @@ export default class EntityDragSystem extends System {
                     event.coordinates.y >= transform.position.y &&
                     event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
                 ) {
-                    if (Editor.selectedEntity === null || Editor.selectedEntity.getId() !== entity.entity.getId()) {
+                    if (Editor.selectedEntities.length === 0 || Editor.selectedEntities[0].getId() !== entity.entity.getId()) {
                         eventBus.emitEvent(EntitySelectEvent, entity.entity);
                     }
 
                     entityClicked = true;
-                    Editor.selectedEntity = entity.entity;
+                    Editor.selectedEntities = [entity.entity];
                     Editor.entityDragStart = {
                         x: event.coordinates.x - transform.position.x,
                         y: event.coordinates.y - transform.position.y,
@@ -102,7 +102,7 @@ export default class EntityDragSystem extends System {
             }
 
             if (!entityClicked) {
-                Editor.selectedEntity = null;
+                Editor.selectedEntities.length = 0;
             }
         } else {
             // Select multiple behaviour
@@ -113,7 +113,7 @@ export default class EntityDragSystem extends System {
         }
     };
 
-    onMouseReleased = (canvas: HTMLCanvasElement, shiftPressed: boolean) => {
+    onMouseReleased = (canvas: HTMLCanvasElement) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
@@ -168,9 +168,9 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseMove = (entityEditor: EntityEditor) => {
-        if (Editor.isDragging && Editor.entityDragStart && Editor.selectedEntity !== null) {
+        if (Editor.isDragging && Editor.entityDragStart && Editor.selectedEntities.length === 1) {
             for (const entity of this.getSystemEntities()) {
-                if (entity.getId() !== Editor.selectedEntity.getId()) {
+                if (entity.getId() !== Editor.selectedEntities[0].getId()) {
                     continue;
                 }
 
