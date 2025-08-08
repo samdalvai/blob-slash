@@ -20,14 +20,27 @@
             </div>
             <div>
                 <canvas id="game-canvas"></canvas>
-                <div id="bottomBar" class="d-flex align-center">
-                    <span>Mouse scroll = zoom +/-</span>
-                    <span>Cmd + mouse move = pan</span>
-                    <span>Cmd + C = copy entity</span>
-                    <span>Cmd + V = paste entity</span>
-                    <span>Delete = delete entity</span>
-                    <span>Mouse click = select entity</span>
-                    <span>Mouse click + drag = move entity</span>
+                <div id="bottomBar" class="d-flex align-center space-between">
+                    <div class="d-flex align-center pe-2">
+                        <img src="spritesheets/skills_menu/mouse_left.png" class="pe-2" />
+                        <span> Select entity</span>
+                    </div>
+                    <div class="d-flex align-center">
+                        <img src="spritesheets/skills_menu/mouse_left.png" class="pe-2" />
+                        <span>+ Drag: Move entity</span>
+                    </div>
+                    <div class="d-flex align-center">
+                        <img src="spritesheets/skills_menu/mouse_middle.png" class="pe-2" />
+                        <span> Zoom +/-</span>
+                    </div>
+                    <div class="d-flex align-center">
+                        <div class="pe-2">Cmd +</div>
+                        <img src="spritesheets/skills_menu/mouse_move.png" class="pe-2" />
+                        <div>: Pan</div>
+                    </div>
+                    <div>Cmd + C: Copy entity</div>
+                    <div>Cmd + V: Paste entity</div>
+                    <div>Delete: Delete entity</div>
                 </div>
             </div>
             <div id="rightSidebar">
