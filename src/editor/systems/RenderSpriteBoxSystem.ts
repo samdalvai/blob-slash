@@ -64,12 +64,17 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            if (Editor.selectedEntities.length !== 0 && Editor.selectedEntities[0].getId() === renderableEntities[i].entityId) {
-                ctx.save();
-                ctx.strokeStyle = 'green';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
-                ctx.restore();
+            if (Editor.selectedEntities.length !== 0) {
+                for (const entity of Editor.selectedEntities) {
+                    if (entity.getId() === renderableEntities[i].entityId) {                       
+                        ctx.save();
+                        ctx.strokeStyle = 'green';
+                        ctx.lineWidth = 4;
+                        ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                        ctx.restore();
+                    }
+                }
+
             }
 
             if (Editor.entityDragStart !== null) {
