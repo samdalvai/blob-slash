@@ -122,7 +122,6 @@ export default class EntityEditor {
             throw new Error('Could not find target element in entity list');
         }
 
-        Editor.selectedEntities.length = 0;
         targetElement.remove();
         this.saveLevel();
     };

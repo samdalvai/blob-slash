@@ -274,9 +274,11 @@ export default class Editor extends Engine {
                         this.shiftPressed = true;
                     }
 
-                    // TODO: update this to handle multiple entities
-                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length === 1) {
-                        this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntities[0]);
+                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 1) {
+                        for (const entity of Editor.selectedEntities) {
+                            this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                        }
+
                         Editor.selectedEntities.length = 0;
                     }
 
