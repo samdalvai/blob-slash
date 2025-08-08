@@ -3,6 +3,8 @@ import Entity from '../../engine/ecs/Entity';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
+import { Rectangle } from '../../engine/types/utils';
+import { rectanglesOverlap } from '../../engine/utils/rectangle';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import { MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';
@@ -120,11 +122,47 @@ export default class EntityDragSystem extends System {
             return;
         }
 
-        if (!shiftPressed) {
+        if (!Editor.multipleSelectStart) {
             Editor.entityDragStart = null;
             Editor.isDragging = false;
         } else {
             // Select multiple behaviour
+            const overlappingEnties: Entity[] = [];
+
+            for (const entity of this.getSystemEntities()) {
+                const sprite = entity.getComponent(SpriteComponent);
+                const transform = entity.getComponent(TransformComponent);
+
+                if (!sprite || !transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                const spriteRect: Rectangle = {
+                    x: transform.position.x,
+                    y: transform.position.y,
+                    width: sprite.width * transform.scale.x,
+                    height: sprite.height * transform.scale.y,
+                };
+
+                const selectionXStart = Editor.multipleSelectStart.x;
+                const selectionYStart = Editor.multipleSelectStart.y;
+                const selectionXEnd = Editor.mousePositionWorld.x;
+                const selectionYEnd = Editor.mousePositionWorld.y;
+
+                const rectSelection: Rectangle = {
+                    x: selectionXStart < selectionXEnd ? selectionXStart : selectionXEnd,
+                    y: selectionYStart < selectionYEnd ? selectionYStart : selectionYEnd,
+                    width: Math.abs(selectionXEnd - selectionXStart),
+                    height: Math.abs(selectionYEnd - selectionYStart),
+                };
+
+                if (rectanglesOverlap(rectSelection, spriteRect)) {
+                    overlappingEnties.push(entity);
+                }
+            }
+
+            console.log('Orverlapping entites: ' + overlappingEnties.length);
+
             Editor.multipleSelectStart = null;
         }
     };
