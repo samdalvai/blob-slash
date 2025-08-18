@@ -243,8 +243,8 @@ export default class EntityDragSystem extends System {
             this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
         }
 
-        Editor.entityDragStart.x = Editor.mousePositionWorld.x;
-        Editor.entityDragStart.y = Editor.mousePositionWorld.y;
+        Editor.entityDragStart.x += diffX;
+        Editor.entityDragStart.y += diffY;
     };
 
     private updateEntityPosition = (
