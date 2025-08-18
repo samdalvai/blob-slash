@@ -293,15 +293,14 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyC':
-                                if (Editor.selectedEntities.length > 1) {
-                                    Editor.copiedEntities = Editor.selectedEntities;
+                                if (Editor.selectedEntities.length > 0) {
+                                    Editor.copiedEntities = [...Editor.selectedEntities];
                                 }
                                 break;
                             case 'KeyV':
+                                console.log('Copied entitites: ', Editor.copiedEntities);
                                 if (Editor.copiedEntities.length > 0) {
-                                    for (const entity of Editor.selectedEntities) {
-                                        this.eventBus.emitEvent(EntityPasteEvent, entity);
-                                    }
+                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntities);
                                 }
                                 break;
                             // TODO: entity is deleted and cannot be copied again

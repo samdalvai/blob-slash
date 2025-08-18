@@ -97,34 +97,36 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        const originalEntity = event.entity;
+        console.log('Entity paste event: ', event.entities);
 
-        if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
-            return;
-        }
+        // const originalEntity = event.entity;
 
-        const entityCopy = event.entity.duplicate();
+        // if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
+        //     return;
+        // }
 
-        const copiedTransform = entityCopy.getComponent(TransformComponent);
+        // const entityCopy = event.entity.duplicate();
 
-        if (!copiedTransform) {
-            throw new Error('Could not get transform component of entity ' + entityCopy.getId());
-        }
+        // const copiedTransform = entityCopy.getComponent(TransformComponent);
 
-        copiedTransform.position.x = Engine.mousePositionWorld.x;
-        copiedTransform.position.y = Engine.mousePositionWorld.y;
+        // if (!copiedTransform) {
+        //     throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+        // }
 
-        Editor.entityDragStart = {
-            x: Engine.mousePositionWorld.x - copiedTransform.position.x,
-            y: Engine.mousePositionWorld.y - copiedTransform.position.y,
-        };
-        Editor.isDragging = true;
+        // copiedTransform.position.x = Engine.mousePositionWorld.x;
+        // copiedTransform.position.y = Engine.mousePositionWorld.y;
 
-        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+        // Editor.entityDragStart = {
+        //     x: Engine.mousePositionWorld.x - copiedTransform.position.x,
+        //     y: Engine.mousePositionWorld.y - copiedTransform.position.y,
+        // };
+        // Editor.isDragging = true;
 
-        eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        Editor.selectedEntities = [entityCopy];
-        this.entityEditor.saveLevel();
+        // entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+
+        // eventBus.emitEvent(EntitySelectEvent, entityCopy);
+        // Editor.selectedEntities = [entityCopy];
+        // this.entityEditor.saveLevel();
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement) => {
