@@ -187,32 +187,26 @@ export default class EntityDragSystem extends System {
                 Math.floor(Engine.mousePositionWorld.y / Editor.editorSettings.gridSquareSide) *
                 Editor.editorSettings.gridSquareSide;
 
-            let nearestTransformX = Number.MAX_VALUE;
-            let nearestTransformY = Number.MAX_VALUE;
+            let minTransformPositionX = Number.MAX_VALUE;
+            let minTransformPositionY = Number.MAX_VALUE;
 
             for (const entity of Editor.selectedEntities) {
-                const transform = entity.getComponent(TransformComponent);
+                const transform = Editor.selectedEntities[0].getComponent(TransformComponent);
                 if (!transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                const transformDiffX = Math.abs(Engine.mousePositionWorld.x - transform.position.x);
-                const transformDiffY = Math.abs(Engine.mousePositionWorld.y - transform.position.y);
-
-                const currentTransformDiffX = Math.abs(Engine.mousePositionWorld.x - nearestTransformX);
-                const currentTransformDiffY = Math.abs(Engine.mousePositionWorld.y - nearestTransformY);
-
-                if (transformDiffX < currentTransformDiffX) {
-                    nearestTransformX = transform.position.x;
+                if (minTransformPositionX > transform.position.x) {
+                    minTransformPositionX = transform.position.x;
                 }
 
-                if (transformDiffY < currentTransformDiffY) {
-                    nearestTransformY = transform.position.y;
+                if (minTransformPositionY > transform.position.y) {
+                    minTransformPositionY = transform.position.y;
                 }
             }
 
-            const diffX = nearestGridX - nearestTransformX;
-            const diffY = nearestGridY - nearestTransformY;
+            const diffX = nearestGridX - minTransformPositionX;
+            const diffY = nearestGridY - minTransformPositionY;
 
             for (const entity of Editor.selectedEntities) {
                 const transform = entity.getComponent(TransformComponent);
