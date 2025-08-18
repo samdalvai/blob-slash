@@ -274,7 +274,7 @@ export default class Editor extends Engine {
                         this.shiftPressed = true;
                     }
 
-                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 1) {
+                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
                         for (const entity of Editor.selectedEntities) {
                             this.eventBus.emitEvent(EntityDeleteEvent, entity);
                         }
@@ -298,7 +298,6 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyV':
-                                console.log('Copied entitites: ', Editor.copiedEntities);
                                 if (Editor.copiedEntities.length > 0) {
                                     this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntities);
                                 }
