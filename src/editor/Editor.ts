@@ -303,13 +303,15 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             // TODO: entity is deleted and cannot be copied again
-                            // case 'KeyX':
-                            //     if (Editor.selectedEntity) {
-                            //         Editor.copiedEntity = Editor.selectedEntity;
-                            //         this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
-                            //         Editor.selectedEntity = null;
-                            //     }
-                            //     break;
+                            case 'KeyX':
+                                if (Editor.selectedEntities.length > 0) {
+                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    for (const entity of Editor.selectedEntities) {
+                                        this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                                    }
+                                    Editor.selectedEntities.length = 0;
+                                }
+                                break;
                         }
                     }
 

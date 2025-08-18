@@ -174,10 +174,22 @@ export default class EntityDragSystem extends System {
         if (Editor.entityDragStart && Editor.selectedEntities.length > 0) {
             if (Editor.editorSettings.snapToGrid) {
                 // TODO: implement logic for grid snapping
-                // Idea: 
+                // Idea:
                 // take the entity in the left upper corner
                 // compute the difference needed for that entity to snap to the nearest square to the mouse position
                 // translate all entities by that difference
+                const diffX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+                const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+                const nearestGridX =
+                    Math.floor(diffX / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
+                const nearestGridY =
+                    Math.floor(diffY / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
+
+                console.log('nearest grid X diff: ', nearestGridX);
+                console.log('nearest grid Y diff: ', nearestGridY);
+
+                Editor.entityDragStart.x = Editor.mousePositionWorld.x;
+                Editor.entityDragStart.y = Editor.mousePositionWorld.y;
 
                 return;
             }
