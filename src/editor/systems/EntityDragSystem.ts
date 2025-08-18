@@ -73,6 +73,7 @@ export default class EntityDragSystem extends System {
         });
 
         if (!shiftPressed) {
+            // TODO: can we do this logic on mouse released so that we can enable multiple select by default?
             let entityClicked = false;
 
             for (const entity of renderableEntities) {
