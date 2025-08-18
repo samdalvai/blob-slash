@@ -172,17 +172,26 @@ export default class EntityDragSystem extends System {
     onMouseMove = (entityEditor: EntityEditor) => {
         // console.log('Entity drag start: ', Editor.entityDragStart);
         if (Editor.entityDragStart && Editor.selectedEntities.length > 0) {
+            if (Editor.editorSettings.snapToGrid) {
+                // TODO: implement logic for grid snapping
+                // Idea: 
+                // take the entity in the left upper corner
+                // compute the difference needed for that entity to snap to the nearest square to the mouse position
+                // translate all entities by that difference
+
+                return;
+            }
+
             const diffX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
             const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
 
-            
             for (const entity of Editor.selectedEntities) {
                 const sprite = entity.getComponent(SpriteComponent);
                 const transform = entity.getComponent(TransformComponent);
                 if (!sprite || !transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
-                
+
                 const newPositionX = transform.position.x + diffX;
                 const newPositionY = transform.position.y + diffY;
                 this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
