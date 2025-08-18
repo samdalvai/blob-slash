@@ -8,7 +8,7 @@ import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
-import { SpriteComponent, TransformComponent } from '../../game/components';
+import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
@@ -108,12 +108,7 @@ export default class RenderSidebarSystem extends System {
         let minTransformPositionY = Number.MAX_VALUE;
 
         for (const originalEntity of event.entities) {
-            if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
-                continue;
-            }
-
             const entityCopy = originalEntity.duplicate();
-
             const copiedTransform = entityCopy.getComponent(TransformComponent);
 
             if (!copiedTransform) {
