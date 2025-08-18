@@ -176,10 +176,11 @@ export default class EntityDragSystem extends System {
 
         if (Editor.editorSettings.snapToGrid) {
             // Logic for snapping multiple entities to grid:
-            // * take the entity that is nearest to the current mouse position
+            // * take the entity that is on the leftmost upper corner of the group
             // * compute the difference needed for that entity to snap to the nearest square to the current mouse position
             // * translate all entities by that difference
 
+            // TODO: can we improve this by selecting the entity nearest to the mouse position? See commit 989c5dd for example
             const nearestGridX =
                 Math.floor(Engine.mousePositionWorld.x / Editor.editorSettings.gridSquareSide) *
                 Editor.editorSettings.gridSquareSide;
