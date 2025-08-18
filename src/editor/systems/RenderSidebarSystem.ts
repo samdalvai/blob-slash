@@ -1,5 +1,6 @@
 import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
+import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
@@ -87,6 +88,10 @@ export default class RenderSidebarSystem extends System {
     };
 
     onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+        if (event.entities.length === 0) {
+            return;
+        }
+
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -97,36 +102,49 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        console.log('Entity paste event: ', event.entities);
+        const copiedEntities: Entity[] = [];
 
-        // const originalEntity = event.entity;
+        let minTransformPositionX = Number.MAX_VALUE;
+        let minTransformPositionY = Number.MAX_VALUE;
 
-        // if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
-        //     return;
-        // }
+        for (const originalEntity of event.entities) {
+            if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
+                continue;
+            }
 
-        // const entityCopy = event.entity.duplicate();
+            const entityCopy = originalEntity.duplicate();
 
-        // const copiedTransform = entityCopy.getComponent(TransformComponent);
+            const copiedTransform = entityCopy.getComponent(TransformComponent);
 
-        // if (!copiedTransform) {
-        //     throw new Error('Could not get transform component of entity ' + entityCopy.getId());
-        // }
+            if (!copiedTransform) {
+                throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+            }
 
-        // copiedTransform.position.x = Engine.mousePositionWorld.x;
-        // copiedTransform.position.y = Engine.mousePositionWorld.y;
+            if (minTransformPositionX > copiedTransform.position.x) {
+                minTransformPositionX = copiedTransform.position.x;
+            }
 
-        // Editor.entityDragStart = {
-        //     x: Engine.mousePositionWorld.x - copiedTransform.position.x,
-        //     y: Engine.mousePositionWorld.y - copiedTransform.position.y,
-        // };
-        // Editor.isDragging = true;
+            if (minTransformPositionY > copiedTransform.position.y) {
+                minTransformPositionY = copiedTransform.position.y;
+            }
 
-        // entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+            copiedEntities.push(entityCopy);
+            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+        }
 
-        // eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        // Editor.selectedEntities = [entityCopy];
-        // this.entityEditor.saveLevel();
+        if (copiedEntities.length === 0) {
+            return;
+        }
+
+        Editor.entityDragStart = {
+            x: minTransformPositionX,
+            y: minTransformPositionY,
+        };
+        Editor.isDragging = true;
+
+        eventBus.emitEvent(EntitySelectEvent, copiedEntities[0]);
+        Editor.selectedEntities = [...copiedEntities];
+        this.entityEditor.saveLevel();
     };
 
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement) => {
