@@ -156,6 +156,7 @@ export default class RenderSidebarSystem extends System {
         const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
         if (targetElement) {
+            // TODO: do we need to update this?
             if (Editor.selectedEntities.length === 1 && event.entity.getId() === Editor.selectedEntities[0].getId()) {
                 Editor.selectedEntities.length = 0;
             }

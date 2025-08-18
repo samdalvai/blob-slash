@@ -170,80 +170,85 @@ export default class EntityDragSystem extends System {
     };
 
     onMouseMove = (entityEditor: EntityEditor) => {
-        if (Editor.entityDragStart && Editor.selectedEntities.length > 0) {
-            if (Editor.editorSettings.snapToGrid) {
-                // Logic for snapping multiple entities to grid:
-                // * take the entity in the left upper corner
-                // * compute the difference needed for that entity to snap to the nearest square to the current mouse position
-                // * translate all entities by that difference
+        if (!Editor.entityDragStart || Editor.selectedEntities.length === 0) {
+            return;
+        }
 
-                const nearestGridX =
-                    Math.floor(Engine.mousePositionWorld.x / Editor.editorSettings.gridSquareSide) *
-                    Editor.editorSettings.gridSquareSide;
-                const nearestGridY =
-                    Math.floor(Engine.mousePositionWorld.y / Editor.editorSettings.gridSquareSide) *
-                    Editor.editorSettings.gridSquareSide;
+        if (Editor.editorSettings.snapToGrid) {
+            // Logic for snapping multiple entities to grid:
+            // * take the entity that is nearest to the current mouse position
+            // * compute the difference needed for that entity to snap to the nearest square to the current mouse position
+            // * translate all entities by that difference
 
-                let minTransformPositionX = Number.MAX_VALUE;
-                let minTransformPositionY = Number.MAX_VALUE;
+            const nearestGridX =
+                Math.floor(Engine.mousePositionWorld.x / Editor.editorSettings.gridSquareSide) *
+                Editor.editorSettings.gridSquareSide;
+            const nearestGridY =
+                Math.floor(Engine.mousePositionWorld.y / Editor.editorSettings.gridSquareSide) *
+                Editor.editorSettings.gridSquareSide;
 
-                for (const entity of Editor.selectedEntities) {
-                    const transform = Editor.selectedEntities[0].getComponent(TransformComponent);
-                    if (!transform) {
-                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                    }
-
-                    if (minTransformPositionX > transform.position.x) {
-                        minTransformPositionX = transform.position.x;
-                    }
-
-                    if (minTransformPositionY > transform.position.y) {
-                        minTransformPositionY = transform.position.y;
-                    }
-                }
-
-                const diffX = nearestGridX - minTransformPositionX;
-                const diffY = nearestGridY - minTransformPositionY;
-
-                console.log('diffX: ', diffX);
-                console.log('diffY: ', diffY);
-
-                for (const entity of Editor.selectedEntities) {
-                    const transform = entity.getComponent(TransformComponent);
-                    if (!transform) {
-                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                    }
-
-                    this.updateEntityPosition(
-                        entity,
-                        transform,
-                        transform.position.x + diffX,
-                        transform.position.y + diffY,
-                        entityEditor,
-                    );
-                }
-
-                return;
-            }
-
-            const diffX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
-            const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+            let nearestTransformX = Number.MAX_VALUE;
+            let nearestTransformY = Number.MAX_VALUE;
 
             for (const entity of Editor.selectedEntities) {
-                const sprite = entity.getComponent(SpriteComponent);
                 const transform = entity.getComponent(TransformComponent);
-                if (!sprite || !transform) {
+                if (!transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                const newPositionX = transform.position.x + diffX;
-                const newPositionY = transform.position.y + diffY;
-                this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
+                const transformDiffX = Math.abs(Engine.mousePositionWorld.x - transform.position.x);
+                const transformDiffY = Math.abs(Engine.mousePositionWorld.y - transform.position.y);
+
+                const currentTransformDiffX = Math.abs(Engine.mousePositionWorld.x - nearestTransformX);
+                const currentTransformDiffY = Math.abs(Engine.mousePositionWorld.y - nearestTransformY);
+
+                if (transformDiffX < currentTransformDiffX) {
+                    nearestTransformX = transform.position.x;
+                }
+
+                if (transformDiffY < currentTransformDiffY) {
+                    nearestTransformY = transform.position.y;
+                }
             }
 
-            Editor.entityDragStart.x = Editor.mousePositionWorld.x;
-            Editor.entityDragStart.y = Editor.mousePositionWorld.y;
+            const diffX = nearestGridX - nearestTransformX;
+            const diffY = nearestGridY - nearestTransformY;
+
+            for (const entity of Editor.selectedEntities) {
+                const transform = entity.getComponent(TransformComponent);
+                if (!transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                this.updateEntityPosition(
+                    entity,
+                    transform,
+                    transform.position.x + diffX,
+                    transform.position.y + diffY,
+                    entityEditor,
+                );
+            }
+
+            return;
         }
+
+        const diffX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
+        const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
+
+        for (const entity of Editor.selectedEntities) {
+            const sprite = entity.getComponent(SpriteComponent);
+            const transform = entity.getComponent(TransformComponent);
+            if (!sprite || !transform) {
+                throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            const newPositionX = transform.position.x + diffX;
+            const newPositionY = transform.position.y + diffY;
+            this.updateEntityPosition(entity, transform, newPositionX, newPositionY, entityEditor);
+        }
+
+        Editor.entityDragStart.x = Editor.mousePositionWorld.x;
+        Editor.entityDragStart.y = Editor.mousePositionWorld.y;
     };
 
     private updateEntityPosition = (
@@ -277,7 +282,6 @@ export default class EntityDragSystem extends System {
     private isEntitySelected = (entity: Entity) => {
         for (const selectedEntity of Editor.selectedEntities) {
             if (selectedEntity.getId() === entity.getId()) {
-                console.log('is selected');
                 return true;
             }
         }
