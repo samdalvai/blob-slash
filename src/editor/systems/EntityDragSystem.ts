@@ -180,16 +180,25 @@ export default class EntityDragSystem extends System {
                 // translate all entities by that difference
                 const diffX = Math.floor(Engine.mousePositionWorld.x - Editor.entityDragStart.x);
                 const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
-                const nearestGridX =
-                    Math.floor(diffX / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
-                const nearestGridY =
-                    Math.floor(diffY / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
 
-                console.log('nearest grid X diff: ', nearestGridX);
-                console.log('nearest grid Y diff: ', nearestGridY);
+                console.log('diff x: ', diffX);
+                console.log('diff y: ', diffY);
+                // const nearestGridX =
+                //     Math.floor(diffX / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
+                // const nearestGridY =
+                //     Math.floor(diffY / Editor.editorSettings.gridSquareSide) * Editor.editorSettings.gridSquareSide;
 
-                Editor.entityDragStart.x = Editor.mousePositionWorld.x;
-                Editor.entityDragStart.y = Editor.mousePositionWorld.y;
+                // console.log('nearest grid X diff: ', nearestGridX);
+                // console.log('nearest grid Y diff: ', nearestGridY);
+
+                const sprite = Editor.selectedEntities[0].getComponent(SpriteComponent);
+                const transform = Editor.selectedEntities[0].getComponent(TransformComponent);
+                if (!sprite || !transform) {
+                    throw new Error('Could not find some component(s) of entity with id ' + Editor.selectedEntities[0].getId());
+                }
+
+                // Editor.entityDragStart.x = Editor.mousePositionWorld.x;
+                // Editor.entityDragStart.y = Editor.mousePositionWorld.y;
 
                 return;
             }
