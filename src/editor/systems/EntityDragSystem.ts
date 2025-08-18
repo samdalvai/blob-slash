@@ -28,7 +28,7 @@ export default class EntityDragSystem extends System {
         eventBus.subscribeToEvent(MousePressedEvent, this, event =>
             this.onMousePressed(event, eventBus, canvas, shiftPressed),
         );
-        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas));
+        eventBus.subscribeToEvent(MouseReleasedEvent, this, () => this.onMouseReleased(canvas, eventBus));
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
     }
 
@@ -72,10 +72,9 @@ export default class EntityDragSystem extends System {
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
-        if (!shiftPressed) {
-            // TODO: can we do this logic on mouse released so that we can enable multiple select by default?
-            let entityClicked = false;
+        let entityClicked = false;
 
+        if (!shiftPressed) {
             for (const entity of renderableEntities) {
                 const sprite = entity.sprite;
                 const transform = entity.transform;
@@ -87,8 +86,8 @@ export default class EntityDragSystem extends System {
                     event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
                 ) {
                     if (Editor.selectedEntities.length === 0 || !this.isEntitySelected(entity.entity)) {
-                        eventBus.emitEvent(EntitySelectEvent, entity.entity);
                         Editor.selectedEntities = [entity.entity];
+                        eventBus.emitEvent(EntitySelectEvent, entity.entity);
                     }
 
                     entityClicked = true;
@@ -101,12 +100,13 @@ export default class EntityDragSystem extends System {
                     continue;
                 }
             }
+        }
 
-            if (!entityClicked) {
-                Editor.selectedEntities.length = 0;
-            }
-        } else {
-            // Select multiple behaviour
+        if (!entityClicked) {
+            Editor.selectedEntities.length = 0;
+        }
+
+        if (!entityClicked || shiftPressed) {
             Editor.multipleSelectStart = {
                 x: event.coordinates.x,
                 y: event.coordinates.y,
@@ -114,7 +114,7 @@ export default class EntityDragSystem extends System {
         }
     };
 
-    onMouseReleased = (canvas: HTMLCanvasElement) => {
+    onMouseReleased = (canvas: HTMLCanvasElement, eventBus: EventBus) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
@@ -164,6 +164,7 @@ export default class EntityDragSystem extends System {
 
             if (overlappingEnties.length > 0) {
                 Editor.selectedEntities = overlappingEnties;
+                eventBus.emitEvent(EntitySelectEvent, overlappingEnties[0]);
             }
 
             Editor.multipleSelectStart = null;
