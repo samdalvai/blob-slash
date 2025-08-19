@@ -108,21 +108,13 @@ export default class EntityEditor {
 
     addEntity = (entityList: HTMLLIElement) => {
         const entity = this.registry.createEntity();
-        entityList.appendChild(this.getEntityListElement(entity, entityList));
+        entityList.appendChild(this.getEntityListElement(entity));
         this.eventBus.emitEvent(EntitySelectEvent, entity);
         this.saveLevel();
     };
 
-    removeEntity = (entity: Entity, entityList: HTMLLIElement) => {
+    removeEntity = (entity: Entity) => {
         entity.kill();
-
-        const targetElement = entityList.querySelector(`#entity-${entity.getId()}`);
-
-        if (!targetElement) {
-            throw new Error('Could not find target element in entity list');
-        }
-
-        targetElement.remove();
         this.saveLevel();
     };
 
@@ -182,7 +174,7 @@ export default class EntityEditor {
     // HMTL elements management
     ////////////////////////////////////////////////////////////////////////////////
 
-    getEntityListElement = (entity: Entity, entityList: HTMLLIElement) => {
+    getEntityListElement = (entity: Entity) => {
         const entityComponents = entity.getComponents();
 
         const componentList = document.createElement('li');
@@ -204,7 +196,7 @@ export default class EntityEditor {
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
-        deleteButton.onclick = () => this.removeEntity(entity, entityList);
+        deleteButton.onclick = () => this.removeEntity(entity);
 
         header.append(title);
         header.append(duplicateButton);

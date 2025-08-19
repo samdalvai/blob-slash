@@ -515,7 +515,7 @@ export default class Editor extends Engine {
 
         this.registry
             .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.registry, this.eventBus, this.leftSidebar);
+            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&

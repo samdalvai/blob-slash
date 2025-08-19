@@ -104,6 +104,7 @@ export default class EntityDragSystem extends System {
 
         if (!entityClicked) {
             Editor.selectedEntities.length = 0;
+            eventBus.emitEvent(EntitySelectEvent, null);
         }
 
         if (!entityClicked || shiftPressed) {
@@ -267,7 +268,7 @@ export default class EntityDragSystem extends System {
         const positionYInput = document.getElementById('position-y-' + entity.getId()) as HTMLInputElement;
 
         if (!positionXInput || !positionYInput) {
-            throw new Error('Could not get position inputs for entity ' + entity.getId());
+            return;
         }
 
         positionXInput.value = transform.position.x.toString();
