@@ -109,7 +109,7 @@ export default class EntityEditor {
 
     addEntity = (entityList: HTMLLIElement) => {
         const entity = this.registry.createEntity();
-        entity.addComponent(GameComponents.SpriteComponent, DEFAULT_SPRITE, 32, 32, 0, { x: 0, y: 0 });
+        // entity.addComponent(GameComponents.SpriteComponent, DEFAULT_SPRITE, 32, 32, 0, { x: 0, y: 0 });
         entity.addComponent(GameComponents.TransformComponent);
 
         entityList.appendChild(this.getEntityListElement(entity, entityList));
@@ -302,7 +302,7 @@ export default class EntityEditor {
         title.style.textDecoration = 'underline';
         componentHeader.append(title);
 
-        if (component.constructor.name !== 'SpriteComponent' && component.constructor.name !== 'TransformComponent') {
+        if (component.constructor.name !== 'TransformComponent') {
             const removeButton = document.createElement('button');
             removeButton.innerText = 'REMOVE';
             removeButton.onclick = () => {
