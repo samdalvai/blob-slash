@@ -178,6 +178,8 @@ export default class RenderSidebarSystem extends System {
     }
 
     private renderEntityList = (leftSidebar: HTMLElement, registry: Registry) => {
+        // TODO: having a lot of entities creates a huge list which increases the heap size by a lot, find a better approach to show 
+        // entities in the list
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
         if (!entityList) {
