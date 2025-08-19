@@ -6,6 +6,7 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
+import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
@@ -108,6 +109,9 @@ export default class EntityEditor {
 
     addEntity = (entityList: HTMLLIElement) => {
         const entity = this.registry.createEntity();
+        entity.addComponent(GameComponents.SpriteComponent, DEFAULT_SPRITE, 32, 32, 0, { x: 0, y: 0 });
+        entity.addComponent(GameComponents.TransformComponent);
+
         entityList.appendChild(this.getEntityListElement(entity, entityList));
         this.eventBus.emitEvent(EntitySelectEvent, entity);
         this.saveLevel();
