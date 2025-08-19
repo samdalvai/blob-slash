@@ -9,6 +9,7 @@ export default class SpriteComponent extends Component {
     zIndex: number;
     srcRect: Rectangle;
     flip: Flip;
+    // TODO: remove isFixed from sprite component and use Transform instead
     isFixed: boolean;
     transparency: number;
 
