@@ -22,8 +22,8 @@ export default class RenderTextSystem extends System {
             ctx.fillStyle = `rgb(${textlabel.color.r},${textlabel.color.g},${textlabel.color.b})`;
             ctx.font = textlabel.fontSize * zoom + 'px ' + textlabel.fontFamily;
 
-            const textX = (transform.position.x + textlabel.offset.x - camera.x) * zoom;
-            const textY = (transform.position.y + textlabel.offset.y - camera.y) * zoom;
+            const textX = (transform.position.x + textlabel.offset.x - (transform.isFixed ? 0 : camera.x)) * zoom;
+            const textY = (transform.position.y + textlabel.offset.y - (transform.isFixed ? 0 : camera.y)) * zoom;
 
             // TODO: bring this logic to the transform component
             // const textX = textlabel.position.x - (textlabel.isFixed ? 0 : camera.x);

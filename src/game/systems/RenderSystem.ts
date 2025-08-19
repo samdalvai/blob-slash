@@ -37,6 +37,7 @@ export default class RenderSystem extends System {
                 transform.position.y > camera.y + camera.height;
 
             // Cull sprites that are outside the camera viww (and are not fixed)
+            // TODO: remove isFixed from sprite component and use Transform instead
             if (isOutsideCameraView && !sprite.isFixed) {
                 continue;
             }
@@ -98,6 +99,7 @@ export default class RenderSystem extends System {
             }
 
             const dstRect: Rectangle = {
+                // TODO: remove isFixed from sprite component and use Transform instead
                 x: (transform.position.x - (sprite.isFixed ? 0 : camera.x)) * zoom,
                 y: (transform.position.y - (sprite.isFixed ? 0 : camera.y)) * zoom,
                 width: sprite.width * transform.scale.x * zoom,
