@@ -36,7 +36,7 @@ export default class RenderSystem extends System {
                 transform.position.y + transform.scale.y * sprite.height < camera.y ||
                 transform.position.y > camera.y + camera.height;
 
-            // Cull sprites that are outside the camera viww (and are not fixed)
+            // Cull sprites that are outside the camera view (and are not fixed)
             if (isOutsideCameraView && !transform.isFixed) {
                 continue;
             }
