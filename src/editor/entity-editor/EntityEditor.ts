@@ -300,16 +300,18 @@ export default class EntityEditor {
         const componentName = component.constructor.name;
         title.innerText = '* ' + componentName;
         title.style.textDecoration = 'underline';
-
-        const removeButton = document.createElement('button');
-        removeButton.innerText = 'REMOVE';
-        removeButton.onclick = () => {
-            this.removeComponent(component, entity, componentContainer.id);
-            this.saveLevel();
-        };
-
         componentHeader.append(title);
-        componentHeader.append(removeButton);
+
+        if (component.constructor.name !== 'SpriteComponent' && component.constructor.name !== 'TransformComponent') {
+            const removeButton = document.createElement('button');
+            removeButton.innerText = 'REMOVE';
+            removeButton.onclick = () => {
+                this.removeComponent(component, entity, componentContainer.id);
+                this.saveLevel();
+            };
+            componentHeader.append(removeButton);
+        }
+
         componentContainer.append(componentHeader);
 
         const properties = Object.keys(component);
