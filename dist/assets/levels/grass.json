@@ -63,28 +63,15 @@
     {
       "assetId": "fire_circle",
       "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "torch",
+      "filePath": "./assets/sprites/torch.png"
     }
   ],
-  "sounds": [
-    {
-      "assetId": "entity_hit",
-      "filePath": "./assets/sounds/entity_hit.wav"
-    },
-    {
-      "assetId": "teleport",
-      "filePath": "./assets/sounds/teleport.wav"
-    },
-    {
-      "assetId": "slash",
-      "filePath": "./assets/sounds/slash.wav"
-    },
-    {
-      "assetId": "melee_attack",
-      "filePath": "./assets/sounds/melee_attack.wav"
-    }
-  ],
-  "mapWidth": 640,
-  "mapHeight": 640,
+  "sounds": [],
+  "mapWidth": 770,
+  "mapHeight": 768,
   "entities": [
     {
       "components": [
@@ -102,7 +89,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -117,7 +103,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -138,7 +125,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -153,7 +139,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -174,7 +161,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -189,7 +175,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -210,7 +197,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -225,7 +211,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -246,7 +233,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -261,7 +247,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -277,13 +264,12 @@
             "height": 32,
             "zIndex": 1,
             "srcRect": {
-              "x": 32,
-              "y": 32,
+              "x": 0,
+              "y": 64,
               "width": 32,
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -291,14 +277,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 74,
-              "y": 74
+              "x": 288,
+              "y": 96
             },
             "scale": {
               "x": 1,
               "y": 1
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -315,8 +302,8 @@
               "y": 0
             },
             "direction": {
-              "x": 1,
-              "y": 0
+              "x": 0,
+              "y": 1
             }
           }
         },
@@ -324,7 +311,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 1,
+            "currentFrame": 0,
             "frameSpeedRate": 5,
             "isLoop": true,
             "startTime": 0
@@ -384,7 +371,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -399,7 +385,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -420,7 +407,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -435,7 +421,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -456,7 +443,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -471,7 +457,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -492,7 +479,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -507,7 +493,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -528,7 +515,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -543,7 +529,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -564,7 +551,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -579,7 +565,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -600,7 +587,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -615,7 +601,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -636,7 +623,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -651,7 +637,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -672,7 +659,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -687,7 +673,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -708,7 +695,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -723,7 +709,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -744,7 +731,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -759,7 +745,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -780,7 +767,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -795,7 +781,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -816,7 +803,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -831,7 +817,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -852,7 +839,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -867,7 +853,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -888,7 +875,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -903,7 +889,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -924,7 +911,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -939,7 +925,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -960,7 +947,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -975,7 +961,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -996,7 +983,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1011,7 +997,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1032,7 +1019,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1047,7 +1033,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1068,7 +1055,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1083,7 +1069,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1104,7 +1091,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1119,7 +1105,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1140,7 +1127,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1155,7 +1141,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1176,7 +1163,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1191,7 +1177,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1212,7 +1199,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1227,7 +1213,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1248,7 +1235,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1263,7 +1249,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1284,7 +1271,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1299,7 +1285,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1320,7 +1307,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1335,7 +1321,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1356,7 +1343,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1371,7 +1357,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1392,7 +1379,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1407,7 +1393,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1428,7 +1415,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1443,7 +1429,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1464,7 +1451,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1479,7 +1465,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1500,7 +1487,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1515,7 +1501,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1536,7 +1523,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1551,7 +1537,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1572,7 +1559,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1587,7 +1573,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1608,7 +1595,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1623,7 +1609,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1644,7 +1631,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1659,7 +1645,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1680,7 +1667,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1695,7 +1681,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1716,7 +1703,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1731,7 +1717,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1752,7 +1739,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1767,7 +1753,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1788,7 +1775,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1803,7 +1789,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1824,7 +1811,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1839,7 +1825,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1860,7 +1847,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1875,7 +1861,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1896,7 +1883,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1911,7 +1897,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1932,7 +1919,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1947,7 +1933,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -1968,7 +1955,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -1983,7 +1969,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2004,7 +1991,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2019,7 +2005,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2040,7 +2027,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2055,7 +2041,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2076,7 +2063,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2091,7 +2077,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2112,7 +2099,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2127,7 +2113,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2148,7 +2135,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2163,7 +2149,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2184,7 +2171,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2199,7 +2185,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2220,7 +2207,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2235,7 +2221,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2256,7 +2243,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2271,7 +2257,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2292,7 +2279,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2307,7 +2293,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2328,7 +2315,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2343,7 +2329,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2364,7 +2351,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2379,7 +2365,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2400,7 +2387,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2415,7 +2401,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2436,7 +2423,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2451,7 +2437,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2472,7 +2459,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2487,7 +2473,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2508,7 +2495,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2523,7 +2509,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2544,7 +2531,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2559,7 +2545,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2580,7 +2567,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2595,7 +2581,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2616,7 +2603,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2631,7 +2617,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2652,7 +2639,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2667,7 +2653,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2688,7 +2675,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2703,7 +2689,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2724,7 +2711,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2739,7 +2725,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2760,7 +2747,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2775,7 +2761,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2796,7 +2783,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2811,7 +2797,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2832,7 +2819,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2847,7 +2833,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2868,7 +2855,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2883,7 +2869,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2904,7 +2891,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2919,7 +2905,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2940,7 +2927,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2955,7 +2941,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -2976,7 +2963,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -2991,7 +2977,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3012,7 +2999,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3027,7 +3013,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3048,7 +3035,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3063,7 +3049,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3084,7 +3071,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3099,7 +3085,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3120,7 +3107,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3135,7 +3121,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3156,7 +3143,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3171,7 +3157,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3192,7 +3179,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3207,7 +3193,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3228,7 +3215,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3243,7 +3229,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3264,7 +3251,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3279,7 +3265,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3300,7 +3287,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3315,7 +3301,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3336,7 +3323,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3351,7 +3337,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3372,7 +3359,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3387,7 +3373,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3408,7 +3395,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3423,7 +3409,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3444,7 +3431,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3459,7 +3445,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3480,7 +3467,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3495,7 +3481,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3516,7 +3503,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3531,7 +3517,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3552,7 +3539,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3567,7 +3553,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3588,7 +3575,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3603,7 +3589,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3624,7 +3611,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3639,7 +3625,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3660,7 +3647,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3675,7 +3661,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3696,7 +3683,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3711,7 +3697,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3732,7 +3719,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3747,7 +3733,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3768,7 +3755,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3783,7 +3769,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3804,7 +3791,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3819,7 +3805,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3840,7 +3827,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3855,7 +3841,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3876,7 +3863,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3891,7 +3877,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3912,7 +3899,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3927,7 +3913,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3948,7 +3935,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3963,7 +3949,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -3984,7 +3971,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -3999,7 +3985,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4020,7 +4007,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4035,7 +4021,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4056,7 +4043,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4071,7 +4057,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4092,7 +4079,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4107,7 +4093,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4128,7 +4115,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4143,7 +4129,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4164,7 +4151,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4179,7 +4165,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4200,7 +4187,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4215,7 +4201,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4236,7 +4223,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4251,7 +4237,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4273,7 +4260,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4288,7 +4274,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -4322,7 +4309,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4337,7 +4323,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -4370,7 +4357,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4385,7 +4371,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4406,7 +4393,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4421,7 +4407,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4442,7 +4429,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4457,7 +4443,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4478,7 +4465,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4493,7 +4479,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4514,7 +4501,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4529,7 +4515,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4550,7 +4537,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4565,7 +4551,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4586,7 +4573,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4601,7 +4587,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4622,7 +4609,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4637,7 +4623,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4658,7 +4645,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4673,7 +4659,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4694,7 +4681,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4709,7 +4695,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4730,7 +4717,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4745,7 +4731,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4766,7 +4753,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4781,7 +4767,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4802,7 +4789,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4817,7 +4803,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4838,7 +4825,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4853,7 +4839,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4874,7 +4861,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4889,7 +4875,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4910,7 +4897,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4925,7 +4911,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4946,7 +4933,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4961,7 +4947,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -4982,7 +4969,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -4997,7 +4983,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5018,7 +5005,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5033,7 +5019,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5054,7 +5041,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5069,7 +5055,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5090,7 +5077,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5105,7 +5091,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5126,7 +5113,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5141,7 +5127,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5162,7 +5149,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5177,7 +5163,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5198,7 +5185,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5213,7 +5199,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5234,7 +5221,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5249,7 +5235,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5270,7 +5257,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5285,7 +5271,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5306,7 +5293,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5321,7 +5307,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5342,7 +5329,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5357,7 +5343,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5378,7 +5365,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5393,7 +5379,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5414,7 +5401,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5429,7 +5415,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5450,7 +5437,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5465,7 +5451,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5486,7 +5473,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5501,7 +5487,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5522,7 +5509,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5537,7 +5523,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5558,7 +5545,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5573,7 +5559,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5594,7 +5581,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5609,7 +5595,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5630,7 +5617,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5645,7 +5631,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5666,7 +5653,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5681,7 +5667,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5702,7 +5689,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5717,7 +5703,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5738,7 +5725,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5753,7 +5739,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5774,7 +5761,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5789,7 +5775,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5810,7 +5797,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 1
           }
         },
@@ -5825,7 +5811,8 @@
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         }
       ]
@@ -5836,7 +5823,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -5847,7 +5834,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -5855,14 +5841,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 800,
-              "y": -416
+              "x": 1152,
+              "y": -672
             },
             "scale": {
               "x": 2,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -5885,7 +5872,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -5896,7 +5883,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -5904,14 +5890,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 896,
-              "y": -320
+              "x": 960,
+              "y": -576
             },
             "scale": {
               "x": 6,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -5945,7 +5932,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -5960,7 +5946,8 @@
               "x": 2,
               "y": 8
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -5983,7 +5970,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -5994,7 +5981,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6002,14 +5988,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 896,
-              "y": -128
+              "x": 960,
+              "y": -384
             },
             "scale": {
               "x": 2,
               "y": 8
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6032,7 +6019,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -6043,7 +6030,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6051,14 +6037,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 896,
-              "y": -224
+              "x": 960,
+              "y": -480
             },
             "scale": {
               "x": 8,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6081,7 +6068,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -6092,7 +6079,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6100,14 +6086,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 992,
-              "y": -128
+              "x": 1056,
+              "y": -384
             },
             "scale": {
               "x": 2,
               "y": 6
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6130,7 +6117,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -6141,7 +6128,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6149,14 +6135,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 1088,
-              "y": -128
+              "x": 1152,
+              "y": -384
             },
             "scale": {
               "x": 2,
               "y": 4
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6179,7 +6166,7 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "cooldown_skill",
+            "assetId": "__default__",
             "width": 32,
             "height": 32,
             "zIndex": 1,
@@ -6190,7 +6177,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6198,14 +6184,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 896,
-              "y": -416
+              "x": 960,
+              "y": -672
             },
             "scale": {
               "x": 4,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6239,7 +6226,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6248,13 +6234,14 @@
           "properties": {
             "position": {
               "x": 176,
-              "y": -19
+              "y": -18
             },
             "scale": {
               "x": 4,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6288,7 +6275,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6303,7 +6289,8 @@
               "x": 8,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6337,7 +6324,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6352,7 +6338,8 @@
               "x": 2,
               "y": 8
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6386,7 +6373,6 @@
               "height": 32
             },
             "flip": 0,
-            "isFixed": false,
             "transparency": 0
           }
         },
@@ -6394,14 +6380,15 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": -33,
+              "x": -35,
               "y": -50
             },
             "scale": {
               "x": 8,
               "y": 2
             },
-            "rotation": 0
+            "rotation": 0,
+            "isFixed": false
           }
         },
         {
@@ -6414,6 +6401,2678 @@
               "y": 0
             },
             "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 64,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 639.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 64,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 639.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 639.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 256,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 320,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 448,
+              "y": 704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 512,
+              "y": 703.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": 703.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 703.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 128
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 192
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 256
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 384
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 448
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 639.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 703.9999999999999
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 32,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 64,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 128,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 160,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 416,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 416,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 0,
+              "y": 160,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 640,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 96,
+              "y": 96,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -128
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": 448
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 416,
+              "y": 480
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 608,
+              "y": 256
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 608,
+              "y": 512
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 608,
+              "y": 384
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 960,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "zIndex": 0,
+            "srcRect": {
+              "x": 32,
+              "y": 192,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1024,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 64,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 987,
+              "y": 16
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "__default__",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 960,
+              "y": -736
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Box colliders for environment",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "__default__",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -864
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Terrain",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "__default__",
+            "width": 32,
+            "height": 32,
+            "zIndex": 1,
+            "srcRect": {
+              "x": 0,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            "flip": 0,
+            "transparency": 0
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 960,
+              "y": 288
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Box colliders for environment",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
           }
         }
       ]
