@@ -575,7 +575,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         Editor.editorSettings.activeSystems['RenderTextSystem'] &&
-            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderParticleSystem'] &&
             this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderLightingSystem'] &&
