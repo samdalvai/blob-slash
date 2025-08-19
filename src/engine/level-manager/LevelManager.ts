@@ -1,4 +1,3 @@
-import { showAlert } from '../../editor/gui';
 import Engine from '../Engine';
 import AssetStore from '../asset-store/AssetStore';
 import Registry from '../ecs/Registry';
@@ -40,7 +39,6 @@ export default class LevelManager {
     public async loadLevelFromLocalStorage(levelId: string) {
         let level = loadLevelFromLocalStorage(levelId);
         if (!level) {
-            showAlert('Level with id "' + levelId + '" could not be loaded, a default level has been generated');
             level = this.getDefaultLevel(levelId).level;
             saveLevelToLocalStorage(levelId, level);
         }
