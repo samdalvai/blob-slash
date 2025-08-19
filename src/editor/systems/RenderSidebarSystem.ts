@@ -18,7 +18,7 @@ import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
-import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import { createInput, createListItem, showAlert } from '../gui';
 import {
     deleteLevelFromLocalStorage,
     getAllLevelKeysFromLocalStorage,
@@ -34,7 +34,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(registry: Registry, eventBus: EventBus, leftSidebar: HTMLElement) {
+    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
@@ -42,7 +42,7 @@ export default class RenderSidebarSystem extends System {
         );
         eventBus.subscribeToEvent(EntityPasteEvent, this, event => this.onEntityPaste(event, leftSidebar, eventBus));
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
@@ -50,7 +50,19 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve leftSidebar');
         }
 
-        scrollToListElement('#entity-list', `#entity-${event.entity.getId()}`);
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        if (!event.entity) {
+            this.renderNoEntitySelected(entityList);
+            return;
+        }
+
+        entityList.innerHTML = '';
+        entityList.appendChild(this.entityEditor.getEntityListElement(event.entity));
     };
 
     onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
@@ -64,7 +76,8 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        this.entityEditor.removeEntity(event.entity, entityList);
+        this.entityEditor.removeEntity(event.entity);
+        this.renderNoEntitySelected(entityList);
     };
 
     onEntityDuplicate = (event: EntityDuplicateEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
@@ -80,7 +93,7 @@ export default class RenderSidebarSystem extends System {
 
         const entityCopy = event.entity.duplicate();
 
-        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
 
         eventBus.emitEvent(EntitySelectEvent, entityCopy);
         Editor.selectedEntities = [entityCopy];
@@ -124,7 +137,7 @@ export default class RenderSidebarSystem extends System {
             }
 
             copiedEntities.push(entityCopy);
-            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
         }
 
         if (copiedEntities.length === 0) {
@@ -171,29 +184,13 @@ export default class RenderSidebarSystem extends System {
         assetStore: AssetStore,
         levelManager: LevelManager,
     ) {
-        this.renderEntityList(leftSidebar, registry);
+        this.renderEntityList(leftSidebar);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
         this.renderLevelManagement(rightSidebar, leftSidebar, registry, assetStore, levelManager);
     }
 
-    private renderEntityList = (leftSidebar: HTMLElement, registry: Registry) => {
-        // TODO: having a lot of entities creates a huge list which increases the heap size by a lot, find a better approach to show 
-        // entities in the list
-        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
-
-        if (!entityList) {
-            throw new Error('Could not retrieve entity list');
-        }
-
-        entityList.innerHTML = '';
-
-        const entities = registry.getAllEntities();
-
-        for (const entity of entities) {
-            entityList.appendChild(this.entityEditor.getEntityListElement(entity, entityList));
-        }
-
+    private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
 
         if (!addEntityButton) {
@@ -201,6 +198,22 @@ export default class RenderSidebarSystem extends System {
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
+
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        this.renderNoEntitySelected(entityList);
+    };
+
+    private renderNoEntitySelected = (entityList: HTMLLIElement) => {
+        entityList.innerHTML = '';
+
+        const listElement = document.createElement('li');
+        listElement.innerText = 'No entity selected...';
+        entityList.appendChild(listElement);
     };
 
     private renderActiveSystems = (rightSidebar: HTMLElement) => {
@@ -437,7 +450,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not read level from local storage');
         }
 
-        this.renderEntityList(leftSidebar, registry);
+        this.renderEntityList(leftSidebar);
 
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
         const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
