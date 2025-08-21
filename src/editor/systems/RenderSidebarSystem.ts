@@ -214,7 +214,14 @@ export default class RenderSidebarSystem extends System {
         entityList.innerHTML = '';
 
         const listElement = document.createElement('li');
-        listElement.innerText = 'No entity selected...';
+        listElement.style.height = '90vh';
+
+        const innerDiv = document.createElement('div');
+        innerDiv.style.padding = '10px';
+        innerDiv.innerText = 'No entity selected...';
+        innerDiv.style.fontSize = '18px';
+
+        listElement.appendChild(innerDiv);
         entityList.appendChild(listElement);
     };
 
