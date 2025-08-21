@@ -10,7 +10,6 @@ import Editor from '../Editor';
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
         super();
-        // this.requireComponent(SpriteComponent);
         this.requireComponent(TransformComponent);
     }
 
