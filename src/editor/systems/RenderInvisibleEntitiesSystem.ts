@@ -1,6 +1,7 @@
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
 import { DEFAULT_SPRITE } from '../../engine/utils/constants';
+import { ParticleComponent } from '../../game/components';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 
@@ -19,6 +20,10 @@ export default class RenderInvisibleEntitiesSystem extends System {
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
+            if (entity.hasComponent(ParticleComponent)) {
+                continue;
+            }
+
             const transform = entity.getComponent(TransformComponent);
 
             if (!transform) {
