@@ -6,7 +6,6 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { Rectangle, Vector } from '../../engine/types/utils';
-import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
@@ -373,8 +372,6 @@ export default class EntityEditor {
             option.textContent = textureId || 'Unknown';
             select.appendChild(option);
         });
-
-        // TODO: add button to pick asset not already loaded
 
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {
