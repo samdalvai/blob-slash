@@ -109,6 +109,8 @@ export default class EntityEditor {
     addEntity = (entityList: HTMLLIElement) => {
         const entity = this.registry.createEntity();
         entityList.appendChild(this.getEntityListElement(entity));
+        entity.addComponent(GameComponents.TransformComponent);
+
         this.eventBus.emitEvent(EntitySelectEvent, entity);
         this.saveLevel();
     };
@@ -288,16 +290,18 @@ export default class EntityEditor {
         const componentName = component.constructor.name;
         title.innerText = '* ' + componentName;
         title.style.textDecoration = 'underline';
-
-        const removeButton = document.createElement('button');
-        removeButton.innerText = 'REMOVE';
-        removeButton.onclick = () => {
-            this.removeComponent(component, entity, componentContainer.id);
-            this.saveLevel();
-        };
-
         componentHeader.append(title);
-        componentHeader.append(removeButton);
+
+        if (component.constructor.name !== 'TransformComponent') {
+            const removeButton = document.createElement('button');
+            removeButton.innerText = 'REMOVE';
+            removeButton.onclick = () => {
+                this.removeComponent(component, entity, componentContainer.id);
+                this.saveLevel();
+            };
+            componentHeader.append(removeButton);
+        }
+
         componentContainer.append(componentHeader);
 
         const properties = Object.keys(component);
@@ -359,8 +363,6 @@ export default class EntityEditor {
             option.textContent = textureId || 'Unknown';
             select.appendChild(option);
         });
-
-        // TODO: add button to pick asset not already loaded
 
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {
