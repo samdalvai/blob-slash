@@ -1,6 +1,7 @@
 import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 import { rectanglesOverlap } from '../../engine/utils/rectangle';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
@@ -9,7 +10,7 @@ import Editor from '../Editor';
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
         super();
-        this.requireComponent(SpriteComponent);
+        // this.requireComponent(SpriteComponent);
         this.requireComponent(TransformComponent);
     }
 
@@ -21,14 +22,24 @@ export default class RenderSpriteBoxSystem extends System {
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
-            const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
 
-            if (!sprite || !transform) {
+            if (!transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            renderableEntities.push({ entityId: entity.getId(), sprite, transform });
+            if (entity.hasComponent(SpriteComponent)) {
+                const sprite = entity.getComponent(SpriteComponent);
+                if (!sprite) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                renderableEntities.push({ entityId: entity.getId(), sprite, transform });
+                continue;
+            }
+
+            const mockSprite = new SpriteComponent(DEFAULT_SPRITE, 32, 32, 0);
+            renderableEntities.push({ entityId: entity.getId(), sprite: mockSprite, transform });
         }
 
         renderableEntities.sort((entityA, entityB) => {
@@ -66,7 +77,7 @@ export default class RenderSpriteBoxSystem extends System {
 
             if (Editor.selectedEntities.length !== 0) {
                 for (const entity of Editor.selectedEntities) {
-                    if (entity.getId() === renderableEntities[i].entityId) {                       
+                    if (entity.getId() === renderableEntities[i].entityId) {
                         ctx.save();
                         ctx.strokeStyle = 'green';
                         ctx.lineWidth = 4;
@@ -74,7 +85,6 @@ export default class RenderSpriteBoxSystem extends System {
                         ctx.restore();
                     }
                 }
-
             }
 
             if (Editor.entityDragStart !== null) {
@@ -90,7 +100,7 @@ export default class RenderSpriteBoxSystem extends System {
                 !Editor.multipleSelectStart
             ) {
                 ctx.save();
-                ctx.strokeStyle = 'white';
+                ctx.strokeStyle = 'blue';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
@@ -113,7 +123,7 @@ export default class RenderSpriteBoxSystem extends System {
 
                 if (rectanglesOverlap(rectSelection, spriteRect)) {
                     ctx.save();
-                    ctx.strokeStyle = 'white';
+                    ctx.strokeStyle = 'blue';
                     ctx.lineWidth = 2;
                     ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                     ctx.restore();
