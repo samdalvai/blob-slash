@@ -82,7 +82,6 @@ export default class RenderSpriteBoxSystem extends System {
                         ctx.lineWidth = 4;
                         ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                         ctx.restore();
-                        spriteBoxHighlighted = true;
                     }
                 }
             }
