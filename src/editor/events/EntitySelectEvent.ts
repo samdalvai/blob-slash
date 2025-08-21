@@ -2,10 +2,10 @@ import Entity from '../../engine/ecs/Entity';
 import GameEvent from '../../engine/event-bus/GameEvent';
 
 export default class EntitySelectEvent extends GameEvent {
-    entity: Entity | null;
+    entities: Entity[];
 
-    constructor(entity: Entity | null) {
+    constructor(entities: Entity[]) {
         super();
-        this.entity = entity;
+        this.entities = entities;
     }
 }

@@ -56,13 +56,15 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        if (!event.entity) {
+        if (event.entities.length === 0) {
             this.renderNoEntitySelected(entityList);
             return;
         }
 
         entityList.innerHTML = '';
-        entityList.appendChild(this.entityEditor.getEntityListElement(event.entity));
+        for (const entity of event.entities) {
+            entityList.appendChild(this.entityEditor.getEntityListElement(entity));
+        }
     };
 
     onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
@@ -95,7 +97,7 @@ export default class RenderSidebarSystem extends System {
 
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
 
-        eventBus.emitEvent(EntitySelectEvent, entityCopy);
+        eventBus.emitEvent(EntitySelectEvent, [entityCopy]);
         Editor.selectedEntities = [entityCopy];
         this.entityEditor.saveLevel();
     };
@@ -150,7 +152,7 @@ export default class RenderSidebarSystem extends System {
         };
         Editor.isDragging = true;
 
-        eventBus.emitEvent(EntitySelectEvent, copiedEntities[0]);
+        eventBus.emitEvent(EntitySelectEvent, copiedEntities);
         Editor.selectedEntities = [...copiedEntities];
         this.entityEditor.saveLevel();
     };

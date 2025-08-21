@@ -111,7 +111,7 @@ export default class EntityEditor {
         entityList.appendChild(this.getEntityListElement(entity));
         entity.addComponent(GameComponents.TransformComponent);
 
-        this.eventBus.emitEvent(EntitySelectEvent, entity);
+        this.eventBus.emitEvent(EntitySelectEvent, [entity]);
         this.saveLevel();
     };
 

@@ -99,7 +99,7 @@ export default class RenderSpriteBoxSystem extends System {
                 !Editor.multipleSelectStart
             ) {
                 ctx.save();
-                ctx.strokeStyle = 'blue';
+                ctx.strokeStyle = 'orange';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
@@ -122,7 +122,7 @@ export default class RenderSpriteBoxSystem extends System {
 
                 if (rectanglesOverlap(rectSelection, spriteRect)) {
                     ctx.save();
-                    ctx.strokeStyle = 'blue';
+                    ctx.strokeStyle = 'orange';
                     ctx.lineWidth = 2;
                     ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                     ctx.restore();
