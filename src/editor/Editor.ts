@@ -222,6 +222,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
         this.registry.addSystem(EditorSystems.RenderMultipleSelectSystem);
+        this.registry.addSystem(EditorSystems.RenderInvisibleEntitiesSystem);
 
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
@@ -619,6 +620,7 @@ export default class Editor extends Engine {
 
         // Render Editor systems needing overlay
         this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
