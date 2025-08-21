@@ -4,6 +4,7 @@ import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { MouseButton } from '../../engine/types/control';
 import { Rectangle } from '../../engine/types/utils';
+import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 import { rectanglesOverlap } from '../../engine/utils/rectangle';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
@@ -16,7 +17,6 @@ export default class EntityDragSystem extends System {
     constructor() {
         super();
         this.requireComponent(TransformComponent);
-        this.requireComponent(SpriteComponent);
     }
 
     subscribeToEvents(
@@ -54,14 +54,24 @@ export default class EntityDragSystem extends System {
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
-            const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
 
-            if (!sprite || !transform) {
+            if (!transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            renderableEntities.push({ entity, sprite, transform });
+            if (entity.hasComponent(SpriteComponent)) {
+                const sprite = entity.getComponent(SpriteComponent);
+                if (!sprite) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                renderableEntities.push({ entity, sprite, transform });
+                continue;
+            }
+
+            const mockSprite = new SpriteComponent(DEFAULT_SPRITE, 32, 32, 0);
+            renderableEntities.push({ entity, sprite: mockSprite, transform });
         }
 
         renderableEntities.sort((entityA, entityB) => {
@@ -132,18 +142,29 @@ export default class EntityDragSystem extends System {
             const overlappingEnties: Entity[] = [];
 
             for (const entity of this.getSystemEntities()) {
-                const sprite = entity.getComponent(SpriteComponent);
                 const transform = entity.getComponent(TransformComponent);
 
-                if (!sprite || !transform) {
+                if (!transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                let spriteWidth = 32;
+                let spriteHeight = 32;
+
+                if (entity.hasComponent(SpriteComponent)) {
+                    const sprite = entity.getComponent(SpriteComponent);
+                    if (!sprite) {
+                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                    }
+                    spriteWidth = sprite.width;
+                    spriteHeight = sprite.height;
                 }
 
                 const spriteRect: Rectangle = {
                     x: transform.position.x,
                     y: transform.position.y,
-                    width: sprite.width * transform.scale.x,
-                    height: sprite.height * transform.scale.y,
+                    width: spriteWidth * transform.scale.x,
+                    height: spriteHeight * transform.scale.y,
                 };
 
                 const selectionXStart = Editor.multipleSelectStart.x;
@@ -234,9 +255,8 @@ export default class EntityDragSystem extends System {
         const diffY = Math.floor(Engine.mousePositionWorld.y - Editor.entityDragStart.y);
 
         for (const entity of Editor.selectedEntities) {
-            const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
-            if (!sprite || !transform) {
+            if (!transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
