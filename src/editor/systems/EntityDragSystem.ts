@@ -97,7 +97,7 @@ export default class EntityDragSystem extends System {
                 ) {
                     if (Editor.selectedEntities.length === 0 || !this.isEntitySelected(entity.entity)) {
                         Editor.selectedEntities = [entity.entity];
-                        eventBus.emitEvent(EntitySelectEvent, entity.entity);
+                        eventBus.emitEvent(EntitySelectEvent, [entity.entity]);
                     }
 
                     entityClicked = true;
@@ -114,7 +114,7 @@ export default class EntityDragSystem extends System {
 
         if (!entityClicked) {
             Editor.selectedEntities.length = 0;
-            eventBus.emitEvent(EntitySelectEvent, null);
+            eventBus.emitEvent(EntitySelectEvent, []);
         }
 
         if (!entityClicked || shiftPressed) {
@@ -186,7 +186,7 @@ export default class EntityDragSystem extends System {
 
             if (overlappingEnties.length > 0) {
                 Editor.selectedEntities = overlappingEnties;
-                eventBus.emitEvent(EntitySelectEvent, overlappingEnties[0]);
+                eventBus.emitEvent(EntitySelectEvent, overlappingEnties);
             }
 
             Editor.multipleSelectStart = null;
