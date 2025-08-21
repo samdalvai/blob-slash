@@ -2,7 +2,7 @@ import Engine from '../Engine';
 import AssetStore from '../asset-store/AssetStore';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
-import { loadLevelFromLocalStorage } from '../serialization/persistence';
+import { loadLevelFromLocalStorage, saveLevelToLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 import { DEFAULT_SPRITE } from '../utils/constants';
 
@@ -37,9 +37,10 @@ export default class LevelManager {
     }
 
     public async loadLevelFromLocalStorage(levelId: string) {
-        const level = loadLevelFromLocalStorage(levelId);
+        let level = loadLevelFromLocalStorage(levelId);
         if (!level) {
-            throw new Error('Could not read level from local storage');
+            level = this.getDefaultLevel(levelId).level;
+            saveLevelToLocalStorage(levelId, level);
         }
 
         this.assetStore.clear();
@@ -78,9 +79,8 @@ export default class LevelManager {
         Engine.mapHeight = level.mapHeight;
     }
 
-    public getDefaultLevel = () => {
-        const defaultLevelId = 'level-0';
-        const newLevelMap: LevelMap = {
+    public getDefaultLevel = (levelId: string) => {
+        const level: LevelMap = {
             textures: [],
             sounds: [],
             mapWidth: 64 * 10,
@@ -88,6 +88,6 @@ export default class LevelManager {
             entities: [],
         };
 
-        return { levelId: defaultLevelId, level: newLevelMap };
+        return { levelId, level };
     };
 }
