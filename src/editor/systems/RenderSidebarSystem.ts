@@ -341,7 +341,7 @@ export default class RenderSidebarSystem extends System {
             const target = event.target as HTMLSelectElement;
             const levelId = target.value;
 
-            await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
+            await this.handleLevelSelect(levelId, levelManager, leftSidebar, rightSidebar);
         });
 
         newLevelButton.onclick = async () => {
@@ -363,7 +363,7 @@ export default class RenderSidebarSystem extends System {
             option.textContent = nextLevelId;
             localStorageLevelsSelect.appendChild(option);
 
-            await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
+            await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
         };
 
         deleteLevelButton.onclick = async () => {
@@ -386,7 +386,7 @@ export default class RenderSidebarSystem extends System {
             const levelKeys = getAllLevelKeysFromLocalStorage();
 
             if (levelKeys.length > 0) {
-                await this.handleLevelSelect(levelKeys[0], levelManager, registry, leftSidebar, rightSidebar);
+                await this.handleLevelSelect(levelKeys[0], levelManager, leftSidebar, rightSidebar);
             } else {
                 console.log('No level available, loading default empty level');
                 const { levelId, level } = levelManager.getDefaultLevel('level-0');
@@ -397,7 +397,7 @@ export default class RenderSidebarSystem extends System {
                 option.textContent = levelId;
                 localStorageLevelsSelect.appendChild(option);
 
-                await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
+                await this.handleLevelSelect(levelId, levelManager, leftSidebar, rightSidebar);
             }
         };
 
@@ -432,7 +432,7 @@ export default class RenderSidebarSystem extends System {
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
-                        await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
+                        await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
@@ -449,7 +449,6 @@ export default class RenderSidebarSystem extends System {
     private handleLevelSelect = async (
         levelId: string,
         levelManager: LevelManager,
-        registry: Registry,
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
     ) => {

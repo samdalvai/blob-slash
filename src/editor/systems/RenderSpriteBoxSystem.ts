@@ -18,7 +18,6 @@ export default class RenderSpriteBoxSystem extends System {
             entityId: number;
             sprite: SpriteComponent;
             transform: TransformComponent;
-            hasSprite: boolean;
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
@@ -34,12 +33,12 @@ export default class RenderSpriteBoxSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                renderableEntities.push({ entityId: entity.getId(), sprite, transform, hasSprite: true });
+                renderableEntities.push({ entityId: entity.getId(), sprite, transform });
                 continue;
             }
 
             const mockSprite = new SpriteComponent(DEFAULT_SPRITE, 32, 32, 0);
-            renderableEntities.push({ entityId: entity.getId(), sprite: mockSprite, transform, hasSprite: false });
+            renderableEntities.push({ entityId: entity.getId(), sprite: mockSprite, transform });
         }
 
         renderableEntities.sort((entityA, entityB) => {
@@ -130,14 +129,6 @@ export default class RenderSpriteBoxSystem extends System {
                     ctx.restore();
                     spriteBoxHighlighted = true;
                 }
-            }
-
-            if (!spriteBoxHighlighted && !renderableEntities[i].hasSprite) {
-                ctx.save();
-                ctx.strokeStyle = 'gray';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
-                ctx.restore();
             }
         }
     }
