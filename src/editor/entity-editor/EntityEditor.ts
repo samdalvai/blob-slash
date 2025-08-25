@@ -5,7 +5,7 @@ import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { deserializeEntity } from '../../engine/serialization/deserialization';
-import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
+import { saveCurrentLevelToLocalStorage, saveEntityToJson } from '../../engine/serialization/persistence';
 import { EntityMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isValidEntityMap } from '../../engine/utils/validation';
@@ -279,6 +279,11 @@ export default class EntityEditor {
 
         componentList.append(entityTagListItem);
         componentList.append(entityGroupListItem);
+
+        const exportToJsonButton = document.createElement('button');
+        exportToJsonButton.innerText = 'Export to json';
+        exportToJsonButton.onclick = () => saveEntityToJson(entity);
+        componentList.append(exportToJsonButton);
 
         const componentSelector = document.createElement('div');
         componentSelector.className = 'd-flex align-center space-between pt-2';
