@@ -323,14 +323,14 @@ export default class RenderSidebarSystem extends System {
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
         const newLevelButton = rightSidebar.querySelector('#new-level') as HTMLButtonElement;
         const deleteLevelButton = rightSidebar.querySelector('#delete-level') as HTMLButtonElement;
-        const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const exportToJsonButton = rightSidebar.querySelector('#export-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
 
         if (
             !localStorageLevelsSelect ||
             !newLevelButton ||
             !deleteLevelButton ||
-            !saveToJsonButton ||
+            !exportToJsonButton ||
             !loadFromJsonButton
         ) {
             throw new Error('Could not retrieve level management element(s)');
@@ -416,7 +416,7 @@ export default class RenderSidebarSystem extends System {
             }
         };
 
-        saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
+        exportToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
         loadFromJsonButton.onclick = () => {
             const input = document.createElement('input');
             input.type = 'file';
