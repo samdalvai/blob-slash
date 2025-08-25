@@ -359,23 +359,26 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
-                    const mouseX =
-                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
-                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
+                    // Handles screen pan
+                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
+                        const previousX = Engine.mousePositionScreen.x;
+                        const previousY = Engine.mousePositionScreen.y;
+
+                        const diffX = (inputEvent.x - previousX) / this.zoom;
+                        const diffY = (inputEvent.y - previousY) / this.zoom;
+
+                        this.camera.x -= diffX;
+                        this.camera.y -= diffY;
+                    }
 
                     Engine.mousePositionScreen = {
                         x: inputEvent.x,
                         y: inputEvent.y,
                     };
 
-                    // Handles mouse pad pan
-                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
-                        const dx = mouseX - Engine.mousePositionWorld.x;
-                        const dy = mouseY - Engine.mousePositionWorld.y;
-
-                        this.camera.x -= dx;
-                        this.camera.y -= dy;
-                    }
+                    const mouseX =
+                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
+                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
                     Engine.mousePositionWorld = {
                         x: mouseX,
@@ -527,7 +530,9 @@ export default class Editor extends Engine {
                 ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed);
         }
 
-        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
+        this.registry
+            .getSystem(EditorSystems.RenderSidebarSystem)
+            ?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
