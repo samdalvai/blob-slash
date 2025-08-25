@@ -5,9 +5,10 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
+import { deserializeEntity } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
-import { isValidLevelMap } from '../../engine/utils/level';
+import { isValidLevelMap } from '../../engine/utils/validation';
 import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
@@ -34,13 +35,15 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement) {
+    subscribeToEvents(eventBus: EventBus, registry: Registry, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
-        eventBus.subscribeToEvent(EntityPasteEvent, this, event => this.onEntityPaste(event, leftSidebar, eventBus));
+        eventBus.subscribeToEvent(EntityPasteEvent, this, event =>
+            this.onEntityPaste(event, leftSidebar, eventBus, registry),
+        );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
         eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
     }
@@ -102,7 +105,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.saveLevel();
     };
 
-    onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+    onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus, registry: Registry) => {
         if (event.entities.length === 0) {
             return;
         }
@@ -122,12 +125,14 @@ export default class RenderSidebarSystem extends System {
         let minTransformPositionX = Number.MAX_VALUE;
         let minTransformPositionY = Number.MAX_VALUE;
 
-        for (const originalEntity of event.entities) {
-            const entityCopy = originalEntity.duplicate();
-            const copiedTransform = entityCopy.getComponent(TransformComponent);
+        for (const entityMap of event.entities) {
+            const copiedEntity = deserializeEntity(JSON.parse(JSON.stringify(entityMap)), registry);
+            registry.update();
+
+            const copiedTransform = copiedEntity.getComponent(TransformComponent);
 
             if (!copiedTransform) {
-                throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+                throw new Error('Could not get transform component of entity ' + copiedEntity.getId());
             }
 
             if (minTransformPositionX > copiedTransform.position.x) {
@@ -138,8 +143,8 @@ export default class RenderSidebarSystem extends System {
                 minTransformPositionY = copiedTransform.position.y;
             }
 
-            copiedEntities.push(entityCopy);
-            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
+            copiedEntities.push(copiedEntity);
+            entityList.appendChild(this.entityEditor.getEntityListElement(copiedEntity));
         }
 
         if (copiedEntities.length === 0) {
@@ -171,12 +176,22 @@ export default class RenderSidebarSystem extends System {
         const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
         if (targetElement) {
-            // TODO: do we need to update this?
-            if (Editor.selectedEntities.length === 1 && event.entity.getId() === Editor.selectedEntities[0].getId()) {
-                Editor.selectedEntities.length = 0;
+            const updatedSelectedEntities = [];
+
+            for (const entity of Editor.selectedEntities) {
+                if (event.entity.getId() !== entity.getId()) {
+                    updatedSelectedEntities.push(entity);
+                }
             }
+
+            if (Editor.selectedEntities.length !== updatedSelectedEntities.length) {
+                Editor.selectedEntities = updatedSelectedEntities;
+            }
+
             targetElement.remove();
         }
+
+        this.entityEditor.saveLevel();
     };
 
     update(
@@ -194,12 +209,14 @@ export default class RenderSidebarSystem extends System {
 
     private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
+        const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
 
-        if (!addEntityButton) {
-            throw new Error('Could not find add entity button');
+        if (!addEntityButton || !importEntityButton) {
+            throw new Error('Could not some element(s) of entity sidebar');
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
+        importEntityButton.onclick = () => this.entityEditor.importEntity(entityList);
 
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
@@ -306,17 +323,15 @@ export default class RenderSidebarSystem extends System {
         const localStorageLevelsSelect = rightSidebar.querySelector('#local-storage-levels') as HTMLSelectElement;
         const newLevelButton = rightSidebar.querySelector('#new-level') as HTMLButtonElement;
         const deleteLevelButton = rightSidebar.querySelector('#delete-level') as HTMLButtonElement;
-        const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
+        const exportToJsonButton = rightSidebar.querySelector('#export-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
-        const fileInput = document.getElementById('file-input') as HTMLInputElement;
 
         if (
             !localStorageLevelsSelect ||
             !newLevelButton ||
             !deleteLevelButton ||
-            !saveToJsonButton ||
-            !loadFromJsonButton ||
-            !fileInput
+            !exportToJsonButton ||
+            !loadFromJsonButton
         ) {
             throw new Error('Could not retrieve level management element(s)');
         }
@@ -401,49 +416,53 @@ export default class RenderSidebarSystem extends System {
             }
         };
 
-        saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
+        exportToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
         loadFromJsonButton.onclick = () => {
-            fileInput.click();
-        };
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
 
-        fileInput.addEventListener('change', () => {
-            const files = fileInput.files;
-            if (files && files.length > 0) {
-                const file: File = files[0];
+            input.addEventListener('change', () => {
+                const files = input.files;
+                if (files && files.length > 0) {
+                    const file: File = files[0];
 
-                const reader = new FileReader();
-                reader.onload = async () => {
-                    try {
-                        const data = JSON.parse(reader.result as string);
-                        const levelKeys = getAllLevelKeysFromLocalStorage();
-                        const nextLevelId = getNextLevelId(levelKeys);
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        try {
+                            const data = JSON.parse(reader.result as string);
+                            const levelKeys = getAllLevelKeysFromLocalStorage();
+                            const nextLevelId = getNextLevelId(levelKeys);
 
-                        const levelMap = data as LevelMap;
+                            const levelMap = data as LevelMap;
 
-                        if (!isValidLevelMap(levelMap)) {
-                            throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
+                            if (!isValidLevelMap(levelMap)) {
+                                throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
+                            }
+
+                            saveLevelToLocalStorage(nextLevelId, levelMap);
+
+                            const option = document.createElement('option');
+                            option.value = nextLevelId;
+                            option.id = nextLevelId;
+                            option.textContent = nextLevelId;
+                            localStorageLevelsSelect.appendChild(option);
+
+                            await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
+                        } catch (e) {
+                            console.error('Invalid JSON:', e);
+                            showAlert('Selected json is not a valid level map');
+                        } finally {
+                            input.value = '';
                         }
+                    };
 
-                        saveLevelToLocalStorage(nextLevelId, levelMap);
+                    reader.readAsText(file);
+                }
+            });
 
-                        const option = document.createElement('option');
-                        option.value = nextLevelId;
-                        option.id = nextLevelId;
-                        option.textContent = nextLevelId;
-                        localStorageLevelsSelect.appendChild(option);
-
-                        await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
-                    } catch (e) {
-                        console.error('Invalid JSON:', e);
-                        showAlert('Selected json is not a valid level map');
-                    } finally {
-                        fileInput.value = '';
-                    }
-                };
-
-                reader.readAsText(file);
-            }
-        });
+            input.click();
+        };
     }
 
     private handleLevelSelect = async (
