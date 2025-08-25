@@ -11,6 +11,7 @@ import { Rectangle, Vector } from '../../engine/types/utils';
 import { isValidEntityMap } from '../../engine/utils/validation';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
+import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
@@ -241,10 +242,9 @@ export default class EntityEditor {
             this.eventBus.emitEvent(EntityDuplicateEvent, entity);
         };
 
-        // TODO: need to deselect entity if selected
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
-        deleteButton.onclick = () => this.removeEntity(entity);
+        deleteButton.onclick = () => this.eventBus.emitEvent(EntityDeleteEvent, entity);
 
         header.append(title);
         header.append(duplicateButton);
