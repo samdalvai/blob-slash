@@ -7,8 +7,8 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { deserializeEntity } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
-import { EntityMap, LevelMap } from '../../engine/types/map';
-import { isValidEntityMap, isValidLevelMap } from '../../engine/utils/validation';
+import { LevelMap } from '../../engine/types/map';
+import { isValidLevelMap } from '../../engine/utils/validation';
 import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
@@ -45,9 +45,7 @@ export default class RenderSidebarSystem extends System {
             this.onEntityPaste(event, leftSidebar, eventBus, registry),
         );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityUpdateEvent, this, () =>
-            this.renderEntityList(leftSidebar, registry, eventBus),
-        );
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
@@ -202,59 +200,23 @@ export default class RenderSidebarSystem extends System {
         registry: Registry,
         assetStore: AssetStore,
         levelManager: LevelManager,
-        eventBus: EventBus,
     ) {
-        this.renderEntityList(leftSidebar, registry, eventBus);
+        this.renderEntityList(leftSidebar);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
         this.renderLevelManagement(rightSidebar, leftSidebar, registry, assetStore, levelManager);
     }
 
-    private renderEntityList = (leftSidebar: HTMLElement, registry: Registry, eventBus: EventBus) => {
+    private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
         const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
-        const entityFileInput = document.getElementById('entity-file-input') as HTMLInputElement;
 
-        if (!addEntityButton || !importEntityButton || !entityFileInput) {
+        if (!addEntityButton || !importEntityButton) {
             throw new Error('Could not some element(s) of entity sidebar');
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
         importEntityButton.onclick = () => this.entityEditor.importEntity(entityList);
-
-        entityFileInput.addEventListener('change', () => {
-            const files = entityFileInput.files;
-            if (files && files.length > 0) {
-                const file: File = files[0];
-
-                const reader = new FileReader();
-                reader.onload = async () => {
-                    try {
-                        const data = JSON.parse(reader.result as string);
-
-                        const entityMap = data as EntityMap;
-
-                        if (!isValidEntityMap(entityMap)) {
-                            throw new Error('Loaded json is not a valid entity map: ' + entityMap);
-                        }
-
-                        console.log('Creating entity with registry: ', registry);
-                        const importedEntity = deserializeEntity(entityMap, registry);
-                        entityList.appendChild(this.entityEditor.getEntityListElement(importedEntity));
-                        eventBus.emitEvent(EntitySelectEvent, [importedEntity]);
-                        Editor.selectedEntities = [importedEntity];
-                        this.entityEditor.saveLevel();
-                    } catch (e) {
-                        console.error('Invalid JSON:', e);
-                        showAlert('Selected json is not a valid entity map');
-                    } finally {
-                        entityFileInput.value = '';
-                    }
-                };
-
-                reader.readAsText(file);
-            }
-        });
 
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
