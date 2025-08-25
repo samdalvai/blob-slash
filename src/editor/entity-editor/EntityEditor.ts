@@ -121,6 +121,10 @@ export default class EntityEditor {
         this.saveLevel();
     };
 
+    importEntity = (entityList: HTMLLIElement) => {
+
+    }
+
     ////////////////////////////////////////////////////////////////////////////////
     // Component management
     ////////////////////////////////////////////////////////////////////////////////
@@ -197,6 +201,7 @@ export default class EntityEditor {
             this.eventBus.emitEvent(EntityDuplicateEvent, entity);
         };
 
+        // TODO: need to deselect entity if selected
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
         deleteButton.onclick = () => this.removeEntity(entity);
