@@ -220,7 +220,7 @@ export default class RenderSidebarSystem extends System {
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
-        importEntityButton.onclick = () => entityFileInput.click();
+        importEntityButton.onclick = () => this.entityEditor.importEntity(entityList);
 
         entityFileInput.addEventListener('change', () => {
             const files = entityFileInput.files;
@@ -513,6 +513,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not read level from local storage');
         }
 
+        // TODO: when we select a level references to the methods are created multiple times,
         this.renderEntityList(leftSidebar);
 
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
