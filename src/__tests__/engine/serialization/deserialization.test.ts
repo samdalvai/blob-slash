@@ -240,6 +240,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
     });
 
@@ -280,6 +281,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
         expect(rigidbody).toEqual({
             velocity: {
@@ -382,6 +384,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
 
         expect(transform2).toEqual({
@@ -394,6 +397,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
     });
 
@@ -457,6 +461,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
 
         expect(transform2).toEqual({
@@ -469,6 +474,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
+            isFixed: false
         });
 
         expect(rigidbody1).toEqual({

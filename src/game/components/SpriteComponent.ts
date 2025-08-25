@@ -9,7 +9,6 @@ export default class SpriteComponent extends Component {
     zIndex: number;
     srcRect: Rectangle;
     flip: Flip;
-    isFixed: boolean;
     transparency: number;
 
     constructor(
@@ -19,7 +18,6 @@ export default class SpriteComponent extends Component {
         zIndex = 0,
         srcRect: Vector = { x: 0, y: 0 },
         flip: Flip = 0,
-        isFixed = false,
         transparency = 1,
     ) {
         if (transparency < 0 || transparency > 1) {
@@ -33,7 +31,6 @@ export default class SpriteComponent extends Component {
         this.zIndex = zIndex;
         this.srcRect = { x: srcRect.x, y: srcRect.y, width, height };
         this.flip = flip;
-        this.isFixed = isFixed;
         this.transparency = transparency;
     }
 }

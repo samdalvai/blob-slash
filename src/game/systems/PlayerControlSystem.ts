@@ -254,7 +254,6 @@ export default class PlayerControlSystem extends System {
             TransformComponent,
             { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
             { x: scale, y: scale },
-            0,
         );
         bubbleFloor.addComponent(
             SpriteComponent,
@@ -264,7 +263,6 @@ export default class PlayerControlSystem extends System {
             1,
             { x: 0, y: 128 },
             Flip.NONE,
-            false,
             0.5,
         );
         bubbleFloor.addComponent(AnimationComponent, 4, 20, false);
@@ -275,7 +273,6 @@ export default class PlayerControlSystem extends System {
             TransformComponent,
             { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
             { x: scale, y: scale },
-            0,
         );
         bubbleTop.addComponent(
             SpriteComponent,
@@ -285,7 +282,6 @@ export default class PlayerControlSystem extends System {
             3,
             { x: 0, y: 256 },
             Flip.NONE,
-            false,
             0.3,
         );
         bubbleTop.addComponent(AnimationComponent, 4, 20, false);
@@ -417,7 +413,6 @@ export default class PlayerControlSystem extends System {
             1,
             { x: 0, y: 0 },
             Flip.NONE,
-            false,
             0.5,
         );
         fireCircleFloor.addComponent(AnimationComponent, 4, 20, false);
@@ -443,7 +438,6 @@ export default class PlayerControlSystem extends System {
                 2,
                 { x: 0, y: 128 },
                 Flip.NONE,
-                false,
                 1,
             );
             fireCircleFlames.addComponent(AnimationComponent, 4, 10, true);
@@ -472,13 +466,14 @@ export default class PlayerControlSystem extends System {
             2,
             { x: 0, y: 0 },
             Flip.NONE,
-            true,
         );
         cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
         cooldownAnimation.addComponent(
             TransformComponent,
             { x: 25 + skillPosition * 64, y: Engine.windowHeight - 64 - 25 },
             { x: 2, y: 2 },
+            0,
+            true
         );
         cooldownAnimation.addComponent(LifetimeComponent, cooldown);
     };

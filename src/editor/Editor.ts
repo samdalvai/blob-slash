@@ -43,10 +43,11 @@ export default class Editor extends Engine {
     private shouldSidebarUpdate: boolean;
 
     // Global Editor objects
-    static selectedEntity: Entity | null = null;
-    static copiedEntity: Entity | null = null;
+    static selectedEntities: Entity[] = [];
+    static copiedEntities: Entity[] = [];
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
+    static multipleSelectStart: Vector | null = null;
     static alertShown = false;
     static loadingLevel = false;
 
@@ -220,6 +221,8 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderSidebarSystem, this.entityEditor);
         this.registry.addSystem(EditorSystems.EntityDragSystem);
         this.registry.addSystem(EditorSystems.RenderGridSystem);
+        this.registry.addSystem(EditorSystems.RenderMultipleSelectSystem);
+        this.registry.addSystem(EditorSystems.RenderInvisibleEntitiesSystem);
 
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
@@ -233,7 +236,7 @@ export default class Editor extends Engine {
             }
         } else {
             console.log('No level available, loading default empty level');
-            const { levelId, level } = this.levelManager.getDefaultLevel();
+            const { levelId, level } = this.levelManager.getDefaultLevel('level-0');
             saveLevelToLocalStorage(levelId, level);
             await this.levelManager.loadLevelFromLocalStorage(levelId);
             Editor.editorSettings.selectedLevel = levelId;
@@ -272,14 +275,18 @@ export default class Editor extends Engine {
                         this.shiftPressed = true;
                     }
 
-                    if (inputEvent.code === 'Delete' && Editor.selectedEntity) {
-                        this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
-                        Editor.selectedEntity = null;
+                    if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
+                        for (const entity of Editor.selectedEntities) {
+                            this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                        }
+
+                        Editor.selectedEntities.length = 0;
                     }
 
                     if (this.commandPressed) {
                         switch (inputEvent.code) {
                             case 'KeyZ':
+                                // TODO: provide compatibility for non MacOS keyboards
                                 if (this.shiftPressed) {
                                     this.entityEditor.redoLevelChange();
                                 } else {
@@ -287,23 +294,25 @@ export default class Editor extends Engine {
                                 }
                                 break;
                             case 'KeyC':
-                                if (Editor.selectedEntity) {
-                                    Editor.copiedEntity = Editor.selectedEntity;
+                                if (Editor.selectedEntities.length > 0) {
+                                    Editor.copiedEntities = [...Editor.selectedEntities];
                                 }
                                 break;
                             case 'KeyV':
-                                if (Editor.copiedEntity) {
-                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntity);
+                                if (Editor.copiedEntities.length > 0) {
+                                    this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntities);
                                 }
                                 break;
                             // TODO: entity is deleted and cannot be copied again
-                            // case 'KeyX':
-                            //     if (Editor.selectedEntity) {
-                            //         Editor.copiedEntity = Editor.selectedEntity;
-                            //         this.eventBus.emitEvent(EntityDeleteEvent, Editor.selectedEntity);
-                            //         Editor.selectedEntity = null;
-                            //     }
-                            //     break;
+                            case 'KeyX':
+                                if (Editor.selectedEntities.length > 0) {
+                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    for (const entity of Editor.selectedEntities) {
+                                        this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                                    }
+                                    Editor.selectedEntities.length = 0;
+                                }
+                                break;
                         }
                     }
 
@@ -502,12 +511,12 @@ export default class Editor extends Engine {
         if (!this.commandPressed || Editor.isDragging) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor);
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed);
         }
 
         this.registry
             .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.registry, this.eventBus, this.leftSidebar);
+            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
@@ -567,7 +576,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         Editor.editorSettings.activeSystems['RenderTextSystem'] &&
-            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderParticleSystem'] &&
             this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderLightingSystem'] &&
@@ -610,6 +619,8 @@ export default class Editor extends Engine {
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
         // Render Editor systems needing overlay
+        this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 

@@ -1,6 +1,8 @@
 import Engine from '../../engine/Engine';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import { DEFAULT_SPRITE } from '../../engine/utils/constants';
+import { rectanglesOverlap } from '../../engine/utils/rectangle';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import Editor from '../Editor';
@@ -8,7 +10,6 @@ import Editor from '../Editor';
 export default class RenderSpriteBoxSystem extends System {
     constructor() {
         super();
-        this.requireComponent(SpriteComponent);
         this.requireComponent(TransformComponent);
     }
 
@@ -20,14 +21,24 @@ export default class RenderSpriteBoxSystem extends System {
         }[] = [];
 
         for (const entity of this.getSystemEntities()) {
-            const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
 
-            if (!sprite || !transform) {
+            if (!transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            renderableEntities.push({ entityId: entity.getId(), sprite, transform });
+            if (entity.hasComponent(SpriteComponent)) {
+                const sprite = entity.getComponent(SpriteComponent);
+                if (!sprite) {
+                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                }
+
+                renderableEntities.push({ entityId: entity.getId(), sprite, transform });
+                continue;
+            }
+
+            const mockSprite = new SpriteComponent(DEFAULT_SPRITE, 32, 32, 0);
+            renderableEntities.push({ entityId: entity.getId(), sprite: mockSprite, transform });
         }
 
         renderableEntities.sort((entityA, entityB) => {
@@ -63,12 +74,16 @@ export default class RenderSpriteBoxSystem extends System {
                 height: sprite.height * transform.scale.y * zoom,
             };
 
-            if (Editor.selectedEntity !== null && Editor.selectedEntity.getId() === renderableEntities[i].entityId) {
-                ctx.save();
-                ctx.strokeStyle = 'green';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
-                ctx.restore();
+            if (Editor.selectedEntities.length !== 0) {
+                for (const entity of Editor.selectedEntities) {
+                    if (entity.getId() === renderableEntities[i].entityId) {
+                        ctx.save();
+                        ctx.strokeStyle = 'green';
+                        ctx.lineWidth = 4;
+                        ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                        ctx.restore();
+                    }
+                }
             }
 
             if (Editor.entityDragStart !== null) {
@@ -80,14 +95,39 @@ export default class RenderSpriteBoxSystem extends System {
                 Engine.mousePositionWorld.x <= transform.position.x + sprite.width * transform.scale.x &&
                 Engine.mousePositionWorld.y >= transform.position.y &&
                 Engine.mousePositionWorld.y <= transform.position.y + sprite.height * transform.scale.y &&
-                !spriteBoxHighlighted
+                !spriteBoxHighlighted &&
+                !Editor.multipleSelectStart
             ) {
                 ctx.save();
-                ctx.strokeStyle = 'white';
+                ctx.strokeStyle = 'orange';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
                 ctx.restore();
                 spriteBoxHighlighted = true;
+            }
+
+            if (Editor.multipleSelectStart) {
+                //console.log("checkign");
+                const selectionXStart = (Editor.multipleSelectStart.x - camera.x) * zoom;
+                const selectionYStart = (Editor.multipleSelectStart.y - camera.y) * zoom;
+                const selectionXEnd = (Editor.mousePositionWorld.x - camera.x) * zoom;
+                const selectionYEnd = (Editor.mousePositionWorld.y - camera.y) * zoom;
+
+                const rectSelection: Rectangle = {
+                    x: selectionXStart < selectionXEnd ? selectionXStart : selectionXEnd,
+                    y: selectionYStart < selectionYEnd ? selectionYStart : selectionYEnd,
+                    width: Math.abs(selectionXEnd - selectionXStart),
+                    height: Math.abs(selectionYEnd - selectionYStart),
+                };
+
+                if (rectanglesOverlap(rectSelection, spriteRect)) {
+                    ctx.save();
+                    ctx.strokeStyle = 'orange';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
+                    ctx.restore();
+                    spriteBoxHighlighted = true;
+                }
             }
         }
     }
