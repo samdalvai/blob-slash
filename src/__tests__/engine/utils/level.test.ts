@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 
 import { LevelMap } from '../../../engine/types/map';
-import { isValidLevelMap } from '../../../engine/utils/level';
+import { isValidLevelMap } from '../../../engine/utils/validation';
 
 describe('Testing level utils related functions', () => {
     test('Should return true if object is of type LevelMap', () => {

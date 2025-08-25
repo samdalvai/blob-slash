@@ -7,8 +7,8 @@ import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { deserializeEntity } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
-import { LevelMap } from '../../engine/types/map';
-import { isValidLevelMap } from '../../engine/utils/level';
+import { EntityMap, LevelMap } from '../../engine/types/map';
+import { isValidEntityMap, isValidLevelMap } from '../../engine/utils/validation';
 import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
@@ -209,20 +209,54 @@ export default class RenderSidebarSystem extends System {
 
     private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
+        const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
+        const entityFileInput = document.getElementById('entity-file-input') as HTMLInputElement;
 
-        if (!addEntityButton) {
-            throw new Error('Could not find add entity button');
+        if (!addEntityButton || !importEntityButton || !entityFileInput) {
+            throw new Error('Could not some element(s) of entity sidebar');
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
+        importEntityButton.onclick = () => entityFileInput.click();
+        
+        entityFileInput.addEventListener('change', () => {
+            const files = entityFileInput.files;
+            if (files && files.length > 0) {
+                const file: File = files[0];
 
-        const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    try {
+                        const data = JSON.parse(reader.result as string);
 
-        if (!importEntityButton) {
-            throw new Error('Could not find import entity button');
-        }
+                        const entityMap = data as EntityMap;
 
-        importEntityButton.onclick = () => this.entityEditor.importEntity();
+                        if (!isValidEntityMap(entityMap)) {
+                            throw new Error('Loaded json is not a valid entity map: ' + entityMap);
+                        }
+
+                        console.log("Entity map: ", entityMap);
+
+                        // saveLevelToLocalStorage(nextLevelId, levelMap);
+
+                        // const option = document.createElement('option');
+                        // option.value = nextLevelId;
+                        // option.id = nextLevelId;
+                        // option.textContent = nextLevelId;
+                        //localStorageLevelsSelect.appendChild(option);
+
+                        //await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
+                    } catch (e) {
+                        console.error('Invalid JSON:', e);
+                        showAlert('Selected json is not a valid entity map');
+                    } finally {
+                        entityFileInput.value = '';
+                    }
+                };
+
+                reader.readAsText(file);
+            }
+        });
 
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
@@ -331,7 +365,7 @@ export default class RenderSidebarSystem extends System {
         const deleteLevelButton = rightSidebar.querySelector('#delete-level') as HTMLButtonElement;
         const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
-        const fileInput = document.getElementById('file-input') as HTMLInputElement;
+        const levelFileInput = document.getElementById('level-file-input') as HTMLInputElement;
 
         if (
             !localStorageLevelsSelect ||
@@ -339,7 +373,7 @@ export default class RenderSidebarSystem extends System {
             !deleteLevelButton ||
             !saveToJsonButton ||
             !loadFromJsonButton ||
-            !fileInput
+            !levelFileInput
         ) {
             throw new Error('Could not retrieve level management element(s)');
         }
@@ -426,11 +460,11 @@ export default class RenderSidebarSystem extends System {
 
         saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
         loadFromJsonButton.onclick = () => {
-            fileInput.click();
+            levelFileInput.click();
         };
 
-        fileInput.addEventListener('change', () => {
-            const files = fileInput.files;
+        levelFileInput.addEventListener('change', () => {
+            const files = levelFileInput.files;
             if (files && files.length > 0) {
                 const file: File = files[0];
 
@@ -460,7 +494,7 @@ export default class RenderSidebarSystem extends System {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
                     } finally {
-                        fileInput.value = '';
+                        levelFileInput.value = '';
                     }
                 };
 
