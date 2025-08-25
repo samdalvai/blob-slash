@@ -1,7 +1,9 @@
 import Engine from '../engine/Engine';
 import Entity from '../engine/ecs/Entity';
 import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
+import { serializeEntity } from '../engine/serialization/serialization';
 import { MouseButton } from '../engine/types/control';
+import { EntityMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
@@ -44,7 +46,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntities: Entity[] = [];
-    static copiedEntities: Entity[] = [];
+    static copiedEntities: EntityMap[] = [];
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static multipleSelectStart: Vector | null = null;
@@ -276,11 +278,16 @@ export default class Editor extends Engine {
                     }
 
                     if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
-                        for (const entity of Editor.selectedEntities) {
-                            this.eventBus.emitEvent(EntityDeleteEvent, entity);
-                        }
+                        if (
+                            this.leftSidebar &&
+                            Editor.mousePositionScreen.x > this.leftSidebar?.getBoundingClientRect().width
+                        ) {
+                            for (const entity of Editor.selectedEntities) {
+                                this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                            }
 
-                        Editor.selectedEntities.length = 0;
+                            Editor.selectedEntities.length = 0;
+                        }
                     }
 
                     if (this.commandPressed) {
@@ -295,7 +302,13 @@ export default class Editor extends Engine {
                                 break;
                             case 'KeyC':
                                 if (Editor.selectedEntities.length > 0) {
-                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    const entityMaps: EntityMap[] = [];
+                                    for (const entity of Editor.selectedEntities) {
+                                        const entityMap = serializeEntity(entity);
+                                        entityMaps.push(entityMap);
+                                    }
+
+                                    Editor.copiedEntities = entityMaps;
                                 }
                                 break;
                             case 'KeyV':
@@ -303,10 +316,15 @@ export default class Editor extends Engine {
                                     this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntities);
                                 }
                                 break;
-                            // TODO: entity is deleted and cannot be copied again
                             case 'KeyX':
                                 if (Editor.selectedEntities.length > 0) {
-                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    const entityMaps: EntityMap[] = [];
+                                    for (const entity of Editor.selectedEntities) {
+                                        const entityMap = serializeEntity(entity);
+                                        entityMaps.push(entityMap);
+                                    }
+
+                                    Editor.copiedEntities = entityMaps;
                                     for (const entity of Editor.selectedEntities) {
                                         this.eventBus.emitEvent(EntityDeleteEvent, entity);
                                     }
@@ -346,23 +364,26 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
-                    const mouseX =
-                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
-                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
+                    // Handles screen pan
+                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
+                        const previousX = Engine.mousePositionScreen.x;
+                        const previousY = Engine.mousePositionScreen.y;
+
+                        const diffX = (inputEvent.x - previousX) / this.zoom;
+                        const diffY = (inputEvent.y - previousY) / this.zoom;
+
+                        this.camera.x -= diffX;
+                        this.camera.y -= diffY;
+                    }
 
                     Engine.mousePositionScreen = {
                         x: inputEvent.x,
                         y: inputEvent.y,
                     };
 
-                    // Handles mouse pad pan
-                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
-                        const dx = mouseX - Engine.mousePositionWorld.x;
-                        const dy = mouseY - Engine.mousePositionWorld.y;
-
-                        this.camera.x -= dx;
-                        this.camera.y -= dy;
-                    }
+                    const mouseX =
+                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
+                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
 
                     Engine.mousePositionWorld = {
                         x: mouseX,
@@ -516,7 +537,7 @@ export default class Editor extends Engine {
 
         this.registry
             .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
+            ?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&

@@ -4,10 +4,14 @@ import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
+import { deserializeEntity } from '../../engine/serialization/deserialization';
+import { saveCurrentLevelToLocalStorage, saveEntityToJson } from '../../engine/serialization/persistence';
+import { EntityMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
+import { isValidEntityMap } from '../../engine/utils/validation';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
+import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
@@ -107,6 +111,7 @@ export default class EntityEditor {
     ////////////////////////////////////////////////////////////////////////////////
 
     addEntity = (entityList: HTMLLIElement) => {
+        console.log('Adding entity');
         const entity = this.registry.createEntity();
         entityList.appendChild(this.getEntityListElement(entity));
         entity.addComponent(GameComponents.TransformComponent);
@@ -118,6 +123,60 @@ export default class EntityEditor {
     removeEntity = (entity: Entity) => {
         entity.kill();
         this.saveLevel();
+    };
+
+    importEntity = (entityList: HTMLLIElement) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+
+        input.addEventListener('change', () => {
+            const files = input.files;
+            if (files && files.length > 0) {
+                const file: File = files[0];
+
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    try {
+                        const data = JSON.parse(reader.result as string);
+
+                        const entityMap = data as EntityMap;
+
+                        if (!isValidEntityMap(entityMap)) {
+                            throw new Error('Loaded json is not a valid entity map: ' + entityMap);
+                        }
+
+                        const importedEntity = deserializeEntity(entityMap, this.registry);
+                        if (importedEntity.hasComponent(GameComponents.TransformComponent)) {
+                            const transform = importedEntity.getComponent(GameComponents.TransformComponent);
+
+                            if (!transform) {
+                                throw new Error(
+                                    'Could not find transform component of entity with id ' + importedEntity.getId(),
+                                );
+                            }
+
+                            transform.position.x = 0;
+                            transform.position.y = 0;
+                        }
+
+                        entityList.appendChild(this.getEntityListElement(importedEntity));
+                        this.eventBus.emitEvent(EntitySelectEvent, [importedEntity]);
+                        Editor.selectedEntities = [importedEntity];
+                        this.saveLevel();
+                    } catch (e) {
+                        console.error('Invalid JSON:', e);
+                        showAlert('Selected json is not a valid entity map');
+                    } finally {
+                        input.value = '';
+                    }
+                };
+
+                reader.readAsText(file);
+            }
+        });
+
+        input.click();
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -198,7 +257,7 @@ export default class EntityEditor {
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
-        deleteButton.onclick = () => this.removeEntity(entity);
+        deleteButton.onclick = () => this.eventBus.emitEvent(EntityDeleteEvent, entity);
 
         header.append(title);
         header.append(duplicateButton);
@@ -233,6 +292,11 @@ export default class EntityEditor {
 
         componentList.append(entityTagListItem);
         componentList.append(entityGroupListItem);
+
+        const exportToJsonButton = document.createElement('button');
+        exportToJsonButton.innerText = 'Export to json';
+        exportToJsonButton.onclick = () => saveEntityToJson(entity);
+        componentList.append(exportToJsonButton);
 
         const componentSelector = document.createElement('div');
         componentSelector.className = 'd-flex align-center space-between pt-2';
@@ -426,7 +490,7 @@ export default class EntityEditor {
                     if (entity.hasComponent(GameComponents.SpriteComponent)) {
                         const entitySpriteSelect = document.getElementById('assetId-' + entity.getId());
                         if (!entitySpriteSelect) {
-                            throw new Error('Could not find sprite select element for entityt ' + entity.getId());
+                            continue;
                         }
 
                         const option = document.createElement('option');

@@ -1,7 +1,8 @@
 import AssetStore from '../asset-store/AssetStore';
+import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import { LevelMap } from '../types/map';
-import { serializeLevel } from './serialization';
+import { serializeEntity, serializeLevel } from './serialization';
 
 export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): void => {
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
@@ -14,8 +15,25 @@ export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): voi
     a.click();
 
     URL.revokeObjectURL(url);
+    document.removeChild(a);
 
     console.log('Level snapshot saved to json');
+};
+
+export const saveEntityToJson = (entity: Entity): void => {
+    const jsonString = JSON.stringify(serializeEntity(entity), null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'entity.json';
+    a.click();
+
+    URL.revokeObjectURL(url);
+    document.removeChild(a);
+
+    console.log('Entity snapshot saved to json');
 };
 
 export const saveCurrentLevelToLocalStorage = (levelId: string | null, registry: Registry, assetStore: AssetStore) => {

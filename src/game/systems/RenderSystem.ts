@@ -98,7 +98,6 @@ export default class RenderSystem extends System {
             }
 
             const dstRect: Rectangle = {
-                // TODO: remove isFixed from sprite component and use Transform instead
                 x: (transform.position.x - (transform.isFixed ? 0 : camera.x)) * zoom,
                 y: (transform.position.y - (transform.isFixed ? 0 : camera.y)) * zoom,
                 width: sprite.width * transform.scale.x * zoom,

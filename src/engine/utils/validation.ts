@@ -1,4 +1,4 @@
-import { LevelMap } from '../types/map';
+import { EntityMap, LevelMap } from '../types/map';
 
 export const isValidLevelMap = (obj: any): obj is LevelMap => {
     return (
@@ -12,4 +12,8 @@ export const isValidLevelMap = (obj: any): obj is LevelMap => {
         typeof obj.mapHeight === 'number' &&
         obj.entities !== undefined
     );
+};
+
+export const isValidEntityMap = (obj: any): obj is EntityMap => {
+    return typeof obj === 'object' && obj.components !== null && typeof obj.components === 'object';
 };
