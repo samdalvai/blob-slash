@@ -147,6 +147,19 @@ export default class EntityEditor {
                         }
 
                         const importedEntity = deserializeEntity(entityMap, this.registry);
+                        if (importedEntity.hasComponent(GameComponents.TransformComponent)) {
+                            const transform = importedEntity.getComponent(GameComponents.TransformComponent);
+
+                            if (!transform) {
+                                throw new Error(
+                                    'Could not find transform component of entity with id ' + importedEntity.getId(),
+                                );
+                            }
+
+                            transform.position.x = 0;
+                            transform.position.y = 0;
+                        }
+
                         entityList.appendChild(this.getEntityListElement(importedEntity));
                         this.eventBus.emitEvent(EntitySelectEvent, [importedEntity]);
                         Editor.selectedEntities = [importedEntity];
