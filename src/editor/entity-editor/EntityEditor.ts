@@ -107,6 +107,7 @@ export default class EntityEditor {
     ////////////////////////////////////////////////////////////////////////////////
 
     addEntity = (entityList: HTMLLIElement) => {
+        console.log("Adding entity");
         const entity = this.registry.createEntity();
         entityList.appendChild(this.getEntityListElement(entity));
         entity.addComponent(GameComponents.TransformComponent);
@@ -118,11 +119,6 @@ export default class EntityEditor {
     removeEntity = (entity: Entity) => {
         entity.kill();
         this.saveLevel();
-    };
-
-    importEntity = () => {
-        console.log('Importing entity');
-        throw new Error('Method not implemented.');
     };
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -431,7 +427,7 @@ export default class EntityEditor {
                     if (entity.hasComponent(GameComponents.SpriteComponent)) {
                         const entitySpriteSelect = document.getElementById('assetId-' + entity.getId());
                         if (!entitySpriteSelect) {
-                            throw new Error('Could not find sprite select element for entityt ' + entity.getId());
+                            continue;
                         }
 
                         const option = document.createElement('option');

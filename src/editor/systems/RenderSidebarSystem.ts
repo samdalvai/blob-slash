@@ -45,7 +45,9 @@ export default class RenderSidebarSystem extends System {
             this.onEntityPaste(event, leftSidebar, eventBus, registry),
         );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () =>
+            this.renderEntityList(leftSidebar, registry, eventBus),
+        );
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
@@ -200,14 +202,15 @@ export default class RenderSidebarSystem extends System {
         registry: Registry,
         assetStore: AssetStore,
         levelManager: LevelManager,
+        eventBus: EventBus,
     ) {
-        this.renderEntityList(leftSidebar);
+        this.renderEntityList(leftSidebar, registry, eventBus);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
         this.renderLevelManagement(rightSidebar, leftSidebar, registry, assetStore, levelManager);
     }
 
-    private renderEntityList = (leftSidebar: HTMLElement) => {
+    private renderEntityList = (leftSidebar: HTMLElement, registry: Registry, eventBus: EventBus) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
         const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
         const entityFileInput = document.getElementById('entity-file-input') as HTMLInputElement;
@@ -218,7 +221,7 @@ export default class RenderSidebarSystem extends System {
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
         importEntityButton.onclick = () => entityFileInput.click();
-        
+
         entityFileInput.addEventListener('change', () => {
             const files = entityFileInput.files;
             if (files && files.length > 0) {
@@ -235,17 +238,12 @@ export default class RenderSidebarSystem extends System {
                             throw new Error('Loaded json is not a valid entity map: ' + entityMap);
                         }
 
-                        console.log("Entity map: ", entityMap);
-
-                        // saveLevelToLocalStorage(nextLevelId, levelMap);
-
-                        // const option = document.createElement('option');
-                        // option.value = nextLevelId;
-                        // option.id = nextLevelId;
-                        // option.textContent = nextLevelId;
-                        //localStorageLevelsSelect.appendChild(option);
-
-                        //await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
+                        console.log('Creating entity with registry: ', registry);
+                        const importedEntity = deserializeEntity(entityMap, registry);
+                        entityList.appendChild(this.entityEditor.getEntityListElement(importedEntity));
+                        eventBus.emitEvent(EntitySelectEvent, [importedEntity]);
+                        Editor.selectedEntities = [importedEntity];
+                        this.entityEditor.saveLevel();
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid entity map');

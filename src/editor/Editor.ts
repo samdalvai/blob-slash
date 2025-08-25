@@ -643,7 +643,7 @@ export default class Editor extends Engine {
         if (this.shouldSidebarUpdate) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
-                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.levelManager);
+                ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.levelManager, this.eventBus);
 
             this.shouldSidebarUpdate = false;
         }
