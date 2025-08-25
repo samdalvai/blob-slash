@@ -176,12 +176,22 @@ export default class RenderSidebarSystem extends System {
         const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
         if (targetElement) {
-            // TODO: do we need to update this?
-            if (Editor.selectedEntities.length === 1 && event.entity.getId() === Editor.selectedEntities[0].getId()) {
-                Editor.selectedEntities.length = 0;
+            const updatedSelectedEntities = [];
+
+            for (const entity of Editor.selectedEntities) {
+                if (event.entity.getId() !== entity.getId()) {
+                    updatedSelectedEntities.push(entity);
+                }
             }
+
+            if (Editor.selectedEntities.length !== updatedSelectedEntities.length) {
+                Editor.selectedEntities = updatedSelectedEntities;
+            }
+
             targetElement.remove();
         }
+
+        this.entityEditor.saveLevel();
     };
 
     update(
