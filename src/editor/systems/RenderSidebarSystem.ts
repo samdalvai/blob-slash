@@ -477,7 +477,6 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not read level from local storage');
         }
 
-        // TODO: when we select a level references to the methods are created multiple times,
         this.renderEntityList(leftSidebar);
 
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
