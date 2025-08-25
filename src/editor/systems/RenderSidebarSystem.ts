@@ -216,6 +216,14 @@ export default class RenderSidebarSystem extends System {
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
 
+        const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
+
+        if (!importEntityButton) {
+            throw new Error('Could not find import entity button');
+        }
+
+        importEntityButton.onclick = () => this.entityEditor.importEntity();
+
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
         if (!entityList) {

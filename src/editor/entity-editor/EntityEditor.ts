@@ -120,6 +120,11 @@ export default class EntityEditor {
         this.saveLevel();
     };
 
+    importEntity = () => {
+        console.log('Importing entity');
+        throw new Error('Method not implemented.');
+    };
+
     ////////////////////////////////////////////////////////////////////////////////
     // Component management
     ////////////////////////////////////////////////////////////////////////////////
