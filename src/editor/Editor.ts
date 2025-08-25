@@ -278,11 +278,16 @@ export default class Editor extends Engine {
                     }
 
                     if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
-                        for (const entity of Editor.selectedEntities) {
-                            this.eventBus.emitEvent(EntityDeleteEvent, entity);
-                        }
+                        if (
+                            this.leftSidebar &&
+                            Editor.mousePositionScreen.x > this.leftSidebar?.getBoundingClientRect().width
+                        ) {
+                            for (const entity of Editor.selectedEntities) {
+                                this.eventBus.emitEvent(EntityDeleteEvent, entity);
+                            }
 
-                        Editor.selectedEntities.length = 0;
+                            Editor.selectedEntities.length = 0;
+                        }
                     }
 
                     if (this.commandPressed) {
