@@ -325,15 +325,13 @@ export default class RenderSidebarSystem extends System {
         const deleteLevelButton = rightSidebar.querySelector('#delete-level') as HTMLButtonElement;
         const saveToJsonButton = rightSidebar.querySelector('#save-to-json') as HTMLButtonElement;
         const loadFromJsonButton = rightSidebar.querySelector('#load-from-json') as HTMLButtonElement;
-        const levelFileInput = document.getElementById('level-file-input') as HTMLInputElement;
 
         if (
             !localStorageLevelsSelect ||
             !newLevelButton ||
             !deleteLevelButton ||
             !saveToJsonButton ||
-            !loadFromJsonButton ||
-            !levelFileInput
+            !loadFromJsonButton
         ) {
             throw new Error('Could not retrieve level management element(s)');
         }
@@ -420,47 +418,51 @@ export default class RenderSidebarSystem extends System {
 
         saveToJsonButton.onclick = () => saveLevelToJson(registry, assetStore);
         loadFromJsonButton.onclick = () => {
-            levelFileInput.click();
-        };
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
 
-        levelFileInput.addEventListener('change', () => {
-            const files = levelFileInput.files;
-            if (files && files.length > 0) {
-                const file: File = files[0];
+            input.addEventListener('change', () => {
+                const files = input.files;
+                if (files && files.length > 0) {
+                    const file: File = files[0];
 
-                const reader = new FileReader();
-                reader.onload = async () => {
-                    try {
-                        const data = JSON.parse(reader.result as string);
-                        const levelKeys = getAllLevelKeysFromLocalStorage();
-                        const nextLevelId = getNextLevelId(levelKeys);
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        try {
+                            const data = JSON.parse(reader.result as string);
+                            const levelKeys = getAllLevelKeysFromLocalStorage();
+                            const nextLevelId = getNextLevelId(levelKeys);
 
-                        const levelMap = data as LevelMap;
+                            const levelMap = data as LevelMap;
 
-                        if (!isValidLevelMap(levelMap)) {
-                            throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
+                            if (!isValidLevelMap(levelMap)) {
+                                throw new Error('Loaded json is not a valid levelmap: ' + levelMap);
+                            }
+
+                            saveLevelToLocalStorage(nextLevelId, levelMap);
+
+                            const option = document.createElement('option');
+                            option.value = nextLevelId;
+                            option.id = nextLevelId;
+                            option.textContent = nextLevelId;
+                            localStorageLevelsSelect.appendChild(option);
+
+                            await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
+                        } catch (e) {
+                            console.error('Invalid JSON:', e);
+                            showAlert('Selected json is not a valid level map');
+                        } finally {
+                            input.value = '';
                         }
+                    };
 
-                        saveLevelToLocalStorage(nextLevelId, levelMap);
+                    reader.readAsText(file);
+                }
+            });
 
-                        const option = document.createElement('option');
-                        option.value = nextLevelId;
-                        option.id = nextLevelId;
-                        option.textContent = nextLevelId;
-                        localStorageLevelsSelect.appendChild(option);
-
-                        await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
-                    } catch (e) {
-                        console.error('Invalid JSON:', e);
-                        showAlert('Selected json is not a valid level map');
-                    } finally {
-                        levelFileInput.value = '';
-                    }
-                };
-
-                reader.readAsText(file);
-            }
-        });
+            input.click();
+        };
     }
 
     private handleLevelSelect = async (
