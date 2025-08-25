@@ -2,24 +2,24 @@ import Component from '../../engine/ecs/Component';
 import { Vector } from '../../engine/types/utils';
 
 export default class TextLabelComponent extends Component {
-    position: Vector;
+    offset: Vector;
     text: string;
     color: { r: number; g: number; b: number };
-    isFixed: boolean;
-    font: string;
+    fontSize: number;
+    fontFamily: string;
 
     constructor(
-        position = { x: 0, y: 0 },
+        offset = { x: 0, y: 0 },
         text = '',
         color = { r: 0, g: 0, b: 0 },
-        isFixed = true,
-        font = '14px Arial',
+        fontSize = 14,
+        fontFamily = 'Arial',
     ) {
         super();
-        this.position = position;
+        this.offset = offset;
         this.text = text;
         this.color = color;
-        this.isFixed = isFixed;
-        this.font = font;
+        this.fontSize = fontSize;
+        this.fontFamily = fontFamily;
     }
 }

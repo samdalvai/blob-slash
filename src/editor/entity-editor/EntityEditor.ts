@@ -108,22 +108,15 @@ export default class EntityEditor {
 
     addEntity = (entityList: HTMLLIElement) => {
         const entity = this.registry.createEntity();
-        entityList.appendChild(this.getEntityListElement(entity, entityList));
-        this.eventBus.emitEvent(EntitySelectEvent, entity);
+        entityList.appendChild(this.getEntityListElement(entity));
+        entity.addComponent(GameComponents.TransformComponent);
+
+        this.eventBus.emitEvent(EntitySelectEvent, [entity]);
         this.saveLevel();
     };
 
-    removeEntity = (entity: Entity, entityList: HTMLLIElement) => {
+    removeEntity = (entity: Entity) => {
         entity.kill();
-
-        const targetElement = entityList.querySelector(`#entity-${entity.getId()}`);
-
-        if (!targetElement) {
-            throw new Error('Could not find target element in entity list');
-        }
-
-        Editor.selectedEntity = null;
-        targetElement.remove();
         this.saveLevel();
     };
 
@@ -183,13 +176,13 @@ export default class EntityEditor {
     // HMTL elements management
     ////////////////////////////////////////////////////////////////////////////////
 
-    getEntityListElement = (entity: Entity, entityList: HTMLLIElement) => {
+    getEntityListElement = (entity: Entity) => {
         const entityComponents = entity.getComponents();
 
         const componentList = document.createElement('li');
         componentList.id = `entity-${entity.getId()}`;
         componentList.style.border = 'solid 1px white';
-        componentList.onclick = () => (Editor.selectedEntity = entity);
+        componentList.onclick = () => (Editor.selectedEntities = [entity]);
 
         const header = document.createElement('div');
         header.className = 'd-flex align-center space-between';
@@ -205,7 +198,7 @@ export default class EntityEditor {
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'DELETE';
-        deleteButton.onclick = () => this.removeEntity(entity, entityList);
+        deleteButton.onclick = () => this.removeEntity(entity);
 
         header.append(title);
         header.append(duplicateButton);
@@ -297,16 +290,18 @@ export default class EntityEditor {
         const componentName = component.constructor.name;
         title.innerText = '* ' + componentName;
         title.style.textDecoration = 'underline';
-
-        const removeButton = document.createElement('button');
-        removeButton.innerText = 'REMOVE';
-        removeButton.onclick = () => {
-            this.removeComponent(component, entity, componentContainer.id);
-            this.saveLevel();
-        };
-
         componentHeader.append(title);
-        componentHeader.append(removeButton);
+
+        if (component.constructor.name !== 'TransformComponent') {
+            const removeButton = document.createElement('button');
+            removeButton.innerText = 'REMOVE';
+            removeButton.onclick = () => {
+                this.removeComponent(component, entity, componentContainer.id);
+                this.saveLevel();
+            };
+            componentHeader.append(removeButton);
+        }
+
         componentContainer.append(componentHeader);
 
         const properties = Object.keys(component);
@@ -368,8 +363,6 @@ export default class EntityEditor {
             option.textContent = textureId || 'Unknown';
             select.appendChild(option);
         });
-
-        // TODO: add button to pick asset not already loaded
 
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {

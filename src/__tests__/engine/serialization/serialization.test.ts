@@ -24,6 +24,7 @@ describe('Testing serialization related functions', () => {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
                         rotation: 0,
+                        isFixed: false,
                     },
                 },
             ],
@@ -46,6 +47,7 @@ describe('Testing serialization related functions', () => {
                         position: { x: 100, y: 100 },
                         scale: { x: 1, y: 1 },
                         rotation: 0,
+                        isFixed: false,
                     },
                 },
                 {
@@ -120,6 +122,7 @@ describe('Testing serialization related functions', () => {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
                             rotation: 0,
+                            isFixed: false,
                         },
                     },
                 ],
@@ -132,6 +135,7 @@ describe('Testing serialization related functions', () => {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
                             rotation: 0,
+                            isFixed: false,
                         },
                     },
                 ],
@@ -161,6 +165,7 @@ describe('Testing serialization related functions', () => {
                             position: { x: 100, y: 100 },
                             scale: { x: 1, y: 1 },
                             rotation: 0,
+                            isFixed: false,
                         },
                     },
                     {
@@ -180,6 +185,7 @@ describe('Testing serialization related functions', () => {
                             position: { x: 200, y: 200 },
                             scale: { x: 1, y: 1 },
                             rotation: 0,
+                            isFixed: false,
                         },
                     },
                     {
@@ -350,6 +356,7 @@ describe('Testing serialization related functions', () => {
                                 position: { x: 100, y: 100 },
                                 scale: { x: 1, y: 1 },
                                 rotation: 0,
+                                isFixed: false,
                             },
                         },
                     ],
@@ -368,7 +375,7 @@ describe('Testing serialization related functions', () => {
     test('Should serialize level with two entities', () => {
         const registry = new Registry();
         const assetStore = new AssetStore();
-        
+
         const entity1 = registry.createEntity();
         entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
@@ -387,6 +394,7 @@ describe('Testing serialization related functions', () => {
                                 position: { x: 100, y: 100 },
                                 scale: { x: 1, y: 1 },
                                 rotation: 0,
+                                isFixed: false,
                             },
                         },
                     ],
@@ -399,6 +407,7 @@ describe('Testing serialization related functions', () => {
                                 position: { x: 200, y: 200 },
                                 scale: { x: 1, y: 1 },
                                 rotation: 0,
+                                isFixed: false,
                             },
                         },
                     ],
@@ -417,7 +426,7 @@ describe('Testing serialization related functions', () => {
     test('Should serialize level with one entity where another entity has been killed', () => {
         const registry = new Registry();
         const assetStore = new AssetStore();
-        
+
         const entity1 = registry.createEntity();
         entity1.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
@@ -439,6 +448,7 @@ describe('Testing serialization related functions', () => {
                                 position: { x: 200, y: 200 },
                                 scale: { x: 1, y: 1 },
                                 rotation: 0,
+                                isFixed: false,
                             },
                         },
                     ],

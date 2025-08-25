@@ -1,4 +1,5 @@
 import Editor from './editor/Editor';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import FixedFPSLoopStrategy from './engine/loop-strategy/FixedFPSLoopStrategy';
 import RAFLoopStrategy from './engine/loop-strategy/RAFLoopStrategy';
 import Game from './game/Game';

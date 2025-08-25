@@ -1,5 +1,6 @@
 import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
+import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
@@ -7,7 +8,7 @@ import LevelManager from '../../engine/level-manager/LevelManager';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
-import { SpriteComponent, TransformComponent } from '../../game/components';
+import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
 import Editor from '../Editor';
@@ -17,7 +18,7 @@ import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
 import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
-import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import { createInput, createListItem, showAlert } from '../gui';
 import {
     deleteLevelFromLocalStorage,
     getAllLevelKeysFromLocalStorage,
@@ -33,7 +34,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(registry: Registry, eventBus: EventBus, leftSidebar: HTMLElement) {
+    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
@@ -41,7 +42,7 @@ export default class RenderSidebarSystem extends System {
         );
         eventBus.subscribeToEvent(EntityPasteEvent, this, event => this.onEntityPaste(event, leftSidebar, eventBus));
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
-        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar, registry));
+        eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
     }
 
     onEntitySelect = (event: EntitySelectEvent, leftSidebar: HTMLElement) => {
@@ -49,7 +50,21 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve leftSidebar');
         }
 
-        scrollToListElement('#entity-list', `#entity-${event.entity.getId()}`);
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        if (event.entities.length === 0) {
+            this.renderNoEntitySelected(entityList);
+            return;
+        }
+
+        entityList.innerHTML = '';
+        for (const entity of event.entities) {
+            entityList.appendChild(this.entityEditor.getEntityListElement(entity));
+        }
     };
 
     onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
@@ -63,7 +78,8 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        this.entityEditor.removeEntity(event.entity, entityList);
+        this.entityEditor.removeEntity(event.entity);
+        this.renderNoEntitySelected(entityList);
     };
 
     onEntityDuplicate = (event: EntityDuplicateEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
@@ -79,14 +95,18 @@ export default class RenderSidebarSystem extends System {
 
         const entityCopy = event.entity.duplicate();
 
-        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
+        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
 
-        eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        Editor.selectedEntity = entityCopy;
+        eventBus.emitEvent(EntitySelectEvent, [entityCopy]);
+        Editor.selectedEntities = [entityCopy];
         this.entityEditor.saveLevel();
     };
 
     onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+        if (event.entities.length === 0) {
+            return;
+        }
+
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
         }
@@ -97,33 +117,43 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        const originalEntity = event.entity;
+        const copiedEntities: Entity[] = [];
 
-        if (!originalEntity.hasComponent(SpriteComponent) || !originalEntity.hasComponent(TransformComponent)) {
+        let minTransformPositionX = Number.MAX_VALUE;
+        let minTransformPositionY = Number.MAX_VALUE;
+
+        for (const originalEntity of event.entities) {
+            const entityCopy = originalEntity.duplicate();
+            const copiedTransform = entityCopy.getComponent(TransformComponent);
+
+            if (!copiedTransform) {
+                throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+            }
+
+            if (minTransformPositionX > copiedTransform.position.x) {
+                minTransformPositionX = copiedTransform.position.x;
+            }
+
+            if (minTransformPositionY > copiedTransform.position.y) {
+                minTransformPositionY = copiedTransform.position.y;
+            }
+
+            copiedEntities.push(entityCopy);
+            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
+        }
+
+        if (copiedEntities.length === 0) {
             return;
         }
 
-        const entityCopy = event.entity.duplicate();
-
-        const copiedTransform = entityCopy.getComponent(TransformComponent);
-
-        if (!copiedTransform) {
-            throw new Error('Could not get transform component of entity ' + entityCopy.getId());
-        }
-
-        copiedTransform.position.x = Engine.mousePositionWorld.x;
-        copiedTransform.position.y = Engine.mousePositionWorld.y;
-
         Editor.entityDragStart = {
-            x: Engine.mousePositionWorld.x - copiedTransform.position.x,
-            y: Engine.mousePositionWorld.y - copiedTransform.position.y,
+            x: minTransformPositionX,
+            y: minTransformPositionY,
         };
         Editor.isDragging = true;
 
-        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy, entityList));
-
-        eventBus.emitEvent(EntitySelectEvent, entityCopy);
-        Editor.selectedEntity = entityCopy;
+        eventBus.emitEvent(EntitySelectEvent, copiedEntities);
+        Editor.selectedEntities = [...copiedEntities];
         this.entityEditor.saveLevel();
     };
 
@@ -141,8 +171,9 @@ export default class RenderSidebarSystem extends System {
         const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
         if (targetElement) {
-            if (event.entity.getId() === Editor.selectedEntity?.getId()) {
-                Editor.selectedEntity = null;
+            // TODO: do we need to update this?
+            if (Editor.selectedEntities.length === 1 && event.entity.getId() === Editor.selectedEntities[0].getId()) {
+                Editor.selectedEntities.length = 0;
             }
             targetElement.remove();
         }
@@ -155,27 +186,13 @@ export default class RenderSidebarSystem extends System {
         assetStore: AssetStore,
         levelManager: LevelManager,
     ) {
-        this.renderEntityList(leftSidebar, registry);
+        this.renderEntityList(leftSidebar);
         this.renderActiveSystems(rightSidebar);
         this.renderLevelSettings(rightSidebar);
         this.renderLevelManagement(rightSidebar, leftSidebar, registry, assetStore, levelManager);
     }
 
-    private renderEntityList = (leftSidebar: HTMLElement, registry: Registry) => {
-        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
-
-        if (!entityList) {
-            throw new Error('Could not retrieve entity list');
-        }
-
-        entityList.innerHTML = '';
-
-        const entities = registry.getAllEntities();
-
-        for (const entity of entities) {
-            entityList.appendChild(this.entityEditor.getEntityListElement(entity, entityList));
-        }
-
+    private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
 
         if (!addEntityButton) {
@@ -183,6 +200,29 @@ export default class RenderSidebarSystem extends System {
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
+
+        const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
+
+        if (!entityList) {
+            throw new Error('Could not retrieve entity list');
+        }
+
+        this.renderNoEntitySelected(entityList);
+    };
+
+    private renderNoEntitySelected = (entityList: HTMLLIElement) => {
+        entityList.innerHTML = '';
+
+        const listElement = document.createElement('li');
+        listElement.style.height = '90vh';
+
+        const innerDiv = document.createElement('div');
+        innerDiv.style.padding = '10px';
+        innerDiv.innerText = 'No entity selected...';
+        innerDiv.style.fontSize = '18px';
+
+        listElement.appendChild(innerDiv);
+        entityList.appendChild(listElement);
     };
 
     private renderActiveSystems = (rightSidebar: HTMLElement) => {
@@ -301,7 +341,7 @@ export default class RenderSidebarSystem extends System {
             const target = event.target as HTMLSelectElement;
             const levelId = target.value;
 
-            await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
+            await this.handleLevelSelect(levelId, levelManager, leftSidebar, rightSidebar);
         });
 
         newLevelButton.onclick = async () => {
@@ -323,7 +363,7 @@ export default class RenderSidebarSystem extends System {
             option.textContent = nextLevelId;
             localStorageLevelsSelect.appendChild(option);
 
-            await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
+            await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
         };
 
         deleteLevelButton.onclick = async () => {
@@ -346,10 +386,10 @@ export default class RenderSidebarSystem extends System {
             const levelKeys = getAllLevelKeysFromLocalStorage();
 
             if (levelKeys.length > 0) {
-                await this.handleLevelSelect(levelKeys[0], levelManager, registry, leftSidebar, rightSidebar);
+                await this.handleLevelSelect(levelKeys[0], levelManager, leftSidebar, rightSidebar);
             } else {
                 console.log('No level available, loading default empty level');
-                const { levelId, level } = levelManager.getDefaultLevel();
+                const { levelId, level } = levelManager.getDefaultLevel('level-0');
                 saveLevelToLocalStorage(levelId, level);
                 const option = document.createElement('option');
                 option.value = levelId;
@@ -357,7 +397,7 @@ export default class RenderSidebarSystem extends System {
                 option.textContent = levelId;
                 localStorageLevelsSelect.appendChild(option);
 
-                await this.handleLevelSelect(levelId, levelManager, registry, leftSidebar, rightSidebar);
+                await this.handleLevelSelect(levelId, levelManager, leftSidebar, rightSidebar);
             }
         };
 
@@ -392,7 +432,7 @@ export default class RenderSidebarSystem extends System {
                         option.textContent = nextLevelId;
                         localStorageLevelsSelect.appendChild(option);
 
-                        await this.handleLevelSelect(nextLevelId, levelManager, registry, leftSidebar, rightSidebar);
+                        await this.handleLevelSelect(nextLevelId, levelManager, leftSidebar, rightSidebar);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid level map');
@@ -409,7 +449,6 @@ export default class RenderSidebarSystem extends System {
     private handleLevelSelect = async (
         levelId: string,
         levelManager: LevelManager,
-        registry: Registry,
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
     ) => {
@@ -419,7 +458,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not read level from local storage');
         }
 
-        this.renderEntityList(leftSidebar, registry);
+        this.renderEntityList(leftSidebar);
 
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;
         const gameHeightInput = rightSidebar.querySelector('#map-height') as HTMLInputElement;
