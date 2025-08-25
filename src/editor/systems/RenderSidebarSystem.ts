@@ -5,6 +5,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
+import { deserializeEntity } from '../../engine/serialization/deserialization';
 import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/level';
@@ -34,13 +35,15 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor = entityEditor;
     }
 
-    subscribeToEvents(eventBus: EventBus, leftSidebar: HTMLElement) {
+    subscribeToEvents(eventBus: EventBus, registry: Registry, leftSidebar: HTMLElement) {
         eventBus.subscribeToEvent(EntitySelectEvent, this, event => this.onEntitySelect(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDeleteEvent, this, event => this.onEntityDelete(event, leftSidebar));
         eventBus.subscribeToEvent(EntityDuplicateEvent, this, event =>
             this.onEntityDuplicate(event, leftSidebar, eventBus),
         );
-        eventBus.subscribeToEvent(EntityPasteEvent, this, event => this.onEntityPaste(event, leftSidebar, eventBus));
+        eventBus.subscribeToEvent(EntityPasteEvent, this, event =>
+            this.onEntityPaste(event, leftSidebar, eventBus, registry),
+        );
         eventBus.subscribeToEvent(EntityKilledEvent, this, event => this.onEntityKilled(event, leftSidebar));
         eventBus.subscribeToEvent(EntityUpdateEvent, this, () => this.renderEntityList(leftSidebar));
     }
@@ -102,7 +105,7 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.saveLevel();
     };
 
-    onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus) => {
+    onEntityPaste = (event: EntityPasteEvent, leftSidebar: HTMLElement, eventBus: EventBus, registry: Registry) => {
         if (event.entities.length === 0) {
             return;
         }
@@ -122,12 +125,14 @@ export default class RenderSidebarSystem extends System {
         let minTransformPositionX = Number.MAX_VALUE;
         let minTransformPositionY = Number.MAX_VALUE;
 
-        for (const originalEntity of event.entities) {
-            const entityCopy = originalEntity.duplicate();
-            const copiedTransform = entityCopy.getComponent(TransformComponent);
+        for (const entityMap of event.entities) {
+            const copiedEntity = deserializeEntity(JSON.parse(JSON.stringify(entityMap)), registry);
+            registry.update();
+
+            const copiedTransform = copiedEntity.getComponent(TransformComponent);
 
             if (!copiedTransform) {
-                throw new Error('Could not get transform component of entity ' + entityCopy.getId());
+                throw new Error('Could not get transform component of entity ' + copiedEntity.getId());
             }
 
             if (minTransformPositionX > copiedTransform.position.x) {
@@ -138,8 +143,8 @@ export default class RenderSidebarSystem extends System {
                 minTransformPositionY = copiedTransform.position.y;
             }
 
-            copiedEntities.push(entityCopy);
-            entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
+            copiedEntities.push(copiedEntity);
+            entityList.appendChild(this.entityEditor.getEntityListElement(copiedEntity));
         }
 
         if (copiedEntities.length === 0) {

@@ -1,7 +1,9 @@
 import Engine from '../engine/Engine';
 import Entity from '../engine/ecs/Entity';
 import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
+import { serializeEntity } from '../engine/serialization/serialization';
 import { MouseButton } from '../engine/types/control';
+import { EntityMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
@@ -44,7 +46,7 @@ export default class Editor extends Engine {
 
     // Global Editor objects
     static selectedEntities: Entity[] = [];
-    static copiedEntities: Entity[] = [];
+    static copiedEntities: EntityMap[] = [];
     static isDragging: boolean;
     static entityDragStart: Vector | null = null;
     static multipleSelectStart: Vector | null = null;
@@ -295,7 +297,13 @@ export default class Editor extends Engine {
                                 break;
                             case 'KeyC':
                                 if (Editor.selectedEntities.length > 0) {
-                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    const entityMaps: EntityMap[] = [];
+                                    for (const entity of Editor.selectedEntities) {
+                                        const entityMap = serializeEntity(entity);
+                                        entityMaps.push(entityMap);
+                                    }
+
+                                    Editor.copiedEntities = entityMaps;
                                 }
                                 break;
                             case 'KeyV':
@@ -303,10 +311,15 @@ export default class Editor extends Engine {
                                     this.eventBus.emitEvent(EntityPasteEvent, Editor.copiedEntities);
                                 }
                                 break;
-                            // TODO: entity is deleted and cannot be copied again
                             case 'KeyX':
                                 if (Editor.selectedEntities.length > 0) {
-                                    Editor.copiedEntities = [...Editor.selectedEntities];
+                                    const entityMaps: EntityMap[] = [];
+                                    for (const entity of Editor.selectedEntities) {
+                                        const entityMap = serializeEntity(entity);
+                                        entityMaps.push(entityMap);
+                                    }
+
+                                    Editor.copiedEntities = entityMaps;
                                     for (const entity of Editor.selectedEntities) {
                                         this.eventBus.emitEvent(EntityDeleteEvent, entity);
                                     }
@@ -514,9 +527,7 @@ export default class Editor extends Engine {
                 ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed);
         }
 
-        this.registry
-            .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.leftSidebar);
+        this.registry.getSystem(EditorSystems.RenderSidebarSystem)?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
