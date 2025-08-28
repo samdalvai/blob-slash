@@ -1,0 +1,90 @@
+[
+  {
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "torch",
+          "width": 32,
+          "height": 32,
+          "zIndex": 2,
+          "srcRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          },
+          "flip": 0,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 384,
+            "y": 224
+          },
+          "scale": {
+            "x": 1,
+            "y": 1
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "LightEmitComponent",
+        "properties": {
+          "lightRadius": 100
+        }
+      },
+      {
+        "name": "AnimationComponent",
+        "properties": {
+          "numFrames": 4,
+          "currentFrame": 0,
+          "frameSpeedRate": 10,
+          "isLoop": true,
+          "startTime": 0
+        }
+      },
+      {
+        "name": "ParticleEmitComponent",
+        "properties": {
+          "lastEmission": 0,
+          "dimension": 2,
+          "duration": 1000,
+          "color": "rgba(255,0,0,1)",
+          "emitFrequency": 200,
+          "emitRadius": 5,
+          "offsetX": 16,
+          "offsetY": 0,
+          "particleVelocity": {
+            "x": 0,
+            "y": -50
+          }
+        }
+      },
+      {
+        "name": "EntityEffectComponent",
+        "properties": {
+          "slowed": false,
+          "slowedPercentage": 1,
+          "hasDamageOverTime": false,
+          "damagePerSecond": 0,
+          "lastDamageTime": 0
+        }
+      },
+      {
+        "name": "ShadowComponent",
+        "properties": {
+          "width": 10,
+          "height": 5,
+          "offsetX": -0.5,
+          "offsetY": -5
+        }
+      }
+    ]
+  }
+]
