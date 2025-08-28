@@ -432,6 +432,8 @@ export default class Editor extends Engine {
                                 this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
+                        // button 0 = left, button 1 = middle, button 2 = right
+                        // this is mapped directly to MouseButton enum
                         inputEvent.button,
                     );
 
