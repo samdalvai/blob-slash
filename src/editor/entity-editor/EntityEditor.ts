@@ -4,8 +4,7 @@ import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { deserializeEntity } from '../../engine/serialization/deserialization';
-import { saveCurrentLevelToLocalStorage, saveEntityToJson } from '../../engine/serialization/persistence';
+import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { EntityMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isValidEntityMap } from '../../engine/utils/validation';
@@ -13,6 +12,7 @@ import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
 import EntityDuplicateEvent from '../events/EntityDuplicateEvent';
+import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
@@ -125,7 +125,7 @@ export default class EntityEditor {
         this.saveLevel();
     };
 
-    importEntity = (entityList: HTMLLIElement) => {
+    importEntities = () => {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
@@ -140,30 +140,15 @@ export default class EntityEditor {
                     try {
                         const data = JSON.parse(reader.result as string);
 
-                        const entityMap = data as EntityMap;
+                        const entitiesMap = data as EntityMap[];
 
-                        if (!isValidEntityMap(entityMap)) {
-                            throw new Error('Loaded json is not a valid entity map: ' + entityMap);
-                        }
-
-                        const importedEntity = deserializeEntity(entityMap, this.registry);
-                        if (importedEntity.hasComponent(GameComponents.TransformComponent)) {
-                            const transform = importedEntity.getComponent(GameComponents.TransformComponent);
-
-                            if (!transform) {
-                                throw new Error(
-                                    'Could not find transform component of entity with id ' + importedEntity.getId(),
-                                );
+                        for (const entityMap of entitiesMap) {
+                            if (!isValidEntityMap(entityMap)) {
+                                throw new Error('Loaded json is not a valid entity map: ' + entityMap);
                             }
-
-                            transform.position.x = 0;
-                            transform.position.y = 0;
                         }
 
-                        entityList.appendChild(this.getEntityListElement(importedEntity));
-                        this.eventBus.emitEvent(EntitySelectEvent, [importedEntity]);
-                        Editor.selectedEntities = [importedEntity];
-                        this.saveLevel();
+                        this.eventBus.emitEvent(EntityPasteEvent, entitiesMap);
                     } catch (e) {
                         console.error('Invalid JSON:', e);
                         showAlert('Selected json is not a valid entity map');
@@ -293,10 +278,10 @@ export default class EntityEditor {
         componentList.append(entityTagListItem);
         componentList.append(entityGroupListItem);
 
-        const exportToJsonButton = document.createElement('button');
-        exportToJsonButton.innerText = 'Export to json';
-        exportToJsonButton.onclick = () => saveEntityToJson(entity);
-        componentList.append(exportToJsonButton);
+        // const exportToJsonButton = document.createElement('button');
+        // exportToJsonButton.innerText = 'Export to json';
+        // exportToJsonButton.onclick = () => saveEntityToJson(entity);
+        // componentList.append(exportToJsonButton);
 
         const componentSelector = document.createElement('div');
         componentSelector.className = 'd-flex align-center space-between pt-2';
