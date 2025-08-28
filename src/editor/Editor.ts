@@ -432,7 +432,7 @@ export default class Editor extends Engine {
                                 this.camera.x,
                             y: inputEvent.y / this.zoom + this.camera.y,
                         },
-                        inputEvent.button === 0 ? 'left' : 'right',
+                        inputEvent.button,
                     );
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
