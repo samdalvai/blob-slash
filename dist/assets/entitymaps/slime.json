@@ -1,0 +1,103 @@
+[
+  {
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "slime_big_full",
+          "width": 32,
+          "height": 32,
+          "zIndex": 1,
+          "srcRect": {
+            "x": 0,
+            "y": 64,
+            "width": 32,
+            "height": 32
+          },
+          "flip": 0,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 455,
+            "y": 88
+          },
+          "scale": {
+            "x": 1,
+            "y": 1
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "LightEmitComponent",
+        "properties": {
+          "lightRadius": 200
+        }
+      },
+      {
+        "name": "RigidBodyComponent",
+        "properties": {
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "direction": {
+            "x": 0,
+            "y": 1
+          }
+        }
+      },
+      {
+        "name": "AnimationComponent",
+        "properties": {
+          "numFrames": 2,
+          "currentFrame": 0,
+          "frameSpeedRate": 5,
+          "isLoop": true,
+          "startTime": 0
+        }
+      },
+      {
+        "name": "BoxColliderComponent",
+        "properties": {
+          "width": 30,
+          "height": 20,
+          "offset": {
+            "x": 1,
+            "y": 5
+          },
+          "lastCollision": 0
+        }
+      },
+      {
+        "name": "SpriteStateComponent",
+        "properties": {}
+      },
+      {
+        "name": "PlayerControlComponent",
+        "properties": {
+          "keysPressed": [],
+          "velocity": 100,
+          "magicBubbleCooldown": 1000,
+          "magicBubbleLastEmissionTime": 0,
+          "teleportCooldown": 200,
+          "teleportLastEmissionTime": 0,
+          "fireCircleCooldown": 3000,
+          "fireCircleLastEmissionTime": 0
+        }
+      },
+      {
+        "name": "TeleportComponent",
+        "properties": {
+          "isTeleporting": false,
+          "teleportDelay": 1000
+        }
+      }
+    ]
+  }
+]

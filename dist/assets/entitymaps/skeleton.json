@@ -1,0 +1,177 @@
+[
+  {
+    "group": "enemies",
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "skeleton_full",
+          "width": 32,
+          "height": 32,
+          "zIndex": 2,
+          "srcRect": {
+            "x": 0,
+            "y": 192,
+            "width": 32,
+            "height": 32
+          },
+          "flip": 32,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 512,
+            "y": 512
+          },
+          "scale": {
+            "x": 2,
+            "y": 2
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "RigidBodyComponent",
+        "properties": {
+          "velocity": {
+            "x": 0,
+            "y": 50
+          },
+          "direction": {
+            "x": 0,
+            "y": 1
+          }
+        }
+      },
+      {
+        "name": "AnimationComponent",
+        "properties": {
+          "numFrames": 2,
+          "currentFrame": 0,
+          "frameSpeedRate": 4,
+          "isLoop": true,
+          "startTime": 0
+        }
+      },
+      {
+        "name": "BoxColliderComponent",
+        "properties": {
+          "width": 25,
+          "height": 20,
+          "offset": {
+            "x": 4,
+            "y": 7
+          },
+          "lastCollision": 0
+        }
+      },
+      {
+        "name": "RangedAttackEmitterComponent",
+        "properties": {
+          "projectileVelocity": 200,
+          "repeatFrequency": 500,
+          "projectileDuration": 7500,
+          "hitPercentDamage": 2,
+          "isFriendly": false,
+          "lastEmissionTime": 0
+        }
+      },
+      {
+        "name": "HealthComponent",
+        "properties": {
+          "healthPercentage": 50,
+          "lastDamageTime": 0
+        }
+      },
+      {
+        "name": "EntityFollowComponent",
+        "properties": {
+          "detectionRadius": 200,
+          "minFollowDistance": 100,
+          "followVelocity": 50,
+          "followDuration": 5000,
+          "followedEntity": null,
+          "startFollowTime": 0
+        }
+      },
+      {
+        "name": "SpriteStateComponent",
+        "properties": {}
+      },
+      {
+        "name": "ScriptComponent",
+        "properties": {
+          "scripts": [
+            {
+              "movement": {
+                "x": 50,
+                "y": 0
+              },
+              "duration": 2000
+            },
+            {
+              "movement": {
+                "x": 0,
+                "y": 50
+              },
+              "duration": 2000
+            },
+            {
+              "movement": {
+                "x": -50,
+                "y": 0
+              },
+              "duration": 2000
+            },
+            {
+              "movement": {
+                "x": 0,
+                "y": -50
+              },
+              "duration": 2000
+            }
+          ],
+          "currentActionIndex": 0,
+          "actionStart": 190.29999999701977
+        }
+      },
+      {
+        "name": "HighlightComponent",
+        "properties": {
+          "isHighlighted": false,
+          "width": 40,
+          "height": 20,
+          "offsetX": 0,
+          "offsetY": -10
+        }
+      },
+      {
+        "name": "EntityEffectComponent",
+        "properties": {
+          "slowed": false,
+          "slowedPercentage": 1,
+          "hasDamageOverTime": false,
+          "damagePerSecond": 0,
+          "lastDamageTime": 0
+        }
+      },
+      {
+        "name": "ShadowComponent",
+        "properties": {
+          "width": 30,
+          "height": 10,
+          "offsetX": 0,
+          "offsetY": -8
+        }
+      },
+      {
+        "name": "DeadBodyOnDeathComponent",
+        "properties": {}
+      }
+    ]
+  }
+]
