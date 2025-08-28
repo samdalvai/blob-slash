@@ -25,8 +25,6 @@ npm install
 npm start
 ```
 
-Now open the browser at http://localhost:1234
-
 ## Run in editor mode
 
 ```
