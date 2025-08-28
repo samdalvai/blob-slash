@@ -69,7 +69,7 @@ The editor provides tools to design and manage entities, components, and levels:
 
 # Game example
 
-A demonstration RPG-style 2D game built with this engine, where the player can cast spells and defeat enemies.
+A demonstration RPG-style 2D game built with this engine, where the player can cast spells and defeat enemies. Sprites have been created using [Piskel](https://www.piskelapp.com/p/create/sprite/).
 
 ![Game example](images/game.png)
 
@@ -108,6 +108,13 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
         /components         -> Entities components (sprite, transform, health, etc.)
         /events             -> Game events (collision, hit, etc.)
         /systems            -> Game systems (movement, rendering, collision, etc.)
+
+    /spritesheets           -> Collection of game sprites with Piskel file
+
+    /dist
+        /assets             -> Game assets folder (spites, sounds, levels, etc.)
+
+
 
 ```
 
