@@ -111,6 +111,10 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
 
 ```
 
+# How to develop your game
+
+...
+
 # License
 
 This project is licensed under the [MIT License](LICENSE).
