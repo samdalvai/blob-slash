@@ -111,7 +111,7 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
 
 ```
 
-# How to develop a new system
+# How to develop a new game mechanic
 
 If you want to develop a new game mechanic you can do so by peforming these steps
 
