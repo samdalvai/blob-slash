@@ -110,3 +110,7 @@ A demonstration RPG-style 2D game built with this engine where the player can ca
         /systems            -> Game systems (movement, rendering, collision, etc.)
 
 ```
+
+# License
+
+This project is licensed under the [MIT License](LICENSE).
