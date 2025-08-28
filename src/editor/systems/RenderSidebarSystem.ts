@@ -6,7 +6,7 @@ import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { deserializeEntity } from '../../engine/serialization/deserialization';
-import { saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
+import { saveEntitiesToJson, saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/validation';
 import { TransformComponent } from '../../game/components';
@@ -209,14 +209,22 @@ export default class RenderSidebarSystem extends System {
 
     private renderEntityList = (leftSidebar: HTMLElement) => {
         const addEntityButton = leftSidebar.querySelector('#add-entity') as HTMLButtonElement;
-        const importEntityButton = leftSidebar.querySelector('#import-entity') as HTMLButtonElement;
+        const importEntitiesButton = leftSidebar.querySelector('#import-entities') as HTMLButtonElement;
+        const exportEntitiesButton = leftSidebar.querySelector('#export-entities') as HTMLButtonElement;
 
-        if (!addEntityButton || !importEntityButton) {
+        if (!addEntityButton || !importEntitiesButton || !exportEntitiesButton) {
             throw new Error('Could not some element(s) of entity sidebar');
         }
 
         addEntityButton.onclick = () => this.entityEditor.addEntity(entityList);
-        importEntityButton.onclick = () => this.entityEditor.importEntity(entityList);
+        importEntitiesButton.onclick = () => this.entityEditor.importEntities();
+        exportEntitiesButton.onclick = () => {
+            if (Editor.selectedEntities.length > 0) {
+                saveEntitiesToJson(Editor.selectedEntities);
+            } else {
+                showAlert('No entity selected to be exported');
+            }
+        };
 
         const entityList = leftSidebar.querySelector('#entity-list') as HTMLLIElement;
 
