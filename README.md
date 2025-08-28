@@ -83,7 +83,7 @@ A demonstration RPG-style 2D game built with this engine where the player can ca
     /__tests__
         /editor             -> Unit tests for editor related logic
         /engine             -> Unit tests for engine related logic
-        / game              -> Unit tests for game related logic
+        /game               -> Unit tests for game related logic
 
     /editor
         /entity-editor      -> Level and entity management with Html elements logic
