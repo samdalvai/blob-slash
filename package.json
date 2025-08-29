@@ -10,7 +10,8 @@
         "test:perf": "jest src/__tests__/Performance.test.ts",
         "lint": "eslint . --ext .js,.ts",
         "lint:fix": "eslint . --ext .js,.ts --fix",
-        "build": "parcel build index.html"
+        "build:game": "parcel build game.html",
+        "build:editor": "parcel build game.html"
     },
     "author": "Samuel Dalvai",
     "license": "MIT",
