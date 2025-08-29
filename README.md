@@ -182,10 +182,10 @@ export { default as MyNewSystem } from '../../game/components/MyNewSystem'; // E
 
 ```JavaScript
 setup = async () => {
-        // ... other registered systems
-        this.registry.addSystem(Systems.MovementSystem);
-        this.registry.addSystem(Systems.AnimationSystem);
-        this.registry.addSystem(Systems.MyNewSystem); // Register you new system
+    // ... other registered systems
+    this.registry.addSystem(Systems.MovementSystem);
+    this.registry.addSystem(Systems.AnimationSystem);
+    this.registry.addSystem(Systems.MyNewSystem); // Register you new system
 }
 ```
 
@@ -193,11 +193,11 @@ setup = async () => {
 
 ```JavaScript
 update = (deltaTime: number) => {
-        // ... other systems updates
-        this.registry.getSystem(Systems.MovementSystem)?.update(deltaTime);
-        this.registry.getSystem(Systems.AnimationSystem)?.update();
-        this.registry.getSystem(Systems.SpriteStateSystem)?.update(); // Perfom update for you new system
-    };
+    // ... other systems updates
+    this.registry.getSystem(Systems.MovementSystem)?.update(deltaTime);
+    this.registry.getSystem(Systems.AnimationSystem)?.update();
+    this.registry.getSystem(Systems.SpriteStateSystem)?.update(); // Perfom update for you new system
+};
 ```
 
 # License
