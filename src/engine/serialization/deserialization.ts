@@ -7,11 +7,13 @@ import { EntityMap } from '../types/map';
 export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Entity => {
     const entity = registry.createEntity();
 
+    // TODO: this logic fails on prod environments where code is minified/obfuscated
+    // to test this locally run: npx parcel build game.html --no-source-maps --dist-dir dist && mv dist/game.html dist/index.html && npx serve dist
     for (const component of entityMap.components) {
         const ComponentClass = GameComponents[component.name as keyof typeof GameComponents];
         const parameters = getComponentConstructorParamNames(ComponentClass);
         const parameterValues = [];
-
+        
         for (const param of parameters) {
             parameterValues.push(component.properties[param as keyof Component]);
         }
