@@ -1,7 +1,7 @@
 {
     "name": "blob-slash",
     "version": "1.0.0",
-    "description": "A 2D adventure game for the browser",
+    "description": "A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.",
     "scripts": {
         "start": "parcel game.html",
         "start:editor": "IS_EDITOR=true parcel editor.html",
@@ -13,7 +13,7 @@
         "build": "parcel build index.html"
     },
     "author": "Samuel Dalvai",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.26.0",
         "@babel/preset-env": "^7.26.0",
