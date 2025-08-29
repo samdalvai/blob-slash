@@ -60,12 +60,12 @@ The editor provides tools to design and manage entities, components, and levels:
 - Import / Export
 
     - Export/Import entities to/from json files
-    - Import/Export levels to/from json files
+    - Export/Import levels to/from json files
 
 - Other Utilities
     - Test game systems
     - Load entity sprites
-    - Save levels to the browser's local storage
+    - Persist levels to the browser's local storage
 
 # Game example
 
