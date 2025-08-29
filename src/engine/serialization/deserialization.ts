@@ -8,7 +8,9 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
     const entity = registry.createEntity();
 
     // TODO: this logic fails on prod environments where code is minified/obfuscated
-    // to test this locally run: npx parcel build game.html --no-source-maps --dist-dir dist && mv dist/game.html dist/index.html && npx serve dist
+    // to test this locally run: npx parcel build game.html && mv dist/game.html dist/index.html && npx serve dist
+    // current fix for prod is to add the flag --no-optimize to the build command
+    // npx parcel build game.html --no-optimize && mv dist/game.html dist/index.html && npx serve dist
     for (const component of entityMap.components) {
         const ComponentClass = GameComponents[component.name as keyof typeof GameComponents];
         const parameters = getComponentConstructorParamNames(ComponentClass);
