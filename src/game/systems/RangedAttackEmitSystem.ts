@@ -171,13 +171,14 @@ export default class RangedAttackEmitSystem extends System {
                     2,
                     { x: 0, y: 0 },
                     Flip.NONE,
-                    true,
                 );
                 cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
                 cooldownAnimation.addComponent(
                     TransformComponent,
                     { x: 2 * 25 + 32 * 3 * 2, y: Engine.windowHeight - 64 - 25 },
                     { x: 2, y: 2 },
+                    0,
+                    true
                 );
                 cooldownAnimation.addComponent(LifetimeComponent, rangedAttackEmitter.repeatFrequency);
             }
