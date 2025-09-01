@@ -6,9 +6,9 @@ export default class SpriteComponent extends Component {
     assetId: string;
     width: number;
     height: number;
+    zIndex: number;
     row: number;
     column: number;
-    zIndex: number;
     flip: Flip;
     transparency: number;
 
@@ -16,9 +16,9 @@ export default class SpriteComponent extends Component {
         assetId = DEFAULT_SPRITE,
         width = 0,
         height = 0,
+        zIndex = 0,
         row = 0,
         column = 0,
-        zIndex = 0,
         flip: Flip = 0,
         transparency = 1,
     ) {
