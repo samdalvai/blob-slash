@@ -140,10 +140,7 @@ export default class PlayerControlSystem extends System {
                             { x: 1, y: 1 },
                             0,
                         );
-                        meleeAttack.addComponent(SpriteComponent, 'smear64', 64, 64, 3, {
-                            x: 0,
-                            y: spriteRow * 64,
-                        });
+                        meleeAttack.addComponent(SpriteComponent, 'smear64', 64, 64, 3, spriteRow, 0);
                         meleeAttack.addComponent(AnimationComponent, 5, 10, false);
                         meleeAttack.addComponent(MeleeAttackComponent, true, 10);
                         meleeAttack.addComponent(LifetimeComponent, 400);
