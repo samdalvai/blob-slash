@@ -47,7 +47,7 @@ export default class DeadBodyOnDeathSystem extends System {
                     spriteOffset = 3;
                 }
 
-                deadBody.addComponent(SpriteComponent, sprite.assetId, sprite.width, sprite.height, sprite.zIndex, 12 + sprite.height * spriteOffset, 0);
+                deadBody.addComponent(SpriteComponent, sprite.assetId, sprite.width, sprite.height, sprite.zIndex, 12 + spriteOffset);
                 deadBody.addComponent(LifetimeComponent, 5000);
 
                 if (entity.hasComponent(ShadowComponent)) {
