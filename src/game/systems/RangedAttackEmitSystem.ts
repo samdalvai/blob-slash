@@ -15,7 +15,7 @@ import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import RangedAttackEmitEvent from '../events/RangedAttackEmitEvent';
-import { Flip, Vector } from '../../engine/types/utils';
+import { Vector } from '../../engine/types/utils';
 import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
 import Engine from '../../engine/Engine';
 
@@ -168,9 +168,7 @@ export default class RangedAttackEmitSystem extends System {
                     'cooldown_skill',
                     32,
                     32,
-                    2,
-                    { x: 0, y: 0 },
-                    Flip.NONE,
+                    2
                 );
                 cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
                 cooldownAnimation.addComponent(
