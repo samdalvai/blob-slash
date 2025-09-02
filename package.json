@@ -1,5 +1,5 @@
 {
-    "name": "blob-slash",
+    "name": "slime-engine",
     "version": "1.0.0",
     "description": "A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.",
     "scripts": {
