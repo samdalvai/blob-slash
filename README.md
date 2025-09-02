@@ -1,4 +1,4 @@
-# Slime Engine
+# ECSlime Engine
 
 A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.
 
@@ -69,7 +69,7 @@ The editor provides tools to design and manage entities, components, and levels:
 
 # Game example
 
-A demonstration RPG-style 2D game built with this engine, where the player can cast spells and defeat enemies. Sprites have been created using [Piskel](https://www.piskelapp.com/p/create/sprite/). You can find a working demo of this game at this [link](https://slime-engine.vercel.app/).
+A demonstration RPG-style 2D game built with this engine, where the player can cast spells and defeat enemies. Sprites have been created using [Piskel](https://www.piskelapp.com/p/create/sprite/). You can find a working demo of this game at this [link](https://ecslime-engine.vercel.app/).
 
 ![Game example](images/game.png)
 

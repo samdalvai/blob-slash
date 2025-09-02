@@ -1,5 +1,5 @@
 {
-    "name": "slime-engine",
+    "name": "ecslime-engine",
     "version": "1.0.0",
     "description": "A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.",
     "scripts": {
