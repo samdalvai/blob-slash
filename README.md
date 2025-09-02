@@ -1,4 +1,4 @@
-# Blob Slash
+# Slime Engine
 
 A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.
 
