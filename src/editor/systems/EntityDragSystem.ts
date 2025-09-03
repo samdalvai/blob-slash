@@ -24,11 +24,14 @@ export default class EntityDragSystem extends System {
         canvas: HTMLCanvasElement,
         entityEditor: EntityEditor,
         shiftPressed: boolean,
+        commandPressed: boolean,
     ) {
         eventBus.subscribeToEvent(MousePressedEvent, this, event =>
             this.onMousePressed(event, eventBus, canvas, shiftPressed),
         );
-        eventBus.subscribeToEvent(MouseReleasedEvent, this, event => this.onMouseReleased(event, canvas, eventBus));
+        eventBus.subscribeToEvent(MouseReleasedEvent, this, event =>
+            this.onMouseReleased(event, canvas, eventBus, commandPressed),
+        );
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
     }
 
@@ -125,12 +128,18 @@ export default class EntityDragSystem extends System {
         }
     };
 
-    onMouseReleased = (event: MouseReleasedEvent, canvas: HTMLCanvasElement, eventBus: EventBus) => {
+    onMouseReleased = (
+        event: MouseReleasedEvent,
+        canvas: HTMLCanvasElement,
+        eventBus: EventBus,
+        commandPressed: boolean,
+    ) => {
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
             Engine.mousePositionScreen.y > canvas.getBoundingClientRect().height ||
-            event.button !== MouseButton.LEFT
+            event.button !== MouseButton.LEFT ||
+            commandPressed
         ) {
             return;
         }
