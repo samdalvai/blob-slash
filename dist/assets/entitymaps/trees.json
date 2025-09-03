@@ -1,0 +1,92 @@
+[
+  {
+    "group": "obstacles",
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "tree",
+          "width": 16,
+          "height": 32,
+          "row": 0,
+          "column": 0,
+          "zIndex": 1,
+          "flip": 0,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 1184,
+            "y": -128
+          },
+          "scale": {
+            "x": 2,
+            "y": 2
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "BoxColliderComponent",
+        "properties": {
+          "width": 16,
+          "height": 16,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "lastCollision": 0
+        }
+      }
+    ]
+  },
+  {
+    "group": "obstacles",
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "tree",
+          "width": 16,
+          "height": 32,
+          "row": 0,
+          "column": 0,
+          "zIndex": 1,
+          "flip": 0,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 1120,
+            "y": -128
+          },
+          "scale": {
+            "x": 2,
+            "y": 2
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "BoxColliderComponent",
+        "properties": {
+          "width": 16,
+          "height": 32,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "lastCollision": 0
+        }
+      }
+    ]
+  }
+]

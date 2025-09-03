@@ -1,7 +1,7 @@
+import System from '../../engine/ecs/System';
 import AnimationComponent from '../components/AnimationComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import SpriteComponent from '../components/SpriteComponent';
-import System from '../../engine/ecs/System';
 
 export default class AnimationSystem extends System {
     constructor() {
@@ -41,7 +41,7 @@ export default class AnimationSystem extends System {
                 Math.round(
                     ((performance.now() - animation.startTime) * animation.frameSpeedRate * slowedPercentage) / 1000,
                 ) % animation.numFrames;
-            sprite.srcRect.x = animation.currentFrame * sprite.width;
+            sprite.column = animation.currentFrame;
         }
     }
 }

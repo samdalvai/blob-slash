@@ -8,13 +8,9 @@
           "assetId": "player_full",
           "width": 32,
           "height": 32,
+          "row": 1,
+          "column": 1,
           "zIndex": 2,
-          "srcRect": {
-            "x": 0,
-            "y": 32,
-            "width": 32,
-            "height": 32
-          },
           "flip": 0,
           "transparency": 1
         }
@@ -23,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 77,
-            "y": 71
+            "x": 960,
+            "y": 384
           },
           "scale": {
             "x": 1,
@@ -61,7 +57,7 @@
         "name": "AnimationComponent",
         "properties": {
           "numFrames": 4,
-          "currentFrame": 0,
+          "currentFrame": 1,
           "frameSpeedRate": 6,
           "isLoop": true,
           "startTime": 0
@@ -73,10 +69,10 @@
           "width": 25,
           "height": 34,
           "offset": {
-            "x": 2.5,
+            "x": 4,
             "y": 0
           },
-          "lastCollision": 0
+          "lastCollision": 506477.30000000075
         }
       },
       {
@@ -112,6 +108,19 @@
         }
       },
       {
+        "name": "ShadowComponent",
+        "properties": {
+          "width": 30,
+          "height": 10,
+          "offsetX": 0,
+          "offsetY": -2
+        }
+      },
+      {
+        "name": "DeadBodyOnDeathComponent",
+        "properties": {}
+      },
+      {
         "name": "PlayerControlComponent",
         "properties": {
           "keysPressed": [],
@@ -130,19 +139,6 @@
           "isTeleporting": false,
           "teleportDelay": 500
         }
-      },
-      {
-        "name": "ShadowComponent",
-        "properties": {
-          "width": 30,
-          "height": 10,
-          "offsetX": 0,
-          "offsetY": -2
-        }
-      },
-      {
-        "name": "DeadBodyOnDeathComponent",
-        "properties": {}
       },
       {
         "name": "CameraShakeComponent",
