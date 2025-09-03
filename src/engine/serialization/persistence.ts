@@ -15,7 +15,6 @@ export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): voi
     a.click();
 
     URL.revokeObjectURL(url);
-    document.removeChild(a);
 
     console.log('Level snapshot saved to json');
 };
@@ -31,7 +30,6 @@ export const saveEntitiesToJson = (entities: Entity[]): void => {
     a.click();
 
     URL.revokeObjectURL(url);
-    document.removeChild(a);
 
     console.log('Entity snapshot saved to json');
 };
