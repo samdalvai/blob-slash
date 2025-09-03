@@ -1,5 +1,6 @@
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
+import Game from '../Game';
 import ParticleComponent from '../components/ParticleComponent';
 import TransformComponent from '../components/TransformComponent';
 
@@ -10,7 +11,7 @@ export default class RenderParticleSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1, isEditor = false) {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const particle = entity.getComponent(ParticleComponent);
@@ -21,12 +22,18 @@ export default class RenderParticleSystem extends System {
 
             // Bypass rendering if entities are outside the camera view
             const isOutsideCameraView =
-                transform.position.x + transform.scale.x < camera.x ||
+                transform.position.x + transform.scale.x * particle.dimension < camera.x ||
                 transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y < camera.y ||
+                transform.position.y + transform.scale.y * particle.dimension < camera.y ||
                 transform.position.y > camera.y + camera.height;
 
-            if (isOutsideCameraView) {
+            const isOutsideOfMap = !isEditor && (
+                transform.position.x + transform.scale.x * particle.dimension < 0 ||
+                transform.position.x > Game.mapWidth ||
+                transform.position.y + transform.scale.y * particle.dimension < 0 ||
+                transform.position.y > Game.mapHeight);
+
+            if (isOutsideCameraView || isOutsideOfMap) {
                 continue;
             }
 

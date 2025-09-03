@@ -593,7 +593,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['RenderSystem'] &&
             this.registry
                 .getSystem(GameSystems.RenderSystem)
-                ?.update(this.ctx, this.assetStore, this.camera, this.zoom);
+                ?.update(this.ctx, this.assetStore, this.camera, this.zoom, true);
         Editor.editorSettings.activeSystems['RenderHealthBarSystem'] &&
             this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
         Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
@@ -601,7 +601,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['RenderTextSystem'] &&
             this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderParticleSystem'] &&
-            this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom);
+            this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom, true);
         Editor.editorSettings.activeSystems['RenderLightingSystem'] &&
             this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
         Editor.editorSettings.activeSystems['RenderGUISystem'] &&
