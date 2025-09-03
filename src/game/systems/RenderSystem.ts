@@ -137,10 +137,10 @@ export default class RenderSystem extends System {
 
             ctx.drawImage(
                 assetStore.getTexture(sprite.assetId),
-                sprite.srcRect.x,
-                sprite.srcRect.y,
-                sprite.srcRect.width,
-                sprite.srcRect.height,
+                sprite.width * sprite.column,
+                sprite.height * sprite.row,
+                sprite.width,
+                sprite.height,
                 -dstRect.width / 2, // Adjust to draw from the center
                 -dstRect.height / 2,
                 dstRect.width,

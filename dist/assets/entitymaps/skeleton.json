@@ -8,13 +8,9 @@
           "assetId": "skeleton_full",
           "width": 32,
           "height": 32,
+          "row": 6,
+          "column": 1,
           "zIndex": 2,
-          "srcRect": {
-            "x": 0,
-            "y": 192,
-            "width": 32,
-            "height": 32
-          },
           "flip": 32,
           "transparency": 1
         }
@@ -23,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 512,
-            "y": 512
+            "x": 928,
+            "y": 448
           },
           "scale": {
             "x": 2,
@@ -51,7 +47,7 @@
         "name": "AnimationComponent",
         "properties": {
           "numFrames": 2,
-          "currentFrame": 0,
+          "currentFrame": 1,
           "frameSpeedRate": 4,
           "isLoop": true,
           "startTime": 0
@@ -60,13 +56,13 @@
       {
         "name": "BoxColliderComponent",
         "properties": {
-          "width": 25,
-          "height": 20,
+          "width": 16,
+          "height": 30,
           "offset": {
-            "x": 4,
-            "y": 7
+            "x": 16,
+            "y": 1
           },
-          "lastCollision": 0
+          "lastCollision": 506477.30000000075
         }
       },
       {
@@ -136,7 +132,7 @@
             }
           ],
           "currentActionIndex": 0,
-          "actionStart": 190.29999999701977
+          "actionStart": 429681.200000003
         }
       },
       {

@@ -365,7 +365,7 @@ export default class Editor extends Engine {
                     }
 
                     // Handles screen pan
-                    if (this.mousePressed && this.commandPressed && !Editor.isDragging) {
+                    if (this.mousePressed && this.commandPressed) {
                         const previousX = Engine.mousePositionScreen.x;
                         const previousY = Engine.mousePositionScreen.y;
 
@@ -534,7 +534,7 @@ export default class Editor extends Engine {
         if (!this.commandPressed || Editor.isDragging) {
             this.registry
                 .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed);
+                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed, this.commandPressed);
         }
 
         this.registry

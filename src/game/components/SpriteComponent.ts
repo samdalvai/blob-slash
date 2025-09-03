@@ -1,5 +1,5 @@
 import Component from '../../engine/ecs/Component';
-import { Flip, Rectangle, Vector } from '../../engine/types/utils';
+import { Flip } from '../../engine/types/utils';
 import { DEFAULT_SPRITE } from '../../engine/utils/constants';
 
 export default class SpriteComponent extends Component {
@@ -7,7 +7,8 @@ export default class SpriteComponent extends Component {
     width: number;
     height: number;
     zIndex: number;
-    srcRect: Rectangle;
+    row: number;
+    column: number;
     flip: Flip;
     transparency: number;
 
@@ -16,21 +17,21 @@ export default class SpriteComponent extends Component {
         width = 0,
         height = 0,
         zIndex = 0,
-        srcRect: Vector = { x: 0, y: 0 },
+        row = 0,
+        column = 0,
         flip: Flip = 0,
         transparency = 1,
     ) {
-        if (transparency < 0 || transparency > 1) {
-            throw new Error('Transparency must be between 0 and 1');
-        }
-
         super();
         this.assetId = assetId;
         this.width = width;
         this.height = height;
+        this.row = row;
+        this.column = column;
         this.zIndex = zIndex;
-        this.srcRect = { x: srcRect.x, y: srcRect.y, width, height };
         this.flip = flip;
-        this.transparency = transparency;
+
+        // Clamps value if it is less than 0 or more than 1
+        this.transparency = Math.min(1, Math.max(0, transparency));
     }
 }
