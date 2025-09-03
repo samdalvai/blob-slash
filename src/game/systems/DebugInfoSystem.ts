@@ -21,7 +21,7 @@ export default class DebugInfoSystem extends System {
         const y = 50;
 
         ctx.font = '16px Arial';
-        ctx.fillStyle = 'orange';
+        ctx.fillStyle = 'red';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
         ctx.fillText(
