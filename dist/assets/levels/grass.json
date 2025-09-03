@@ -77,7 +77,24 @@
       "filePath": "./assets/sprites/player_full.png"
     }
   ],
-  "sounds": [],
+  "sounds": [
+    {
+      "assetId": "entity_hit",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee_attack",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    }
+  ],
   "mapWidth": 770,
   "mapHeight": 768,
   "entities": [
