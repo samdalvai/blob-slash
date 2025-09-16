@@ -17,6 +17,14 @@ export default class RenderGUISystem extends System {
         const skillsMenuWidth = 32 * 3;
         const skillsMenuHeight = 32;
 
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.fillRect(
+            padding,
+            Engine.windowHeight - 64 - padding,
+            skillsMenuWidth * skillsMenuScale,
+            skillsMenuHeight * skillsMenuScale,
+        );
+
         ctx.drawImage(
             assetStore.getTexture('skills_menu'),
             0,
@@ -87,6 +95,13 @@ export default class RenderGUISystem extends System {
         const mouseMenuScale = 2.0;
         const mouseMenuWidth = 32 * 2;
         const mouseMenuHeight = 32;
+
+        ctx.fillRect(
+            2 * padding + skillsMenuWidth * skillsMenuScale,
+            Engine.windowHeight - 64 - padding,
+            mouseMenuWidth * mouseMenuScale,
+            mouseMenuHeight * mouseMenuScale,
+        );
 
         ctx.drawImage(
             assetStore.getTexture('mouse_menu'),
