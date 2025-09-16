@@ -134,6 +134,8 @@ export default class EntityDragSystem extends System {
         eventBus: EventBus,
         commandPressed: boolean,
     ) => {
+        // TODO: if command remains pressed and we paste entities the entity is not pasted
+        // check if command pressed is used to allow dragging map
         if (
             Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
             Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||

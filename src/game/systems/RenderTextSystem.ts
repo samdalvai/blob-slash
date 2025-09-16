@@ -25,10 +25,6 @@ export default class RenderTextSystem extends System {
             const textX = (transform.position.x + textlabel.offset.x - (transform.isFixed ? 0 : camera.x)) * zoom;
             const textY = (transform.position.y + textlabel.offset.y - (transform.isFixed ? 0 : camera.y)) * zoom;
 
-            // TODO: bring this logic to the transform component
-            // const textX = textlabel.position.x - (textlabel.isFixed ? 0 : camera.x);
-            // const textY = textlabel.position.y - (textlabel.isFixed ? 0 : camera.y);
-
             ctx.fillText(textlabel.text, textX, textY);
         }
     }
