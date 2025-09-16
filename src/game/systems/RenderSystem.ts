@@ -1,6 +1,7 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
 import System from '../../engine/ecs/System';
 import { Flip, Rectangle } from '../../engine/types/utils';
+import Game from '../Game';
 import HighlightComponent from '../components/HighlightComponent';
 import ShadowComponent from '../components/ShadowComponent';
 import SpriteComponent from '../components/SpriteComponent';
@@ -20,7 +21,7 @@ export default class RenderSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle, zoom = 1) {
+    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle, zoom = 1, isEditor = false) {
         for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -36,8 +37,14 @@ export default class RenderSystem extends System {
                 transform.position.y + transform.scale.y * sprite.height < camera.y ||
                 transform.position.y > camera.y + camera.height;
 
+            const isOutsideOfMap = !isEditor &&( 
+                transform.position.x + transform.scale.x * sprite.width < 0 ||
+                transform.position.x > Game.mapWidth ||
+                transform.position.y + transform.scale.y * sprite.height < 0 ||
+                transform.position.y > Game.mapHeight);
+
             // Cull sprites that are outside the camera view (and are not fixed)
-            if (isOutsideCameraView && !transform.isFixed) {
+            if ((isOutsideCameraView || isOutsideOfMap) && !transform.isFixed) {
                 continue;
             }
 
