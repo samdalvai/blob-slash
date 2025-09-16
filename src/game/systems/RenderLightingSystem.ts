@@ -13,7 +13,7 @@ export default class RenderLightingSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
+    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1, isEditor = false) {
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = camera.width * zoom;
         tempCanvas.height = camera.height * zoom;
@@ -38,6 +38,25 @@ export default class RenderLightingSystem extends System {
 
             if (!lightEmit || !transform || !sprite) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+            }
+
+            // Check if the entity sprite is outside the camera view
+            const isOutsideCameraView =
+                transform.position.x + transform.scale.x * sprite.width < camera.x ||
+                transform.position.x > camera.x + camera.width ||
+                transform.position.y + transform.scale.y * sprite.height < camera.y ||
+                transform.position.y > camera.y + camera.height;
+
+            const isOutsideOfMap =
+                !isEditor &&
+                (transform.position.x + transform.scale.x * sprite.width < 0 ||
+                    transform.position.x > Engine.mapWidth ||
+                    transform.position.y + transform.scale.y * sprite.height < 0 ||
+                    transform.position.y > Engine.mapHeight);
+
+            // Cull lighting emit circles that are outside the camera view (and are not fixed)
+            if (isOutsideCameraView || isOutsideOfMap) {
+                continue;
             }
 
             tempCtx.beginPath();
