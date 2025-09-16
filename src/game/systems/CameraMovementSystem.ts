@@ -19,22 +19,32 @@ export default class CameraMovementSystem extends System {
                 throw new Error('Could not find transform component of entity with id ' + entity.getId());
             }
 
-            // Compute target camera position
-            const targetX = Math.floor(transform.position.x - camera.width / 2);
-            const targetY = Math.floor(transform.position.y - camera.height / 2);
+            if (transform.position.x + camera.width / 2 < Engine.mapWidth) {
+                camera.x = Math.floor(transform.position.x - camera.width / 2);
+            }
 
-            // If the map is smaller than the camera, center the map
-            const minX = Engine.mapWidth < camera.width ? -(camera.width - Engine.mapWidth) / 2 : 0;
-            const minY = Engine.mapHeight < camera.height ? -(camera.height - Engine.mapHeight) / 2 : 0;
+            if (transform.position.y + camera.height / 2 < Engine.mapHeight) {
+                camera.y = Math.floor(transform.position.y - camera.height / 2);
+            }
 
-            const maxX = Math.max(0, Engine.mapWidth - camera.width);
-            const maxY = Math.max(0, Engine.mapHeight - camera.height);
+            if (Engine.mapWidth < camera.width) {
+                // No need to move camera horizontally if map width is less then the camera width,
+                // just center the map horiontally
+                camera.x = Math.round(-(camera.width - Engine.mapWidth) / 2);
+            } else {
+                // Clamps the camera's position so it stays within the map boundaries.
+                camera.x = Math.max(0, Math.min(camera.x, Engine.mapWidth - camera.width));
+            }
 
-            // Clamp camera position
-            camera.x = Math.round(Math.max(minX, Math.min(targetX, maxX)));
-            camera.y = Math.round(Math.max(minY, Math.min(targetY, maxY)));
+            if (Engine.mapHeight < camera.height) {
+                // No need to move camera vertically if map width is less then the camera height,
+                // just center the map vertically
+                camera.y = Math.round(-(camera.height - Engine.mapHeight) / 2);
+            } else {
+                // Clamps the camera's position so it stays within the map boundaries.
+                camera.y = Math.max(0, Math.min(camera.y, Engine.mapHeight - camera.height));
+            }
 
-            // Update world mouse position
             Engine.mousePositionWorld.x = Engine.mousePositionScreen.x + camera.x;
             Engine.mousePositionWorld.y = Engine.mousePositionScreen.y + camera.y;
         }
