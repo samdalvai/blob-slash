@@ -27,26 +27,20 @@ export default class CameraMovementSystem extends System {
                 camera.y = Math.floor(transform.position.y - camera.height / 2);
             }
 
-            if (Engine.mapWidth < camera.width) {
-                // No need to move camera horizontally if map width is less then the camera width,
-                // just center the map horiontally
-                camera.x = Math.round(-(camera.width - Engine.mapWidth) / 2);
-            } else {
-                // Clamps the camera's position so it stays within the map boundaries.
-                camera.x = Math.max(0, Math.min(camera.x, Engine.mapWidth - camera.width));
-            }
-
-            if (Engine.mapHeight < camera.height) {
-                // No need to move camera vertically if map width is less then the camera height,
-                // just center the map vertically
-                camera.y = Math.round(-(camera.height - Engine.mapHeight) / 2);
-            } else {
-                // Clamps the camera's position so it stays within the map boundaries.
-                camera.y = Math.max(0, Math.min(camera.y, Engine.mapHeight - camera.height));
-            }
+            camera.x = this.clampOrCenter(camera.x, Engine.mapWidth, camera.width);
+            camera.y = this.clampOrCenter(camera.y, Engine.mapHeight, camera.height);
 
             Engine.mousePositionWorld.x = Engine.mousePositionScreen.x + camera.x;
             Engine.mousePositionWorld.y = Engine.mousePositionScreen.y + camera.y;
         }
     }
+
+    clampOrCenter = (cameraPosition: number, mapSize: number, cameraSize: number): number => {
+        if (mapSize < cameraSize) {
+            // Center map if smaller than camera
+            return Math.round(-(cameraSize - mapSize) / 2);
+        }
+        // Clamps the camera's position so it stays within the map boundaries.
+        return Math.max(0, Math.min(cameraPosition, mapSize - cameraSize));
+    };
 }
