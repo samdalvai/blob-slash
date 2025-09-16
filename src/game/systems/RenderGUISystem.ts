@@ -1,6 +1,6 @@
+import Engine from '../../engine/Engine';
 import AssetStore from '../../engine/asset-store/AssetStore';
 import System from '../../engine/ecs/System';
-import Engine from '../../engine/Engine';
 
 // TODO: remove this and create entities instead
 export default class RenderGUISystem extends System {
@@ -10,6 +10,8 @@ export default class RenderGUISystem extends System {
 
     update(ctx: CanvasRenderingContext2D, assetStore: AssetStore) {
         const padding = 25;
+
+        // Render skills menu
 
         const skillsMenuScale = 2.0;
         const skillsMenuWidth = 32 * 3;
@@ -80,6 +82,8 @@ export default class RenderGUISystem extends System {
             fireCircleleHeight * fireCircleScale,
         );
 
+        // Render mouse menu
+
         const mouseMenuScale = 2.0;
         const mouseMenuWidth = 32 * 2;
         const mouseMenuHeight = 32;
@@ -100,7 +104,7 @@ export default class RenderGUISystem extends System {
         const magicSphereWidth = 32;
         const magicSphereHeight = 32;
 
-        const leftClickAttackPosition = 2 * padding + skillsMenuWidth * skillsMenuScale
+        const leftClickAttackPosition = 2 * padding + skillsMenuWidth * skillsMenuScale;
 
         ctx.drawImage(
             assetStore.getTexture('magic_sphere'),
