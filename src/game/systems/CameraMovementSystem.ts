@@ -19,14 +19,11 @@ export default class CameraMovementSystem extends System {
                 throw new Error('Could not find transform component of entity with id ' + entity.getId());
             }
 
-            if (transform.position.x + camera.width / 2 < Engine.mapWidth) {
-                camera.x = Math.floor(transform.position.x - camera.width / 2);
-            }
+            // Always center camera on player first
+            camera.x = Math.floor(transform.position.x - camera.width / 2);
+            camera.y = Math.floor(transform.position.y - camera.height / 2);
 
-            if (transform.position.y + camera.height / 2 < Engine.mapHeight) {
-                camera.y = Math.floor(transform.position.y - camera.height / 2);
-            }
-
+            // Clamp or center if map is smaller
             camera.x = this.clampOrCenter(camera.x, Engine.mapWidth, camera.width);
             camera.y = this.clampOrCenter(camera.y, Engine.mapHeight, camera.height);
 
