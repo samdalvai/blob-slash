@@ -1,8 +1,9 @@
+import Engine from '../../engine/Engine';
+import System from '../../engine/ecs/System';
+import { Rectangle } from '../../engine/types/utils';
 import LightEmitComponent from '../components/LightEmitComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
 
 export default class RenderLightingSystem extends System {
     constructor() {
@@ -50,9 +51,30 @@ export default class RenderLightingSystem extends System {
             tempCtx.fill();
         }
 
+        const skillsMenuScale = 2.0;
+        const skillsMenuWidth = 32 * 3;
+        const skillsMenuHeight = 32;
+
         // Render light where we have the skills menu
-        // const padding = 25;
-        // tempCtx.fillRect(padding, Engine.windowHeight - 64 - padding, 192, 64);
+        const padding = 25;
+        tempCtx.fillRect(
+            padding,
+            Engine.windowHeight - 64 - padding,
+            skillsMenuWidth * skillsMenuScale,
+            skillsMenuHeight * skillsMenuScale,
+        );
+
+        const mouseMenuScale = 2.0;
+        const mouseMenuWidth = 32 * 2;
+        const mouseMenuHeight = 32;
+
+        // Render light where we have the mouse menu
+        tempCtx.fillRect(
+            2 * padding + skillsMenuWidth * skillsMenuScale,
+            Engine.windowHeight - 64 - padding,
+            mouseMenuWidth * mouseMenuScale,
+            mouseMenuHeight * mouseMenuScale,
+        );
 
         tempCtx.globalCompositeOperation = 'source-over';
         ctx.drawImage(tempCanvas, 0, 0);

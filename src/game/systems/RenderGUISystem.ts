@@ -11,6 +11,8 @@ export default class RenderGUISystem extends System {
     update(ctx: CanvasRenderingContext2D, assetStore: AssetStore) {
         const padding = 25;
 
+        // Render skills menu
+        
         const skillsMenuScale = 2.0;
         const skillsMenuWidth = 32 * 3;
         const skillsMenuHeight = 32;
@@ -79,6 +81,8 @@ export default class RenderGUISystem extends System {
             fireCircleWidth * fireCircleScale,
             fireCircleleHeight * fireCircleScale,
         );
+
+        // Render mouse menu
 
         const mouseMenuScale = 2.0;
         const mouseMenuWidth = 32 * 2;
