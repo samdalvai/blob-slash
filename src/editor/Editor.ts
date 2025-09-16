@@ -603,7 +603,7 @@ export default class Editor extends Engine {
         Editor.editorSettings.activeSystems['RenderParticleSystem'] &&
             this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom, true);
         Editor.editorSettings.activeSystems['RenderLightingSystem'] &&
-            this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom);
+            this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom, true);
         Editor.editorSettings.activeSystems['RenderGUISystem'] &&
             this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
         Editor.editorSettings.activeSystems['RenderCursorSystem'] &&
