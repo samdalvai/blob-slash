@@ -279,8 +279,16 @@ export default class RenderSidebarSystem extends System {
         const snapGridInput = rightSidebar.querySelector('#snap-grid') as HTMLInputElement;
         const showGridInput = rightSidebar.querySelector('#show-grid') as HTMLInputElement;
         const gridSideInput = rightSidebar.querySelector('#grid-side') as HTMLInputElement;
+        const testModeInput = rightSidebar.querySelector('#test-mode') as HTMLInputElement;
 
-        if (!gameWidthInput || !gameHeightInput || !snapGridInput || !showGridInput || !gridSideInput) {
+        if (
+            !gameWidthInput ||
+            !gameHeightInput ||
+            !snapGridInput ||
+            !showGridInput ||
+            !gridSideInput ||
+            !testModeInput
+        ) {
             throw new Error('Could not retrieve level settings element(s)');
         }
 
@@ -289,6 +297,7 @@ export default class RenderSidebarSystem extends System {
         snapGridInput.checked = Editor.editorSettings.snapToGrid;
         showGridInput.checked = Editor.editorSettings.showGrid;
         gridSideInput.value = Editor.editorSettings.gridSquareSide.toString();
+        testModeInput.checked = false;
 
         gameWidthInput.addEventListener('input', event => {
             const target = event.target as HTMLInputElement;
@@ -318,6 +327,11 @@ export default class RenderSidebarSystem extends System {
             const target = event.target as HTMLInputElement;
             Editor.editorSettings.gridSquareSide = parseInt(target.value);
             saveEditorSettingsToLocalStorage();
+        });
+
+        testModeInput.addEventListener('input', event => {
+            const target = event.target as HTMLInputElement;
+            Editor.testMode = target.checked;
         });
     };
 
