@@ -22,6 +22,7 @@ export default class MovementSystem extends System {
 
     // TODO: bug occurs with big colliders having scale, test this and solve it. Player is teleported on
     // the other side of the collider, this bug happens only after the player has teleported once
+    // Check why the collison normal is inverted after teleporting
     onCollision(event: CollisionEvent) {
         const a = event.a;
         const b = event.b;
@@ -72,6 +73,7 @@ export default class MovementSystem extends System {
     }
 
     onEntityHitsObstacle(entity: Entity, obstacle: Entity, collisionNormal: Vector) {
+        console.log('Collision normal: ', collisionNormal);
         if (entity.hasComponent(RigidBodyComponent) && entity.hasComponent(TransformComponent)) {
             const entityRigidBody = entity.getComponent(RigidBodyComponent);
             const entityTransform = entity.getComponent(TransformComponent);
