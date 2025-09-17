@@ -51,8 +51,10 @@ export default class Game extends Engine {
 
         await this.levelManager.addLevelToAssets('snapshot', '/assets/levels/snapshot.json');
         await this.levelManager.addLevelToAssets('grass', '/assets/levels/grass.json');
+        await this.levelManager.addLevelToAssets('test', '/assets/levels/test.json');
         // await this.levelManager.loadLevelFromAssets('snapshot');
-        await this.levelManager.loadLevelFromAssets('grass');
+        // await this.levelManager.loadLevelFromAssets('grass');
+        await this.levelManager.loadLevelFromAssets('test');
         this.gameStatus = GameStatus.PLAYING;
     };
 
