@@ -20,19 +20,22 @@ export default class MovementSystem extends System {
         eventBus.subscribeToEvent(CollisionEvent, this, this.onCollision);
     }
 
-    // TODO: bug occurs with big colliders having scale, test this and solve it. Player is teleported on
-    // the other side of the collider, this bug happens only after the player has teleported once
-    // Check why the collison normal is inverted after teleporting
     onCollision(event: CollisionEvent) {
         const a = event.a;
         const b = event.b;
         const collisionNormal = event.collisionNormal;
 
-        if ((a.hasTag('player') || a.belongsToGroup('enemies')) && b.belongsToGroup('obstacles')) {
+        if (
+            (a.hasTag('player') || a.belongsToGroup('enemies')) &&
+            (b.belongsToGroup('obstacles') || (!b.getTag() && !b.getGroup()))
+        ) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
 
-        if (a.belongsToGroup('obstacles') && (b.hasTag('player') || b.belongsToGroup('enemies'))) {
+        if (
+            (a.belongsToGroup('obstacles') || (!a.getTag() && !a.getGroup())) &&
+            (b.hasTag('player') || b.belongsToGroup('enemies'))
+        ) {
             this.invertCollisionNormal(collisionNormal);
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
@@ -53,15 +56,6 @@ export default class MovementSystem extends System {
 
         if (a.belongsToGroup('enemies') && b.hasTag('player')) {
             this.invertCollisionNormal(collisionNormal);
-            this.onEntityHitsObstacle(b, a, collisionNormal);
-        }
-
-        // TODO: can we find a better way to handle unwalkable tiles? Instead of using box colliders?
-        if ((a.hasTag('player') || a.belongsToGroup('enemies')) && !b.getTag() && !b.getGroup()) {
-            this.onEntityHitsObstacle(a, b, collisionNormal);
-        }
-
-        if ((b.hasTag('player') || b.belongsToGroup('enemies')) && !a.getTag() && !a.getGroup()) {
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
     }
