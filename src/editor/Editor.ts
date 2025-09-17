@@ -53,6 +53,7 @@ export default class Editor extends Engine {
     static multipleSelectStart: Vector | null = null;
     static alertShown = false;
     static loadingLevel = false;
+    static testMode = false;
 
     static editorSettings: EditorSettings = {
         activeSystems: {} as Record<keyof typeof GameSystems, boolean>,
