@@ -588,7 +588,6 @@ export default class Editor extends Engine {
 
         // Render Editor systems
         this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render game related systems
         Editor.editorSettings.activeSystems['RenderSystem'] &&
@@ -611,6 +610,9 @@ export default class Editor extends Engine {
             this.registry
                 .getSystem(GameSystems.RenderCursorSystem)
                 ?.update(this.ctx, this.camera, this.assetStore, this.registry);
+
+        // Render Editor systems
+        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
         Editor.editorSettings.activeSystems['DebugInfoSystem'] &&
