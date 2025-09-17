@@ -1,13 +1,13 @@
+import Engine from '../../engine/Engine';
+import Entity from '../../engine/ecs/Entity';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
+import { Vector } from '../../engine/types/utils';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
-import { Vector } from '../../engine/types/utils';
-import Engine from '../../engine/Engine';
 
 export default class MovementSystem extends System {
     constructor() {
@@ -20,20 +20,27 @@ export default class MovementSystem extends System {
         eventBus.subscribeToEvent(CollisionEvent, this, this.onCollision);
     }
 
+    // TODO: can we find a better way to handle unwalkable tiles instead of relying to colliders?
     onCollision(event: CollisionEvent) {
         const a = event.a;
         const b = event.b;
         const collisionNormal = event.collisionNormal;
 
-        if ((a.hasTag('player') || a.belongsToGroup('enemies')) && b.belongsToGroup('obstacles')) {
+        if (
+            (a.hasTag('player') || a.belongsToGroup('enemies')) &&
+            (b.belongsToGroup('obstacles') || (!b.getTag() && !b.getGroup()))
+        ) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
-        
-        if (a.belongsToGroup('obstacles') && (b.hasTag('player') || b.belongsToGroup('enemies'))) {
+
+        if (
+            (a.belongsToGroup('obstacles') || (!a.getTag() && !a.getGroup())) &&
+            (b.hasTag('player') || b.belongsToGroup('enemies'))
+        ) {
             this.invertCollisionNormal(collisionNormal);
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
-        
+
         // TODO: avoid same entity being killed twice (is this called twice?)
         if (a.belongsToGroup('projectiles') && b.belongsToGroup('obstacles')) {
             a.kill();

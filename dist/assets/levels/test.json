@@ -1,0 +1,7396 @@
+{
+  "textures": [
+    {
+      "assetId": "grass_dirt",
+      "filePath": "./assets/tilemaps/grass_dirt.png"
+    },
+    {
+      "assetId": "slime_big_full",
+      "filePath": "./assets/sprites/slime_big_full.png"
+    },
+    {
+      "assetId": "cursor-texture",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "tree",
+      "filePath": "./assets/sprites/tree.png"
+    },
+    {
+      "assetId": "grass_water",
+      "filePath": "./assets/tilemaps/grass_water.png"
+    },
+    {
+      "assetId": "mouse_menu",
+      "filePath": "./assets/sprites/mouse_menu.png"
+    },
+    {
+      "assetId": "skills_menu",
+      "filePath": "./assets/sprites/skills_menu.png"
+    },
+    {
+      "assetId": "destination_circle",
+      "filePath": "./assets/sprites/destination_circle.png"
+    },
+    {
+      "assetId": "cooldown_skill",
+      "filePath": "./assets/sprites/cooldown_skill.png"
+    },
+    {
+      "assetId": "cursor",
+      "filePath": "./assets/sprites/cursor.png"
+    },
+    {
+      "assetId": "magic_bubble",
+      "filePath": "./assets/sprites/magic_bubble.png"
+    },
+    {
+      "assetId": "magic_sphere",
+      "filePath": "./assets/sprites/magic_sphere.png"
+    },
+    {
+      "assetId": "explosion_small_blue",
+      "filePath": "./assets/sprites/explosion_small_blue.png"
+    },
+    {
+      "assetId": "smear64",
+      "filePath": "./assets/sprites/smear64.png"
+    },
+    {
+      "assetId": "teleport",
+      "filePath": "./assets/sprites/teleport.png"
+    },
+    {
+      "assetId": "fire_circle",
+      "filePath": "./assets/sprites/fire_circle.png"
+    },
+    {
+      "assetId": "torch",
+      "filePath": "./assets/sprites/torch.png"
+    },
+    {
+      "assetId": "skeleton_full",
+      "filePath": "./assets/sprites/skeleton_full.png"
+    },
+    {
+      "assetId": "player_full",
+      "filePath": "./assets/sprites/player_full.png"
+    }
+  ],
+  "sounds": [
+    {
+      "assetId": "entity_hit",
+      "filePath": "./assets/sounds/entity_hit.wav"
+    },
+    {
+      "assetId": "teleport",
+      "filePath": "./assets/sounds/teleport.wav"
+    },
+    {
+      "assetId": "slash",
+      "filePath": "./assets/sounds/slash.wav"
+    },
+    {
+      "assetId": "melee_attack",
+      "filePath": "./assets/sounds/melee_attack.wav"
+    }
+  ],
+  "mapWidth": 2500,
+  "mapHeight": 1984,
+  "entities": [
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "__default__",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -160,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1312,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -992
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1056,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -800
+            },
+            "scale": {
+              "x": 6,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 8
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -704
+            },
+            "scale": {
+              "x": 8,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 992,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 6
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1088,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 4
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -896
+            },
+            "scale": {
+              "x": 4,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": -960
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Box colliders for environment",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -1056
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Terrain",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
+          }
+        }
+      ]
+    },
+    {
+      "components": []
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -896
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 192,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 288,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 672,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 576,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 480,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 384,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": -320
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "tag": "player",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "player_full",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 3,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1888,
+              "y": 1600
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 250
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        },
+        {
+          "name": "CameraFollowComponent",
+          "properties": {}
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 3,
+            "frameSpeedRate": 6,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 25,
+            "height": 34,
+            "offset": {
+              "x": 4,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 400,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 10,
+            "isFriendly": true,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 100,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -2
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        },
+        {
+          "name": "PlayerControlComponent",
+          "properties": {
+            "keysPressed": [],
+            "velocity": 150,
+            "magicBubbleCooldown": 2000,
+            "magicBubbleLastEmissionTime": 0,
+            "teleportCooldown": 1000,
+            "teleportLastEmissionTime": 0,
+            "fireCircleCooldown": 5000,
+            "fireCircleLastEmissionTime": 0
+          }
+        },
+        {
+          "name": "TeleportComponent",
+          "properties": {
+            "isTeleporting": false,
+            "teleportDelay": 500
+          }
+        },
+        {
+          "name": "CameraShakeComponent",
+          "properties": {
+            "shakeDuration": 100
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -736
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -736
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -736
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -800
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -544
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -544
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -544
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -288
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -576,
+              "y": -288
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -288
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -512,
+              "y": -288
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -288
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -512,
+              "y": -224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -512,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -576,
+              "y": -416
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -576,
+              "y": -224
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -768,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -640,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -576,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -704,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -512,
+              "y": -352
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 96,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -768
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "TextLabelComponent",
+          "properties": {
+            "offset": {
+              "x": 0,
+              "y": 21
+            },
+            "text": "Trees and obstacles",
+            "color": {
+              "r": 255,
+              "g": 0,
+              "b": 0
+            },
+            "fontSize": 20,
+            "fontFamily": "Arial"
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1248,
+              "y": -704
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1536,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1536,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1568,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1568,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1600,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1600,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1632,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1632,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1664,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1664,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1504,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1536,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1568,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1600,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1632,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1504,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1504,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1664,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1888,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1888,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1952,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1952,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1888,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1952,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 1,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1344,
+              "y": -352
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 1,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 1,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1536
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 1,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "torch",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 1,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1536
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "LightEmitComponent",
+          "properties": {
+            "lightRadius": 100
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 1,
+            "frameSpeedRate": 8,
+            "isLoop": true,
+            "startTime": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": -512
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1728
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1792
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1856
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1920
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 4,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 3,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_water",
+            "width": 32,
+            "height": 32,
+            "row": 1,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1536
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2048,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 6,
+            "column": 1,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2112,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 3,
+            "column": 0,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1408
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "grass_dirt",
+            "width": 32,
+            "height": 32,
+            "row": 5,
+            "column": 2,
+            "zIndex": 0,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2176,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2031,
+              "y": 1585
+            },
+            "scale": {
+              "x": 5,
+              "y": 12.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    }
+  ]
+}

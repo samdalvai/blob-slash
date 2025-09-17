@@ -79,7 +79,7 @@ export default class RenderInvisibleEntitiesSystem extends System {
             };
 
             ctx.save();
-            ctx.strokeStyle = 'gray';
+            ctx.strokeStyle = 'rgba(0,0,0,0.5)';
             ctx.lineWidth = 2;
             ctx.strokeRect(spriteRect.x, spriteRect.y, spriteRect.width, spriteRect.height);
             ctx.restore();
