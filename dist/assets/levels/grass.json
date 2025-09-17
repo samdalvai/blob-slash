@@ -118,7 +118,7 @@
           "properties": {
             "position": {
               "x": -160,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -151,7 +151,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -196,7 +196,7 @@
           "properties": {
             "position": {
               "x": 1312,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -240,7 +240,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -272,7 +272,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -304,7 +304,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -336,7 +336,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -368,7 +368,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -400,7 +400,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -432,7 +432,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -464,7 +464,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -496,7 +496,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -528,7 +528,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -560,7 +560,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -592,7 +592,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -624,7 +624,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -656,7 +656,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -688,7 +688,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -720,7 +720,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -752,7 +752,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -800
+              "y": -992
             },
             "scale": {
               "x": 2,
@@ -771,7 +771,7 @@
           "properties": {
             "position": {
               "x": 1056,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -802,7 +802,7 @@
           "properties": {
             "position": {
               "x": 896,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 6,
@@ -833,7 +833,7 @@
           "properties": {
             "position": {
               "x": 896,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -864,7 +864,7 @@
           "properties": {
             "position": {
               "x": 896,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 8,
@@ -895,7 +895,7 @@
           "properties": {
             "position": {
               "x": 992,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -926,7 +926,7 @@
           "properties": {
             "position": {
               "x": 1088,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -957,7 +957,7 @@
           "properties": {
             "position": {
               "x": 896,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 4,
@@ -989,7 +989,7 @@
           "properties": {
             "position": {
               "x": 896,
-              "y": -768
+              "y": -960
             },
             "scale": {
               "x": 1,
@@ -1026,7 +1026,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -864
+              "y": -1056
             },
             "scale": {
               "x": 1,
@@ -1078,7 +1078,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -1110,7 +1110,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -1142,7 +1142,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -704
+              "y": -896
             },
             "scale": {
               "x": 2,
@@ -1174,7 +1174,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1206,7 +1206,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1238,7 +1238,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1270,7 +1270,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1302,7 +1302,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1334,7 +1334,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -608
+              "y": -800
             },
             "scale": {
               "x": 2,
@@ -1366,7 +1366,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1398,7 +1398,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1430,7 +1430,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1462,7 +1462,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1494,7 +1494,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1526,7 +1526,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1558,7 +1558,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1590,7 +1590,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1622,7 +1622,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1654,7 +1654,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1686,7 +1686,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1718,7 +1718,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -1750,7 +1750,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -1782,7 +1782,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1814,7 +1814,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1846,7 +1846,7 @@
           "properties": {
             "position": {
               "x": 192,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -1878,7 +1878,7 @@
           "properties": {
             "position": {
               "x": 288,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -1910,7 +1910,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -224
+              "y": -416
             },
             "scale": {
               "x": 2,
@@ -1942,7 +1942,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -1974,7 +1974,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -128
+              "y": -320
             },
             "scale": {
               "x": 2,
@@ -2006,7 +2006,7 @@
           "properties": {
             "position": {
               "x": 672,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -2038,7 +2038,7 @@
           "properties": {
             "position": {
               "x": 576,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -2070,7 +2070,7 @@
           "properties": {
             "position": {
               "x": 480,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -2102,7 +2102,7 @@
           "properties": {
             "position": {
               "x": 384,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -2134,7 +2134,7 @@
           "properties": {
             "position": {
               "x": 0,
-              "y": -128
+              "y": -320
             },
             "scale": {
               "x": 2,
@@ -2166,7 +2166,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -320
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -6859,7 +6859,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -7371,7 +7371,7 @@
           "properties": {
             "position": {
               "x": 96,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -8012,7 +8012,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -8057,7 +8057,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -8943,7 +8943,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -8974,7 +8974,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -8991,7 +8991,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -9022,7 +9022,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -9039,7 +9039,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -9070,7 +9070,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -21983,7 +21983,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -576
+              "y": -768
             },
             "scale": {
               "x": 1,
@@ -25003,7 +25003,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25034,7 +25034,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25051,7 +25051,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25082,7 +25082,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25099,7 +25099,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25130,7 +25130,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25147,7 +25147,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25178,7 +25178,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25195,7 +25195,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25226,7 +25226,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -28124,7 +28124,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -28349,7 +28349,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -28709,7 +28709,7 @@
           "properties": {
             "position": {
               "x": 1248,
-              "y": -512
+              "y": -704
             },
             "scale": {
               "x": 2,
@@ -34870,7 +34870,7 @@
           "properties": {
             "position": {
               "x": 1536,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -34915,7 +34915,7 @@
           "properties": {
             "position": {
               "x": 1536,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -34960,7 +34960,7 @@
           "properties": {
             "position": {
               "x": 1568,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -35005,7 +35005,7 @@
           "properties": {
             "position": {
               "x": 1568,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -35050,7 +35050,7 @@
           "properties": {
             "position": {
               "x": 1600,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -35095,7 +35095,7 @@
           "properties": {
             "position": {
               "x": 1600,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -35140,7 +35140,7 @@
           "properties": {
             "position": {
               "x": 1632,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -35185,7 +35185,7 @@
           "properties": {
             "position": {
               "x": 1632,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -35230,7 +35230,7 @@
           "properties": {
             "position": {
               "x": 1664,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -35275,7 +35275,7 @@
           "properties": {
             "position": {
               "x": 1664,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -35320,7 +35320,7 @@
           "properties": {
             "position": {
               "x": 1504,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -35365,7 +35365,7 @@
           "properties": {
             "position": {
               "x": 1536,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -35410,7 +35410,7 @@
           "properties": {
             "position": {
               "x": 1568,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -35455,7 +35455,7 @@
           "properties": {
             "position": {
               "x": 1600,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -35500,7 +35500,7 @@
           "properties": {
             "position": {
               "x": 1632,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -35545,7 +35545,7 @@
           "properties": {
             "position": {
               "x": 1504,
-              "y": -384
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -35590,7 +35590,7 @@
           "properties": {
             "position": {
               "x": 1504,
-              "y": -416
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -35635,7 +35635,7 @@
           "properties": {
             "position": {
               "x": 1664,
-              "y": -448
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -50317,582 +50317,6 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 3328,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 288
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 352
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 288
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 352
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3328,
-              "y": 288
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3328,
-              "y": 352
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3328,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 320
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3200,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 320
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3264,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3328,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 3328,
-              "y": 320
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "grass_dirt",
-            "width": 32,
-            "height": 32,
-            "row": 6,
-            "column": 1,
-            "zIndex": 0,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
               "x": 1920,
               "y": 64
             },
@@ -62810,8 +62234,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2688,
-              "y": 256
+              "x": 1888,
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -62855,98 +62279,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2688,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2720,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2720,
-              "y": 224
+              "x": 1888,
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -62990,8 +62324,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2752,
-              "y": 256
+              "x": 1920,
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -63035,98 +62369,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2752,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2784,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2784,
-              "y": 224
+              "x": 1920,
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -63170,8 +62414,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 256
+              "x": 1952,
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -63215,323 +62459,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 224
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2656,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2688,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2720,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2752,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2784,
-              "y": 192
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2656,
-              "y": 256
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2656,
-              "y": 224
+              "x": 1952,
+              "y": -608
             },
             "scale": {
               "x": 2,
@@ -63575,8 +62504,503 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 192
+              "x": 1984,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1888,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1920,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1952,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1984,
+              "y": -640
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1856,
+              "y": -608
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -66219,7 +65643,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66230,7 +65654,7 @@
           "properties": {
             "position": {
               "x": 1344,
-              "y": -160
+              "y": -352
             },
             "scale": {
               "x": 1,
@@ -66250,7 +65674,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66267,7 +65691,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66298,7 +65722,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66315,7 +65739,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66346,7 +65770,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66363,7 +65787,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66394,7 +65818,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66411,7 +65835,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66442,7 +65866,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66459,7 +65883,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66490,7 +65914,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66507,7 +65931,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66538,7 +65962,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66555,7 +65979,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66586,7 +66010,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66603,7 +66027,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66634,7 +66058,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66651,7 +66075,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66682,7 +66106,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66699,7 +66123,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66730,7 +66154,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66747,7 +66171,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 3,
+            "column": 0,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66778,7 +66202,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66805,8 +66229,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2880,
-              "y": 1632
+              "x": 2240,
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -66837,8 +66261,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 1632
+              "x": 2176,
+              "y": -640
             },
             "scale": {
               "x": 2,
@@ -66869,8 +66293,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 1760
+              "x": 2176,
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -66901,8 +66325,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2880,
-              "y": 1760
+              "x": 2240,
+              "y": -512
             },
             "scale": {
               "x": 2,
@@ -66933,8 +66357,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2816,
-              "y": 1696
+              "x": 2176,
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -66965,8 +66389,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2880,
-              "y": 1696
+              "x": 2240,
+              "y": -576
             },
             "scale": {
               "x": 2,
@@ -72599,6 +72023,440 @@
           "properties": {
             "width": 16,
             "height": 16,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 273,
+              "y": -3
+            },
+            "scale": {
+              "x": 2,
+              "y": 6.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 94275
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -19,
+              "y": 46
+            },
+            "scale": {
+              "x": 2,
+              "y": 5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 101091.5
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -15,
+              "y": 206
+            },
+            "scale": {
+              "x": 11,
+              "y": 1.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 101091.5
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 337,
+              "y": -1
+            },
+            "scale": {
+              "x": 4,
+              "y": 2.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": -18,
+              "y": -18
+            },
+            "scale": {
+              "x": 9,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1231,
+              "y": 463
+            },
+            "scale": {
+              "x": 5,
+              "y": 9
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1165,
+              "y": 525
+            },
+            "scale": {
+              "x": 2,
+              "y": 5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1394,
+              "y": 530
+            },
+            "scale": {
+              "x": 2,
+              "y": 5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2031,
+              "y": 1585
+            },
+            "scale": {
+              "x": 5,
+              "y": 12.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 493,
+              "y": 1202
+            },
+            "scale": {
+              "x": 5,
+              "y": 24.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 235,
+              "y": 1199
+            },
+            "scale": {
+              "x": 8,
+              "y": 5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 0,
+              "y": 1132
+            },
+            "scale": {
+              "x": 7.2,
+              "y": 5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 236,
+              "y": 1133
+            },
+            "scale": {
+              "x": 1.2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 226,
+              "y": 255
+            },
+            "scale": {
+              "x": 3.4,
+              "y": 0.5
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 32,
             "offset": {
               "x": 0,
               "y": 0
