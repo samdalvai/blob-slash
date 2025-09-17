@@ -149,8 +149,8 @@ export default class MovementSystem extends System {
                 }
             }
 
-            transform.position.x += Math.floor(rigidBody.velocity.x * deltaTime * slowedPercentage);
-            transform.position.y += Math.floor(rigidBody.velocity.y * deltaTime * slowedPercentage);
+            transform.position.x += rigidBody.velocity.x * deltaTime * slowedPercentage;
+            transform.position.y += rigidBody.velocity.y * deltaTime * slowedPercentage;
 
             if (entity.hasTag('player')) {
                 const paddingLeft = 10;
