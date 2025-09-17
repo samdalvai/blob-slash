@@ -27,6 +27,7 @@ declare global {
     }
 }
 
+// TODO: add logic to test level immediately without needing to export level to game
 export default class Editor extends Engine {
     // Object for Editor
     private versionManager: VersionManager;
@@ -611,6 +612,9 @@ export default class Editor extends Engine {
                 .getSystem(GameSystems.RenderCursorSystem)
                 ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
+        // Render Editor systems
+        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
+
         // Render debug systems
         Editor.editorSettings.activeSystems['DebugInfoSystem'] &&
             this.registry
@@ -643,7 +647,6 @@ export default class Editor extends Engine {
 
         // Render Editor systems needing overlay
         this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
 
