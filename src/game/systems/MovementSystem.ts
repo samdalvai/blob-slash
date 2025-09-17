@@ -20,6 +20,7 @@ export default class MovementSystem extends System {
         eventBus.subscribeToEvent(CollisionEvent, this, this.onCollision);
     }
 
+    // TODO: can we find a better way to handle unwalkable tiles instead of relying to colliders?
     onCollision(event: CollisionEvent) {
         const a = event.a;
         const b = event.b;
