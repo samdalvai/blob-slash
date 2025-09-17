@@ -408,11 +408,24 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
+                    if (!this.canvas) {
+                        throw new Error('Failed to get canvas element.');
+                    }
+
                     this.mousePressed = true;
 
                     if (this.testMode) {
-                        // TODO: avoid emitting events in test mode if mouse is clicked on sidebar
-                        return;
+                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
+                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
+                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
+
+                        if (
+                            inputEvent.x < leftSidebarWidth ||
+                            inputEvent.x > leftSidebarWidth + canvasWidth ||
+                            inputEvent.y > canvasHeight
+                        ) {
+                            return;
+                        }
                     }
 
                     this.eventBus.emitEvent(
@@ -436,13 +449,26 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
+                    if (!this.canvas) {
+                        throw new Error('Failed to get canvas element.');
+                    }
+
                     this.mousePressed = false;
 
                     if (this.testMode) {
-                        // TODO: avoid emitting events in test mode if mouse is clicked on sidebar
-                        return;
+                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
+                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
+                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
+
+                        if (
+                            inputEvent.x < leftSidebarWidth ||
+                            inputEvent.x > leftSidebarWidth + canvasWidth ||
+                            inputEvent.y > canvasHeight
+                        ) {
+                            return;
+                        }
                     }
-                    
+
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
                         {
