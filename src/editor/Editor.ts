@@ -409,6 +409,12 @@ export default class Editor extends Engine {
                     }
 
                     this.mousePressed = true;
+
+                    if (this.testMode) {
+                        // TODO: avoid emitting events in test mode if mouse is clicked on sidebar
+                        return;
+                    }
+
                     this.eventBus.emitEvent(
                         GameEvents.MousePressedEvent,
                         {
@@ -431,6 +437,12 @@ export default class Editor extends Engine {
                     }
 
                     this.mousePressed = false;
+
+                    if (this.testMode) {
+                        // TODO: avoid emitting events in test mode if mouse is clicked on sidebar
+                        return;
+                    }
+                    
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
                         {
@@ -453,6 +465,10 @@ export default class Editor extends Engine {
 
         while (this.inputManager.wheelInputBuffer.length > 0) {
             const wheelEvent = this.inputManager.wheelInputBuffer.shift();
+
+            if (this.testMode) {
+                return;
+            }
 
             if (!wheelEvent) {
                 return;
