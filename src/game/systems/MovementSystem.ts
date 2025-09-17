@@ -67,7 +67,6 @@ export default class MovementSystem extends System {
     }
 
     onEntityHitsObstacle(entity: Entity, obstacle: Entity, collisionNormal: Vector) {
-        console.log('Collision normal: ', collisionNormal);
         if (entity.hasComponent(RigidBodyComponent) && entity.hasComponent(TransformComponent)) {
             const entityRigidBody = entity.getComponent(RigidBodyComponent);
             const entityTransform = entity.getComponent(TransformComponent);
