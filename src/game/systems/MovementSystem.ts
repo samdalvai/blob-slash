@@ -1,13 +1,13 @@
+import Engine from '../../engine/Engine';
+import Entity from '../../engine/ecs/Entity';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
+import { Vector } from '../../engine/types/utils';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import TransformComponent from '../components/TransformComponent';
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
 import CollisionEvent from '../events/CollisionEvent';
-import { Vector } from '../../engine/types/utils';
-import Engine from '../../engine/Engine';
 
 export default class MovementSystem extends System {
     constructor() {
@@ -21,7 +21,7 @@ export default class MovementSystem extends System {
     }
 
     // TODO: bug occurs with big colliders having scale, test this and solve it. Player is teleported on
-    // the other side of the collider
+    // the other side of the collider, this bug happens only after the player has teleported once
     onCollision(event: CollisionEvent) {
         const a = event.a;
         const b = event.b;
@@ -30,12 +30,12 @@ export default class MovementSystem extends System {
         if ((a.hasTag('player') || a.belongsToGroup('enemies')) && b.belongsToGroup('obstacles')) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
-        
+
         if (a.belongsToGroup('obstacles') && (b.hasTag('player') || b.belongsToGroup('enemies'))) {
             this.invertCollisionNormal(collisionNormal);
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
-        
+
         // TODO: avoid same entity being killed twice (is this called twice?)
         if (a.belongsToGroup('projectiles') && b.belongsToGroup('obstacles')) {
             a.kill();
@@ -56,11 +56,11 @@ export default class MovementSystem extends System {
         }
 
         // TODO: can we find a better way to handle unwalkable tiles? Instead of using box colliders?
-        if ((a.hasTag('player') || a.belongsToGroup('enemies')) && (!b.getTag() && !b.getGroup())) {
+        if ((a.hasTag('player') || a.belongsToGroup('enemies')) && !b.getTag() && !b.getGroup()) {
             this.onEntityHitsObstacle(a, b, collisionNormal);
         }
 
-        if ((b.hasTag('player') || b.belongsToGroup('enemies')) && (!a.getTag() && !a.getGroup())) {
+        if ((b.hasTag('player') || b.belongsToGroup('enemies')) && !a.getTag() && !a.getGroup()) {
             this.onEntityHitsObstacle(b, a, collisionNormal);
         }
     }
@@ -154,8 +154,8 @@ export default class MovementSystem extends System {
                 }
             }
 
-            transform.position.x += rigidBody.velocity.x * deltaTime * slowedPercentage;
-            transform.position.y += rigidBody.velocity.y * deltaTime * slowedPercentage;
+            transform.position.x += Math.floor(rigidBody.velocity.x * deltaTime * slowedPercentage);
+            transform.position.y += Math.floor(rigidBody.velocity.y * deltaTime * slowedPercentage);
 
             if (entity.hasTag('player')) {
                 const paddingLeft = 10;
