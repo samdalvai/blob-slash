@@ -2188,7 +2188,7 @@
             "width": 32,
             "height": 32,
             "row": 1,
-            "column": 2,
+            "column": 3,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -2236,7 +2236,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 2,
+            "currentFrame": 3,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -8091,7 +8091,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -8129,7 +8129,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -8225,7 +8225,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -8263,7 +8263,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -8346,231 +8346,6 @@
         {
           "name": "DeadBodyOnDeathComponent",
           "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 704,
-              "y": 32
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 736,
-              "y": 32
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 736,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 704,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 672,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
         }
       ]
     },
@@ -8943,7 +8718,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -8974,7 +8749,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -8991,7 +8766,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -9022,7 +8797,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -9039,7 +8814,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -9070,7 +8845,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -11068,276 +10843,6 @@
             },
             "rotation": 0,
             "isFixed": false
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 768,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 768,
-              "y": 32
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 768,
-              "y": 64
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 800,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 800,
-              "y": 32
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 832,
-              "y": 0
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
           }
         }
       ]
@@ -21583,7 +21088,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -21621,7 +21126,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -21717,7 +21222,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -21755,7 +21260,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -21851,7 +21356,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -21889,7 +21394,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -25003,7 +24508,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25034,7 +24539,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25051,7 +24556,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25082,7 +24587,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25099,7 +24604,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25130,7 +24635,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25147,7 +24652,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25178,7 +24683,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -25195,7 +24700,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -25226,7 +24731,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -46778,7 +46283,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -46816,7 +46321,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -46912,7 +46417,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -46950,7 +46455,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47046,7 +46551,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -47084,7 +46589,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47180,7 +46685,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -47218,7 +46723,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47314,7 +46819,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -47352,7 +46857,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47448,7 +46953,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -47486,7 +46991,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47582,7 +47087,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -47620,7 +47125,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -47635,7 +47140,7 @@
               "x": 16,
               "y": 1
             },
-            "lastCollision": 0
+            "lastCollision": 169088.7000000002
           }
         },
         {
@@ -59392,7 +58897,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -59430,7 +58935,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -59526,7 +59031,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -59564,7 +59069,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -59660,7 +59165,7 @@
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 0,
+            "column": 1,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -59698,7 +59203,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 0,
+            "currentFrame": 1,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -59713,7 +59218,7 @@
               "x": 0,
               "y": 5
             },
-            "lastCollision": 0
+            "lastCollision": 171122.30000000075
           }
         },
         {
@@ -65204,51 +64709,6 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2464,
-              "y": 480
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
               "x": 2432,
               "y": 448
             },
@@ -65310,51 +64770,6 @@
           "properties": {
             "width": 16,
             "height": 32,
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "lastCollision": 0
-          }
-        }
-      ]
-    },
-    {
-      "group": "obstacles",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "tree",
-            "width": 16,
-            "height": 32,
-            "row": 0,
-            "column": 0,
-            "zIndex": 1,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2432,
-              "y": 480
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 16,
             "offset": {
               "x": 0,
               "y": 0
@@ -65643,7 +65058,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65674,7 +65089,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65691,7 +65106,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65722,7 +65137,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65739,7 +65154,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65770,7 +65185,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65787,7 +65202,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65818,7 +65233,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65835,7 +65250,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65866,7 +65281,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65883,7 +65298,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65914,7 +65329,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65931,7 +65346,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -65962,7 +65377,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -65979,7 +65394,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66010,7 +65425,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66027,7 +65442,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66058,7 +65473,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66075,7 +65490,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66106,7 +65521,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66123,7 +65538,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66154,7 +65569,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -66171,7 +65586,7 @@
             "width": 32,
             "height": 32,
             "row": 0,
-            "column": 0,
+            "column": 3,
             "zIndex": 1,
             "flip": 0,
             "transparency": 1
@@ -66202,7 +65617,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 0,
+            "currentFrame": 3,
             "frameSpeedRate": 8,
             "isLoop": true,
             "startTime": 0
@@ -72058,7 +71473,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 94275
+            "lastCollision": 0
           }
         }
       ]
@@ -72089,7 +71504,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 101091.5
+            "lastCollision": 0
           }
         }
       ]
@@ -72120,7 +71535,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 101091.5
+            "lastCollision": 0
           }
         }
       ]
@@ -72463,6 +71878,903 @@
             },
             "lastCollision": 0
           }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 736,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 736,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 800,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 704,
+              "y": 0
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 768,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 800,
+              "y": 32
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2464,
+              "y": 480
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "obstacles",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "tree",
+            "width": 16,
+            "height": 32,
+            "row": 0,
+            "column": 0,
+            "zIndex": 1,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2432,
+              "y": 480
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 32,
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "lastCollision": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1600
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 166621.90000000037
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2368,
+              "y": 1472
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 169088.7000000002
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2240,
+              "y": 1472
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 171122.30000000075
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
         }
       ]
     }
