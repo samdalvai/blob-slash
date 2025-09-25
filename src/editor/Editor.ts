@@ -558,27 +558,29 @@ export default class Editor extends Engine {
         // Update entities to be created/killed
         this.registry.update();
 
-        // Perform the subscription of the events for all systems
-        Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
+        // Perform the subscription of the events for all game systems
+        if (this.testMode) {
+            Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
+            Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['MovementSystem'] &&
+            Editor.editorSettings.activeSystems['MovementSystem'] &&
             this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
+            Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
             this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['DamageSystem'] &&
+            Editor.editorSettings.activeSystems['DamageSystem'] &&
             this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
+            Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['SoundSystem'] &&
+            Editor.editorSettings.activeSystems['SoundSystem'] &&
             this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['DeadBodyOnDeathSystem'] &&
+            Editor.editorSettings.activeSystems['DeadBodyOnDeathSystem'] &&
             this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['PlayerControlSystem'] &&
+            Editor.editorSettings.activeSystems['PlayerControlSystem'] &&
             this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
+            Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        }
 
         if ((!this.commandPressed || Editor.isDragging) && !this.testMode) {
             this.registry
