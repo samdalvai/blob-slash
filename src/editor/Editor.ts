@@ -663,7 +663,10 @@ export default class Editor extends Engine {
                 ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         // Render Editor systems
-        !this.testMode && this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
+            this.registry
+                .getSystem(EditorSystems.RenderInvisibleEntitiesSystem)
+                ?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
         this.isSystemActive('DebugInfoSystem') &&
@@ -696,12 +699,13 @@ export default class Editor extends Engine {
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
         // Render Editor systems needing overlay
-        if (!this.testMode) {
+        !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
-            this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
-        }
+        this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
 
         if (this.shouldSidebarUpdate && !this.testMode) {
             this.registry
