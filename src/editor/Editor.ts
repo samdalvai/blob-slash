@@ -227,6 +227,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderGridSystem);
         this.registry.addSystem(EditorSystems.RenderMultipleSelectSystem);
         this.registry.addSystem(EditorSystems.RenderInvisibleEntitiesSystem);
+        this.registry.addSystem(EditorSystems.RenderTestModeActive);
 
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
@@ -708,6 +709,7 @@ export default class Editor extends Engine {
         !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
 
         if (this.shouldSidebarUpdate) {
             this.registry
