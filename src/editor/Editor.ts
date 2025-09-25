@@ -281,6 +281,23 @@ export default class Editor extends Engine {
                     }
 
                     if (inputEvent.code === 'F2') {
+                        if (!this.leftSidebar || !this.rightSidebar || !this.bottomBar || !this.canvas) {
+                            throw new Error('Failed to get sidebar element(s)');
+                        }
+
+                        if (!this.testMode) {
+                            this.leftSidebar.style.display = 'none';
+                            this.rightSidebar.style.display = 'none';
+                            this.bottomBar.style.display = 'none';
+                            this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
+                        } else {
+                            // TODO: previous style for bottom and right sidebar is not kept
+                            this.leftSidebar.style.display = 'block';
+                            this.rightSidebar.style.display = 'block';
+                            this.bottomBar.style.display = 'block';
+                            this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
+                        }
+
                         this.testMode = !this.testMode;
                         this.zoom = 1;
                     }
