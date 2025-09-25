@@ -560,28 +560,26 @@ export default class Editor extends Engine {
         this.registry.update();
 
         // Perform the subscription of the events for all game systems
-        if (this.testMode) {
-            Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
+        this.isSystemActive('PlayerDetectionSystem') &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
+        this.isSystemActive('EntityFollowSystem') &&
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['MovementSystem'] &&
+        this.isSystemActive('MovementSystem') &&
             this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
+        this.isSystemActive('RangedAttackEmitSystem') &&
             this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['DamageSystem'] &&
+        this.isSystemActive('DamageSystem') &&
             this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
+        this.isSystemActive('CameraShakeSystem') &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['SoundSystem'] &&
+        this.isSystemActive('SoundSystem') &&
             this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['DeadBodyOnDeathSystem'] &&
+        this.isSystemActive('DeadBodyOnDeathSystem') &&
             this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['PlayerControlSystem'] &&
+        this.isSystemActive('PlayerControlSystem') &&
             this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-            Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
+        this.isSystemActive('AnimationOnHitSystem') &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
-        }
 
         if ((!this.commandPressed || Editor.isDragging) && !this.testMode) {
             this.registry
@@ -601,36 +599,29 @@ export default class Editor extends Engine {
                 ?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
 
         // Invoke all the systems that need to update
-        Editor.editorSettings.activeSystems['MovementSystem'] &&
-            this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
-        Editor.editorSettings.activeSystems['LifetimeSystem'] &&
+        this.isSystemActive('MovementSystem') && this.registry.getSystem(GameSystems.MovementSystem)?.update(deltaTime);
+        this.isSystemActive('LifetimeSystem') &&
             this.registry.getSystem(GameSystems.LifetimeSystem)?.update(this.eventBus);
-        Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
+        this.isSystemActive('PlayerDetectionSystem') &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.update(this.registry);
-        Editor.editorSettings.activeSystems['ScriptingSystem'] &&
-            this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
-        Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
-            this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
-        Editor.editorSettings.activeSystems['ParticleEmitSystem'] &&
-            this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
-        Editor.editorSettings.activeSystems['CameraMovementSystem'] &&
+        this.isSystemActive('ScriptingSystem') && this.registry.getSystem(GameSystems.ScriptingSystem)?.update();
+        this.isSystemActive('EntityFollowSystem') && this.registry.getSystem(GameSystems.EntityFollowSystem)?.update();
+        this.isSystemActive('ParticleEmitSystem') && this.registry.getSystem(GameSystems.ParticleEmitSystem)?.update();
+        this.isSystemActive('CameraMovementSystem') &&
             this.registry.getSystem(GameSystems.CameraMovementSystem)?.update(this.camera);
-        Editor.editorSettings.activeSystems['CollisionSystem'] &&
+        this.isSystemActive('CollisionSystem') &&
             this.registry.getSystem(GameSystems.CollisionSystem)?.update(this.eventBus);
-        Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
+        this.isSystemActive('RangedAttackEmitSystem') &&
             this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.update();
-        Editor.editorSettings.activeSystems['EntityDestinationSystem'] &&
+        this.isSystemActive('EntityDestinationSystem') &&
             this.registry.getSystem(GameSystems.EntityDestinationSystem)?.update();
-        Editor.editorSettings.activeSystems['EntityEffectSystem'] &&
+        this.isSystemActive('EntityEffectSystem') &&
             this.registry.getSystem(GameSystems.EntityEffectSystem)?.update(this.registry);
-        Editor.editorSettings.activeSystems['EntityHighlightSystem'] &&
+        this.isSystemActive('EntityHighlightSystem') &&
             this.registry.getSystem(GameSystems.EntityHighlightSystem)?.update();
-        Editor.editorSettings.activeSystems['DamageSystem'] &&
-            this.registry.getSystem(GameSystems.DamageSystem)?.update();
-        Editor.editorSettings.activeSystems['AnimationSystem'] &&
-            this.registry.getSystem(GameSystems.AnimationSystem)?.update();
-        Editor.editorSettings.activeSystems['SpriteStateSystem'] &&
-            this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
+        this.isSystemActive('DamageSystem') && this.registry.getSystem(GameSystems.DamageSystem)?.update();
+        this.isSystemActive('AnimationSystem') && this.registry.getSystem(GameSystems.AnimationSystem)?.update();
+        this.isSystemActive('SpriteStateSystem') && this.registry.getSystem(GameSystems.SpriteStateSystem)?.update();
     };
 
     render = () => {
@@ -646,35 +637,36 @@ export default class Editor extends Engine {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Render Editor systems
-        this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
+            this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render game related systems
-        Editor.editorSettings.activeSystems['RenderSystem'] &&
+        this.isSystemActive('RenderSystem') &&
             this.registry
                 .getSystem(GameSystems.RenderSystem)
                 ?.update(this.ctx, this.assetStore, this.camera, this.zoom, true);
-        Editor.editorSettings.activeSystems['RenderHealthBarSystem'] &&
+        this.isSystemActive('RenderHealthBarSystem') &&
             this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
+        this.isSystemActive('CameraShakeSystem') &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
-        Editor.editorSettings.activeSystems['RenderTextSystem'] &&
+        this.isSystemActive('RenderTextSystem') &&
             this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera, this.zoom);
-        Editor.editorSettings.activeSystems['RenderParticleSystem'] &&
+        this.isSystemActive('RenderParticleSystem') &&
             this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom, true);
-        Editor.editorSettings.activeSystems['RenderLightingSystem'] &&
+        this.isSystemActive('RenderLightingSystem') &&
             this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom, true);
-        Editor.editorSettings.activeSystems['RenderGUISystem'] &&
+        this.isSystemActive('RenderGUISystem') &&
             this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
-        Editor.editorSettings.activeSystems['RenderCursorSystem'] &&
+        this.isSystemActive('RenderCursorSystem') &&
             this.registry
                 .getSystem(GameSystems.RenderCursorSystem)
                 ?.update(this.ctx, this.camera, this.assetStore, this.registry);
 
         // Render Editor systems
-        this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode && this.registry.getSystem(EditorSystems.RenderInvisibleEntitiesSystem)?.update(this.ctx, this.camera, this.zoom);
 
         // Render debug systems
-        Editor.editorSettings.activeSystems['DebugInfoSystem'] &&
+        this.isSystemActive('DebugInfoSystem') &&
             this.registry
                 .getSystem(GameSystems.DebugInfoSystem)
                 ?.update(
@@ -686,32 +678,32 @@ export default class Editor extends Engine {
                     this.camera,
                     this.zoom,
                 );
-        Editor.editorSettings.activeSystems['DebugColliderSystem'] &&
+        this.isSystemActive('DebugColliderSystem') &&
             this.registry.getSystem(GameSystems.DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
-        Editor.editorSettings.activeSystems['DebugPlayerFollowRadiusSystem'] &&
+        this.isSystemActive('DebugPlayerFollowRadiusSystem') &&
             this.registry
                 .getSystem(GameSystems.DebugPlayerFollowRadiusSystem)
                 ?.update(this.ctx, this.camera, this.zoom);
-        Editor.editorSettings.activeSystems['DebugParticleSourceSystem'] &&
+        this.isSystemActive('DebugParticleSourceSystem') &&
             this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera, this.zoom);
-        Editor.editorSettings.activeSystems['DebugEntityDestinationSystem'] &&
+        this.isSystemActive('DebugEntityDestinationSystem') &&
             this.registry.getSystem(GameSystems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
-        Editor.editorSettings.activeSystems['DebugSlowTimeRadiusSystem'] &&
+        this.isSystemActive('DebugSlowTimeRadiusSystem') &&
             this.registry.getSystem(GameSystems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
-        Editor.editorSettings.activeSystems['DebugCursorCoordinatesSystem'] &&
+        this.isSystemActive('DebugCursorCoordinatesSystem') &&
             this.registry
                 .getSystem(GameSystems.DebugCursorCoordinatesSystem)
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
         // Render Editor systems needing overlay
-        !this.testMode &&
+        if (!this.testMode) {
             this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
-        !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
+            this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
+            this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
+        }
 
-        if (this.shouldSidebarUpdate) {
+        if (this.shouldSidebarUpdate && !this.testMode) {
             this.registry
                 .getSystem(EditorSystems.RenderSidebarSystem)
                 ?.update(this.leftSidebar, this.rightSidebar, this.registry, this.assetStore, this.levelManager);
@@ -719,4 +711,8 @@ export default class Editor extends Engine {
             this.shouldSidebarUpdate = false;
         }
     };
+
+    isSystemActive(systemKey: keyof typeof GameSystems) {
+        return this.testMode || Editor.editorSettings.activeSystems[systemKey];
+    }
 }
