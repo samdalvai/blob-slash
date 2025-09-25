@@ -44,6 +44,7 @@ export default class Editor extends Engine {
     private shiftPressed: boolean;
     private zoom: number;
     private shouldSidebarUpdate: boolean;
+    private testMode = false;
 
     // Global Editor objects
     static selectedEntities: Entity[] = [];
@@ -226,6 +227,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(EditorSystems.RenderGridSystem);
         this.registry.addSystem(EditorSystems.RenderMultipleSelectSystem);
         this.registry.addSystem(EditorSystems.RenderInvisibleEntitiesSystem);
+        this.registry.addSystem(EditorSystems.RenderTestModeActive);
 
         const levelKeys = getAllLevelKeysFromLocalStorage();
 
@@ -276,6 +278,11 @@ export default class Editor extends Engine {
 
                     if (inputEvent.code === 'ShiftLeft') {
                         this.shiftPressed = true;
+                    }
+
+                    if (inputEvent.code === 'F2') {
+                        this.testMode = !this.testMode;
+                        this.zoom = 1;
                     }
 
                     if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
@@ -402,7 +409,26 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
+                    if (!this.canvas) {
+                        throw new Error('Failed to get canvas element.');
+                    }
+
                     this.mousePressed = true;
+
+                    if (this.testMode) {
+                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
+                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
+                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
+
+                        if (
+                            inputEvent.x < leftSidebarWidth ||
+                            inputEvent.x > leftSidebarWidth + canvasWidth ||
+                            inputEvent.y > canvasHeight
+                        ) {
+                            return;
+                        }
+                    }
+
                     this.eventBus.emitEvent(
                         GameEvents.MousePressedEvent,
                         {
@@ -424,7 +450,26 @@ export default class Editor extends Engine {
                         throw new Error('Failed to get leftSidebar element.');
                     }
 
+                    if (!this.canvas) {
+                        throw new Error('Failed to get canvas element.');
+                    }
+
                     this.mousePressed = false;
+
+                    if (this.testMode) {
+                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
+                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
+                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
+
+                        if (
+                            inputEvent.x < leftSidebarWidth ||
+                            inputEvent.x > leftSidebarWidth + canvasWidth ||
+                            inputEvent.y > canvasHeight
+                        ) {
+                            return;
+                        }
+                    }
+
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
                         {
@@ -447,6 +492,10 @@ export default class Editor extends Engine {
 
         while (this.inputManager.wheelInputBuffer.length > 0) {
             const wheelEvent = this.inputManager.wheelInputBuffer.shift();
+
+            if (this.testMode) {
+                return;
+            }
 
             if (!wheelEvent) {
                 return;
@@ -510,37 +559,46 @@ export default class Editor extends Engine {
         // Update entities to be created/killed
         this.registry.update();
 
-        // Perform the subscription of the events for all systems
-        Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
+        // Perform the subscription of the events for all game systems
+        if (this.testMode) {
+            Editor.editorSettings.activeSystems['PlayerDetectionSystem'] &&
             this.registry.getSystem(GameSystems.PlayerDetectionSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
+            Editor.editorSettings.activeSystems['EntityFollowSystem'] &&
             this.registry.getSystem(GameSystems.EntityFollowSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['MovementSystem'] &&
+            Editor.editorSettings.activeSystems['MovementSystem'] &&
             this.registry.getSystem(GameSystems.MovementSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
+            Editor.editorSettings.activeSystems['RangedAttackEmitSystem'] &&
             this.registry.getSystem(GameSystems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['DamageSystem'] &&
+            Editor.editorSettings.activeSystems['DamageSystem'] &&
             this.registry.getSystem(GameSystems.DamageSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
+            Editor.editorSettings.activeSystems['CameraShakeSystem'] &&
             this.registry.getSystem(GameSystems.CameraShakeSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['SoundSystem'] &&
+            Editor.editorSettings.activeSystems['SoundSystem'] &&
             this.registry.getSystem(GameSystems.SoundSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['DeadBodyOnDeathSystem'] &&
+            Editor.editorSettings.activeSystems['DeadBodyOnDeathSystem'] &&
             this.registry.getSystem(GameSystems.DeadBodyOnDeathSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['PlayerControlSystem'] &&
+            Editor.editorSettings.activeSystems['PlayerControlSystem'] &&
             this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
-        Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
+            Editor.editorSettings.activeSystems['AnimationOnHitSystem'] &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
-
-        if (!this.commandPressed || Editor.isDragging) {
-            this.registry
-                .getSystem(EditorSystems.EntityDragSystem)
-                ?.subscribeToEvents(this.eventBus, this.canvas, this.entityEditor, this.shiftPressed, this.commandPressed);
         }
 
-        this.registry
-            .getSystem(EditorSystems.RenderSidebarSystem)
-            ?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
+        if ((!this.commandPressed || Editor.isDragging) && !this.testMode) {
+            this.registry
+                .getSystem(EditorSystems.EntityDragSystem)
+                ?.subscribeToEvents(
+                    this.eventBus,
+                    this.canvas,
+                    this.entityEditor,
+                    this.shiftPressed,
+                    this.commandPressed,
+                );
+        }
+
+        !this.testMode &&
+            this.registry
+                .getSystem(EditorSystems.RenderSidebarSystem)
+                ?.subscribeToEvents(this.eventBus, this.registry, this.leftSidebar);
 
         // Invoke all the systems that need to update
         Editor.editorSettings.activeSystems['MovementSystem'] &&
@@ -646,9 +704,12 @@ export default class Editor extends Engine {
                 ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
 
         // Render Editor systems needing overlay
-        this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
+            this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode &&
+            this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
         this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
+        this.registry.getSystem(EditorSystems.RenderTestModeActive)?.update(this.ctx, this.testMode);
 
         if (this.shouldSidebarUpdate) {
             this.registry

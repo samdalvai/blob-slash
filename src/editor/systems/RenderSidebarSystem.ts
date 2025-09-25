@@ -257,7 +257,14 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve active systems list');
         }
 
+        const systemKeyList: string[] = [];
         for (const systemKey in GameSystems) {
+            systemKeyList.push(systemKey);
+        }
+
+        systemKeyList.sort((keyA, keyB) => keyA.localeCompare(keyB));
+
+        for (const systemKey of systemKeyList) {
             const checkBoxInput = createInput(
                 'checkbox',
                 systemKey,
