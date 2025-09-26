@@ -18,7 +18,7 @@ export default class DebugInfoSystem extends System {
         zoom?: number,
         testMode?: boolean,
     ) {
-        const x = Engine.windowWidth - 350;
+        const x = Engine.windowWidth - 375;
         const y = 50;
 
         ctx.font = '18px Arial';
