@@ -292,9 +292,9 @@ export default class Editor extends Engine {
                             this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
                         } else {
                             // TODO: previous style for bottom and right sidebar is not kept
-                            this.leftSidebar.style.display = 'block';
-                            this.rightSidebar.style.display = 'block';
-                            this.bottomBar.style.display = 'block';
+                            this.leftSidebar.style.display = 'flex';
+                            this.rightSidebar.style.display = 'flex';
+                            this.bottomBar.style.display = 'flex';
                             this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
                         }
 
