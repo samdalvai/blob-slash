@@ -1,7 +1,7 @@
+import Engine from '../../engine/Engine';
 import Registry from '../../engine/ecs/Registry';
 import System from '../../engine/ecs/System';
 import { Rectangle } from '../../engine/types/utils';
-import Engine from '../../engine/Engine';
 
 export default class DebugInfoSystem extends System {
     constructor() {
@@ -16,11 +16,12 @@ export default class DebugInfoSystem extends System {
         registry: Registry,
         camera: Rectangle,
         zoom?: number,
+        testMode?: boolean,
     ) {
         const x = Engine.windowWidth - 350;
         const y = 50;
 
-        ctx.font = '16px Arial';
+        ctx.font = '18px Arial';
         ctx.fillStyle = 'red';
         ctx.fillText(`Current FPS: ${currentFPS.toFixed(2)} (${maxFPS.toFixed(2)} max)`, x, y);
         ctx.fillText(`Frame duration: ${frameDuration.toFixed(2)} ms`, x, y + 25);
@@ -43,6 +44,10 @@ export default class DebugInfoSystem extends System {
 
         if (zoom) {
             ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 150);
+        }
+
+        if (zoom) {
+            ctx.fillText(`Test mode active: ${testMode ? 'yes' : 'no'} (F2 to toggle)`, x, y + 175);
         }
     }
 }
