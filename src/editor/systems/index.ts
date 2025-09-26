@@ -5,4 +5,3 @@ export { default as EntityDragSystem } from './EntityDragSystem';
 export { default as RenderGridSystem } from './RenderGridSystem';
 export { default as RenderMultipleSelectSystem } from './RenderMultipleSelectSystem';
 export { default as RenderInvisibleEntitiesSystem } from './RenderInvisibleEntitiesSystem';
-export { default as RenderTestModeActive } from './RenderTestModeActive';
