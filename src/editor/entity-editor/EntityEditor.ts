@@ -106,6 +106,21 @@ export default class EntityEditor {
         }
     };
 
+    public resetLevelChanges = async () => {
+        if (this.levelChangeLock) {
+            return;
+        }
+
+        if (Editor.editorSettings.selectedLevel) {
+            this.levelChangeLock = true;
+            const levelVersion = this.versionManager.getCurrentLevelVersion(Editor.editorSettings.selectedLevel);
+            await this.levelManager.loadLevelFromLevelMap(levelVersion);
+            this.eventBus.emitEvent(EntityUpdateEvent);
+            saveCurrentLevelToLocalStorage(Editor.editorSettings.selectedLevel, this.registry, this.assetStore);
+            this.levelChangeLock = false;
+        }
+    };
+
     ////////////////////////////////////////////////////////////////////////////////
     // Entity management
     ////////////////////////////////////////////////////////////////////////////////

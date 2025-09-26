@@ -291,11 +291,11 @@ export default class Editor extends Engine {
                             this.bottomBar.style.display = 'none';
                             this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
                         } else {
-                            // TODO: previous style for bottom and right sidebar is not kept
                             this.leftSidebar.style.display = 'flex';
                             this.rightSidebar.style.display = 'flex';
                             this.bottomBar.style.display = 'flex';
                             this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
+                            this.entityEditor.resetLevelChanges();
                         }
 
                         this.testMode = !this.testMode;
