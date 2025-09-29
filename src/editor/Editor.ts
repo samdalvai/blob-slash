@@ -284,18 +284,15 @@ export default class Editor extends Engine {
                             throw new Error('Failed to get sidebar element(s)');
                         }
 
-                        if (!this.testMode) {
-                            this.leftSidebar.style.display = 'none';
-                            this.rightSidebar.style.display = 'none';
-                            this.bottomBar.style.display = 'none';
-                            this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
-                        } else {
-                            this.leftSidebar.style.display = 'flex';
-                            this.rightSidebar.style.display = 'flex';
-                            this.bottomBar.style.display = 'flex';
-                            this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
+                        this.leftSidebar.style.display = this.testMode ? 'flex' : 'none';
+                        this.rightSidebar.style.display = this.testMode ? 'flex' : 'none';
+                        this.bottomBar.style.display = this.testMode ? 'flex' : 'none';
+
+                        if (this.testMode) {
                             this.entityEditor.resetLevelChanges();
                         }
+
+                        this.resize(this.canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
 
                         this.testMode = !this.testMode;
                         this.zoom = 1;
