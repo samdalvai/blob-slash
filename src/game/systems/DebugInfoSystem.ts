@@ -42,11 +42,11 @@ export default class DebugInfoSystem extends System {
         );
         ctx.fillText(`Number of entities: ${registry.numEntities - registry.freeIds.length}`, x, y + 125);
 
-        if (zoom) {
+        if (zoom !== undefined) {
             ctx.fillText(`Zoom level: ${zoom.toFixed(2)}`, x, y + 150);
         }
 
-        if (zoom) {
+        if (testMode !== testMode) {
             ctx.fillText(`Test mode active: ${testMode ? 'yes' : 'no'} (F2 to toggle)`, x, y + 175);
         }
     }
