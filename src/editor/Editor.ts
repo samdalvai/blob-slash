@@ -27,7 +27,6 @@ declare global {
     }
 }
 
-// TODO: add logic to test level immediately without needing to export level to game
 export default class Editor extends Engine {
     // Object for Editor
     private versionManager: VersionManager;
