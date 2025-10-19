@@ -2303,7 +2303,7 @@
           "name": "PlayerControlComponent",
           "properties": {
             "keysPressed": [],
-            "velocity": 200,
+            "velocity": 150,
             "magicBubbleCooldown": 2000,
             "magicBubbleLastEmissionTime": 0,
             "teleportCooldown": 1000,
