@@ -1,8 +1,7 @@
 import AssetStore from '../../engine/asset-store/AssetStore';
-import SoundComponent from '../components/SoundComponent';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
-import EntityHitEvent from '../events/EntityHitEvent';
+import SoundComponent from '../components/SoundComponent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
 
 export default class SoundSystem extends System {
@@ -15,7 +14,6 @@ export default class SoundSystem extends System {
     }
 
     subscribeToEvents = (eventBus: EventBus) => {
-        eventBus.subscribeToEvent(EntityHitEvent, this, this.onEntityHit);
         eventBus.subscribeToEvent(SoundEmitEvent, this, this.onSoundEmit);
     };
 
@@ -29,17 +27,5 @@ export default class SoundSystem extends System {
         soundTrack.currentTime = 0;
         soundTrack.volume = event.volume;
         soundTrack.play().catch(error => console.error(`Failed to play sound: ${error}`));
-    };
-
-    onEntityHit = () => {
-        const hitSound = this.assetStore.getSound('entity_hit');
-        if (!hitSound) {
-            throw new Error('Could not find explosion sound');
-        }
-        if (hitSound.currentTime !== 0) {
-            hitSound.currentTime = 0;
-        }
-        hitSound.volume = 0.25;
-        hitSound.play().catch(error => console.error(`Failed to play sound: ${error}`));
     };
 }
