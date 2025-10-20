@@ -1,3 +1,6 @@
+import Entity from '../../engine/ecs/Entity';
+import System from '../../engine/ecs/System';
+import EventBus from '../../engine/event-bus/EventBus';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import HealthComponent from '../components/HealthComponent';
@@ -5,13 +8,11 @@ import MeleeAttackComponent from '../components/MeleeAttackComponent';
 import ProjectileComponent from '../components/ProjectileComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
 import CameraShakeEvent from '../events/CameraShakeEvent';
 import CollisionEvent from '../events/CollisionEvent';
 import EntityHitEvent from '../events/EntityHitEvent';
 import EntityKilledEvent from '../events/EntityKilledEvent';
+import SoundEmitEvent from '../events/SoundEmitEvent';
 
 export default class DamageSystem extends System {
     eventBus: EventBus;
@@ -100,6 +101,8 @@ export default class DamageSystem extends System {
                 x: transform.position.x + (sprite.width / 2) * transform.scale.x,
                 y: transform.position.y + (sprite.height / 2) * transform.scale.y,
             });
+
+            this.eventBus.emitEvent(SoundEmitEvent, 'entity_hit', 0.2);
         }
     };
 
