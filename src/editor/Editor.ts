@@ -208,6 +208,7 @@ export default class Editor extends Engine {
         this.registry.addSystem(GameSystems.EntityHighlightSystem);
         this.registry.addSystem(GameSystems.EntityEffectSystem);
         this.registry.addSystem(GameSystems.AnimationOnHitSystem);
+        this.registry.addSystem(GameSystems.DropItemSystem);
 
         // Debug systems
         this.registry.addSystem(GameSystems.DebugColliderSystem);
@@ -592,6 +593,8 @@ export default class Editor extends Engine {
             this.registry.getSystem(GameSystems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         this.isSystemActive('AnimationOnHitSystem') &&
             this.registry.getSystem(GameSystems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
+        this.isSystemActive('DropItemSystem') &&
+            this.registry.getSystem(GameSystems.DropItemSystem)?.subscribeToEvents(this.eventBus);
 
         if ((!this.commandPressed || Editor.isDragging) && !this.testMode) {
             this.registry
