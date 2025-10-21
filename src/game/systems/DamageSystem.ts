@@ -102,7 +102,7 @@ export default class DamageSystem extends System {
                 y: transform.position.y + (sprite.height / 2) * transform.scale.y,
             });
 
-            this.eventBus.emitEvent(SoundEmitEvent, 'entity_hit', 0.2);
+            this.eventBus.emitEvent(SoundEmitEvent, 'entity_hit', 0.05);
         }
     };
 

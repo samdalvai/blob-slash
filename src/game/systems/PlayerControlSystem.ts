@@ -155,7 +155,7 @@ export default class PlayerControlSystem extends System {
                         }
                         meleeAttack.group('melee-attack');
 
-                        this.eventBus.emitEvent(SoundEmitEvent, 'melee_attack');
+                        this.eventBus.emitEvent(SoundEmitEvent, 'melee_attack', 0.1);
                     }
                     break;
                 default:
@@ -328,7 +328,7 @@ export default class PlayerControlSystem extends System {
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
 
-        this.eventBus.emitEvent(SoundEmitEvent, 'teleport');
+        this.eventBus.emitEvent(SoundEmitEvent, 'teleport', 0.1);
 
         playerRigidBody.velocity = { x: 0, y: 0 };
 
