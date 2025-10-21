@@ -32,3 +32,4 @@ export { default as RenderLightingSystem } from './RenderLightingSystem';
 export { default as RenderParticleSystem } from './RenderParticleSystem';
 export { default as RenderSystem } from './RenderSystem';
 export { default as RenderTextSystem } from './RenderTextSystem';
+export { default as DropItemSystem } from './DropItemSystem';
