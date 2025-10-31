@@ -2,6 +2,7 @@ import Entity from '../../engine/ecs/Entity';
 import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import { HealthComponent, PickableItemComponent } from '../components';
+import { PickupEffect } from '../components/PickableItemComponent';
 import CollisionEvent from '../events/CollisionEvent';
 
 export default class PickItemSystem extends System {
@@ -34,7 +35,7 @@ export default class PickItemSystem extends System {
         }
 
         switch (pickableItem.effectOnPickup) {
-            case 'health':
+            case PickupEffect.HEALTH:
                 if (entityPickingItem.hasComponent(HealthComponent)) {
                     const health = entityPickingItem.getComponent(HealthComponent);
 
@@ -48,6 +49,8 @@ export default class PickItemSystem extends System {
                     health.lastDamageTime = performance.now();
                     pickedItem.kill();
                 }
+                break;
+            case PickupEffect.NONE:
                 break;
             default:
                 break;
