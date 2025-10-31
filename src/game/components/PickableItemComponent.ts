@@ -1,10 +1,15 @@
 import Component from '../../engine/ecs/Component';
 
+enum PickupEffect {
+    HEALTH = 'health',
+    NONE = 'none',
+}
+
 export default class PickableItemComponent extends Component {
-    effectOnPickup: string;
+    effectOnPickup: PickupEffect;
     effectValue: number;
 
-    constructor(effectOnPickup = '', effectValue = 0) {
+    constructor(effectOnPickup = PickupEffect.HEALTH, effectValue = 0) {
         super();
         this.effectOnPickup = effectOnPickup;
         this.effectValue = effectValue;
