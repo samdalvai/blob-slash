@@ -10,6 +10,7 @@ import {
     SpriteComponent,
     TransformComponent,
 } from '../components';
+import { PickupEffect } from '../components/PickableItemComponent';
 import EntityKilledEvent from '../events/EntityKilledEvent';
 
 export default class DropItemSystem extends System {
@@ -34,7 +35,7 @@ export default class DropItemSystem extends System {
 
             if (randomValue < dropItemOnDeath.dropPercentage) {
                 switch (dropItemOnDeath.droppedItem) {
-                    case 'health': {
+                    case PickupEffect.HEALTH: {
                         const transform = event.entity.getComponent(TransformComponent);
 
                         if (!transform) {
@@ -52,11 +53,13 @@ export default class DropItemSystem extends System {
                         healthGlobe.addComponent(AnimationComponent, 4, 10);
                         healthGlobe.addComponent(ShadowComponent, 28, 16);
                         healthGlobe.addComponent(BoxColliderComponent, 32, 32);
-                        healthGlobe.addComponent(PickableItemComponent, 'health', 50);
+                        healthGlobe.addComponent(PickableItemComponent, PickupEffect.HEALTH, 50);
                         healthGlobe.addComponent(LifetimeComponent, 60000);
 
                         break;
                     }
+                    case PickupEffect.NONE:
+                        break;
                     default:
                         break;
                 }
