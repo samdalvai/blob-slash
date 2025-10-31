@@ -40,6 +40,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.EntityEffectSystem);
         this.registry.addSystem(Systems.AnimationOnHitSystem);
         this.registry.addSystem(Systems.DropItemSystem);
+        this.registry.addSystem(Systems.PickItemSystem);
 
         // Debug systems
         this.registry.addSystem(Systems.DebugColliderSystem);
@@ -55,7 +56,7 @@ export default class Game extends Engine {
 
         await this.levelManager.addLevelToAssets('grass', '/assets/levels/grass.json');
         await this.levelManager.loadLevelFromAssets('grass');
-        
+
         // await this.levelManager.addLevelToAssets('test', '/assets/levels/test.json');
         // await this.levelManager.loadLevelFromAssets('test');
         this.gameStatus = GameStatus.PLAYING;
@@ -152,6 +153,7 @@ export default class Game extends Engine {
         this.registry.getSystem(Systems.PlayerControlSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(Systems.AnimationOnHitSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(Systems.DropItemSystem)?.subscribeToEvents(this.eventBus);
+        this.registry.getSystem(Systems.PickItemSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
         this.registry.getSystem(Systems.PlayerDetectionSystem)?.update(this.registry);
