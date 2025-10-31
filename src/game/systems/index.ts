@@ -33,3 +33,4 @@ export { default as RenderParticleSystem } from './RenderParticleSystem';
 export { default as RenderSystem } from './RenderSystem';
 export { default as RenderTextSystem } from './RenderTextSystem';
 export { default as DropItemSystem } from './DropItemSystem';
+export { default as PickItemSystem } from './PickItemSystem';
