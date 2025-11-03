@@ -2,10 +2,15 @@ import Component from '../../engine/ecs/Component';
 
 export enum PickupEffect {
     HEALTH = 'health',
+    ARMOR = 'armor',
     NONE = 'none',
 }
 
 export default class PickableItemComponent extends Component {
+    static _metadata = {
+        effectOnPickup: PickupEffect,
+    };
+
     effectOnPickup: PickupEffect;
     effectValue: number;
 
