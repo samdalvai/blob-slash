@@ -51,7 +51,7 @@ export const createListItem = (label: string, input: HTMLElement): HTMLLIElement
 
     const span = document.createElement('span');
     span.innerText = label;
-    span.className = 'label-text';
+    span.className = 'label-text flex-1';
 
     li.append(span);
     li.append(input);
@@ -66,6 +66,8 @@ export const createInput = (
     const input = document.createElement('input');
     input.type = type;
     input.id = id;
+    input.className = 'flex-1';
+
     if (type === 'checkbox') {
         input.checked = Boolean(value);
     } else {

@@ -577,6 +577,7 @@ export default class EntityEditor {
             }
 
             select.value = (component as any)[propertyName];
+            select.className = 'flex-1';
 
             select.addEventListener('change', (e: Event) => {
                 const target = e.target as HTMLSelectElement;
