@@ -428,12 +428,15 @@ export default class EntityEditor {
         const select = document.createElement('select');
         select.id = `${propertyName}-${entityId}`;
 
-        this.assetStore.getAllTexturesIds().forEach(textureId => {
-            const option = document.createElement('option');
-            option.value = textureId;
-            option.textContent = textureId || 'Unknown';
-            select.appendChild(option);
-        });
+        this.assetStore
+            .getAllTexturesIds()
+            .sort((keyA, keyB) => keyA.localeCompare(keyB))
+            .forEach(textureId => {
+                const option = document.createElement('option');
+                option.value = textureId;
+                option.textContent = textureId || 'Unknown';
+                select.appendChild(option);
+            });
 
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {
