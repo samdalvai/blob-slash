@@ -536,7 +536,7 @@ export default class EntityEditor {
         component: Component,
         entityId: number,
     ) => {
-        const enumMeta = (component.constructor as any)._metadata?.[propertyName];
+        const enumMeta = (component.constructor as any)._enums?.[propertyName];
         const enumValues = [];
 
         if (enumMeta) {
