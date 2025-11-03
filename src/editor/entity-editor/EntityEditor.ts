@@ -308,8 +308,15 @@ export default class EntityEditor {
         const select = document.createElement('select');
         select.id = 'component-select-' + entity.getId();
 
-        const options: { value: string; text: string }[] = [];
+        const componentKeyKeyList: string[] = [];
         for (const componentKey in GameComponents) {
+            componentKeyKeyList.push(componentKey);
+        }
+
+        componentKeyKeyList.sort((keyA, keyB) => keyA.localeCompare(keyB));
+
+        const options: { value: string; text: string }[] = [];
+        for (const componentKey of componentKeyKeyList) {
             options.push({ value: componentKey, text: componentKey });
         }
 
