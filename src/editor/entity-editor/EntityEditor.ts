@@ -308,8 +308,15 @@ export default class EntityEditor {
         const select = document.createElement('select');
         select.id = 'component-select-' + entity.getId();
 
-        const options: { value: string; text: string }[] = [];
+        const componentKeyKeyList: string[] = [];
         for (const componentKey in GameComponents) {
+            componentKeyKeyList.push(componentKey);
+        }
+
+        componentKeyKeyList.sort((keyA, keyB) => keyA.localeCompare(keyB));
+
+        const options: { value: string; text: string }[] = [];
+        for (const componentKey of componentKeyKeyList) {
             options.push({ value: componentKey, text: componentKey });
         }
 
@@ -421,12 +428,15 @@ export default class EntityEditor {
         const select = document.createElement('select');
         select.id = `${propertyName}-${entityId}`;
 
-        this.assetStore.getAllTexturesIds().forEach(textureId => {
-            const option = document.createElement('option');
-            option.value = textureId;
-            option.textContent = textureId || 'Unknown';
-            select.appendChild(option);
-        });
+        this.assetStore
+            .getAllTexturesIds()
+            .sort((keyA, keyB) => keyA.localeCompare(keyB))
+            .forEach(textureId => {
+                const option = document.createElement('option');
+                option.value = textureId;
+                option.textContent = textureId || 'Unknown';
+                select.appendChild(option);
+            });
 
         select.value = (component as any)[propertyName];
         select.addEventListener('change', (e: Event) => {
