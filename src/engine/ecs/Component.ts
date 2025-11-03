@@ -43,6 +43,8 @@ export default class Component extends IComponent {
      * static override _enums = {
      *   myProperty: ['value1', 'value2'],
      * };
+     *
+     * Note: does not support subproperties having enums
      */
     protected static _enums = {};
 
