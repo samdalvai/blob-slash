@@ -565,11 +565,6 @@ export default class EntityEditor {
         entityId: number,
         enumValues: string[],
     ) => {
-        const updateProperty = (newValue: any) => {
-            (component as any)[propertyName] = newValue;
-            this.saveLevel();
-        };
-
         if (enumValues && enumValues.length > 0) {
             const select = document.createElement('select');
             select.id = `${propertyName}-${entityId}`;
@@ -591,6 +586,11 @@ export default class EntityEditor {
 
             return createListItem(label, select);
         }
+
+        const updateProperty = (newValue: any) => {
+            (component as any)[propertyName] = newValue;
+            this.saveLevel();
+        };
 
         switch (typeof propertyValue) {
             case 'string': {
