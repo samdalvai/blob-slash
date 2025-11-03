@@ -536,6 +536,15 @@ export default class EntityEditor {
         component: Component,
         entityId: number,
     ) => {
+        const enumMeta = (component.constructor as any)._metadata?.[propertyName];
+        const enumValues = [];
+
+        if (enumMeta) {
+            for (const key of Object.keys(enumMeta)) {
+                enumValues.push(enumMeta[key]);
+            }
+        }
+
         return this.createListItemWithInputRec(
             propertyName,
             propertyName,
@@ -543,6 +552,7 @@ export default class EntityEditor {
             propertyValue,
             component,
             entityId,
+            enumValues,
         );
     };
 
@@ -553,11 +563,34 @@ export default class EntityEditor {
         propertyValue: string | number | boolean | object,
         component: Component,
         entityId: number,
+        enumValues: string[],
     ) => {
         const updateProperty = (newValue: any) => {
             (component as any)[propertyName] = newValue;
             this.saveLevel();
         };
+
+        if (enumValues && enumValues.length > 0) {
+            const select = document.createElement('select');
+            select.id = `${propertyName}-${entityId}`;
+
+            for (const value of enumValues) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value || 'Unknown';
+                select.appendChild(option);
+            }
+
+            select.value = (component as any)[propertyName];
+
+            select.addEventListener('change', (e: Event) => {
+                const target = e.target as HTMLSelectElement;
+                (component as any)[propertyName] = target.value;
+                this.saveLevel();
+            });
+
+            return createListItem(label, select);
+        }
 
         switch (typeof propertyValue) {
             case 'string': {
@@ -587,6 +620,7 @@ export default class EntityEditor {
                             propertyValue[property as keyof typeof propertyValue],
                             propertyValue,
                             entityId,
+                            enumValues,
                         ),
                     );
                 }
