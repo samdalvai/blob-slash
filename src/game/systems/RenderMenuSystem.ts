@@ -36,7 +36,7 @@ export default class RenderMenuSystem extends System {
             event.coordinates.y <= buttonY2
         ) {
             await this.levelManager.addLevelToAssets('grass', '/assets/levels/grass.json');
-            await this.levelManager.loadLevelFromAssets('grass')
+            await this.levelManager.loadLevelFromAssets('grass');
             Game.gameStatus = GameStatus.PLAYING;
         }
     }
