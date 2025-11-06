@@ -41,6 +41,7 @@ export default class RenderMenuSystem extends System {
         }
     }
 
+    // TODO: can we create an overlay instead of rendering on canvas?
     update(ctx: CanvasRenderingContext2D) {
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
