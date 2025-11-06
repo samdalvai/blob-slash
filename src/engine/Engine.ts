@@ -22,7 +22,6 @@ export default abstract class Engine {
     // Game status properties
     protected isRunning: boolean;
     protected isDebug: boolean;
-    protected gameStatus: GameStatus;
     private loopStrategy: LoopStrategy | null;
 
     // Debug info
@@ -38,6 +37,7 @@ export default abstract class Engine {
     static mapHeight: number;
     static windowWidth: number;
     static windowHeight: number;
+    static gameStatus: GameStatus;
 
     constructor() {
         this.canvas = null;
@@ -52,14 +52,14 @@ export default abstract class Engine {
 
         this.isRunning = false;
         this.isDebug = false;
-        this.gameStatus = GameStatus.IDLE;
         this.loopStrategy = null;
-
+        
         this.currentFPS = 0;
         this.maxFPS = 0;
         this.frameDuration = 0;
         this.millisecondsLastFPSUpdate = 0;
-
+        
+        Engine.gameStatus = GameStatus.IDLE;
         Engine.mousePositionScreen = { x: 0, y: 0 };
         Engine.mousePositionWorld = { x: 0, y: 0 };
     }
