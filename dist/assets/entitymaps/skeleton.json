@@ -71,7 +71,7 @@
           "projectileVelocity": 200,
           "repeatFrequency": 500,
           "projectileDuration": 7500,
-          "hitPercentDamage": 2,
+          "hitPercentDamage": 15,
           "isFriendly": false,
           "lastEmissionTime": 0
         }
