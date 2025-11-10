@@ -27,3 +27,5 @@ export { default as SpriteStateComponent } from '../../game/components/SpriteSta
 export { default as TeleportComponent } from '../../game/components/TeleportComponent';
 export { default as TextLabelComponent } from '../../game/components/TextLabelComponent';
 export { default as TransformComponent } from '../../game/components/TransformComponent';
+export { default as DropItemOnDeathComponent } from '../../game/components/DropItemOnDeathComponent';
+export { default as PickableItemComponent } from '../../game/components/PickableItemComponent';
