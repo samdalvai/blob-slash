@@ -9,7 +9,7 @@
           "width": 32,
           "height": 32,
           "row": 2,
-          "column": 1,
+          "column": 0,
           "zIndex": 2,
           "flip": 0,
           "transparency": 1
@@ -19,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 512,
-            "y": 224
+            "x": 420,
+            "y": 189
           },
           "scale": {
             "x": 1,
@@ -47,7 +47,7 @@
         "name": "AnimationComponent",
         "properties": {
           "numFrames": 2,
-          "currentFrame": 1,
+          "currentFrame": 0,
           "frameSpeedRate": 4,
           "isLoop": true,
           "startTime": 0
@@ -62,7 +62,7 @@
             "x": 0,
             "y": 5
           },
-          "lastCollision": 0
+          "lastCollision": 91996.90000000002
         }
       },
       {
@@ -123,7 +123,7 @@
         "properties": {
           "droppedItem": "health",
           "droppedItemValue": 25,
-          "dropPercentage": 75
+          "dropPercentage": 50
         }
       },
       {
