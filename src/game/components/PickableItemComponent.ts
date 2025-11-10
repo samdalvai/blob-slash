@@ -2,7 +2,6 @@ import Component from '../../engine/ecs/Component';
 
 export enum PickupEffect {
     HEALTH = 'health',
-    ARMOR = 'armor',
     NONE = 'none',
 }
 
