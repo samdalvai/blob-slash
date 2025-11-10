@@ -2,6 +2,8 @@ import Engine from '../engine/Engine';
 import { GameStatus } from '../engine/types/utils';
 import * as GameEvents from './events';
 import * as Systems from './systems';
+import GameEndSystem from './systems/GameEndSystem';
+import RenderMenuSystem from './systems/RenderMenuSystem';
 
 export default class Game extends Engine {
     constructor() {
@@ -16,6 +18,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.RenderLightingSystem);
         this.registry.addSystem(Systems.RenderGUISystem);
         this.registry.addSystem(Systems.RenderCursorSystem);
+        this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
 
         // Other entities related systems
         this.registry.addSystem(Systems.MovementSystem);
@@ -39,6 +42,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.EntityHighlightSystem);
         this.registry.addSystem(Systems.EntityEffectSystem);
         this.registry.addSystem(Systems.AnimationOnHitSystem);
+        this.registry.addSystem(Systems.GameEndSystem);
         this.registry.addSystem(Systems.DropItemSystem);
         this.registry.addSystem(Systems.PickItemSystem);
 
@@ -59,7 +63,7 @@ export default class Game extends Engine {
 
         // await this.levelManager.addLevelToAssets('test', '/assets/levels/test.json');
         // await this.levelManager.loadLevelFromAssets('test');
-        this.gameStatus = GameStatus.PLAYING;
+        Game.gameStatus = GameStatus.PLAYING;
     };
 
     processInput = () => {
@@ -141,6 +145,13 @@ export default class Game extends Engine {
         // Update entities to be created/killed
         this.registry.update();
 
+        this.registry.getSystem(GameEndSystem)?.update();
+
+        if (Game.gameStatus !== GameStatus.PLAYING) {
+            this.registry.getSystem(RenderMenuSystem)?.subscribeToEvents(this.eventBus);
+            return;
+        }
+
         // Perform the subscription of the events for all systems
         this.registry.getSystem(Systems.MovementSystem)?.subscribeToEvents(this.eventBus);
         this.registry.getSystem(Systems.RangedAttackEmitSystem)?.subscribeToEvents(this.eventBus);
@@ -188,6 +199,11 @@ export default class Game extends Engine {
         this.registry.getSystem(Systems.RenderParticleSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(Systems.RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(Systems.RenderGUISystem)?.update(this.ctx, this.assetStore);
+
+        if (Game.gameStatus !== GameStatus.PLAYING) {
+            this.registry.getSystem(RenderMenuSystem)?.update(this.ctx);
+        }
+
         this.registry
             .getSystem(Systems.RenderCursorSystem)
             ?.update(this.ctx, this.camera, this.assetStore, this.registry);
