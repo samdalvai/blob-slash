@@ -341,7 +341,20 @@ export default class EntityEditor {
         const container = document.createElement('div');
         container.className = 'pt-2';
 
-        for (const component of entityComponents) {
+        const sortedComponents: Component[] = [];
+        for (const componentKey of entityComponents) {
+            sortedComponents.push(componentKey);
+        }
+
+        // Sort components by keeping sprite component at the top
+        sortedComponents.sort((componentA, componentB) => {
+            if (componentA.constructor.name === 'SpriteComponent') return -1;
+            if (componentB.constructor.name === 'SpriteComponent') return 1;
+
+            return componentA.constructor.name.localeCompare(componentB.constructor.name);
+        });
+
+        for (const component of sortedComponents) {
             const componentContainer = this.getComponentContainer(component, entity);
             container.append(componentContainer);
         }
