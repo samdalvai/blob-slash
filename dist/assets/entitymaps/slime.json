@@ -19,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 1056,
-            "y": 352
+            "x": 512,
+            "y": 224
           },
           "scale": {
             "x": 1,
@@ -79,7 +79,7 @@
       {
         "name": "HealthComponent",
         "properties": {
-          "healthPercentage": 50,
+          "healthPercentage": 20,
           "lastDamageTime": 0
         }
       },
@@ -116,6 +116,14 @@
           "hasDamageOverTime": false,
           "damagePerSecond": 0,
           "lastDamageTime": 0
+        }
+      },
+      {
+        "name": "DropItemOnDeathComponent",
+        "properties": {
+          "droppedItem": "health",
+          "droppedItemValue": 25,
+          "dropPercentage": 75
         }
       },
       {
