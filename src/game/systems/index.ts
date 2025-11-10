@@ -34,3 +34,5 @@ export { default as RenderSystem } from './RenderSystem';
 export { default as RenderTextSystem } from './RenderTextSystem';
 export { default as GameEndSystem } from './GameEndSystem';
 export { default as RenderMenuSystem } from './RenderMenuSystem';
+export { default as DropItemSystem } from './DropItemSystem';
+export { default as PickItemSystem } from './PickItemSystem';
