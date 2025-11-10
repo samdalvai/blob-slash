@@ -19,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 193,
-            "y": 512
+            "x": 1127,
+            "y": 246
           },
           "scale": {
             "x": 2,
@@ -62,7 +62,7 @@
             "x": 16,
             "y": 1
           },
-          "lastCollision": 0
+          "lastCollision": 90331.19999999995
         }
       },
       {
@@ -123,7 +123,7 @@
         "properties": {
           "droppedItem": "health",
           "droppedItemValue": 35,
-          "dropPercentage": 80
+          "dropPercentage": 50
         }
       },
       {
