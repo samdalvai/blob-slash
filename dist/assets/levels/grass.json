@@ -75,6 +75,10 @@
     {
       "assetId": "player_full",
       "filePath": "./assets/sprites/player_full.png"
+    },
+    {
+      "assetId": "health_globe",
+      "filePath": "./assets/sprites/health_globe.png"
     }
   ],
   "sounds": [
@@ -2187,8 +2191,8 @@
             "assetId": "player_full",
             "width": 32,
             "height": 32,
-            "row": 1,
-            "column": 3,
+            "row": 3,
+            "column": 0,
             "zIndex": 2,
             "flip": 0,
             "transparency": 1
@@ -2198,8 +2202,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 128,
-              "y": 96
+              "x": 137,
+              "y": 102
             },
             "scale": {
               "x": 1,
@@ -2223,7 +2227,7 @@
               "y": 0
             },
             "direction": {
-              "x": 1,
+              "x": -1,
               "y": 0
             }
           }
@@ -2236,7 +2240,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 4,
-            "currentFrame": 3,
+            "currentFrame": 0,
             "frameSpeedRate": 6,
             "isLoop": true,
             "startTime": 0
@@ -8087,145 +8091,11 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 535,
-              "y": 202
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
             "assetId": "skeleton_full",
             "width": 32,
             "height": 32,
             "row": 2,
-            "column": 1,
+            "column": 0,
             "zIndex": 2,
             "flip": 32,
             "transparency": 1
@@ -8235,8 +8105,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 224,
-              "y": 480
+              "x": 193,
+              "y": 512
             },
             "scale": {
               "x": 2,
@@ -8263,7 +8133,7 @@
           "name": "AnimationComponent",
           "properties": {
             "numFrames": 2,
-            "currentFrame": 1,
+            "currentFrame": 0,
             "frameSpeedRate": 4,
             "isLoop": true,
             "startTime": 0
@@ -8278,7 +8148,7 @@
               "x": 16,
               "y": 1
             },
-            "lastCollision": 0
+            "lastCollision": 210409.30000000005
           }
         },
         {
@@ -8332,6 +8202,14 @@
             "hasDamageOverTime": false,
             "damagePerSecond": 0,
             "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
           }
         },
         {
@@ -20758,7 +20636,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202510.1000000001
           }
         }
       ]
@@ -20803,7 +20681,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202510.1000000001
           }
         }
       ]
@@ -20848,7 +20726,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202560.40000000002
           }
         }
       ]
@@ -20893,7 +20771,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202543.70000000007
           }
         }
       ]
@@ -20938,7 +20816,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202510.1000000001
           }
         }
       ]
@@ -21075,408 +20953,6 @@
             },
             "lastCollision": 0
           }
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 288,
-              "y": 1568
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 768,
-              "y": 1888
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 224,
-              "y": 1696
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
         }
       ]
     },
@@ -27423,7 +26899,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194360.80000000005
           }
         }
       ]
@@ -27468,7 +26944,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194344.20000000007
           }
         }
       ]
@@ -27513,7 +26989,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.1000000001
           }
         }
       ]
@@ -27558,7 +27034,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.1000000001
           }
         }
       ]
@@ -27693,7 +27169,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.20000000007
           }
         }
       ]
@@ -27738,7 +27214,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.20000000007
           }
         }
       ]
@@ -27783,7 +27259,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.20000000007
           }
         }
       ]
@@ -27828,7 +27304,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194911.20000000007
           }
         }
       ]
@@ -27918,7 +27394,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 194894.40000000002
           }
         }
       ]
@@ -44513,7 +43989,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 204612
           }
         }
       ]
@@ -45143,7 +44619,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 204562.20000000007
           }
         }
       ]
@@ -46270,944 +45746,6 @@
             },
             "lastCollision": 0
           }
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1472,
-              "y": 512
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1472,
-              "y": 608
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1152,
-              "y": 1312
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1344,
-              "y": 1632
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 832,
-              "y": 640
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1408,
-              "y": 64
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 1600,
-              "y": 1152
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 169088.7000000002
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
         }
       ]
     },
@@ -58884,408 +57422,6 @@
             "rotation": 0,
             "isFixed": false
           }
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2048,
-              "y": 640
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2112,
-              "y": 640
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 0
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "slime_big_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 0,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2176,
-              "y": 640
-            },
-            "scale": {
-              "x": 1,
-              "y": 1
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 32,
-            "height": 20,
-            "offset": {
-              "x": 0,
-              "y": 5
-            },
-            "lastCollision": 171122.30000000075
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
         }
       ]
     },
@@ -71783,7 +69919,7 @@
               "x": 0,
               "y": 0
             },
-            "lastCollision": 0
+            "lastCollision": 202462.70000000007
           }
         }
       ]
@@ -72382,274 +70518,6 @@
         {
           "name": "SpriteComponent",
           "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2240,
-              "y": 1600
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 166621.90000000037
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
-            "assetId": "skeleton_full",
-            "width": 32,
-            "height": 32,
-            "row": 2,
-            "column": 1,
-            "zIndex": 2,
-            "flip": 32,
-            "transparency": 1
-          }
-        },
-        {
-          "name": "TransformComponent",
-          "properties": {
-            "position": {
-              "x": 2368,
-              "y": 1472
-            },
-            "scale": {
-              "x": 2,
-              "y": 2
-            },
-            "rotation": 0,
-            "isFixed": false
-          }
-        },
-        {
-          "name": "RigidBodyComponent",
-          "properties": {
-            "velocity": {
-              "x": 0,
-              "y": 0
-            },
-            "direction": {
-              "x": 0,
-              "y": 1
-            }
-          }
-        },
-        {
-          "name": "AnimationComponent",
-          "properties": {
-            "numFrames": 2,
-            "currentFrame": 1,
-            "frameSpeedRate": 4,
-            "isLoop": true,
-            "startTime": 0
-          }
-        },
-        {
-          "name": "BoxColliderComponent",
-          "properties": {
-            "width": 16,
-            "height": 30,
-            "offset": {
-              "x": 16,
-              "y": 1
-            },
-            "lastCollision": 169088.7000000002
-          }
-        },
-        {
-          "name": "RangedAttackEmitterComponent",
-          "properties": {
-            "projectileVelocity": 200,
-            "repeatFrequency": 500,
-            "projectileDuration": 7500,
-            "hitPercentDamage": 2,
-            "isFriendly": false,
-            "lastEmissionTime": 0
-          }
-        },
-        {
-          "name": "HealthComponent",
-          "properties": {
-            "healthPercentage": 50,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "EntityFollowComponent",
-          "properties": {
-            "detectionRadius": 200,
-            "minFollowDistance": 100,
-            "followVelocity": 50,
-            "followDuration": 5000,
-            "followedEntity": null,
-            "startFollowTime": 0
-          }
-        },
-        {
-          "name": "SpriteStateComponent",
-          "properties": {}
-        },
-        {
-          "name": "HighlightComponent",
-          "properties": {
-            "isHighlighted": false,
-            "width": 40,
-            "height": 20,
-            "offsetX": 0,
-            "offsetY": -10
-          }
-        },
-        {
-          "name": "EntityEffectComponent",
-          "properties": {
-            "slowed": false,
-            "slowedPercentage": 1,
-            "hasDamageOverTime": false,
-            "damagePerSecond": 0,
-            "lastDamageTime": 0
-          }
-        },
-        {
-          "name": "ShadowComponent",
-          "properties": {
-            "width": 30,
-            "height": 10,
-            "offsetX": 0,
-            "offsetY": -8
-          }
-        },
-        {
-          "name": "DeadBodyOnDeathComponent",
-          "properties": {}
-        }
-      ]
-    },
-    {
-      "group": "enemies",
-      "components": [
-        {
-          "name": "SpriteComponent",
-          "properties": {
             "assetId": "slime_big_full",
             "width": 32,
             "height": 32,
@@ -72664,8 +70532,8 @@
           "name": "TransformComponent",
           "properties": {
             "position": {
-              "x": 2240,
-              "y": 1472
+              "x": 512,
+              "y": 224
             },
             "scale": {
               "x": 1,
@@ -72707,7 +70575,149 @@
               "x": 0,
               "y": 5
             },
-            "lastCollision": 171122.30000000075
+            "lastCollision": 199915.20000000007
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 896,
+              "y": 576
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 0
           }
         },
         {
@@ -72761,6 +70771,2060 @@
             "hasDamageOverTime": false,
             "damagePerSecond": 0,
             "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1408,
+              "y": 64
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 0
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "health_globe",
+            "width": 32,
+            "height": 32,
+            "row": 0,
+            "column": 2,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1623,
+              "y": -411
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 4,
+            "currentFrame": 2,
+            "frameSpeedRate": 10,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "PickableItemComponent",
+          "properties": {
+            "effectOnPickup": "health",
+            "effectValue": 50
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 28,
+            "height": 16,
+            "offsetX": 0,
+            "offsetY": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2119,
+              "y": 610
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 194911.20000000007
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2016,
+              "y": 610
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 213132.1000000001
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1422,
+              "y": 1610
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 197815.6000000001
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1161,
+              "y": 1266
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 198865.20000000007
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2321,
+              "y": 1583
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 199915.20000000007
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 148,
+              "y": 1616
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 202560.40000000002
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 560,
+              "y": 1065
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 204612
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1267,
+              "y": 1664
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 206061.80000000005
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2350,
+              "y": 1441
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 207212.20000000007
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1804,
+              "y": 1026
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 208478.5
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "skeleton_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 32,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 2054,
+              "y": 155
+            },
+            "scale": {
+              "x": 2,
+              "y": 2
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 16,
+            "height": 30,
+            "offset": {
+              "x": 16,
+              "y": 1
+            },
+            "lastCollision": 210409.30000000005
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 50,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 35,
+            "dropPercentage": 80
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 0,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1413,
+              "y": 738
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 0,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 212182
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
+          }
+        },
+        {
+          "name": "ShadowComponent",
+          "properties": {
+            "width": 30,
+            "height": 10,
+            "offsetX": 0,
+            "offsetY": -8
+          }
+        },
+        {
+          "name": "DeadBodyOnDeathComponent",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "group": "enemies",
+      "components": [
+        {
+          "name": "SpriteComponent",
+          "properties": {
+            "assetId": "slime_big_full",
+            "width": 32,
+            "height": 32,
+            "row": 2,
+            "column": 1,
+            "zIndex": 2,
+            "flip": 0,
+            "transparency": 1
+          }
+        },
+        {
+          "name": "TransformComponent",
+          "properties": {
+            "position": {
+              "x": 1476,
+              "y": 673
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "isFixed": false
+          }
+        },
+        {
+          "name": "RigidBodyComponent",
+          "properties": {
+            "velocity": {
+              "x": 0,
+              "y": 0
+            },
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        },
+        {
+          "name": "AnimationComponent",
+          "properties": {
+            "numFrames": 2,
+            "currentFrame": 1,
+            "frameSpeedRate": 4,
+            "isLoop": true,
+            "startTime": 0
+          }
+        },
+        {
+          "name": "BoxColliderComponent",
+          "properties": {
+            "width": 32,
+            "height": 20,
+            "offset": {
+              "x": 0,
+              "y": 5
+            },
+            "lastCollision": 213132.1000000001
+          }
+        },
+        {
+          "name": "RangedAttackEmitterComponent",
+          "properties": {
+            "projectileVelocity": 200,
+            "repeatFrequency": 500,
+            "projectileDuration": 7500,
+            "hitPercentDamage": 2,
+            "isFriendly": false,
+            "lastEmissionTime": 0
+          }
+        },
+        {
+          "name": "HealthComponent",
+          "properties": {
+            "healthPercentage": 20,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "EntityFollowComponent",
+          "properties": {
+            "detectionRadius": 200,
+            "minFollowDistance": 100,
+            "followVelocity": 50,
+            "followDuration": 5000,
+            "followedEntity": null,
+            "startFollowTime": 0
+          }
+        },
+        {
+          "name": "SpriteStateComponent",
+          "properties": {}
+        },
+        {
+          "name": "HighlightComponent",
+          "properties": {
+            "isHighlighted": false,
+            "width": 40,
+            "height": 20,
+            "offsetX": 0,
+            "offsetY": -10
+          }
+        },
+        {
+          "name": "EntityEffectComponent",
+          "properties": {
+            "slowed": false,
+            "slowedPercentage": 1,
+            "hasDamageOverTime": false,
+            "damagePerSecond": 0,
+            "lastDamageTime": 0
+          }
+        },
+        {
+          "name": "DropItemOnDeathComponent",
+          "properties": {
+            "droppedItem": "health",
+            "droppedItemValue": 25,
+            "dropPercentage": 75
           }
         },
         {
