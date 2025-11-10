@@ -1,0 +1,60 @@
+[
+  {
+    "components": [
+      {
+        "name": "SpriteComponent",
+        "properties": {
+          "assetId": "health_globe",
+          "width": 32,
+          "height": 32,
+          "row": 0,
+          "column": 3,
+          "zIndex": 2,
+          "flip": 0,
+          "transparency": 1
+        }
+      },
+      {
+        "name": "TransformComponent",
+        "properties": {
+          "position": {
+            "x": 1515,
+            "y": -355
+          },
+          "scale": {
+            "x": 1,
+            "y": 1
+          },
+          "rotation": 0,
+          "isFixed": false
+        }
+      },
+      {
+        "name": "AnimationComponent",
+        "properties": {
+          "numFrames": 4,
+          "currentFrame": 3,
+          "frameSpeedRate": 10,
+          "isLoop": true,
+          "startTime": 0
+        }
+      },
+      {
+        "name": "PickableItemComponent",
+        "properties": {
+          "effectOnPickup": "health",
+          "effectValue": 50
+        }
+      },
+      {
+        "name": "ShadowComponent",
+        "properties": {
+          "width": 28,
+          "height": 16,
+          "offsetX": 0,
+          "offsetY": 0
+        }
+      }
+    ]
+  }
+]

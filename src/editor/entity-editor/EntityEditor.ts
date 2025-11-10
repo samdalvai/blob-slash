@@ -341,7 +341,20 @@ export default class EntityEditor {
         const container = document.createElement('div');
         container.className = 'pt-2';
 
-        for (const component of entityComponents) {
+        const sortedComponents: Component[] = [];
+        for (const componentKey of entityComponents) {
+            sortedComponents.push(componentKey);
+        }
+
+        // Sort components by keeping sprite component at the top
+        sortedComponents.sort((componentA, componentB) => {
+            if (componentA.constructor.name === 'SpriteComponent') return -1;
+            if (componentB.constructor.name === 'SpriteComponent') return 1;
+
+            return componentA.constructor.name.localeCompare(componentB.constructor.name);
+        });
+
+        for (const component of sortedComponents) {
             const componentContainer = this.getComponentContainer(component, entity);
             container.append(componentContainer);
         }
@@ -536,6 +549,15 @@ export default class EntityEditor {
         component: Component,
         entityId: number,
     ) => {
+        const enumMeta = (component.constructor as any)._enums?.[propertyName];
+        const enumValues = [];
+
+        if (enumMeta) {
+            for (const key of Object.keys(enumMeta)) {
+                enumValues.push(enumMeta[key]);
+            }
+        }
+
         return this.createListItemWithInputRec(
             propertyName,
             propertyName,
@@ -543,6 +565,7 @@ export default class EntityEditor {
             propertyValue,
             component,
             entityId,
+            enumValues,
         );
     };
 
@@ -553,7 +576,31 @@ export default class EntityEditor {
         propertyValue: string | number | boolean | object,
         component: Component,
         entityId: number,
+        enumValues: string[],
     ) => {
+        if (enumValues && enumValues.length > 0) {
+            const select = document.createElement('select');
+            select.id = `${propertyName}-${entityId}`;
+
+            for (const value of enumValues) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value || 'Unknown';
+                select.appendChild(option);
+            }
+
+            select.value = (component as any)[propertyName];
+            select.className = 'flex-1';
+
+            select.addEventListener('change', (e: Event) => {
+                const target = e.target as HTMLSelectElement;
+                (component as any)[propertyName] = target.value;
+                this.saveLevel();
+            });
+
+            return createListItem(label, select);
+        }
+
         const updateProperty = (newValue: any) => {
             (component as any)[propertyName] = newValue;
             this.saveLevel();
@@ -587,6 +634,7 @@ export default class EntityEditor {
                             propertyValue[property as keyof typeof propertyValue],
                             propertyValue,
                             entityId,
+                            enumValues,
                         ),
                     );
                 }

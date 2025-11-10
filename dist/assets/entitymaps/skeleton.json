@@ -8,7 +8,7 @@
           "assetId": "skeleton_full",
           "width": 32,
           "height": 32,
-          "row": 6,
+          "row": 2,
           "column": 1,
           "zIndex": 2,
           "flip": 32,
@@ -19,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 928,
-            "y": 448
+            "x": 1127,
+            "y": 246
           },
           "scale": {
             "x": 2,
@@ -35,7 +35,7 @@
         "properties": {
           "velocity": {
             "x": 0,
-            "y": 50
+            "y": 0
           },
           "direction": {
             "x": 0,
@@ -62,7 +62,7 @@
             "x": 16,
             "y": 1
           },
-          "lastCollision": 506477.30000000075
+          "lastCollision": 90331.19999999995
         }
       },
       {
@@ -71,7 +71,7 @@
           "projectileVelocity": 200,
           "repeatFrequency": 500,
           "projectileDuration": 7500,
-          "hitPercentDamage": 2,
+          "hitPercentDamage": 15,
           "isFriendly": false,
           "lastEmissionTime": 0
         }
@@ -99,43 +99,6 @@
         "properties": {}
       },
       {
-        "name": "ScriptComponent",
-        "properties": {
-          "scripts": [
-            {
-              "movement": {
-                "x": 50,
-                "y": 0
-              },
-              "duration": 2000
-            },
-            {
-              "movement": {
-                "x": 0,
-                "y": 50
-              },
-              "duration": 2000
-            },
-            {
-              "movement": {
-                "x": -50,
-                "y": 0
-              },
-              "duration": 2000
-            },
-            {
-              "movement": {
-                "x": 0,
-                "y": -50
-              },
-              "duration": 2000
-            }
-          ],
-          "currentActionIndex": 0,
-          "actionStart": 429681.200000003
-        }
-      },
-      {
         "name": "HighlightComponent",
         "properties": {
           "isHighlighted": false,
@@ -153,6 +116,14 @@
           "hasDamageOverTime": false,
           "damagePerSecond": 0,
           "lastDamageTime": 0
+        }
+      },
+      {
+        "name": "DropItemOnDeathComponent",
+        "properties": {
+          "droppedItem": "health",
+          "droppedItemValue": 35,
+          "dropPercentage": 50
         }
       },
       {
