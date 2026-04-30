@@ -2,7 +2,6 @@ import { describe, expect, test } from '@jest/globals';
 
 import Component, { IComponent } from '../../../engine/ecs/Component';
 import Entity from '../../../engine/ecs/Entity';
-import Pool from '../../../engine/ecs/Pool';
 import Registry from '../../../engine/ecs/Registry';
 import System, { ISystem } from '../../../engine/ecs/System';
 
@@ -21,8 +20,8 @@ describe('Testing Registry related functions', () => {
         const entity = registry.createEntity();
 
         expect(entity.getId()).toBe(0);
-        expect(entity.registry).toEqual(registry);
-        expect(registry.entitiesToBeAdded.length).toBe(1);
+        expect(entity.getRegistry()).toEqual(registry);
+        expect(registry.getPendingEntityAddCount()).toBe(1);
     });
 
     test('Should add entity to registry entities to be killed', () => {
@@ -30,19 +29,22 @@ describe('Testing Registry related functions', () => {
         const entity = new Entity(1, registry);
         registry.killEntity(entity);
 
-        expect(registry.entitiesToBeKilled.length).toBe(1);
+        expect(registry.getPendingEntityKillCount()).toBe(1);
     });
 
     test('Should create entity with id from the free ids', () => {
         const registry = new Registry();
-        registry.freeIds = [999];
+        const recycledEntity = registry.createEntity();
+        registry.update();
+        recycledEntity.kill();
+        registry.update();
 
         const entity = registry.createEntity();
 
-        expect(entity.getId()).toBe(999);
-        expect(entity.registry).toEqual(registry);
-        expect(registry.entitiesToBeAdded.length).toBe(1);
-        expect(registry.freeIds.length).toBe(0);
+        expect(entity.getId()).toBe(recycledEntity.getId());
+        expect(entity.getRegistry()).toEqual(registry);
+        expect(registry.getPendingEntityAddCount()).toBe(1);
+        expect(registry.getReusableEntityIdCount()).toBe(0);
     });
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +66,7 @@ describe('Testing Registry related functions', () => {
 
         entity.addComponent(MyComponent, 1);
 
-        expect(registry.entityComponentSignatures[0].test(0)).toBe(true);
+        expect(entity.hasComponent(MyComponent)).toBe(true);
     });
 
     test('Should set entity component signature at bit 0 and 1 for one entity and multiple components', () => {
@@ -77,8 +79,8 @@ describe('Testing Registry related functions', () => {
         entity.addComponent(MyComponent1);
         entity.addComponent(MyComponent2);
 
-        expect(registry.entityComponentSignatures[0].test(0)).toBe(true);
-        expect(registry.entityComponentSignatures[0].test(1)).toBe(true);
+        expect(entity.hasComponent(MyComponent1)).toBe(true);
+        expect(entity.hasComponent(MyComponent2)).toBe(true);
     });
 
     test('Should set entity component signature at bit 0 for more entities and one component', () => {
@@ -93,9 +95,9 @@ describe('Testing Registry related functions', () => {
         entity2.addComponent(MyComponent);
         entity3.addComponent(MyComponent);
 
-        expect(registry.entityComponentSignatures[0].test(0)).toBe(true);
-        expect(registry.entityComponentSignatures[1].test(0)).toBe(true);
-        expect(registry.entityComponentSignatures[2].test(0)).toBe(true);
+        expect(entity1.hasComponent(MyComponent)).toBe(true);
+        expect(entity2.hasComponent(MyComponent)).toBe(true);
+        expect(entity3.hasComponent(MyComponent)).toBe(true);
     });
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -110,12 +112,12 @@ describe('Testing Registry related functions', () => {
 
         entity.addComponent(MyComponent);
 
-        const pool = registry.componentPools[0] as Pool<MyComponent>;
+        const pool = registry.getComponentPool(MyComponent);
 
-        expect(registry.componentPools.length).toBe(1);
-        expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex[0]).toBe(0);
-        expect(pool.indexToEntityId[0]).toBe(0);
+        expect(registry.getComponentPoolCount()).toBe(1);
+        expect(pool?.getByIndex(0)).toEqual(new MyComponent());
+        expect(pool?.getEntityIndex(0)).toBe(0);
+        expect(pool?.getEntityIdAtIndex(0)).toBe(0);
     });
 
     test('Should add entities and components to component pools when adding component for more entities', () => {
@@ -128,15 +130,15 @@ describe('Testing Registry related functions', () => {
         entity1.addComponent(MyComponent);
         entity2.addComponent(MyComponent);
 
-        const pool = registry.componentPools[0] as Pool<MyComponent>;
+        const pool = registry.getComponentPool(MyComponent);
 
-        expect(registry.componentPools.length).toBe(1);
-        expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex[0]).toBe(0);
-        expect(pool.indexToEntityId[0]).toBe(0);
-        expect(pool.data[1]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex[1]).toBe(1);
-        expect(pool.indexToEntityId[1]).toBe(1);
+        expect(registry.getComponentPoolCount()).toBe(1);
+        expect(pool?.getByIndex(0)).toEqual(new MyComponent());
+        expect(pool?.getEntityIndex(0)).toBe(0);
+        expect(pool?.getEntityIdAtIndex(0)).toBe(0);
+        expect(pool?.getByIndex(1)).toEqual(new MyComponent());
+        expect(pool?.getEntityIndex(1)).toBe(1);
+        expect(pool?.getEntityIdAtIndex(1)).toBe(1);
     });
 
     test('Should add entity and components to component pools when adding different components for same entity', () => {
@@ -149,16 +151,16 @@ describe('Testing Registry related functions', () => {
         entity.addComponent(MyComponent1);
         entity.addComponent(MyComponent2);
 
-        const pool1 = registry.componentPools[0] as Pool<MyComponent1>;
-        const pool2 = registry.componentPools[1] as Pool<MyComponent1>;
+        const pool1 = registry.getComponentPool(MyComponent1);
+        const pool2 = registry.getComponentPool(MyComponent2);
 
-        expect(registry.componentPools.length).toBe(2);
-        expect(pool1.data[0]).toEqual(new MyComponent1());
-        expect(pool1.entityIdToIndex[0]).toBe(0);
-        expect(pool1.indexToEntityId[0]).toBe(0);
-        expect(pool2.data[0]).toEqual(new MyComponent2());
-        expect(pool2.entityIdToIndex[0]).toBe(0);
-        expect(pool2.indexToEntityId[0]).toBe(0);
+        expect(registry.getComponentPoolCount()).toBe(2);
+        expect(pool1?.getByIndex(0)).toEqual(new MyComponent1());
+        expect(pool1?.getEntityIndex(0)).toBe(0);
+        expect(pool1?.getEntityIdAtIndex(0)).toBe(0);
+        expect(pool2?.getByIndex(0)).toEqual(new MyComponent2());
+        expect(pool2?.getEntityIndex(0)).toBe(0);
+        expect(pool2?.getEntityIdAtIndex(0)).toBe(0);
     });
 
     test('Should remove entity and component from component pools when removing component', () => {
@@ -170,12 +172,12 @@ describe('Testing Registry related functions', () => {
         entity.addComponent(MyComponent);
         entity.removeComponent(MyComponent);
 
-        const pool = registry.componentPools[0] as Pool<MyComponent>;
+        const pool = registry.getComponentPool(MyComponent);
 
-        expect(registry.componentPools.length).toBe(1);
-        expect(pool.data[0]).toBe(undefined);
-        expect(pool.entityIdToIndex[0]).toBe(undefined);
-        expect(pool.indexToEntityId[0]).toBe(undefined);
+        expect(registry.getComponentPoolCount()).toBe(1);
+        expect(pool?.getByIndex(0)).toBe(undefined);
+        expect(pool?.getEntityIndex(0)).toBe(undefined);
+        expect(pool?.getEntityIdAtIndex(0)).toBe(undefined);
     });
 
     test('Should remove entity and component from component pools when removing component with more entities', () => {
@@ -189,15 +191,15 @@ describe('Testing Registry related functions', () => {
         entity2.addComponent(MyComponent);
         entity1.removeComponent(MyComponent);
 
-        const pool = registry.componentPools[0] as Pool<MyComponent>;
+        const pool = registry.getComponentPool(MyComponent);
 
-        expect(registry.componentPools.length).toBe(1);
-        expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex[0]).toBe(undefined);
-        expect(pool.indexToEntityId[1]).toBe(undefined);
-        expect(pool.data[1]).toEqual(undefined);
-        expect(pool.entityIdToIndex[1]).toBe(0);
-        expect(pool.indexToEntityId[0]).toBe(1);
+        expect(registry.getComponentPoolCount()).toBe(1);
+        expect(pool?.getByIndex(0)).toEqual(new MyComponent());
+        expect(pool?.getEntityIndex(0)).toBe(undefined);
+        expect(pool?.getEntityIdAtIndex(1)).toBe(undefined);
+        expect(pool?.getByIndex(1)).toEqual(undefined);
+        expect(pool?.getEntityIndex(1)).toBe(0);
+        expect(pool?.getEntityIdAtIndex(0)).toBe(1);
     });
 
     test('Should remove entity and component from component pools when removing component with more entities when adding different components for same entity', () => {
@@ -212,16 +214,16 @@ describe('Testing Registry related functions', () => {
 
         entity.removeComponent(MyComponent1);
 
-        const pool1 = registry.componentPools[0] as Pool<MyComponent1>;
-        const pool2 = registry.componentPools[1] as Pool<MyComponent1>;
+        const pool1 = registry.getComponentPool(MyComponent1);
+        const pool2 = registry.getComponentPool(MyComponent2);
 
-        expect(registry.componentPools.length).toBe(2);
-        expect(pool1.data[0]).toEqual(undefined);
-        expect(pool1.entityIdToIndex[0]).toBe(undefined);
-        expect(pool1.indexToEntityId[0]).toBe(undefined);
-        expect(pool2.data[0]).toEqual(new MyComponent2());
-        expect(pool2.entityIdToIndex[0]).toBe(0);
-        expect(pool2.indexToEntityId[0]).toBe(0);
+        expect(registry.getComponentPoolCount()).toBe(2);
+        expect(pool1?.getByIndex(0)).toEqual(undefined);
+        expect(pool1?.getEntityIndex(0)).toBe(undefined);
+        expect(pool1?.getEntityIdAtIndex(0)).toBe(undefined);
+        expect(pool2?.getByIndex(0)).toEqual(new MyComponent2());
+        expect(pool2?.getEntityIndex(0)).toBe(0);
+        expect(pool2?.getEntityIdAtIndex(0)).toBe(0);
     });
 
     test('Should return true for entity having component', () => {
@@ -316,7 +318,7 @@ describe('Testing Registry related functions', () => {
 
         registry.addSystem(MySystem);
 
-        expect(registry.systems.get(0)).toBeInstanceOf(MySystem);
+        expect(registry.getSystem(MySystem)).toBeInstanceOf(MySystem);
     });
 
     test('Should add multiple systems to registry', () => {
@@ -328,8 +330,8 @@ describe('Testing Registry related functions', () => {
         registry.addSystem(MySystem1);
         registry.addSystem(MySystem2);
 
-        expect(registry.systems.get(0)).toBeInstanceOf(MySystem1);
-        expect(registry.systems.get(1)).toBeInstanceOf(MySystem2);
+        expect(registry.getSystem(MySystem1)).toBeInstanceOf(MySystem1);
+        expect(registry.getSystem(MySystem2)).toBeInstanceOf(MySystem2);
     });
 
     test('Should remove system from registry', () => {
@@ -340,7 +342,7 @@ describe('Testing Registry related functions', () => {
         registry.addSystem(MySystem);
         registry.removeSystem(MySystem);
 
-        expect(registry.systems.get(0)).toBe(undefined);
+        expect(registry.getSystem(MySystem)).toBe(undefined);
     });
 
     test('Should remove system from registry with multiple systems existing', () => {
@@ -353,7 +355,7 @@ describe('Testing Registry related functions', () => {
         registry.addSystem(MySystem2);
         registry.removeSystem(MySystem1);
 
-        expect(registry.systems.get(0)).toBe(undefined);
+        expect(registry.getSystem(MySystem1)).toBe(undefined);
     });
 
     test('Should return true when checking if system exists in registry', () => {
@@ -840,7 +842,7 @@ describe('Testing Registry related functions', () => {
         entity.kill();
         entity.kill();
 
-        expect(registry.entitiesToBeKilled.length).toEqual(1);
+        expect(registry.getPendingEntityKillCount()).toEqual(1);
     });
 
     test('Should remove entities from system with multiple entities, when updating registry', () => {
@@ -1178,34 +1180,34 @@ describe('Testing Registry related functions', () => {
         const system1 = registry.getSystem(MySystem1);
         const system2 = registry.getSystem(MySystem2);
 
-        expect(registry.numEntities).toBe(2);
-        expect(registry.componentPools.length).toBe(2);
-        expect(registry.entityComponentSignatures.length).toBe(2);
+        expect(registry.getAllocatedEntityCount()).toBe(2);
+        expect(registry.getComponentPoolCount()).toBe(2);
+        expect(registry.getEntitySignatureCount()).toBe(2);
 
-        expect(registry.entityPerTag.size).toBe(2);
-        expect(registry.tagPerEntity.size).toBe(2);
+        expect(registry.getTagCount()).toBe(2);
+        expect(registry.getTaggedEntityCount()).toBe(2);
 
-        expect(registry.entitiesPerGroup.size).toBe(1);
-        expect(registry.groupPerEntity.size).toBe(2);
+        expect(registry.getGroupCount()).toBe(1);
+        expect(registry.getGroupedEntityCount()).toBe(2);
 
-        expect(registry.freeIds.length).toBe(0);
+        expect(registry.getReusableEntityIdCount()).toBe(0);
 
         expect(system1?.getSystemEntities().length).toEqual(1);
         expect(system2?.getSystemEntities().length).toEqual(1);
 
         registry.clear();
 
-        expect(registry.numEntities).toBe(0);
-        expect(registry.componentPools.length).toBe(0);
-        expect(registry.entityComponentSignatures.length).toBe(0);
+        expect(registry.getAllocatedEntityCount()).toBe(0);
+        expect(registry.getComponentPoolCount()).toBe(0);
+        expect(registry.getEntitySignatureCount()).toBe(0);
 
-        expect(registry.entityPerTag.size).toBe(0);
-        expect(registry.tagPerEntity.size).toBe(0);
+        expect(registry.getTagCount()).toBe(0);
+        expect(registry.getTaggedEntityCount()).toBe(0);
 
-        expect(registry.entitiesPerGroup.size).toBe(0);
-        expect(registry.groupPerEntity.size).toBe(0);
+        expect(registry.getGroupCount()).toBe(0);
+        expect(registry.getGroupedEntityCount()).toBe(0);
 
-        expect(registry.freeIds.length).toBe(0);
+        expect(registry.getReusableEntityIdCount()).toBe(0);
 
         expect(system1?.getSystemEntities().length).toEqual(0);
         expect(system2?.getSystemEntities().length).toEqual(0);
