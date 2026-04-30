@@ -1,5 +1,5 @@
-import { Engine, Entity, serializeEntity, MouseButton, EntityMap, Rectangle, Vector } from '../engine';
-import { gameComponentCatalog } from '../game/componentCatalog';
+import { Engine, Entity, EntityMap, MouseButton, Rectangle, Vector, serializeEntity } from '../engine';
+import { gameComponentCatalog } from '../game/components/componentCatalog';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import EntityEditor from './entity-editor/EntityEditor';
@@ -7,12 +7,12 @@ import EntityDeleteEvent from './events/EntityDeleteEvent';
 import EntityPasteEvent from './events/EntityPasteEvent';
 import ScrollEvent from './events/ScrollEvent';
 import { closeAlert } from './gui';
+import { loadLevelFromLocalStorage, saveLevelToLocalStorage } from './persistence/levelPersistence';
 import {
     getAllLevelKeysFromLocalStorage,
     loadEditorSettingsFromLocalStorage,
     saveEditorSettingsToLocalStorage,
 } from './persistence/persistence';
-import { loadLevelFromLocalStorage, saveLevelToLocalStorage } from './persistence/levelPersistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
 import VersionManager from './version-manager/VersionManager';
@@ -61,8 +61,6 @@ export default class Editor extends Engine {
     constructor() {
         super();
         this.levelManager.setComponentCatalog(gameComponentCatalog);
-
-        console.log("gameComponentCatalog: ", gameComponentCatalog);
 
         this.versionManager = new VersionManager();
         this.entityEditor = new EntityEditor(
