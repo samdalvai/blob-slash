@@ -65,6 +65,8 @@ export default class Entity {
         this.registry.addComponent(this, ComponentClass, ...args);
     }
 
+    // TODO: removing a component from an entity requires explicitely removing it 
+    // also from related system, find a way to do it automatically and in an efficient way
     removeComponent<T extends ComponentClass>(ComponentClass: T): void {
         this.registry.removeComponent(this, ComponentClass);
     }
