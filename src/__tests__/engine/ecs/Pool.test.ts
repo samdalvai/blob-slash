@@ -24,8 +24,8 @@ describe('Testing Pool related functions', () => {
         pool.set(0, component);
 
         expect(pool.data[0]).toEqual(component);
-        expect(pool.entityIdToIndex.get(0)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(0);
+        expect(pool.entityIdToIndex[0]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(0);
     });
 
     test('Should correctly set component pool for two entities and two components', () => {
@@ -40,10 +40,10 @@ describe('Testing Pool related functions', () => {
 
         expect(pool.data[0]).toEqual(component1);
         expect(pool.data[1]).toEqual(component2);
-        expect(pool.entityIdToIndex.get(0)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(0);
-        expect(pool.entityIdToIndex.get(1)).toBe(1);
-        expect(pool.indexToEntityId.get(1)).toBe(1);
+        expect(pool.entityIdToIndex[0]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(0);
+        expect(pool.entityIdToIndex[1]).toBe(1);
+        expect(pool.indexToEntityId[1]).toBe(1);
     });
 
     test('Should remove entity and component from component pool', () => {
@@ -57,8 +57,8 @@ describe('Testing Pool related functions', () => {
 
         expect(pool.isEmpty()).toBe(true);
         expect(pool.getSize()).toBe(0);
-        expect(pool.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool.indexToEntityId.get(0)).toBe(undefined);
+        expect(pool.entityIdToIndex[0]).toBe(undefined);
+        expect(pool.indexToEntityId[0]).toBe(undefined);
     });
 
     test('Should remove two entities and components from component pool', () => {
@@ -76,10 +76,10 @@ describe('Testing Pool related functions', () => {
 
         expect(pool.isEmpty()).toBe(true);
         expect(pool.getSize()).toBe(0);
-        expect(pool.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool.indexToEntityId.get(0)).toBe(undefined);
-        expect(pool.entityIdToIndex.get(1)).toBe(undefined);
-        expect(pool.indexToEntityId.get(1)).toBe(undefined);
+        expect(pool.entityIdToIndex[0]).toBe(undefined);
+        expect(pool.indexToEntityId[0]).toBe(undefined);
+        expect(pool.entityIdToIndex[1]).toBe(undefined);
+        expect(pool.indexToEntityId[1]).toBe(undefined);
     });
 
     test('When removing entity from component pool, the last component should occupy the freed up space', () => {
@@ -96,8 +96,8 @@ describe('Testing Pool related functions', () => {
 
         expect(pool.data[0]).toEqual(component1);
         expect(pool.data[1]).toEqual(undefined);
-        expect(pool.entityIdToIndex.get(1)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(1);
+        expect(pool.entityIdToIndex[1]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(1);
     });
 
     test('Should remove entity and component from component pool if entity id exists', () => {
@@ -111,8 +111,8 @@ describe('Testing Pool related functions', () => {
 
         expect(pool.isEmpty()).toBe(true);
         expect(pool.getSize()).toBe(0);
-        expect(pool.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool.indexToEntityId.get(0)).toBe(undefined);
+        expect(pool.entityIdToIndex[0]).toBe(undefined);
+        expect(pool.indexToEntityId[0]).toBe(undefined);
     });
 
     test('Should not remove entity and component from component pool if entity id does not exists', () => {
@@ -125,8 +125,8 @@ describe('Testing Pool related functions', () => {
         pool.removeEntityFromPool(1);
 
         expect(pool.data[0]).toEqual(component);
-        expect(pool.entityIdToIndex.get(0)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(0);
+        expect(pool.entityIdToIndex[0]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(0);
     });
 
     test('Should retrieve component of entity when having one entity', () => {
