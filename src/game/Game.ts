@@ -1,4 +1,4 @@
-import { Engine, Entity, GameStatus } from '../engine';
+import { Engine, GameStatus } from '../engine';
 import { AnimationComponent, PlayerControlComponent, RigidBodyComponent, SpriteComponent, TransformComponent } from './components';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';

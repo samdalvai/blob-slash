@@ -261,44 +261,44 @@ export default class Registry {
     // Component management
     ////////////////////////////////////////////////////////////////////////////////
 
-    addComponent = <T extends Component>(
+    addComponent = <T extends ComponentClass>(
         entity: Entity,
-        ComponentClass: ComponentClass<T>,
-        ...args: ConstructorParameters<typeof ComponentClass>
+        ComponentClass: T,
+        ...args: ConstructorParameters<T>
     ) => {
         const componentId = ComponentClass.getComponentId();
         const entityId = entity.getId();
 
         if (this.componentPools[componentId] === undefined) {
-            const newComponentPool = new Pool<T>();
+            const newComponentPool = new Pool<InstanceType<T>>();
             this.componentPools[componentId] = newComponentPool;
         }
 
-        const newComponent = new ComponentClass(...args);
-        (this.componentPools[componentId] as Pool<T>).set(entityId, newComponent);
+        const newComponent = new ComponentClass(...args) as InstanceType<T>;
+        (this.componentPools[componentId] as Pool<InstanceType<T>>).set(entityId, newComponent);
 
         this.entityComponentSignatures[entityId].set(componentId);
         // console.log('Component with id ' + componentId + ' was added to entity with id ' + entityId);
     };
 
-    removeComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>) => {
+    removeComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T) => {
         const componentId = ComponentClass.getComponentId();
         const entityId = entity.getId();
 
         // Remove the component from the component list for that entity
-        const componentPool = this.componentPools[componentId] as Pool<T>;
+        const componentPool = this.componentPools[componentId] as Pool<InstanceType<T>>;
         componentPool?.remove(entityId);
 
         // Set this component signature for that entity to false
         this.entityComponentSignatures[entityId].remove(componentId);
     };
 
-    hasComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>): boolean => {
+    hasComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T): boolean => {
         return this.entityComponentSignatures[entity.getId()].test(ComponentClass.getComponentId());
     };
 
-    getComponent = <T extends Component>(entity: Entity, ComponentClass: ComponentClass<T>): T | undefined => {
-        return (this.componentPools[ComponentClass.getComponentId()] as Pool<T>)?.get(entity.getId());
+    getComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T): InstanceType<T> | undefined => {
+        return (this.componentPools[ComponentClass.getComponentId()] as Pool<InstanceType<T>>)?.get(entity.getId());
     };
 
     getAllEntityComponents = <T extends Component>(entity: Entity): T[] => {

@@ -107,7 +107,7 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
 
     /game
         main.ts             -> Game app entrypoint
-        /components         -> Entities components (sprite, transform, health, etc.) and Game component catalog for serialization/deserialization
+        /components         -> Entities components (sprite, transform, health, etc.) and component catalog
         /events             -> Game events (collision, hit, etc.)
         /systems            -> Game systems (movement, rendering, collision, etc.)
 
@@ -141,7 +141,7 @@ import { Component, System, Rectangle } from '../../engine';
 
 # Game Component Catalog
 
-Serializable game components are exposed through `src/game/componentCatalog.ts`. The catalog is built from the exports in `src/game/components/index.ts` and is passed to engine APIs that need to resolve component names, such as deserialization and entity duplication.
+Serializable game components are exposed through `src/game/components/componentCatalog.ts`. The catalog is built from the exports in `src/game/components/index.ts` and is passed to engine APIs that need to resolve component names, such as deserialization and entity duplication.
 
 When adding a component, export it from `src/game/components/index.ts`; that makes it available to the editor and the `gameComponentCatalog`.
 
