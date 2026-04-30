@@ -55,6 +55,19 @@ instead of reaching into arbitrary engine internals.
   - `src/engine/serialization` now contains only serialization and
     deserialization map conversion code.
   - Verification: `npm test` and `tsc --noEmit` pass.
+- 2026-04-30: Phase 5 complete.
+  - Added `src/game/main.ts` and `src/editor/main.ts`.
+  - Updated `game.html` and `editor.html` to load their app-specific
+    entrypoints.
+  - Removed the old shared `src/index.ts` app switch and all `IS_EDITOR`
+    usage.
+  - Updated `start:editor` to run `parcel editor.html`.
+  - Fixed `build:editor` to build `editor.html`.
+  - Verification: `npm test`, `tsc --noEmit`, `npm run build:game`, and
+    `npm run build:editor` pass. Parcel builds required escalation for LMDB
+    cache access and emitted stale Browserslist data warnings.
+  - `npm start` dev-server smoke test was attempted, but binding a local port
+    failed in the sandbox and the escalation request was declined.
 
 ## Current State
 
@@ -428,18 +441,18 @@ Acceptance checks:
 
 ### Phase 5: Split Game and Editor Entrypoints
 
-1. Add `src/game/main.ts`.
-2. Add `src/editor/main.ts`.
-3. Update `game.html` and `editor.html`.
-4. Remove the `IS_EDITOR` switch from `src/index.ts`, or delete `src/index.ts`
+1. [x] Add `src/game/main.ts`.
+2. [x] Add `src/editor/main.ts`.
+3. [x] Update `game.html` and `editor.html`.
+4. [x] Remove the `IS_EDITOR` switch from `src/index.ts`, or delete `src/index.ts`
    if no longer needed.
-5. Fix `build:editor`.
+5. [x] Fix `build:editor`.
 
 Acceptance checks:
 
-- `npm start` launches only the game app.
-- `npm run start:editor` launches only the editor app.
-- `npm run build:game` and `npm run build:editor` both target the correct HTML.
+- [x] `npm start` is wired to the game app entrypoint.
+- [x] `npm run start:editor` is wired to the editor app entrypoint.
+- [x] `npm run build:game` and `npm run build:editor` both target the correct HTML.
 
 ### Phase 6: Normalize App Imports
 

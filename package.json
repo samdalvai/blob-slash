@@ -4,14 +4,14 @@
     "description": "A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.",
     "scripts": {
         "start": "parcel game.html",
-        "start:editor": "IS_EDITOR=true parcel editor.html",
+        "start:editor": "parcel editor.html",
         "clean": "rm -rf .parcel-cache & find dist -maxdepth 1 -type f -exec rm {} +",
         "test": "jest src/__tests__/**/*",
         "test:perf": "jest src/__tests__/Performance.test.ts",
         "lint": "eslint . --ext .js,.ts",
         "lint:fix": "eslint . --ext .js,.ts --fix",
         "build:game": "parcel build game.html",
-        "build:editor": "parcel build game.html"
+        "build:editor": "parcel build editor.html"
     },
     "author": "Samuel Dalvai",
     "license": "MIT",
