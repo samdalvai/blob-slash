@@ -35,7 +35,7 @@ export default class System extends ISystem {
         return this._id;
     }
 
-    addEntityToSystem = (entity: Entity) => {
+    addEntityToSystem(entity: Entity) {
         const entityId = entity.getId();
 
         if (this.entityIdToIndex.has(entityId)) {
@@ -44,9 +44,9 @@ export default class System extends ISystem {
 
         this.entityIdToIndex.set(entityId, this.entities.length);
         this.entities.push(entity);
-    };
+    }
 
-    removeEntityFromSystem = (entity: Entity) => {
+    removeEntityFromSystem(entity: Entity) {
         const entityId = entity.getId();
         const entityIndex = this.entityIdToIndex.get(entityId);
 
@@ -64,27 +64,27 @@ export default class System extends ISystem {
         if (entityIndex !== lastEntityIndex) {
             this.entityIdToIndex.set(lastEntity.getId(), entityIndex);
         }
-    };
+    }
 
-    hasEntity = (entity: Entity) => {
+    hasEntity(entity: Entity) {
         return this.entityIdToIndex.has(entity.getId());
-    };
+    }
 
-    getSystemEntities = () => {
+    getSystemEntities() {
         return this.entities;
-    };
+    }
 
-    getComponentSignature = () => {
+    getComponentSignature() {
         return this.componentSignature;
-    };
+    }
 
-    requireComponent = <T extends ComponentClass>(ComponentClass: T) => {
+    requireComponent<T extends ComponentClass>(ComponentClass: T) {
         const componentId = ComponentClass.getComponentId();
         this.componentSignature.set(componentId);
-    };
+    }
 
-    removeAllEntities = () => {
+    removeAllEntities() {
         this.entities = [];
         this.entityIdToIndex.clear();
-    };
+    }
 }
