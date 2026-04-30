@@ -4,7 +4,6 @@ import Entity from '../../engine/ecs/Entity';
 import Registry from '../../engine/ecs/Registry';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { EntityMap } from '../../engine/types/map';
 import { Rectangle, Vector } from '../../engine/types/utils';
 import { isValidEntityMap } from '../../engine/utils/validation';
@@ -16,6 +15,7 @@ import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import { saveCurrentLevelToLocalStorage } from '../persistence/levelPersistence';
 import VersionManager from '../version-manager/VersionManager';
 
 export default class EntityEditor {

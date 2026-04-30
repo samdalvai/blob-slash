@@ -1,8 +1,8 @@
-import AssetStore from '../asset-store/AssetStore';
-import Entity from '../ecs/Entity';
-import Registry from '../ecs/Registry';
-import { LevelMap } from '../types/map';
-import { serializeEntities, serializeLevel } from './serialization';
+import AssetStore from '../../engine/asset-store/AssetStore';
+import Entity from '../../engine/ecs/Entity';
+import Registry from '../../engine/ecs/Registry';
+import { serializeEntities, serializeLevel } from '../../engine/serialization/serialization';
+import { LevelMap } from '../../engine/types/map';
 
 export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): void => {
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
@@ -34,7 +34,11 @@ export const saveEntitiesToJson = (entities: Entity[]): void => {
     console.log('Entity snapshot saved to json');
 };
 
-export const saveCurrentLevelToLocalStorage = (levelId: string | null, registry: Registry, assetStore: AssetStore) => {
+export const saveCurrentLevelToLocalStorage = (
+    levelId: string | null,
+    registry: Registry,
+    assetStore: AssetStore,
+) => {
     if (!levelId) {
         throw new Error('Could not determine currently selected level');
     }
