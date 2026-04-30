@@ -115,7 +115,7 @@ describe('Testing System related functions', () => {
         expect(system?.getSystemEntities()[0]).toEqual(entity);
     });
 
-    test('Removing a component from an entity after the entity has been initialized and updated should remove the entity to the related system', () => {
+    test('Removing a component from an entity after the entity has been initialized and updated should remove the entity from the related system', () => {
         class MyComponent extends Component {}
         class MySystem extends System {
             constructor() {

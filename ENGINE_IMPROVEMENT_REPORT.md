@@ -142,6 +142,8 @@ Priority: Medium
 
 ### 4. Automatically update system membership when components change
 
+Status: skipped
+
 References:
 
 - `src/engine/ecs/Registry.ts:264`
