@@ -1,5 +1,5 @@
-export type ComponentClass<T extends Component> = {
-    new (...args: any[]): T;
+export type ComponentClass<T extends Component = Component, Args extends unknown[] = any[]> = {
+    new (...args: Args): T;
     getComponentId(): number;
 };
 

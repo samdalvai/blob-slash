@@ -1,4 +1,4 @@
-import Component, { ComponentClass } from './Component';
+import { ComponentClass } from './Component';
 import Entity from './Entity';
 import Signature from './Signature';
 
@@ -54,7 +54,7 @@ export default class System extends ISystem {
         return this.componentSignature;
     };
 
-    requireComponent = <T extends Component>(ComponentClass: ComponentClass<T>) => {
+    requireComponent = <T extends ComponentClass>(ComponentClass: T) => {
         const componentId = ComponentClass.getComponentId();
         this.componentSignature.set(componentId);
     };

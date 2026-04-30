@@ -58,23 +58,23 @@ export default class Entity {
         this.registry.removeEntityGroup(this);
     };
 
-    addComponent = <T extends Component>(
-        ComponentClass: ComponentClass<T>,
-        ...args: ConstructorParameters<{ new (...args: any[]): T }>
+    addComponent = <T extends ComponentClass>(
+        ComponentClass: T,
+        ...args: ConstructorParameters<T>
     ): void => {
-        this.registry.addComponent<T>(this, ComponentClass, ...args);
+        this.registry.addComponent(this, ComponentClass, ...args);
     };
 
-    removeComponent = <T extends Component>(ComponentClass: ComponentClass<T>): void => {
-        this.registry.removeComponent<T>(this, ComponentClass);
+    removeComponent = <T extends ComponentClass>(ComponentClass: T): void => {
+        this.registry.removeComponent(this, ComponentClass);
     };
 
-    hasComponent = <T extends Component>(ComponentClass: ComponentClass<T>): boolean => {
-        return this.registry.hasComponent<T>(this, ComponentClass);
+    hasComponent = <T extends ComponentClass>(ComponentClass: T): boolean => {
+        return this.registry.hasComponent(this, ComponentClass);
     };
 
-    getComponent = <T extends Component>(ComponentClass: ComponentClass<T>): T | undefined => {
-        return this.registry.getComponent<T>(this, ComponentClass);
+    getComponent = <T extends ComponentClass>(ComponentClass: T): InstanceType<T> | undefined => {
+        return this.registry.getComponent(this, ComponentClass);
     };
 
     getComponents = <T extends Component>(): T[] => {
