@@ -369,7 +369,7 @@ export default class Registry {
             );
         }
 
-        if (system.getSystemEntities().indexOf(entity) !== -1) {
+        if (system.hasEntity(entity)) {
             throw new Error(
                 'Entity with id ' + entityId + ' is already present in system with id ' + SystemClass.getSystemId(),
             );

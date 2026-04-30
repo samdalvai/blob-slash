@@ -19,11 +19,13 @@ export default class System extends ISystem {
     private static _id?: number;
     private componentSignature: Signature;
     private entities: Entity[];
+    private entityIdToIndex: Map<number, number>;
 
     constructor() {
         super();
         this.componentSignature = new Signature();
         this.entities = [];
+        this.entityIdToIndex = new Map();
     }
 
     static getSystemId() {
@@ -34,16 +36,38 @@ export default class System extends ISystem {
     }
 
     addEntityToSystem = (entity: Entity) => {
+        const entityId = entity.getId();
+
+        if (this.entityIdToIndex.has(entityId)) {
+            return;
+        }
+
+        this.entityIdToIndex.set(entityId, this.entities.length);
         this.entities.push(entity);
     };
 
     removeEntityFromSystem = (entity: Entity) => {
-        const entityIndex = this.entities.indexOf(entity);
-        if (entityIndex === -1) {
+        const entityId = entity.getId();
+        const entityIndex = this.entityIdToIndex.get(entityId);
+
+        if (entityIndex === undefined) {
             return;
         }
-        this.entities[entityIndex] = this.entities[this.entities.length - 1];
+
+        const lastEntityIndex = this.entities.length - 1;
+        const lastEntity = this.entities[lastEntityIndex];
+
+        this.entities[entityIndex] = lastEntity;
         this.entities.pop();
+        this.entityIdToIndex.delete(entityId);
+
+        if (entityIndex !== lastEntityIndex) {
+            this.entityIdToIndex.set(lastEntity.getId(), entityIndex);
+        }
+    };
+
+    hasEntity = (entity: Entity) => {
+        return this.entityIdToIndex.has(entity.getId());
     };
 
     getSystemEntities = () => {
@@ -61,5 +85,6 @@ export default class System extends ISystem {
 
     removeAllEntities = () => {
         this.entities = [];
+        this.entityIdToIndex.clear();
     };
 }
