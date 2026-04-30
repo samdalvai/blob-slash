@@ -9,6 +9,19 @@ Turn `src/engine` into the reusable core engine library, with no imports from
 own entrypoints. They should consume the engine through an explicit engine API
 instead of reaching into arbitrary engine internals.
 
+## Progress
+
+- 2026-04-30: Phase 1 complete.
+  - Added `src/engine/index.ts` as the public engine API barrel.
+  - Added `src/__tests__/engine/boundary/EngineBoundary.test.ts`.
+  - The boundary test blocks new `src/engine` imports from app code while
+    temporarily allowlisting the three known current leaks:
+    `src/engine/ecs/Registry.ts`,
+    `src/engine/serialization/deserialization.ts`, and
+    `src/engine/types/map.ts`.
+  - Those allowlisted leaks are intentionally left for Phase 2 and Phase 3.
+  - Verification: `npm test` and `tsc --noEmit` pass.
+
 ## Current State
 
 The folder layout already suggests the desired shape:
@@ -320,16 +333,20 @@ phase.
 
 ### Phase 1: Add the Engine API and Boundary Guard
 
-1. Add `src/engine/index.ts` with public exports.
-2. Add a dependency boundary test or script that fails when `src/engine`
+1. [x] Add `src/engine/index.ts` with public exports.
+2. [x] Add a dependency boundary test or script that fails when `src/engine`
    imports `src/game` or `src/editor`.
-3. Keep existing imports working while introducing the public API.
+3. [x] Keep existing imports working while introducing the public API.
 
 Acceptance checks:
 
-- `rg "../../game|../game|../../editor|../editor" src/engine` returns no app
+- [x] `rg "../../game|../game|../../editor|../editor" src/engine` returns no app
   imports, or only known temporary TODOs during the phase.
-- `npm test` still passes.
+- [x] `npm test` still passes.
+
+Status: the boundary guard currently allows only the three known TODO imports
+listed in Progress. Remove those allowlist entries as Phase 2 and Phase 3
+eliminate the underlying leaks.
 
 ### Phase 2: Introduce the Component Catalog
 
