@@ -184,6 +184,8 @@ Priority: High
 
 ### 5. Hide mutable internals behind explicit APIs
 
+Status: Done
+
 References:
 
 - `src/engine/ecs/Registry.ts:10`

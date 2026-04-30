@@ -8,10 +8,14 @@ export type SystemClass<T extends System> = {
 };
 
 export class ISystem {
-    static nextId = 0;
+    private static nextId = 0;
 
     static resetIds(): void {
-        this.nextId = 0;
+        ISystem.nextId = 0;
+    }
+
+    protected static getNextId(): number {
+        return ISystem.nextId++;
     }
 }
 
@@ -30,7 +34,7 @@ export default class System extends ISystem {
 
     static getSystemId() {
         if (this._id === undefined) {
-            this._id = ISystem.nextId++;
+            this._id = this.getNextId();
         }
         return this._id;
     }
@@ -70,12 +74,22 @@ export default class System extends ISystem {
         return this.entityIdToIndex.has(entity.getId());
     }
 
-    getSystemEntities() {
+    getSystemEntities(): readonly Entity[] {
         return this.entities;
     }
 
     getComponentSignature() {
-        return this.componentSignature;
+        return this.componentSignature.signature;
+    }
+
+    isInterestedIn(signature: number) {
+        const systemSignature = this.componentSignature.signature;
+
+        if (systemSignature === 0) {
+            return false;
+        }
+
+        return (signature & systemSignature) == systemSignature;
     }
 
     requireComponent<T extends ComponentClass>(ComponentClass: T) {

@@ -5,89 +5,109 @@ import System, { SystemClass } from './System';
 
 export default class Entity {
     private id: number;
-    registry: Registry;
-    toBeKilled: boolean;
+    private _registry: Registry;
+    private _toBeKilled: boolean;
 
     constructor(id: number, registry: Registry) {
         this.id = id;
-        this.registry = registry;
-        this.toBeKilled = false;
+        this._registry = registry;
+        this._toBeKilled = false;
     }
 
     getId() {
         return this.id;
     }
 
+    get registry() {
+        return this._registry;
+    }
+
+    getRegistry() {
+        return this._registry;
+    }
+
+    get toBeKilled() {
+        return this._toBeKilled;
+    }
+
+    isPendingKill() {
+        return this._toBeKilled;
+    }
+
+    markAsKilled() {
+        this._toBeKilled = true;
+    }
+
     kill() {
-        this.registry.killEntity(this);
+        this._registry.killEntity(this);
     }
 
     duplicate(componentCatalog: ComponentCatalog) {
-        return this.registry.duplicateEntity(this, componentCatalog);
+        return this._registry.duplicateEntity(this, componentCatalog);
     }
 
     tag(tag: string) {
-        this.registry.tagEntity(this, tag);
+        this._registry.tagEntity(this, tag);
     }
 
     getTag() {
-        return this.registry.getEntityTag(this);
+        return this._registry.getEntityTag(this);
     }
 
     hasTag(tag: string) {
-        return this.registry.entityHasTag(this, tag);
+        return this._registry.entityHasTag(this, tag);
     }
 
     removeTag() {
-        this.registry.removeEntityTag(this);
+        this._registry.removeEntityTag(this);
     }
 
     group(group: string) {
-        this.registry.groupEntity(this, group);
+        this._registry.groupEntity(this, group);
     }
 
     getGroup() {
-        return this.registry.getEntityGroup(this);
+        return this._registry.getEntityGroup(this);
     }
 
     belongsToGroup(group: string) {
-        return this.registry.entityBelongsToGroup(this, group);
+        return this._registry.entityBelongsToGroup(this, group);
     }
 
     removeGroup() {
-        this.registry.removeEntityGroup(this);
+        this._registry.removeEntityGroup(this);
     }
 
     addComponent<T extends ComponentClass>(
         ComponentClass: T,
         ...args: ConstructorParameters<T>
     ): void {
-        this.registry.addComponent(this, ComponentClass, ...args);
+        this._registry.addComponent(this, ComponentClass, ...args);
     }
 
     // TODO: removing a component from an entity requires explicitely removing it 
     // also from related system, find a way to do it automatically and in an efficient way
     removeComponent<T extends ComponentClass>(ComponentClass: T): void {
-        this.registry.removeComponent(this, ComponentClass);
+        this._registry.removeComponent(this, ComponentClass);
     }
 
     hasComponent<T extends ComponentClass>(ComponentClass: T): boolean {
-        return this.registry.hasComponent(this, ComponentClass);
+        return this._registry.hasComponent(this, ComponentClass);
     }
 
     getComponent<T extends ComponentClass>(ComponentClass: T): InstanceType<T> | undefined {
-        return this.registry.getComponent(this, ComponentClass);
+        return this._registry.getComponent(this, ComponentClass);
     }
 
     getComponents<T extends Component>(): T[] {
-        return this.registry.getAllEntityComponents(this);
+        return this._registry.getAllEntityComponents(this);
     }
 
     addToSystem<T extends System>(SystemClass: SystemClass<T>) {
-        this.registry.addEntityToSystem(this, SystemClass);
+        this._registry.addEntityToSystem(this, SystemClass);
     }
 
     removeFromSystem<T extends System>(SystemClass: SystemClass<T>) {
-        this.registry.removeEntityFromSystem(this, SystemClass);
+        this._registry.removeEntityFromSystem(this, SystemClass);
     }
 }
