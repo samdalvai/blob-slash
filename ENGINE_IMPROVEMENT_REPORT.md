@@ -544,6 +544,8 @@ Priority: Medium
 
 ### 3. Remove components by signature bits instead of scanning all pools
 
+Status: Skipped
+
 References:
 
 - `src/engine/ecs/Registry.ts:57`
@@ -761,6 +763,8 @@ Priority: High
 
 ### 9. Use the RAF timestamp to avoid extra `performance.now()` calls
 
+Status: Done
+
 References:
 
 - `src/engine/loop-strategy/RAFLoopStrategy.ts:5`
@@ -918,7 +922,7 @@ Priority: Low
 ### Phase 3: ECS performance
 
 1. [x] Add O(1) system entity removal.
-2. Remove killed entity components by signature bits.
+2. [x] Remove killed entity components by signature bits.
 3. Consider array-backed pool indexes.
 4. [x] Move high-count class methods to prototypes.
 
