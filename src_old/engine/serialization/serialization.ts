@@ -1,0 +1,52 @@
+import Engine from '../Engine';
+import AssetStore from '../asset-store/AssetStore';
+import Entity from '../ecs/Entity';
+import Registry from '../ecs/Registry';
+import { ComponentMap, EntityMap, LevelMap } from '../types/map';
+
+export const serializeEntity = (entity: Entity): EntityMap => {
+    const components: ComponentMap[] = [];
+
+    const entityComponents = entity.getComponents();
+
+    for (const component of entityComponents) {
+        components.push({
+            name: component.constructor.name,
+            properties: {
+                ...component,
+                ...('startTime' in component ? { startTime: 0 } : {}),
+                ...('followedEntity' in component ? { followedEntity: null } : {}),
+            },
+        } as ComponentMap);
+    }
+
+    const tag = entity.getTag();
+    const group = entity.getGroup();
+
+    return {
+        tag,
+        group,
+        components,
+    };
+};
+
+export const serializeEntities = (entities: Entity[]): EntityMap[] => {
+    const entitiesMap: EntityMap[] = [];
+
+    for (const entity of entities) {
+        entitiesMap.push(serializeEntity(entity));
+    }
+
+    return entitiesMap;
+};
+
+export const serializeLevel = (registry: Registry, assetStore: AssetStore): LevelMap => {
+    const entities = registry.getAllEntities();
+    return {
+        textures: assetStore.getTexturesFilePaths(),
+        sounds: assetStore.getSoundsFilePaths(),
+        mapWidth: Engine.mapWidth,
+        mapHeight: Engine.mapHeight,
+        entities: serializeEntities([...entities]),
+    };
+};
