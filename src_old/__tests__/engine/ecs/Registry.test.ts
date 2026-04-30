@@ -114,8 +114,8 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(1);
         expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex.get(0)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(0);
+        expect(pool.entityIdToIndex[0]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(0);
     });
 
     test('Should add entities and components to component pools when adding component for more entities', () => {
@@ -132,11 +132,11 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(1);
         expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex.get(0)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(0);
+        expect(pool.entityIdToIndex[0]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(0);
         expect(pool.data[1]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex.get(1)).toBe(1);
-        expect(pool.indexToEntityId.get(1)).toBe(1);
+        expect(pool.entityIdToIndex[1]).toBe(1);
+        expect(pool.indexToEntityId[1]).toBe(1);
     });
 
     test('Should add entity and components to component pools when adding different components for same entity', () => {
@@ -154,11 +154,11 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(2);
         expect(pool1.data[0]).toEqual(new MyComponent1());
-        expect(pool1.entityIdToIndex.get(0)).toBe(0);
-        expect(pool1.indexToEntityId.get(0)).toBe(0);
+        expect(pool1.entityIdToIndex[0]).toBe(0);
+        expect(pool1.indexToEntityId[0]).toBe(0);
         expect(pool2.data[0]).toEqual(new MyComponent2());
-        expect(pool2.entityIdToIndex.get(0)).toBe(0);
-        expect(pool2.indexToEntityId.get(0)).toBe(0);
+        expect(pool2.entityIdToIndex[0]).toBe(0);
+        expect(pool2.indexToEntityId[0]).toBe(0);
     });
 
     test('Should remove entity and component from component pools when removing component', () => {
@@ -174,8 +174,8 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(1);
         expect(pool.data[0]).toBe(undefined);
-        expect(pool.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool.indexToEntityId.get(0)).toBe(undefined);
+        expect(pool.entityIdToIndex[0]).toBe(undefined);
+        expect(pool.indexToEntityId[0]).toBe(undefined);
     });
 
     test('Should remove entity and component from component pools when removing component with more entities', () => {
@@ -193,11 +193,11 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(1);
         expect(pool.data[0]).toEqual(new MyComponent());
-        expect(pool.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool.indexToEntityId.get(1)).toBe(undefined);
+        expect(pool.entityIdToIndex[0]).toBe(undefined);
+        expect(pool.indexToEntityId[1]).toBe(undefined);
         expect(pool.data[1]).toEqual(undefined);
-        expect(pool.entityIdToIndex.get(1)).toBe(0);
-        expect(pool.indexToEntityId.get(0)).toBe(1);
+        expect(pool.entityIdToIndex[1]).toBe(0);
+        expect(pool.indexToEntityId[0]).toBe(1);
     });
 
     test('Should remove entity and component from component pools when removing component with more entities when adding different components for same entity', () => {
@@ -217,11 +217,11 @@ describe('Testing Registry related functions', () => {
 
         expect(registry.componentPools.length).toBe(2);
         expect(pool1.data[0]).toEqual(undefined);
-        expect(pool1.entityIdToIndex.get(0)).toBe(undefined);
-        expect(pool1.indexToEntityId.get(0)).toBe(undefined);
+        expect(pool1.entityIdToIndex[0]).toBe(undefined);
+        expect(pool1.indexToEntityId[0]).toBe(undefined);
         expect(pool2.data[0]).toEqual(new MyComponent2());
-        expect(pool2.entityIdToIndex.get(0)).toBe(0);
-        expect(pool2.indexToEntityId.get(0)).toBe(0);
+        expect(pool2.entityIdToIndex[0]).toBe(0);
+        expect(pool2.indexToEntityId[0]).toBe(0);
     });
 
     test('Should return true for entity having component', () => {
