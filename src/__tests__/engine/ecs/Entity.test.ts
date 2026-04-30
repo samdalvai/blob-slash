@@ -1,9 +1,24 @@
-import { describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, test } from '@jest/globals';
 
 import Component, { IComponent } from '../../../engine/ecs/Component';
+import { createComponentCatalog } from '../../../engine/ecs/ComponentCatalog';
 import Registry from '../../../engine/ecs/Registry';
 import { ISystem } from '../../../engine/ecs/System';
-import { TransformComponent } from '../../../game/components';
+
+class TestTransformComponent extends Component {
+    position: { x: number; y: number };
+    scale: { x: number; y: number };
+
+    constructor(position = { x: 0, y: 0 }, scale = { x: 1, y: 1 }) {
+        super();
+        this.position = position;
+        this.scale = scale;
+    }
+}
+
+const componentCatalog = createComponentCatalog([
+    { name: 'TestTransformComponent', constructor: TestTransformComponent },
+]);
 
 describe('Testing Entity related functions', () => {
     beforeEach(() => {
@@ -61,11 +76,11 @@ describe('Testing Entity related functions', () => {
         const registry = new Registry();
 
         const entity = registry.createEntity();
-        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+        entity.addComponent(TestTransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
 
-        const entityCopy = entity.duplicate();
+        const entityCopy = entity.duplicate(componentCatalog);
         const components = entityCopy.getComponents();
-        expect(components[0]).toEqual(entity.getComponent(TransformComponent));
+        expect(components[0]).toEqual(entity.getComponent(TestTransformComponent));
         expect(components.length).toBe(1);
     });
 
@@ -73,17 +88,17 @@ describe('Testing Entity related functions', () => {
         const registry = new Registry();
 
         const entity = registry.createEntity();
-        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+        entity.addComponent(TestTransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
 
-        const entityCopy = entity.duplicate();
+        const entityCopy = entity.duplicate(componentCatalog);
 
-        const originalTransform = entity.getComponent(TransformComponent);
+        const originalTransform = entity.getComponent(TestTransformComponent);
         originalTransform!.position.x = 200;
         originalTransform!.position.y = 200;
 
         const components = entityCopy.getComponents();
-        expect(100).toEqual(entityCopy.getComponent(TransformComponent)!.position.x);
-        expect(100).toEqual(entityCopy.getComponent(TransformComponent)!.position.y);
+        expect(100).toEqual(entityCopy.getComponent(TestTransformComponent)!.position.x);
+        expect(100).toEqual(entityCopy.getComponent(TestTransformComponent)!.position.y);
         expect(components.length).toBe(1);
     });
 
@@ -94,7 +109,7 @@ describe('Testing Entity related functions', () => {
         entity.tag('test-tag');
         entity.group('test-group');
 
-        const entityCopy = entity.duplicate();
+        const entityCopy = entity.duplicate(componentCatalog);
         expect(entityCopy.getTag()).toEqual(undefined);
         expect(entityCopy.getGroup()).toEqual('test-group');
     });
@@ -103,21 +118,21 @@ describe('Testing Entity related functions', () => {
         const registry = new Registry();
 
         const entity = registry.createEntity();
-        entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
+        entity.addComponent(TestTransformComponent, { x: 100, y: 100 }, { x: 2, y: 2 });
 
-        const entityCopy1 = entity.duplicate();
+        const entityCopy1 = entity.duplicate(componentCatalog);
         registry.update();
 
-        const entityCopyTransform1 = entityCopy1.getComponent(TransformComponent);
+        const entityCopyTransform1 = entityCopy1.getComponent(TestTransformComponent);
         entityCopyTransform1!.position.x = 200;
         entityCopyTransform1!.position.y = 200;
         registry.update();
 
-        const entityCopy2 = entityCopy1.duplicate();
+        const entityCopy2 = entityCopy1.duplicate(componentCatalog);
         const components = entityCopy2.getComponents();
 
-        expect(entityCopy2.getComponent(TransformComponent)!.position.x).toEqual(200);
-        expect(entityCopy2.getComponent(TransformComponent)!.position.y).toEqual(200);
+        expect(entityCopy2.getComponent(TestTransformComponent)!.position.x).toEqual(200);
+        expect(entityCopy2.getComponent(TestTransformComponent)!.position.y).toEqual(200);
         expect(components.length).toBe(1);
     });
 });

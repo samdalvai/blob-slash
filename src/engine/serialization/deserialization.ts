@@ -108,6 +108,18 @@ export const getComponentConstructorParamNames = <T extends Component>(component
     return parseConstructorParameters(constructorString);
 };
 
+export const cloneComponentProperty = (property: any) => {
+    if (Array.isArray(property)) {
+        return [...property];
+    }
+
+    if (property !== null && typeof property === 'object') {
+        return { ...property };
+    }
+
+    return property;
+};
+
 const isNumeric = (str: string) => {
     return !isNaN(parseFloat(str));
 };

@@ -97,7 +97,7 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        const entityCopy = event.entity.duplicate();
+        const entityCopy = event.entity.duplicate(gameComponentCatalog);
 
         entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
 
