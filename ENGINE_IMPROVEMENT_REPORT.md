@@ -617,6 +617,8 @@ Priority: Medium
 
 ### 5. Consider arrays instead of `Map` for pool indexes
 
+Status: Done
+
 References:
 
 - `src/engine/ecs/Pool.ts:8`
@@ -923,7 +925,7 @@ Priority: Low
 
 1. [x] Add O(1) system entity removal.
 2. [x] Remove killed entity components by signature bits.
-3. Consider array-backed pool indexes.
+3. [x] Consider array-backed pool indexes.
 4. [x] Move high-count class methods to prototypes.
 
 ### Phase 4: Loading and utility cleanup
