@@ -1,6 +1,5 @@
 import Engine from '../engine/Engine';
 import Entity from '../engine/ecs/Entity';
-import { saveLevelToLocalStorage } from '../engine/serialization/persistence';
 import { serializeEntity } from '../engine/serialization/serialization';
 import { MouseButton } from '../engine/types/control';
 import { EntityMap } from '../engine/types/map';
@@ -18,6 +17,7 @@ import {
     loadEditorSettingsFromLocalStorage,
     saveEditorSettingsToLocalStorage,
 } from './persistence/persistence';
+import { loadLevelFromLocalStorage, saveLevelToLocalStorage } from './persistence/levelPersistence';
 import * as EditorSystems from './systems';
 import { EditorSettings } from './types';
 import VersionManager from './version-manager/VersionManager';
@@ -236,17 +236,27 @@ export default class Editor extends Engine {
 
         if (levelKeys.length > 0) {
             if (Editor.editorSettings.selectedLevel) {
-                const level = await this.levelManager.loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
+                const level = loadLevelFromLocalStorage(Editor.editorSettings.selectedLevel);
+                if (!level) {
+                    throw new Error('Could not read level from local storage');
+                }
+
+                await this.levelManager.loadLevelFromLevelMap(level);
                 this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
             } else {
-                const level = await this.levelManager.loadLevelFromLocalStorage(levelKeys[0]);
+                const level = loadLevelFromLocalStorage(levelKeys[0]);
+                if (!level) {
+                    throw new Error('Could not read level from local storage');
+                }
+
+                await this.levelManager.loadLevelFromLevelMap(level);
                 this.versionManager.addLevelVersion(levelKeys[0], level);
             }
         } else {
             console.log('No level available, loading default empty level');
             const { levelId, level } = this.levelManager.getDefaultLevel('level-0');
             saveLevelToLocalStorage(levelId, level);
-            await this.levelManager.loadLevelFromLocalStorage(levelId);
+            await this.levelManager.loadLevelFromLevelMap(level);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
             this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);

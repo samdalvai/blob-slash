@@ -45,6 +45,16 @@ instead of reaching into arbitrary engine internals.
   - Added game-side coverage that duplicates an entity with a real game
     component through `gameComponentCatalog`.
   - Verification: `npm test` and `tsc --noEmit` pass.
+- 2026-04-30: Phase 4 complete.
+  - Moved JSON download and level/entity localStorage helpers from
+    `src/engine/serialization/persistence.ts` to
+    `src/editor/persistence/levelPersistence.ts`.
+  - Removed `src/engine/serialization/persistence.ts`.
+  - Removed `LevelManager.loadLevelFromLocalStorage`; editor code now loads a
+    `LevelMap` from localStorage and passes it to `loadLevelFromLevelMap`.
+  - `src/engine/serialization` now contains only serialization and
+    deserialization map conversion code.
+  - Verification: `npm test` and `tsc --noEmit` pass.
 
 ## Current State
 
@@ -79,8 +89,6 @@ reuse:
 - `Engine` owns browser DOM discovery through `document.getElementById('game-canvas')`.
 - `Engine` stores global mutable runtime state on static fields
   (`mapWidth`, `mapHeight`, mouse positions, window size, game status).
-- `src/engine/serialization/persistence.ts` mixes pure serialization with
-  browser-specific behaviors such as `Blob`, download links, and `localStorage`.
 - `LevelManager` still depends on global `Engine` state for map boundaries.
 - The editor imports game components and systems directly. That may be fine for
   an editor app dedicated to this game, but it should be done through a
@@ -406,17 +414,17 @@ Acceptance checks:
 
 ### Phase 4: Separate Pure Serialization from Browser Persistence
 
-1. Keep pure map conversion in `src/engine/serialization`.
-2. Move JSON download helpers into `src/editor/persistence`.
-3. Move `localStorage` helpers into `src/editor/persistence`, or introduce a
+1. [x] Keep pure map conversion in `src/engine/serialization`.
+2. [x] Move JSON download helpers into `src/editor/persistence`.
+3. [x] Move `localStorage` helpers into `src/editor/persistence`, or introduce a
    `LevelStorage` adapter interface in the engine.
-4. Update `LevelManager` so it loads `LevelMap`s with a catalog and does not
+4. [x] Update `LevelManager` so it loads `LevelMap`s with a catalog and does not
    directly depend on browser storage.
 
 Acceptance checks:
 
-- `src/engine/serialization` can be tested in Jest without DOM APIs.
-- Editor import/export and local level loading still work.
+- [x] `src/engine/serialization` can be tested in Jest without DOM APIs.
+- [x] Editor import/export and local level loading still work.
 
 ### Phase 5: Split Game and Editor Entrypoints
 

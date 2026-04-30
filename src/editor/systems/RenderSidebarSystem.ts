@@ -6,7 +6,6 @@ import System from '../../engine/ecs/System';
 import EventBus from '../../engine/event-bus/EventBus';
 import LevelManager from '../../engine/level-manager/LevelManager';
 import { deserializeEntity } from '../../engine/serialization/deserialization';
-import { saveEntitiesToJson, saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/validation';
 import { gameComponentCatalog } from '../../game/componentCatalog';
@@ -21,6 +20,12 @@ import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, showAlert } from '../gui';
+import {
+    loadLevelFromLocalStorage,
+    saveEntitiesToJson,
+    saveLevelToJson,
+    saveLevelToLocalStorage,
+} from '../persistence/levelPersistence';
 import {
     deleteLevelFromLocalStorage,
     getAllLevelKeysFromLocalStorage,
@@ -492,11 +497,12 @@ export default class RenderSidebarSystem extends System {
         rightSidebar: HTMLElement,
     ) => {
         Editor.loadingLevel = true;
-        const level = await levelManager.loadLevelFromLocalStorage(levelId);
+        const level = loadLevelFromLocalStorage(levelId);
         if (!level) {
             throw new Error('Could not read level from local storage');
         }
 
+        await levelManager.loadLevelFromLevelMap(level);
         this.renderEntityList(leftSidebar);
 
         const gameWidthInput = rightSidebar.querySelector('#map-width') as HTMLInputElement;

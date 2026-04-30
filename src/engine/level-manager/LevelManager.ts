@@ -3,7 +3,6 @@ import AssetStore from '../asset-store/AssetStore';
 import { ComponentCatalog } from '../ecs/ComponentCatalog';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
-import { loadLevelFromLocalStorage, saveLevelToLocalStorage } from '../serialization/persistence';
 import { LevelMap } from '../types/map';
 import { DEFAULT_SPRITE } from '../utils/constants';
 
@@ -33,23 +32,6 @@ export default class LevelManager {
     }
 
     public async loadLevelFromLevelMap(level: LevelMap) {
-        this.assetStore.clear();
-        this.registry.clear();
-
-        await this.loadAssets(level);
-        this.loadEntities(level);
-        this.setMapBoundaries(level);
-
-        return level;
-    }
-
-    public async loadLevelFromLocalStorage(levelId: string) {
-        let level = loadLevelFromLocalStorage(levelId);
-        if (!level) {
-            level = this.getDefaultLevel(levelId).level;
-            saveLevelToLocalStorage(levelId, level);
-        }
-
         this.assetStore.clear();
         this.registry.clear();
 
