@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, test } from '@jest/globals';
 
 import Component, { IComponent } from '../../../engine/ecs/Component';
 import Registry from '../../../engine/ecs/Registry';
