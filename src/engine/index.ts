@@ -1,5 +1,7 @@
 export { default as Engine } from './Engine';
 export { default as AssetStore } from './asset-store/AssetStore';
+export { createComponentCatalog } from './ecs/ComponentCatalog';
+export type { ComponentCatalog, ComponentDefinition, ComponentFieldDefinition } from './ecs/ComponentCatalog';
 export { default as Component, IComponent } from './ecs/Component';
 export type { ComponentClass } from './ecs/Component';
 export { default as Entity } from './ecs/Entity';

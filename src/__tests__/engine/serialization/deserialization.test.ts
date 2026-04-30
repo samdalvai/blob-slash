@@ -1,6 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 
 import Component from '../../../engine/ecs/Component';
+import { createComponentCatalog } from '../../../engine/ecs/ComponentCatalog';
 import Registry from '../../../engine/ecs/Registry';
 import {
     deserializeEntities,
@@ -12,6 +13,11 @@ import { EntityMap } from '../../../engine/types/map';
 import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
+
+const componentCatalog = createComponentCatalog([
+    { name: 'RigidBodyComponent', constructor: RigidBodyComponent },
+    { name: 'TransformComponent', constructor: TransformComponent },
+]);
 
 describe('Testing deserialization related functions', () => {
     test('Should parse constructor string from component string with no parameters', () => {
@@ -227,7 +233,7 @@ describe('Testing deserialization related functions', () => {
             ],
         };
 
-        const entity = deserializeEntity(entityMap, registry);
+        const entity = deserializeEntity(entityMap, registry, componentCatalog);
         const transform = entity.getComponent(TransformComponent);
 
         expect(transform).toEqual({
@@ -240,7 +246,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
     });
 
@@ -267,7 +273,7 @@ describe('Testing deserialization related functions', () => {
             ],
         };
 
-        const entity = deserializeEntity(entityMap, registry);
+        const entity = deserializeEntity(entityMap, registry, componentCatalog);
         const transform = entity.getComponent(TransformComponent);
         const rigidbody = entity.getComponent(RigidBodyComponent);
 
@@ -281,7 +287,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
         expect(rigidbody).toEqual({
             velocity: {
@@ -303,7 +309,7 @@ describe('Testing deserialization related functions', () => {
             components: [],
         };
 
-        const entity = deserializeEntity(entityMap, registry);
+        const entity = deserializeEntity(entityMap, registry, componentCatalog);
         const entityTag = entity.getTag();
 
         expect(entityTag).toEqual('test');
@@ -317,7 +323,7 @@ describe('Testing deserialization related functions', () => {
             components: [],
         };
 
-        const entity = deserializeEntity(entityMap, registry);
+        const entity = deserializeEntity(entityMap, registry, componentCatalog);
         const entityGroup = entity.getGroup();
 
         expect(entityGroup).toEqual('test');
@@ -332,7 +338,7 @@ describe('Testing deserialization related functions', () => {
             components: [],
         };
 
-        const entity = deserializeEntity(entityMap, registry);
+        const entity = deserializeEntity(entityMap, registry, componentCatalog);
         const entityTag = entity.getTag();
         const entityGroup = entity.getGroup();
 
@@ -370,7 +376,7 @@ describe('Testing deserialization related functions', () => {
             },
         ];
 
-        const entities = deserializeEntities(entityMaps, registry);
+        const entities = deserializeEntities(entityMaps, registry, componentCatalog);
         const transform1 = entities[0].getComponent(TransformComponent);
         const transform2 = entities[1].getComponent(TransformComponent);
 
@@ -384,7 +390,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
 
         expect(transform2).toEqual({
@@ -397,7 +403,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
     });
 
@@ -445,7 +451,7 @@ describe('Testing deserialization related functions', () => {
             },
         ];
 
-        const entities = deserializeEntities(entityMaps, registry);
+        const entities = deserializeEntities(entityMaps, registry, componentCatalog);
         const transform1 = entities[0].getComponent(TransformComponent);
         const transform2 = entities[1].getComponent(TransformComponent);
         const rigidbody1 = entities[0].getComponent(RigidBodyComponent);
@@ -461,7 +467,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
 
         expect(transform2).toEqual({
@@ -474,7 +480,7 @@ describe('Testing deserialization related functions', () => {
                 y: 1,
             },
             rotation: 0,
-            isFixed: false
+            isFixed: false,
         });
 
         expect(rigidbody1).toEqual({
@@ -497,6 +503,39 @@ describe('Testing deserialization related functions', () => {
                 x: 0,
                 y: 1,
             },
+        });
+    });
+
+    test('Should deserialize entity with a component from the supplied catalog', () => {
+        class TestOnlyComponent extends Component {
+            value: number;
+
+            constructor(value = 0) {
+                super();
+                this.value = value;
+            }
+        }
+
+        const registry = new Registry();
+        const testOnlyCatalog = createComponentCatalog([
+            { name: 'TestOnlyComponent', constructor: TestOnlyComponent },
+        ]);
+
+        const entityMap: EntityMap = {
+            components: [
+                {
+                    name: 'TestOnlyComponent',
+                    properties: {
+                        value: 42,
+                    },
+                },
+            ],
+        };
+
+        const entity = deserializeEntity(entityMap, registry, testOnlyCatalog);
+
+        expect(entity.getComponent(TestOnlyComponent)).toEqual({
+            value: 42,
         });
     });
 });

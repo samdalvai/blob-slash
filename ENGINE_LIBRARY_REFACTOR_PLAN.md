@@ -13,14 +13,26 @@ instead of reaching into arbitrary engine internals.
 
 - 2026-04-30: Phase 1 complete.
   - Added `src/engine/index.ts` as the public engine API barrel.
-  - Added `src/__tests__/engine/boundary/EngineBoundary.test.ts`.
-  - The boundary test blocks new `src/engine` imports from app code while
-    temporarily allowlisting the three known current leaks:
-    `src/engine/ecs/Registry.ts`,
-    `src/engine/serialization/deserialization.ts`, and
-    `src/engine/types/map.ts`.
-  - Those allowlisted leaks are intentionally left for Phase 2 and Phase 3.
+  - A boundary test was added during Phase 1, then removed from the current tree
+    because it is not needed at the moment.
   - Verification: `npm test` and `tsc --noEmit` pass.
+- 2026-04-30: Phase 2 complete.
+  - Added `src/engine/ecs/ComponentCatalog.ts` with `ComponentCatalog`,
+    component definition metadata, and `createComponentCatalog`.
+  - Added `src/game/componentCatalog.ts` and `src/game/gameModule.ts` so the
+    game provides its component catalog instead of the engine importing game
+    components.
+  - Changed `ComponentMap.name` to `string`.
+  - Updated deserialization and `LevelManager` to receive/use a component
+    catalog.
+  - Updated game, editor, and paste flows to provide the game catalog.
+  - Added deserialization coverage for a test-only component supplied through a
+    local catalog.
+  - Remaining engine-to-game import: `src/engine/ecs/Registry.ts`, intentionally
+    left for Phase 3.
+  - Verification: `npm test` and `tsc --noEmit` pass.
+  - `npm run build:game` was attempted, but Parcel could not open its LMDB cache
+    inside the sandbox. The escalation request to rerun it was declined.
 
 ## Current State
 
@@ -33,8 +45,8 @@ The folder layout already suggests the desired shape:
 - `src/editor`: the level editor app plus editor-specific UI, persistence, and
   systems.
 
-The main architectural problem is dependency direction. Today, `src/engine`
-reaches into the game app:
+The main architectural problem is dependency direction. At the start of this
+refactor, `src/engine` reached into the game app in three places:
 
 - `src/engine/ecs/Registry.ts` imports `../../game/components` for entity
   duplication.
@@ -42,6 +54,10 @@ reaches into the game app:
   to turn JSON component names into constructors.
 - `src/engine/types/map.ts` imports `../../game/components` just to type
   `ComponentMap.name`.
+
+Phase 2 removed the deserialization and map-type imports. The remaining direct
+engine-to-game import is `src/engine/ecs/Registry.ts`, which Phase 3 will
+remove.
 
 There are also a few library-boundary issues that will make the engine hard to
 reuse:
@@ -53,8 +69,7 @@ reuse:
   (`mapWidth`, `mapHeight`, mouse positions, window size, game status).
 - `src/engine/serialization/persistence.ts` mixes pure serialization with
   browser-specific behaviors such as `Blob`, download links, and `localStorage`.
-- `LevelManager` depends on global `Engine` state and on deserialization that
-  knows about game components.
+- `LevelManager` still depends on global `Engine` state for map boundaries.
 - The editor imports game components and systems directly. That may be fine for
   an editor app dedicated to this game, but it should be done through a
   game-content catalog/module, not by making the engine aware of the game.
@@ -334,8 +349,8 @@ phase.
 ### Phase 1: Add the Engine API and Boundary Guard
 
 1. [x] Add `src/engine/index.ts` with public exports.
-2. [x] Add a dependency boundary test or script that fails when `src/engine`
-   imports `src/game` or `src/editor`.
+2. [ ] Add a dependency boundary test or script that fails when `src/engine`
+   imports `src/game` or `src/editor`. Deferred for now.
 3. [x] Keep existing imports working while introducing the public API.
 
 Acceptance checks:
@@ -344,25 +359,25 @@ Acceptance checks:
   imports, or only known temporary TODOs during the phase.
 - [x] `npm test` still passes.
 
-Status: the boundary guard currently allows only the three known TODO imports
-listed in Progress. Remove those allowlist entries as Phase 2 and Phase 3
-eliminate the underlying leaks.
+Status: the boundary guard is deferred because it is not needed at the moment.
+Phase 2 removed two of the three initial engine-to-game imports; Phase 3 removes
+the remaining `Registry.ts` import.
 
 ### Phase 2: Introduce the Component Catalog
 
-1. Add engine catalog types and a `createComponentCatalog` helper.
-2. Add `src/game/gameModule.ts` that exports the game's component catalog,
+1. [x] Add engine catalog types and a `createComponentCatalog` helper.
+2. [x] Add `src/game/gameModule.ts` that exports the game's component catalog,
    systems, and events.
-3. Change `ComponentMap.name` from `keyof typeof GameComponents` to `string`.
-4. Update deserialization to receive a catalog instead of importing
+3. [x] Change `ComponentMap.name` from `keyof typeof GameComponents` to `string`.
+4. [x] Update deserialization to receive a catalog instead of importing
    `GameComponents`.
-5. Update tests to create and pass test catalogs.
+5. [x] Update tests to create and pass test catalogs.
 
 Acceptance checks:
 
-- `src/engine/serialization/deserialization.ts` has no app imports.
-- `src/engine/types/map.ts` has no app imports.
-- Serialization/deserialization tests cover custom test components that are not
+- [x] `src/engine/serialization/deserialization.ts` has no app imports.
+- [x] `src/engine/types/map.ts` has no app imports.
+- [x] Serialization/deserialization tests cover custom test components that are not
   in `src/game/components`.
 
 ### Phase 3: Decouple Registry Duplication

@@ -1,5 +1,6 @@
 import Engine from '../engine/Engine';
 import { GameStatus } from '../engine/types/utils';
+import { gameComponentCatalog } from './componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
 import GameEndSystem from './systems/GameEndSystem';
@@ -8,6 +9,7 @@ import RenderMenuSystem from './systems/RenderMenuSystem';
 export default class Game extends Engine {
     constructor() {
         super();
+        this.levelManager.setComponentCatalog(gameComponentCatalog);
     }
 
     setup = async () => {

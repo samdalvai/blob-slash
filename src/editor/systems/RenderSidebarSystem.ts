@@ -9,6 +9,7 @@ import { deserializeEntity } from '../../engine/serialization/deserialization';
 import { saveEntitiesToJson, saveLevelToJson, saveLevelToLocalStorage } from '../../engine/serialization/persistence';
 import { LevelMap } from '../../engine/types/map';
 import { isValidLevelMap } from '../../engine/utils/validation';
+import { gameComponentCatalog } from '../../game/componentCatalog';
 import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';
@@ -126,7 +127,11 @@ export default class RenderSidebarSystem extends System {
         let minTransformPositionY = Number.MAX_VALUE;
 
         for (const entityMap of event.entities) {
-            const copiedEntity = deserializeEntity(JSON.parse(JSON.stringify(entityMap)), registry);
+            const copiedEntity = deserializeEntity(
+                JSON.parse(JSON.stringify(entityMap)),
+                registry,
+                gameComponentCatalog,
+            );
             registry.update();
 
             const copiedTransform = copiedEntity.getComponent(TransformComponent);
