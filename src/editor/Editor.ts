@@ -5,6 +5,7 @@ import { serializeEntity } from '../engine/serialization/serialization';
 import { MouseButton } from '../engine/types/control';
 import { EntityMap } from '../engine/types/map';
 import { Rectangle, Vector } from '../engine/types/utils';
+import { gameComponentCatalog } from '../game/componentCatalog';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
 import EntityEditor from './entity-editor/EntityEditor';
@@ -64,6 +65,8 @@ export default class Editor extends Engine {
 
     constructor() {
         super();
+        this.levelManager.setComponentCatalog(gameComponentCatalog);
+
         this.versionManager = new VersionManager();
         this.entityEditor = new EntityEditor(
             this.registry,

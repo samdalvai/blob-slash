@@ -1,5 +1,3 @@
-import * as GameComponents from '../../game/components';
-
 export type LevelMap = {
     textures: Asset[];
     sounds: Asset[];
@@ -20,7 +18,7 @@ export type EntityMap = {
 };
 
 export type ComponentMap = {
-    name: keyof typeof GameComponents;
+    name: string;
     properties: {
         [key: string]: any;
     };
