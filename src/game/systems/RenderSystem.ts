@@ -1,6 +1,4 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
-import System from '../../engine/ecs/System';
-import { Flip, Rectangle } from '../../engine/types/utils';
+import { AssetStore, System, Flip, Rectangle } from '../../engine';
 import Game from '../Game';
 import HighlightComponent from '../components/HighlightComponent';
 import ShadowComponent from '../components/ShadowComponent';

@@ -1,4 +1,4 @@
-import Component from '../../engine/ecs/Component';
+import { Component } from '../../engine';
 
 export default class HighlightComponent extends Component {
     isHighlighted: boolean;

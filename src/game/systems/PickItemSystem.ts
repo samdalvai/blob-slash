@@ -1,6 +1,4 @@
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
+import { Entity, System, EventBus } from '../../engine';
 import { HealthComponent, PickableItemComponent } from '../components';
 import { PickupEffect } from '../components/PickableItemComponent';
 import CollisionEvent from '../events/CollisionEvent';

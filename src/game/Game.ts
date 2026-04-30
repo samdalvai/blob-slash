@@ -1,5 +1,4 @@
-import Engine from '../engine/Engine';
-import { GameStatus } from '../engine/types/utils';
+import { Engine, GameStatus } from '../engine';
 import { gameComponentCatalog } from './componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';

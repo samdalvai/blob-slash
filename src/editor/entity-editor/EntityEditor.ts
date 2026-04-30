@@ -1,12 +1,4 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
-import Component from '../../engine/ecs/Component';
-import Entity from '../../engine/ecs/Entity';
-import Registry from '../../engine/ecs/Registry';
-import EventBus from '../../engine/event-bus/EventBus';
-import LevelManager from '../../engine/level-manager/LevelManager';
-import { EntityMap } from '../../engine/types/map';
-import { Rectangle, Vector } from '../../engine/types/utils';
-import { isValidEntityMap } from '../../engine/utils/validation';
+import { AssetStore, Component, Entity, Registry, EventBus, LevelManager, EntityMap, Rectangle, Vector, isValidEntityMap } from '../../engine';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';

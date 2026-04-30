@@ -1,8 +1,4 @@
-import Engine from '../../engine/Engine';
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import { Vector } from '../../engine/types/utils';
+import { Engine, Entity, System, EventBus, Vector } from '../../engine';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
