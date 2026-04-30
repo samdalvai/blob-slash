@@ -1,6 +1,4 @@
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
-import { DEFAULT_SPRITE } from '../../engine/utils/constants';
+import { System, Rectangle, DEFAULT_SPRITE } from '../../engine';
 import { ParticleComponent } from '../../game/components';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';

@@ -1,4 +1,4 @@
-import System from '../../engine/ecs/System';
+import { System } from '../../engine';
 import AnimationComponent from '../components/AnimationComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import SpriteComponent from '../components/SpriteComponent';

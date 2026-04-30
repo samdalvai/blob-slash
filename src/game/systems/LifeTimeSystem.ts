@@ -1,5 +1,4 @@
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
+import { System, EventBus } from '../../engine';
 import LifetimeComponent from '../components/LifetimeComponent';
 import EntityKilledEvent from '../events/EntityKilledEvent';
 

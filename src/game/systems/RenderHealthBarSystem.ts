@@ -1,8 +1,7 @@
 import HealthComponent from '../components/HealthComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { System, Rectangle } from '../../engine';
 
 export default class RenderHealthBarSystem extends System {
     constructor() {

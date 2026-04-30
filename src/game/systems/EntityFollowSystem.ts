@@ -3,10 +3,8 @@ import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
+import { System, EventBus, computeDirectionVector, computeDistanceBetweenPoints, computeUnitVector } from '../../engine';
 import EntityKilledEvent from '../events/EntityKilledEvent';
-import { computeDirectionVector, computeDistanceBetweenPoints, computeUnitVector } from '../../engine/utils/vector';
 
 export default class EntityFollowSystem extends System {
     constructor() {

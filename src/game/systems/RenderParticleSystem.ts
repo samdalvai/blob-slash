@@ -1,5 +1,4 @@
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { System, Rectangle } from '../../engine';
 import Game from '../Game';
 import ParticleComponent from '../components/ParticleComponent';
 import TransformComponent from '../components/TransformComponent';

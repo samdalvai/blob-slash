@@ -1,4 +1,4 @@
-import { LevelMap } from '../../engine/types/map';
+import { LevelMap } from '../../engine';
 
 export default class VersionManager {
     private levelVersions: Map<string, string[]>;

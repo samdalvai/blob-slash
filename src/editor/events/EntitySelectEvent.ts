@@ -1,5 +1,4 @@
-import Entity from '../../engine/ecs/Entity';
-import GameEvent from '../../engine/event-bus/GameEvent';
+import { Entity, GameEvent } from '../../engine';
 
 export default class EntitySelectEvent extends GameEvent {
     entities: Entity[];

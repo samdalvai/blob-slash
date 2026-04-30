@@ -1,5 +1,4 @@
-import System from '../../engine/ecs/System';
-import { GameStatus } from '../../engine/types/utils';
+import { System, GameStatus } from '../../engine';
 import Game from '../Game';
 import { HealthComponent } from '../components';
 

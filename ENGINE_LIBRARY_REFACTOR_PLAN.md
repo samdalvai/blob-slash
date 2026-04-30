@@ -68,6 +68,13 @@ instead of reaching into arbitrary engine internals.
     cache access and emitted stale Browserslist data warnings.
   - `npm start` dev-server smoke test was attempted, but binding a local port
     failed in the sandbox and the escalation request was declined.
+- 2026-04-30: Phase 6 complete.
+  - Rewrote `src/game` and `src/editor` imports that reached into engine
+    implementation files to use the public `src/engine/index.ts` API barrel.
+  - Confirmed app code no longer imports from deep `src/engine/*` paths.
+  - Verification: deep import scan, `tsc --noEmit`, and `npm test` pass.
+  - `npm run build:game` was attempted, but Parcel could not open its LMDB
+    cache inside the sandbox. The escalation request to rerun it was declined.
 
 ## Current State
 
@@ -456,16 +463,16 @@ Acceptance checks:
 
 ### Phase 6: Normalize App Imports
 
-1. Update `src/game` and `src/editor` imports to use the public engine API.
-2. Prefer `import { Engine, System, Rectangle } from '../engine'` or
+1. [x] Update `src/game` and `src/editor` imports to use the public engine API.
+2. [x] Prefer `import { Engine, System, Rectangle } from '../engine'` or
    `../../engine` over deep imports.
-3. Keep deep engine imports only when a submodule is intentionally public and
+3. [x] Keep deep engine imports only when a submodule is intentionally public and
    documented.
 
 Acceptance checks:
 
-- App code imports engine concepts through the barrel or documented sub-barrels.
-- App code does not import from engine files that are meant to stay private.
+- [x] App code imports engine concepts through the barrel or documented sub-barrels.
+- [x] App code does not import from engine files that are meant to stay private.
 
 ### Phase 7: Replace Static Engine State
 

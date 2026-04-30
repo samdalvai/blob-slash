@@ -1,7 +1,4 @@
-import Engine from '../../engine/Engine';
-import Registry from '../../engine/ecs/Registry';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { Engine, Registry, System, Rectangle } from '../../engine';
 
 export default class DebugInfoSystem extends System {
     constructor() {

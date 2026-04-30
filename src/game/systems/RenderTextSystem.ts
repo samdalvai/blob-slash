@@ -1,5 +1,4 @@
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { System, Rectangle } from '../../engine';
 import { TransformComponent } from '../components';
 import TextLabelComponent from '../components/TextLabelComponent';
 

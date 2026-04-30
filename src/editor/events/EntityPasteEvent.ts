@@ -1,5 +1,4 @@
-import GameEvent from '../../engine/event-bus/GameEvent';
-import { EntityMap } from '../../engine/types/map';
+import { GameEvent, EntityMap } from '../../engine';
 
 export default class EntityPasteEvent extends GameEvent {
     entities: EntityMap[];

@@ -1,5 +1,4 @@
-import Component from '../../engine/ecs/Component';
-import { Vector } from '../../engine/types/utils';
+import { Component, Vector } from '../../engine';
 
 export default class TransformComponent extends Component {
     position: Vector;
