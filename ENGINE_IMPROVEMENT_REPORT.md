@@ -232,6 +232,8 @@ Priority: Medium
 
 ### 6. Return readonly system entity views
 
+Status: done
+
 References:
 
 - `src/engine/ecs/System.ts:21`
