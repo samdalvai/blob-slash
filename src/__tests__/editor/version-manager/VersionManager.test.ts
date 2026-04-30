@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import VersionManager from '../../../editor/version-manager/VersionManager';
 import { LevelMap } from '../../../engine/types/map';

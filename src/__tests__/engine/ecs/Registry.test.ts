@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import Component, { IComponent } from '../../../engine/ecs/Component';
 import Entity from '../../../engine/ecs/Entity';

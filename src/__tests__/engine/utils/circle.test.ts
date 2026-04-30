@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import { isPointInsideCircle } from '../../../engine/utils/circle';
 

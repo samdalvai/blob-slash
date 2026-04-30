@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import RigidBodyComponent from '../../../game/components/RigidBodyComponent';
 import TransformComponent from '../../../game/components/TransformComponent';

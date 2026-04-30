@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import BoxColliderComponent from '../../../game/components/BoxColliderComponent';
 import TransformComponent from '../../../game/components/TransformComponent';
