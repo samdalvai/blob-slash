@@ -514,6 +514,8 @@ Priority: High
 
 ### 2. Avoid scanning every system for every added entity
 
+Status: Skipped
+
 References:
 
 - `src/engine/ecs/Registry.ts:391`
@@ -574,6 +576,8 @@ Expected impact: Medium for many component types or frequent entity destruction.
 Priority: Medium
 
 ### 4. Move entity and ECS methods from arrow fields to prototypes
+
+Status: Done
 
 References:
 
@@ -916,7 +920,7 @@ Priority: Low
 1. [x] Add O(1) system entity removal.
 2. Remove killed entity components by signature bits.
 3. Consider array-backed pool indexes.
-4. Move high-count class methods to prototypes.
+4. [x] Move high-count class methods to prototypes.
 
 ### Phase 4: Loading and utility cleanup
 

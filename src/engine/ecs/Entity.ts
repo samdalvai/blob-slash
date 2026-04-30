@@ -14,78 +14,78 @@ export default class Entity {
         this.toBeKilled = false;
     }
 
-    getId = () => {
+    getId() {
         return this.id;
-    };
+    }
 
-    kill = () => {
+    kill() {
         this.registry.killEntity(this);
-    };
+    }
 
-    duplicate = (componentCatalog: ComponentCatalog) => {
+    duplicate(componentCatalog: ComponentCatalog) {
         return this.registry.duplicateEntity(this, componentCatalog);
-    };
+    }
 
-    tag = (tag: string) => {
+    tag(tag: string) {
         this.registry.tagEntity(this, tag);
-    };
+    }
 
-    getTag = () => {
+    getTag() {
         return this.registry.getEntityTag(this);
-    };
+    }
 
-    hasTag = (tag: string) => {
+    hasTag(tag: string) {
         return this.registry.entityHasTag(this, tag);
-    };
+    }
 
-    removeTag = () => {
+    removeTag() {
         this.registry.removeEntityTag(this);
-    };
+    }
 
-    group = (group: string) => {
+    group(group: string) {
         this.registry.groupEntity(this, group);
-    };
+    }
 
-    getGroup = () => {
+    getGroup() {
         return this.registry.getEntityGroup(this);
-    };
+    }
 
-    belongsToGroup = (group: string) => {
+    belongsToGroup(group: string) {
         return this.registry.entityBelongsToGroup(this, group);
-    };
+    }
 
-    removeGroup = () => {
+    removeGroup() {
         this.registry.removeEntityGroup(this);
-    };
+    }
 
-    addComponent = <T extends ComponentClass>(
+    addComponent<T extends ComponentClass>(
         ComponentClass: T,
         ...args: ConstructorParameters<T>
-    ): void => {
+    ): void {
         this.registry.addComponent(this, ComponentClass, ...args);
-    };
+    }
 
-    removeComponent = <T extends ComponentClass>(ComponentClass: T): void => {
+    removeComponent<T extends ComponentClass>(ComponentClass: T): void {
         this.registry.removeComponent(this, ComponentClass);
-    };
+    }
 
-    hasComponent = <T extends ComponentClass>(ComponentClass: T): boolean => {
+    hasComponent<T extends ComponentClass>(ComponentClass: T): boolean {
         return this.registry.hasComponent(this, ComponentClass);
-    };
+    }
 
-    getComponent = <T extends ComponentClass>(ComponentClass: T): InstanceType<T> | undefined => {
+    getComponent<T extends ComponentClass>(ComponentClass: T): InstanceType<T> | undefined {
         return this.registry.getComponent(this, ComponentClass);
-    };
+    }
 
-    getComponents = <T extends Component>(): T[] => {
+    getComponents<T extends Component>(): T[] {
         return this.registry.getAllEntityComponents(this);
-    };
+    }
 
-    addToSystem = <T extends System>(SystemClass: SystemClass<T>) => {
+    addToSystem<T extends System>(SystemClass: SystemClass<T>) {
         this.registry.addEntityToSystem(this, SystemClass);
-    };
+    }
 
-    removeFromSystem = <T extends System>(SystemClass: SystemClass<T>) => {
+    removeFromSystem<T extends System>(SystemClass: SystemClass<T>) {
         this.registry.removeEntityFromSystem(this, SystemClass);
-    };
+    }
 }

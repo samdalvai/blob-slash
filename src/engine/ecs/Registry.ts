@@ -47,7 +47,7 @@ export default class Registry {
         this.freeIds = [];
     }
 
-    update = <T extends Component>() => {
+    update<T extends Component>() {
         for (const entity of this.entitiesToBeAdded) {
             this.addEntityToSystems(entity);
         }
@@ -79,13 +79,13 @@ export default class Registry {
         }
 
         this.entitiesToBeKilled = [];
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Entity management
     ////////////////////////////////////////////////////////////////////////////////
 
-    createEntity = (): Entity => {
+    createEntity(): Entity {
         let entityId;
 
         if (this.freeIds.length === 0) {
@@ -102,9 +102,9 @@ export default class Registry {
         this.entities.set(entity.getId(), entity);
 
         return entity;
-    };
+    }
 
-    killEntity = (entity: Entity) => {
+    killEntity(entity: Entity) {
         if (entity.toBeKilled) {
             console.log(`Entity ${entity.getId()} already scheduled for killing, skipping`);
             return;
@@ -112,9 +112,9 @@ export default class Registry {
 
         entity.toBeKilled = true;
         this.entitiesToBeKilled.push(entity);
-    };
+    }
 
-    duplicateEntity = (entity: Entity, componentCatalog: ComponentCatalog) => {
+    duplicateEntity(entity: Entity, componentCatalog: ComponentCatalog) {
         const entityCopy = entity.registry.createEntity();
         const originalEntityComponents = entity.getComponents();
 
@@ -141,21 +141,21 @@ export default class Registry {
         }
 
         return entityCopy;
-    };
+    }
 
-    getAllEntities = () => {
+    getAllEntities() {
         return this.entities.values();
-    };
+    }
 
-    getEntityById = (entityId: number) => {
+    getEntityById(entityId: number) {
         return this.entities.get(entityId);
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Tag management
     ////////////////////////////////////////////////////////////////////////////////
 
-    tagEntity = (entity: Entity, tag: string) => {
+    tagEntity(entity: Entity, tag: string) {
         const existingEntity = this.entityPerTag.get(tag);
 
         if (existingEntity !== undefined) {
@@ -164,13 +164,13 @@ export default class Registry {
 
         this.entityPerTag.set(tag, entity);
         this.tagPerEntity.set(entity.getId(), tag);
-    };
+    }
 
-    getEntityTag = (entity: Entity) => {
+    getEntityTag(entity: Entity) {
         return this.tagPerEntity.get(entity.getId());
-    };
+    }
 
-    entityHasTag = (entity: Entity, tag: string) => {
+    entityHasTag(entity: Entity, tag: string) {
         const currentTag = this.tagPerEntity.get(entity.getId());
 
         if (currentTag === undefined) {
@@ -178,13 +178,13 @@ export default class Registry {
         }
 
         return currentTag === tag;
-    };
+    }
 
-    getEntityByTag = (tag: string) => {
+    getEntityByTag(tag: string) {
         return this.entityPerTag.get(tag);
-    };
+    }
 
-    removeEntityTag = (entity: Entity) => {
+    removeEntityTag(entity: Entity) {
         const currentTag = this.tagPerEntity.get(entity.getId());
 
         if (currentTag === undefined) {
@@ -194,13 +194,13 @@ export default class Registry {
 
         this.tagPerEntity.delete(entity.getId());
         this.entityPerTag.delete(currentTag);
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Group management
     ////////////////////////////////////////////////////////////////////////////////
 
-    groupEntity = (entity: Entity, group: string) => {
+    groupEntity(entity: Entity, group: string) {
         const currentEntities = this.entitiesPerGroup.get(group);
 
         if (currentEntities === undefined) {
@@ -210,13 +210,13 @@ export default class Registry {
         }
 
         this.groupPerEntity.set(entity.getId(), group);
-    };
+    }
 
-    getEntityGroup = (entity: Entity) => {
+    getEntityGroup(entity: Entity) {
         return this.groupPerEntity.get(entity.getId());
-    };
+    }
 
-    entityBelongsToGroup = (entity: Entity, group: string) => {
+    entityBelongsToGroup(entity: Entity, group: string) {
         const currentGroup = this.groupPerEntity.get(entity.getId());
 
         if (currentGroup === undefined) {
@@ -224,9 +224,9 @@ export default class Registry {
         }
 
         return currentGroup === group;
-    };
+    }
 
-    getEntitiesByGroup = (group: string) => {
+    getEntitiesByGroup(group: string) {
         const currentEntities = this.entitiesPerGroup.get(group);
 
         if (currentEntities === undefined) {
@@ -234,9 +234,9 @@ export default class Registry {
         }
 
         return [...currentEntities];
-    };
+    }
 
-    removeEntityGroup = (entity: Entity) => {
+    removeEntityGroup(entity: Entity) {
         const currentGroup = this.groupPerEntity.get(entity.getId());
 
         if (currentGroup === undefined) {
@@ -255,17 +255,17 @@ export default class Registry {
                 this.entitiesPerGroup.delete(currentGroup);
             }
         }
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Component management
     ////////////////////////////////////////////////////////////////////////////////
 
-    addComponent = <T extends ComponentClass>(
+    addComponent<T extends ComponentClass>(
         entity: Entity,
         ComponentClass: T,
         ...args: ConstructorParameters<T>
-    ) => {
+    ) {
         const componentId = ComponentClass.getComponentId();
         const entityId = entity.getId();
 
@@ -279,9 +279,9 @@ export default class Registry {
 
         this.entityComponentSignatures[entityId].set(componentId);
         // console.log('Component with id ' + componentId + ' was added to entity with id ' + entityId);
-    };
+    }
 
-    removeComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T) => {
+    removeComponent<T extends ComponentClass>(entity: Entity, ComponentClass: T) {
         const componentId = ComponentClass.getComponentId();
         const entityId = entity.getId();
 
@@ -291,17 +291,17 @@ export default class Registry {
 
         // Set this component signature for that entity to false
         this.entityComponentSignatures[entityId].remove(componentId);
-    };
+    }
 
-    hasComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T): boolean => {
+    hasComponent<T extends ComponentClass>(entity: Entity, ComponentClass: T): boolean {
         return this.entityComponentSignatures[entity.getId()].test(ComponentClass.getComponentId());
-    };
+    }
 
-    getComponent = <T extends ComponentClass>(entity: Entity, ComponentClass: T): InstanceType<T> | undefined => {
+    getComponent<T extends ComponentClass>(entity: Entity, ComponentClass: T): InstanceType<T> | undefined {
         return (this.componentPools[ComponentClass.getComponentId()] as Pool<InstanceType<T>>)?.get(entity.getId());
-    };
+    }
 
-    getAllEntityComponents = <T extends Component>(entity: Entity): T[] => {
+    getAllEntityComponents<T extends Component>(entity: Entity): T[] {
         const components: T[] = [];
 
         for (let i = 0; i < this.componentPools.length; i++) {
@@ -314,16 +314,16 @@ export default class Registry {
         }
 
         return components;
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // System management
     ////////////////////////////////////////////////////////////////////////////////
 
-    addSystem = <T extends System>(SystemClass: SystemClass<T>, ...args: ConstructorParameters<typeof SystemClass>) => {
+    addSystem<T extends System>(SystemClass: SystemClass<T>, ...args: ConstructorParameters<typeof SystemClass>) {
         const newSystem = new SystemClass(...args);
         this.systems.set(SystemClass.getSystemId(), newSystem);
-    };
+    }
 
     removeSystem<T extends System>(SystemClass: SystemClass<T>) {
         this.systems.delete(SystemClass.getSystemId());
@@ -343,7 +343,7 @@ export default class Registry {
         return system as T;
     }
 
-    addEntityToSystem = <T extends System>(entity: Entity, SystemClass: SystemClass<T>) => {
+    addEntityToSystem<T extends System>(entity: Entity, SystemClass: SystemClass<T>) {
         const entityId = entity.getId();
         const entityComponentSignature = this.entityComponentSignatures[entityId];
 
@@ -376,9 +376,9 @@ export default class Registry {
         }
 
         system.addEntityToSystem(entity);
-    };
+    }
 
-    removeEntityFromSystem = <T extends System>(entity: Entity, SystemClass: SystemClass<T>) => {
+    removeEntityFromSystem<T extends System>(entity: Entity, SystemClass: SystemClass<T>) {
         const system = this.systems.get(SystemClass.getSystemId());
 
         if (!system) {
@@ -386,9 +386,9 @@ export default class Registry {
         }
 
         system.removeEntityFromSystem(entity);
-    };
+    }
 
-    addEntityToSystems = (entity: Entity) => {
+    addEntityToSystems(entity: Entity) {
         const entityId = entity.getId();
 
         const entityComponentSignature = this.entityComponentSignatures[entityId];
@@ -410,19 +410,19 @@ export default class Registry {
                 system.addEntityToSystem(entity);
             }
         }
-    };
+    }
 
-    removeEntityFromSystems = (entity: Entity) => {
+    removeEntityFromSystems(entity: Entity) {
         for (const system of this.systems.values()) {
             system.removeEntityFromSystem(entity);
         }
-    };
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Registry resetting
     ////////////////////////////////////////////////////////////////////////////////
 
-    clear = () => {
+    clear() {
         this.entities.clear();
         this.numEntities = 0;
         this.componentPools = [];
@@ -438,5 +438,5 @@ export default class Registry {
         for (const system of this.systems.values()) {
             system.removeAllEntities();
         }
-    };
+    }
 }
