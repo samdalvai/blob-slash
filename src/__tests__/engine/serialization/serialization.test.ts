@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import Engine from '../../../engine/Engine';
 import AssetStore from '../../../engine/asset-store/AssetStore';

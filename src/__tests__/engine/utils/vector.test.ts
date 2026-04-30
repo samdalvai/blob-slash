@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import { Rectangle, Vector } from '../../../engine/types/utils';
 import { computeDirectionVector, computeUnitVector, isRectangle, isVector } from '../../../engine/utils/vector';

@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import EventBus from '../../../engine/event-bus/EventBus';
 import GameEvent from '../../../engine/event-bus/GameEvent';

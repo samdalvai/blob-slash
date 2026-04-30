@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import CameraShakeEvent from '../../../game/events/CameraShakeEvent';
 import CameraShakeSystem from '../../../game/systems/CameraShakeSystem';
