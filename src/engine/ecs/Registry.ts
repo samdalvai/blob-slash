@@ -1,6 +1,6 @@
-import * as GameComponents from '../../game/components';
-import { getComponentConstructorParamNames } from '../serialization/deserialization';
+import { cloneComponentProperty, getComponentConstructorParamNames } from '../serialization/deserialization';
 import Component, { ComponentClass } from './Component';
+import { ComponentCatalog } from './ComponentCatalog';
 import Entity from './Entity';
 import Pool, { IPool } from './Pool';
 import Signature from './Signature';
@@ -114,24 +114,23 @@ export default class Registry {
         this.entitiesToBeKilled.push(entity);
     };
 
-    duplicateEntity = (entity: Entity) => {
+    duplicateEntity = (entity: Entity, componentCatalog: ComponentCatalog) => {
         const entityCopy = entity.registry.createEntity();
         const originalEntityComponents = entity.getComponents();
 
         for (const component of originalEntityComponents) {
-            const ComponentClass = GameComponents[component.constructor.name as keyof typeof GameComponents];
-            const parameters = getComponentConstructorParamNames(ComponentClass);
-            const parameterValues: any[] = [];
+            const componentDefinition = componentCatalog.getByConstructor(component);
 
-            for (const param of parameters) {
-                if (Array.isArray(component[param as keyof Component])) {
-                    parameterValues.push([...component[param as keyof Component]]);
-                } else if (typeof component[param as keyof Component] === 'object') {
-                    parameterValues.push({ ...(component[param as keyof Component] as object) });
-                } else {
-                    parameterValues.push(component[param as keyof Component]);
-                }
+            if (!componentDefinition) {
+                throw new Error(`Could not find component definition for ${component.constructor.name}`);
             }
+
+            const ComponentClass = componentDefinition.constructor;
+            const parameterValues =
+                componentDefinition.clone?.(component) ??
+                getComponentConstructorParamNames(ComponentClass).map(param =>
+                    cloneComponentProperty(component[param as keyof Component]),
+                );
 
             entityCopy.addComponent(ComponentClass, ...parameterValues);
         }

@@ -33,6 +33,18 @@ instead of reaching into arbitrary engine internals.
   - Verification: `npm test` and `tsc --noEmit` pass.
   - `npm run build:game` was attempted, but Parcel could not open its LMDB cache
     inside the sandbox. The escalation request to rerun it was declined.
+- 2026-04-30: Phase 3 complete.
+  - Removed the remaining engine-to-game import from
+    `src/engine/ecs/Registry.ts`.
+  - Updated `Registry.duplicateEntity` and `Entity.duplicate` to require a
+    `ComponentCatalog`.
+  - Entity duplication now resolves component constructors through catalog
+    definitions and supports per-component `clone` overrides.
+  - Updated editor duplicate flow to pass the game component catalog.
+  - Updated ECS entity duplication tests to use a test-only component catalog.
+  - Added game-side coverage that duplicates an entity with a real game
+    component through `gameComponentCatalog`.
+  - Verification: `npm test` and `tsc --noEmit` pass.
 
 ## Current State
 
@@ -45,7 +57,7 @@ The folder layout already suggests the desired shape:
 - `src/editor`: the level editor app plus editor-specific UI, persistence, and
   systems.
 
-The main architectural problem is dependency direction. At the start of this
+The main architectural problem was dependency direction. At the start of this
 refactor, `src/engine` reached into the game app in three places:
 
 - `src/engine/ecs/Registry.ts` imports `../../game/components` for entity
@@ -55,9 +67,9 @@ refactor, `src/engine` reached into the game app in three places:
 - `src/engine/types/map.ts` imports `../../game/components` just to type
   `ComponentMap.name`.
 
-Phase 2 removed the deserialization and map-type imports. The remaining direct
-engine-to-game import is `src/engine/ecs/Registry.ts`, which Phase 3 will
-remove.
+Phase 2 removed the deserialization and map-type imports. Phase 3 removed the
+`Registry.ts` import. At this point `src/engine` has no direct imports from
+`src/game` or `src/editor`.
 
 There are also a few library-boundary issues that will make the engine hard to
 reuse:
@@ -382,15 +394,15 @@ Acceptance checks:
 
 ### Phase 3: Decouple Registry Duplication
 
-1. Remove `GameComponents` from `src/engine/ecs/Registry.ts`.
-2. Move component cloning into the component catalog or a serialization helper.
-3. Make entity duplication use catalog definitions, not constructor-name lookup.
-4. Update editor duplication and paste flows to call the new utility.
+1. [x] Remove `GameComponents` from `src/engine/ecs/Registry.ts`.
+2. [x] Move component cloning into the component catalog or a serialization helper.
+3. [x] Make entity duplication use catalog definitions, not constructor-name lookup.
+4. [x] Update editor duplication and paste flows to call the new utility.
 
 Acceptance checks:
 
-- `src/engine/ecs/Registry.ts` has no app imports.
-- Entity duplication works for game components and for test-only components.
+- [x] `src/engine/ecs/Registry.ts` has no app imports.
+- [x] Entity duplication works for game components and for test-only components.
 
 ### Phase 4: Separate Pure Serialization from Browser Persistence
 

@@ -1,4 +1,5 @@
 import Component, { ComponentClass } from './Component';
+import { ComponentCatalog } from './ComponentCatalog';
 import Registry from './Registry';
 import System, { SystemClass } from './System';
 
@@ -21,8 +22,8 @@ export default class Entity {
         this.registry.killEntity(this);
     };
 
-    duplicate = () => {
-        return this.registry.duplicateEntity(this);
+    duplicate = (componentCatalog: ComponentCatalog) => {
+        return this.registry.duplicateEntity(this, componentCatalog);
     };
 
     tag = (tag: string) => {
