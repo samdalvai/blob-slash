@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 
 import Registry from '../../engine/ecs/Registry';
-import { gameComponentCatalog } from '../../game/componentCatalog';
+import { gameComponentCatalog } from '../../game/components/componentCatalog';
 import TransformComponent from '../../game/components/TransformComponent';
 
 describe('Testing game component catalog', () => {

@@ -1,5 +1,5 @@
 import { Engine, AssetStore, Entity, Registry, System, EventBus, LevelManager, deserializeEntity, LevelMap, isValidLevelMap } from '../../engine';
-import { gameComponentCatalog } from '../../game/componentCatalog';
+import { gameComponentCatalog } from '../../game/components/componentCatalog';
 import { TransformComponent } from '../../game/components';
 import EntityKilledEvent from '../../game/events/EntityKilledEvent';
 import * as GameSystems from '../../game/systems';

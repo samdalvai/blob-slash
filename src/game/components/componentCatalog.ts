@@ -1,5 +1,5 @@
-import { Component, ComponentClass, createComponentCatalog } from '../engine';
-import * as Components from './components';
+import { Component, ComponentClass, createComponentCatalog } from '../../engine';
+import * as Components from '.';
 
 export const gameComponentCatalog = createComponentCatalog(
     Object.entries(Components).map(([name, ComponentConstructor]) => ({
