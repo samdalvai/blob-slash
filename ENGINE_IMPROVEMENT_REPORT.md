@@ -477,6 +477,8 @@ Priority: Medium
 
 ### 1. Replace linear system entity removal with O(1) removal
 
+Status: Done
+
 References:
 
 - `src/engine/ecs/System.ts:21`
@@ -911,7 +913,7 @@ Priority: Low
 
 ### Phase 3: ECS performance
 
-1. Add O(1) system entity removal.
+1. [x] Add O(1) system entity removal.
 2. Remove killed entity components by signature bits.
 3. Consider array-backed pool indexes.
 4. Move high-count class methods to prototypes.
