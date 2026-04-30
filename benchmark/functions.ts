@@ -1,6 +1,6 @@
-import OriginalEntity from '../src/engine/ecs/Entity';
-import OriginalRegistry from '../src/engine/ecs/Registry';
-import OriginalSystem from '../src/engine/ecs/System';
+import OriginalEntity from '../src_old/engine/ecs/Entity';
+import OriginalRegistry from '../src_old/engine/ecs/Registry';
+import OriginalSystem from '../src_old/engine/ecs/System';
 
 import ModifiedEntity from '../src/engine/ecs/Entity';
 import ModifiedRegistry from '../src/engine/ecs/Registry';
