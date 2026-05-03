@@ -1,5 +1,4 @@
-import Component from '../../engine/ecs/Component';
-import { Vector } from '../../engine/types/utils';
+import { Component, Vector } from '../../engine';
 
 type ScriptAction = { movement: Vector; duration: number };
 

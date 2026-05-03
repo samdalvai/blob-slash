@@ -1,24 +1,32 @@
-import * as GameComponents from '../../game/components';
-import Component from '../ecs/Component';
+import Component, { ComponentClass } from '../ecs/Component';
+import { ComponentCatalog } from '../ecs/ComponentCatalog';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import { EntityMap } from '../types/map';
 
-export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Entity => {
+export const deserializeEntity = (
+    entityMap: EntityMap,
+    registry: Registry,
+    componentCatalog: ComponentCatalog,
+): Entity => {
     const entity = registry.createEntity();
 
     // TODO: this logic fails on prod environments where code is minified/obfuscated
     // to test this locally run: npx parcel build game.html && mv dist/game.html dist/index.html && npx serve dist
     // current fix for prod is to add the flag --no-optimize to the build command
     // npx parcel build game.html --no-optimize && mv dist/game.html dist/index.html && npx serve dist
+    // TODO: Check if this comment is still relevant
     for (const component of entityMap.components) {
-        const ComponentClass = GameComponents[component.name as keyof typeof GameComponents];
-        const parameters = getComponentConstructorParamNames(ComponentClass);
-        const parameterValues = [];
-        
-        for (const param of parameters) {
-            parameterValues.push(component.properties[param as keyof Component]);
+        const componentDefinition = componentCatalog.get(component.name);
+
+        if (!componentDefinition) {
+            throw new Error(`Could not find component definition for ${component.name}`);
         }
+
+        const ComponentClass = componentDefinition.constructor;
+        const parameterValues =
+            componentDefinition.deserialize?.(component.properties) ??
+            getComponentConstructorParamNames(ComponentClass).map(param => component.properties[param]);
 
         entity.addComponent(ComponentClass, ...parameterValues);
     }
@@ -34,11 +42,15 @@ export const deserializeEntity = (entityMap: EntityMap, registry: Registry): Ent
     return entity;
 };
 
-export const deserializeEntities = (entities: EntityMap[], registry: Registry): Entity[] => {
+export const deserializeEntities = (
+    entities: EntityMap[],
+    registry: Registry,
+    componentCatalog: ComponentCatalog,
+): Entity[] => {
     const entitiesList: Entity[] = [];
 
     for (const entity of entities) {
-        entitiesList.push(deserializeEntity(entity, registry));
+        entitiesList.push(deserializeEntity(entity, registry, componentCatalog));
     }
 
     return entitiesList;
@@ -90,10 +102,22 @@ export const parseConstructorParameters = (constructorStr: string): string[] => 
     return paramNames;
 };
 
-export const getComponentConstructorParamNames = <T extends Component>(component: T): string[] => {
+export const getComponentConstructorParamNames = <T extends Component>(component: ComponentClass<T>): string[] => {
     const componentString = component.toString();
     const constructorString = parseConstructorString(componentString);
     return parseConstructorParameters(constructorString);
+};
+
+export const cloneComponentProperty = (property: any) => {
+    if (Array.isArray(property)) {
+        return [...property];
+    }
+
+    if (property !== null && typeof property === 'object') {
+        return { ...property };
+    }
+
+    return property;
 };
 
 const isNumeric = (str: string) => {

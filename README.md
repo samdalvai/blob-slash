@@ -84,6 +84,7 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
         /game               -> Unit tests for game related logic
 
     /editor
+        main.ts              -> Editor app entrypoint
         /entity-editor      -> Level and entity management with HTML elements logic
         /events             -> Editor events (entity delete, entity paste, etc.)
         /gui                -> HTML gui utilities
@@ -93,8 +94,8 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
         /version-manager    -> Handling of undo/redo and level versions
 
     /engine
+        index.ts            -> Public engine API
         /asset-store        -> Asset loading and retrieval (sprites, sounds, etc.)
-        /config             -> Configuration for assets loading in Javascript modules
         /ecs                -> Logic for entity/components/systems architecture
         /event-bus          -> Handling of game events
         /input-manager      -> Handling of game inputs (mouse, keyboard)
@@ -105,7 +106,8 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
         /utils              -> Engine utility and math-related functions
 
     /game
-        /components         -> Entities components (sprite, transform, health, etc.)
+        main.ts             -> Game app entrypoint
+        /components         -> Entities components (sprite, transform, health, etc.) and component catalog
         /events             -> Game events (collision, hit, etc.)
         /systems            -> Game systems (movement, rendering, collision, etc.)
 
@@ -118,14 +120,39 @@ A demonstration RPG-style 2D game built with this engine, where the player can c
 
 ```
 
+# Engine API
+
+The reusable engine code lives under `src/engine` and is exported through `src/engine/index.ts`.
+Game and editor code should import engine classes, types, and utilities from that public barrel instead of deep engine paths.
+
+From files directly under `src/game` or `src/editor`:
+
+```ts
+import { Engine, RAFLoopStrategy } from '../engine';
+```
+
+From nested app folders such as `src/game/components` or `src/editor/systems`:
+
+```ts
+import { Component, System, Rectangle } from '../../engine';
+```
+
+`src/engine` should not import from `src/game` or `src/editor`. App-specific components are provided to engine serialization and duplication through the game component catalog.
+
+# Game Component Catalog
+
+Serializable game components are exposed through `src/game/components/componentCatalog.ts`. The catalog is built from the exports in `src/game/components/index.ts` and is passed to engine APIs that need to resolve component names, such as deserialization and entity duplication.
+
+When adding a component, export it from `src/game/components/index.ts`; that makes it available to the editor and the `gameComponentCatalog`.
+
 # How to develop a new game mechanic
 
-If you want to develop a new game mechanic you can do so by peforming these steps
+If you want to develop a new game mechanic you can do so by performing these steps.
 
 1. If needed create a new component for an entity under `src/game/components`
 
-```JavaScript
-import Component from '../../engine/ecs/Component';
+```ts
+import { Component } from '../../engine';
 
 export default class MyNewComponent extends Component {
     myProperty: number;
@@ -137,20 +164,20 @@ export default class MyNewComponent extends Component {
 }
 ```
 
-2. Add your new component to the list of exported Game components under `src/game/components/index.ts`. This is needed to have the component available when in editor mode
+2. Add your new component to the list of exported game components under `src/game/components/index.ts`. This also makes the component available through `gameComponentCatalog`.
 
-```JavaScript
+```ts
 // ... other imports
-export { default as TextLabelComponent } from '../../game/components/TextLabelComponent';
-export { default as TransformComponent } from '../../game/components/TransformComponent';
-export { default as MyNewComponent } from '../../game/components/MyNewComponent'; // Export your new component
+export { default as TextLabelComponent } from './TextLabelComponent';
+export { default as TransformComponent } from './TransformComponent';
+export { default as MyNewComponent } from './MyNewComponent';
 ```
 
 3. Create a new system under `src/game/systems`
 
-```JavaScript
+```ts
+import { System } from '../../engine';
 import MyNewComponent from '../components/MyNewComponent';
-import System from '../../engine/ecs/System';
 
 export default class MyNewSystem extends System {
     constructor() {
@@ -169,18 +196,18 @@ export default class MyNewSystem extends System {
 }
 ```
 
-4. Add your new system to the list of exported Game systems under `src/game/systems/index.ts`. This is needed to have the system available when in editor mode
+4. Add your new system to the list of exported game systems under `src/game/systems/index.ts`. This is needed to have the system available when in editor mode.
 
-```JavaScript
+```ts
 // ... other imports
 export { default as RenderSystem } from './RenderSystem';
 export { default as RenderTextSystem } from './RenderTextSystem';
-export { default as MyNewSystem } from '../../game/components/MyNewSystem'; // Export your new system
+export { default as MyNewSystem } from './MyNewSystem';
 ```
 
 5. Register your system in `src/game/Game.ts:setup()`
 
-```JavaScript
+```ts
 setup = async () => {
     // ... other registered systems
     this.registry.addSystem(Systems.MovementSystem);
@@ -189,14 +216,14 @@ setup = async () => {
 }
 ```
 
-6. Perform you update logic in `src/game/Game.ts:update()` or `src/game/Game.ts:render()`, depending on the type of system, e.g. if a system needs to perform rendering you will add it in the `render()` function.
+6. Perform your update logic in `src/game/Game.ts:update()` or `src/game/Game.ts:render()`, depending on the type of system. For example, if a system needs to perform rendering, add it in the `render()` function.
 
-```JavaScript
+```ts
 update = (deltaTime: number) => {
     // ... other systems updates
     this.registry.getSystem(Systems.MovementSystem)?.update(deltaTime);
     this.registry.getSystem(Systems.AnimationSystem)?.update();
-    this.registry.getSystem(Systems.SpriteStateSystem)?.update(); // Perfom update for you new system
+    this.registry.getSystem(Systems.MyNewSystem)?.update();
 };
 ```
 

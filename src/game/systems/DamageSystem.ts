@@ -1,6 +1,4 @@
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
+import { Entity, System, EventBus } from '../../engine';
 import CameraShakeComponent from '../components/CameraShakeComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import HealthComponent from '../components/HealthComponent';

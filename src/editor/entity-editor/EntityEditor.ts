@@ -1,13 +1,4 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
-import Component from '../../engine/ecs/Component';
-import Entity from '../../engine/ecs/Entity';
-import Registry from '../../engine/ecs/Registry';
-import EventBus from '../../engine/event-bus/EventBus';
-import LevelManager from '../../engine/level-manager/LevelManager';
-import { saveCurrentLevelToLocalStorage } from '../../engine/serialization/persistence';
-import { EntityMap } from '../../engine/types/map';
-import { Rectangle, Vector } from '../../engine/types/utils';
-import { isValidEntityMap } from '../../engine/utils/validation';
+import { AssetStore, Component, Entity, Registry, EventBus, LevelManager, EntityMap, Rectangle, Vector, isValidEntityMap } from '../../engine';
 import * as GameComponents from '../../game/components';
 import Editor from '../Editor';
 import EntityDeleteEvent from '../events/EntityDeleteEvent';
@@ -16,6 +7,7 @@ import EntityPasteEvent from '../events/EntityPasteEvent';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 import EntityUpdateEvent from '../events/EntityUpdateEvent';
 import { createInput, createListItem, scrollToListElement, showAlert } from '../gui';
+import { saveCurrentLevelToLocalStorage } from '../persistence/levelPersistence';
 import VersionManager from '../version-manager/VersionManager';
 
 export default class EntityEditor {

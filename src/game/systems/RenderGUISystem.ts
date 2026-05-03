@@ -1,6 +1,4 @@
-import Engine from '../../engine/Engine';
-import AssetStore from '../../engine/asset-store/AssetStore';
-import System from '../../engine/ecs/System';
+import { Engine, AssetStore, System } from '../../engine';
 
 // TODO: remove this and create entities instead
 export default class RenderGUISystem extends System {

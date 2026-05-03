@@ -1,4 +1,4 @@
-import GameEvent from '../../engine/event-bus/GameEvent';
+import { GameEvent } from '../../engine';
 
 export default class SoundEmitEvent extends GameEvent {
     soundAssetId: string;

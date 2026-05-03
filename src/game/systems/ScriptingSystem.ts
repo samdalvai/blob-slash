@@ -1,6 +1,6 @@
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import ScriptComponent from '../components/ScriptComponent';
-import System from '../../engine/ecs/System';
+import { System } from '../../engine';
 
 export default class ScriptingSystem extends System {
     constructor() {

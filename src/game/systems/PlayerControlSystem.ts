@@ -1,10 +1,4 @@
-import Engine from '../../engine/Engine';
-import Registry from '../../engine/ecs/Registry';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import { MouseButton } from '../../engine/types/control';
-import { Flip, Vector } from '../../engine/types/utils';
-import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
+import { Engine, Registry, System, EventBus, MouseButton, Flip, Vector, computeDirectionVector, computeUnitVector } from '../../engine';
 import AnimationComponent from '../components/AnimationComponent';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import DamageRadiusComponent from '../components/DamageRadiusComponent';

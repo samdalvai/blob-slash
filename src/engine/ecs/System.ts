@@ -1,4 +1,4 @@
-import Component, { ComponentClass } from './Component';
+import { ComponentClass } from './Component';
 import Entity from './Entity';
 import Signature from './Signature';
 
@@ -8,10 +8,14 @@ export type SystemClass<T extends System> = {
 };
 
 export class ISystem {
-    static nextId = 0;
+    private static nextId = 0;
 
     static resetIds(): void {
-        this.nextId = 0;
+        ISystem.nextId = 0;
+    }
+
+    protected static getNextId(): number {
+        return ISystem.nextId++;
     }
 }
 
@@ -19,47 +23,82 @@ export default class System extends ISystem {
     private static _id?: number;
     private componentSignature: Signature;
     private entities: Entity[];
+    private entityIdToIndex: Map<number, number>;
 
     constructor() {
         super();
         this.componentSignature = new Signature();
         this.entities = [];
+        this.entityIdToIndex = new Map();
     }
 
     static getSystemId() {
         if (this._id === undefined) {
-            this._id = ISystem.nextId++;
+            this._id = this.getNextId();
         }
         return this._id;
     }
 
-    addEntityToSystem = (entity: Entity) => {
-        this.entities.push(entity);
-    };
+    addEntityToSystem(entity: Entity) {
+        const entityId = entity.getId();
 
-    removeEntityFromSystem = (entity: Entity) => {
-        const entityIndex = this.entities.indexOf(entity);
-        if (entityIndex === -1) {
+        if (this.entityIdToIndex.has(entityId)) {
             return;
         }
-        this.entities[entityIndex] = this.entities[this.entities.length - 1];
+
+        this.entityIdToIndex.set(entityId, this.entities.length);
+        this.entities.push(entity);
+    }
+
+    removeEntityFromSystem(entity: Entity) {
+        const entityId = entity.getId();
+        const entityIndex = this.entityIdToIndex.get(entityId);
+
+        if (entityIndex === undefined) {
+            return;
+        }
+
+        const lastEntityIndex = this.entities.length - 1;
+        const lastEntity = this.entities[lastEntityIndex];
+
+        this.entities[entityIndex] = lastEntity;
         this.entities.pop();
-    };
+        this.entityIdToIndex.delete(entityId);
 
-    getSystemEntities = () => {
+        if (entityIndex !== lastEntityIndex) {
+            this.entityIdToIndex.set(lastEntity.getId(), entityIndex);
+        }
+    }
+
+    hasEntity(entity: Entity) {
+        return this.entityIdToIndex.has(entity.getId());
+    }
+
+    getSystemEntities(): readonly Entity[] {
         return this.entities;
-    };
+    }
 
-    getComponentSignature = () => {
-        return this.componentSignature;
-    };
+    getComponentSignature() {
+        return this.componentSignature.signature;
+    }
 
-    requireComponent = <T extends Component>(ComponentClass: ComponentClass<T>) => {
+    isInterestedIn(signature: number) {
+        const systemSignature = this.componentSignature.signature;
+
+        if (systemSignature === 0) {
+            return false;
+        }
+
+        return (signature & systemSignature) == systemSignature;
+    }
+
+    requireComponent<T extends ComponentClass>(ComponentClass: T) {
         const componentId = ComponentClass.getComponentId();
         this.componentSignature.set(componentId);
-    };
+    }
 
-    removeAllEntities = () => {
+    removeAllEntities() {
         this.entities = [];
-    };
+        this.entityIdToIndex.clear();
+    }
 }

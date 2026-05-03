@@ -1,6 +1,4 @@
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import { Vector } from '../../engine/types/utils';
+import { System, EventBus, Vector } from '../../engine';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import TransformComponent from '../components/TransformComponent';
 import CollisionEvent from '../events/CollisionEvent';

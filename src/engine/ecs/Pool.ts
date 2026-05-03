@@ -3,93 +3,121 @@ import Component from './Component';
 export class IPool {}
 
 export default class Pool<T extends Component> extends IPool {
-    data: T[];
-    size: number;
-    entityIdToIndex: Map<number, number>;
-    indexToEntityId: Map<number, number>;
+    private _data: T[];
+    private _size: number;
+    private _entityIdToIndex: (number | undefined)[];
+    private _indexToEntityId: (number | undefined)[];
 
     constructor() {
         super();
-        this.data = [];
-        this.size = 0;
-        this.entityIdToIndex = new Map<number, number>();
-        this.indexToEntityId = new Map<number, number>();
+        this._data = [];
+        this._size = 0;
+        this._entityIdToIndex = [];
+        this._indexToEntityId = [];
     }
 
-    isEmpty = () => {
-        return this.size == 0;
-    };
+    get data(): readonly T[] {
+        return this._data;
+    }
 
-    getSize = () => {
-        return this.size;
-    };
+    get size() {
+        return this._size;
+    }
 
-    clear = () => {
-        this.data = [];
-        this.size = 0;
-        this.entityIdToIndex.clear();
-        this.indexToEntityId.clear();
-    };
+    get entityIdToIndex(): ReadonlyArray<number | undefined> {
+        return this._entityIdToIndex;
+    }
 
-    set = (entityId: number, component: T) => {
-        const index = this.entityIdToIndex.get(entityId);
+    get indexToEntityId(): ReadonlyArray<number | undefined> {
+        return this._indexToEntityId;
+    }
+
+    isEmpty() {
+        return this._size == 0;
+    }
+
+    getSize() {
+        return this._size;
+    }
+
+    getByIndex(index: number): T | undefined {
+        return this._data[index];
+    }
+
+    getEntityIndex(entityId: number) {
+        return this._entityIdToIndex[entityId];
+    }
+
+    getEntityIdAtIndex(index: number) {
+        return this._indexToEntityId[index];
+    }
+
+    clear() {
+        this._data = [];
+        this._size = 0;
+        this._entityIdToIndex.length = 0;
+        this._indexToEntityId.length = 0;
+    }
+
+    set(entityId: number, component: T) {
+        const index = this._entityIdToIndex[entityId];
 
         if (index !== undefined) {
             // If the element already exists, simply replace the component object
-            this.data[index] = component;
+            this._data[index] = component;
         } else {
-            const index = this.size;
-            this.entityIdToIndex.set(entityId, index);
-            this.indexToEntityId.set(index, entityId);
-            this.data[index] = component;
-            this.size++;
+            const index = this._size;
+            this._entityIdToIndex[entityId] = index;
+            this._indexToEntityId[index] = entityId;
+            this._data[index] = component;
+            this._size++;
         }
-    };
+    }
 
-    remove = (entityId: number) => {
+    remove(entityId: number) {
         // Copy the last element to the deleted position to keep the array packed
-        const indexOfRemoved = this.entityIdToIndex.get(entityId);
+        const indexOfRemoved = this._entityIdToIndex[entityId];
 
         if (indexOfRemoved === undefined) {
             console.warn('Could not find entity with id ' + entityId + ' in component pool');
             return;
         }
 
-        const indexOfLast = this.size - 1;
-        this.data[indexOfRemoved] = this.data[indexOfLast];
-        this.data.pop();
-
-        // Update the index-entity maps to point to the correct elements
-        const entityIdOfLastElement = this.indexToEntityId.get(indexOfLast);
+        const indexOfLast = this._size - 1;
+        const entityIdOfLastElement = this._indexToEntityId[indexOfLast];
 
         if (entityIdOfLastElement === undefined) {
             console.warn('Could not find last index of entity in component pool');
             return;
         }
 
-        this.entityIdToIndex.set(entityIdOfLastElement, indexOfRemoved);
-        this.indexToEntityId.set(indexOfRemoved, entityIdOfLastElement);
+        this._data[indexOfRemoved] = this._data[indexOfLast];
+        this._data.pop();
 
-        this.entityIdToIndex.delete(entityId);
-        this.indexToEntityId.delete(indexOfLast);
+        // Update the index-entity arrays to point to the correct elements
+        this._entityIdToIndex[entityIdOfLastElement] = indexOfRemoved;
+        this._indexToEntityId[indexOfRemoved] = entityIdOfLastElement;
 
-        this.size--;
-    };
+        this._entityIdToIndex[entityId] = undefined;
+        this._indexToEntityId.pop();
 
-    removeEntityFromPool = (entityId: number) => {
-        if (this.entityIdToIndex.get(entityId) !== undefined) {
+        this._size--;
+    }
+
+    removeEntityFromPool(entityId: number) {
+        if (this._entityIdToIndex[entityId] !== undefined) {
             this.remove(entityId);
         }
-    };
+    }
 
-    get = (entityId: number): T | undefined => {
-        const componentIndex = this.entityIdToIndex.get(entityId);
+    get(entityId: number): T | undefined {
+        const componentIndex = this._entityIdToIndex[entityId];
 
         if (componentIndex === undefined) {
             console.warn('Could not find entity with id ' + entityId + ' in component pool');
             return undefined;
         }
 
-        return this.data[componentIndex];
-    };
+        return this._data[componentIndex];
+    }
 }
