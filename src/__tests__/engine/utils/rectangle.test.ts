@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import { Rectangle } from '../../../engine/types/utils';
 import { rectanglesOverlap } from '../../../engine/utils/rectangle';

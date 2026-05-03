@@ -1,8 +1,4 @@
-import Engine from '../../engine/Engine';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
-import { DEFAULT_SPRITE } from '../../engine/utils/constants';
-import { rectanglesOverlap } from '../../engine/utils/rectangle';
+import { Engine, System, Rectangle, DEFAULT_SPRITE, rectanglesOverlap } from '../../engine';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import Editor from '../Editor';

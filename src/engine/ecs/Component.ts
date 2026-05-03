@@ -1,13 +1,17 @@
-export type ComponentClass<T extends Component> = {
-    new (...args: any[]): T;
+export type ComponentClass<T extends Component = Component, Args extends unknown[] = any[]> = {
+    new (...args: Args): T;
     getComponentId(): number;
 };
 
 export class IComponent {
-    static nextId = 0;
+    private static nextId = 0;
 
     static resetIds(): void {
-        this.nextId = 0;
+        IComponent.nextId = 0;
+    }
+
+    protected static getNextId(): number {
+        return IComponent.nextId++;
     }
 }
 
@@ -50,7 +54,7 @@ export default class Component extends IComponent {
 
     static getComponentId() {
         if (this._id === undefined) {
-            this._id = IComponent.nextId++;
+            this._id = this.getNextId();
         }
         return this._id;
     }

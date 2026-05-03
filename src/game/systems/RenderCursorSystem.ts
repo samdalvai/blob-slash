@@ -1,10 +1,6 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
+import { AssetStore, Registry, System, Rectangle, Engine } from '../../engine';
 import HighlightComponent from '../components/HighlightComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
-import Registry from '../../engine/ecs/Registry';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
-import Engine from '../../engine/Engine';
 
 export default class RenderCursorSystem extends System {
     constructor() {

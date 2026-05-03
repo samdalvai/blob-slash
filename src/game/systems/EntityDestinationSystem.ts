@@ -2,8 +2,7 @@ import EntityDestinationComponent from '../components/EntityDestinationComponent
 import RigidBodyComponent from '../components/RigidBodyComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import System from '../../engine/ecs/System';
-import { computeDirectionVector, computeUnitVector } from '../../engine/utils/vector';
+import { System, computeDirectionVector, computeUnitVector } from '../../engine';
 import DebugEntityDestinationSystem from './DebugEntityDestinationSystem';
 
 export default class EntityDestinationSystem extends System {

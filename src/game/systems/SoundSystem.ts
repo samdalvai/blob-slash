@@ -1,6 +1,4 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
+import { AssetStore, System, EventBus } from '../../engine';
 import SoundComponent from '../components/SoundComponent';
 import SoundEmitEvent from '../events/SoundEmitEvent';
 

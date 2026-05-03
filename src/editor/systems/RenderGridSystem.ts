@@ -1,5 +1,4 @@
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { System, Rectangle } from '../../engine';
 import Editor from '../Editor';
 
 export default class RenderGridSystem extends System {

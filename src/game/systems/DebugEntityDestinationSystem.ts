@@ -1,6 +1,5 @@
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { System, Rectangle } from '../../engine';
 
 export default class DebugEntityDestinationSystem extends System {
     constructor() {

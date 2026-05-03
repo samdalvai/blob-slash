@@ -1,9 +1,4 @@
-import AssetStore from '../../engine/asset-store/AssetStore';
-import Registry from '../../engine/ecs/Registry';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import LevelManager from '../../engine/level-manager/LevelManager';
-import { GameStatus, Rectangle } from '../../engine/types/utils';
+import { AssetStore, Registry, System, EventBus, LevelManager, GameStatus, Rectangle } from '../../engine';
 import Game from '../Game';
 import { MousePressedEvent } from '../events';
 

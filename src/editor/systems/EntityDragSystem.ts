@@ -1,11 +1,4 @@
-import Engine from '../../engine/Engine';
-import Entity from '../../engine/ecs/Entity';
-import System from '../../engine/ecs/System';
-import EventBus from '../../engine/event-bus/EventBus';
-import { MouseButton } from '../../engine/types/control';
-import { Rectangle } from '../../engine/types/utils';
-import { DEFAULT_SPRITE } from '../../engine/utils/constants';
-import { rectanglesOverlap } from '../../engine/utils/rectangle';
+import { Engine, Entity, System, EventBus, MouseButton, Rectangle, DEFAULT_SPRITE, rectanglesOverlap } from '../../engine';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
 import { MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';

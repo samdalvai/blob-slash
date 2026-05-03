@@ -1,4 +1,4 @@
-import Component from '../../engine/ecs/Component';
+import { Component } from '../../engine';
 
 export default class EntityDestinationComponent extends Component {
     destinationX: number;

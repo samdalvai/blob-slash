@@ -1,6 +1,4 @@
-import Component from '../../engine/ecs/Component';
-import { Flip } from '../../engine/types/utils';
-import { DEFAULT_SPRITE } from '../../engine/utils/constants';
+import { Component, Flip, DEFAULT_SPRITE } from '../../engine';
 
 export default class SpriteComponent extends Component {
     assetId: string;

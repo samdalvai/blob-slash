@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import { LevelMap } from '../../../engine/types/map';
 import { isValidLevelMap } from '../../../engine/utils/validation';

@@ -1,6 +1,4 @@
-import Engine from '../../engine/Engine';
-import System from '../../engine/ecs/System';
-import { Rectangle } from '../../engine/types/utils';
+import { Engine, System, Rectangle } from '../../engine';
 import CameraFollowComponent from '../components/CameraFollowComponent';
 import TransformComponent from '../components/TransformComponent';
 
