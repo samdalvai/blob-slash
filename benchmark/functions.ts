@@ -1,7 +1,7 @@
-import OriginalComponent from '../src_old/engine/ecs/Component';
-import { createComponentCatalog as createOriginalComponentCatalog } from '../src_old/engine/ecs/ComponentCatalog';
-import OriginalRegistry from '../src_old/engine/ecs/Registry';
-import OriginalSystem from '../src_old/engine/ecs/System';
+import OriginalComponent from '../src/engine/ecs/Component';
+import { createComponentCatalog as createOriginalComponentCatalog } from '../src/engine/ecs/ComponentCatalog';
+import OriginalRegistry from '../src/engine/ecs/Registry';
+import OriginalSystem from '../src/engine/ecs/System';
 
 import ModifiedComponent from '../src/engine/ecs/Component';
 import { createComponentCatalog as createModifiedComponentCatalog } from '../src/engine/ecs/ComponentCatalog';
