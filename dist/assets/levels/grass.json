@@ -2,101 +2,101 @@
   "textures": [
     {
       "assetId": "grass_dirt",
-      "filePath": "./assets/tilemaps/grass_dirt.png"
+      "filePath": "assets/tilemaps/grass_dirt.png"
     },
     {
       "assetId": "slime_big_full",
-      "filePath": "./assets/sprites/slime_big_full.png"
+      "filePath": "assets/sprites/slime_big_full.png"
     },
     {
       "assetId": "cursor-texture",
-      "filePath": "./assets/sprites/cursor.png"
+      "filePath": "assets/sprites/cursor.png"
     },
     {
       "assetId": "tree",
-      "filePath": "./assets/sprites/tree.png"
+      "filePath": "assets/sprites/tree.png"
     },
     {
       "assetId": "grass_water",
-      "filePath": "./assets/tilemaps/grass_water.png"
+      "filePath": "assets/tilemaps/grass_water.png"
     },
     {
       "assetId": "mouse_menu",
-      "filePath": "./assets/sprites/mouse_menu.png"
+      "filePath": "assets/sprites/mouse_menu.png"
     },
     {
       "assetId": "skills_menu",
-      "filePath": "./assets/sprites/skills_menu.png"
+      "filePath": "assets/sprites/skills_menu.png"
     },
     {
       "assetId": "destination_circle",
-      "filePath": "./assets/sprites/destination_circle.png"
+      "filePath": "assets/sprites/destination_circle.png"
     },
     {
       "assetId": "cooldown_skill",
-      "filePath": "./assets/sprites/cooldown_skill.png"
+      "filePath": "assets/sprites/cooldown_skill.png"
     },
     {
       "assetId": "cursor",
-      "filePath": "./assets/sprites/cursor.png"
+      "filePath": "assets/sprites/cursor.png"
     },
     {
       "assetId": "magic_bubble",
-      "filePath": "./assets/sprites/magic_bubble.png"
+      "filePath": "assets/sprites/magic_bubble.png"
     },
     {
       "assetId": "magic_sphere",
-      "filePath": "./assets/sprites/magic_sphere.png"
+      "filePath": "assets/sprites/magic_sphere.png"
     },
     {
       "assetId": "explosion_small_blue",
-      "filePath": "./assets/sprites/explosion_small_blue.png"
+      "filePath": "assets/sprites/explosion_small_blue.png"
     },
     {
       "assetId": "smear64",
-      "filePath": "./assets/sprites/smear64.png"
+      "filePath": "assets/sprites/smear64.png"
     },
     {
       "assetId": "teleport",
-      "filePath": "./assets/sprites/teleport.png"
+      "filePath": "assets/sprites/teleport.png"
     },
     {
       "assetId": "fire_circle",
-      "filePath": "./assets/sprites/fire_circle.png"
+      "filePath": "assets/sprites/fire_circle.png"
     },
     {
       "assetId": "torch",
-      "filePath": "./assets/sprites/torch.png"
+      "filePath": "assets/sprites/torch.png"
     },
     {
       "assetId": "skeleton_full",
-      "filePath": "./assets/sprites/skeleton_full.png"
+      "filePath": "assets/sprites/skeleton_full.png"
     },
     {
       "assetId": "player_full",
-      "filePath": "./assets/sprites/player_full.png"
+      "filePath": "assets/sprites/player_full.png"
     },
     {
       "assetId": "health_globe",
-      "filePath": "./assets/sprites/health_globe.png"
+      "filePath": "assets/sprites/health_globe.png"
     }
   ],
   "sounds": [
     {
       "assetId": "entity_hit",
-      "filePath": "./assets/sounds/entity_hit.wav"
+      "filePath": "assets/sounds/entity_hit.wav"
     },
     {
       "assetId": "teleport",
-      "filePath": "./assets/sounds/teleport.wav"
+      "filePath": "assets/sounds/teleport.wav"
     },
     {
       "assetId": "slash",
-      "filePath": "./assets/sounds/slash.wav"
+      "filePath": "assets/sounds/slash.wav"
     },
     {
       "assetId": "melee_attack",
-      "filePath": "./assets/sounds/melee_attack.wav"
+      "filePath": "assets/sounds/melee_attack.wav"
     }
   ],
   "mapWidth": 2500,

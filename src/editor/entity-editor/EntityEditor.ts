@@ -485,10 +485,10 @@ export default class EntityEditor {
                 const assetId = fileName.replace('.png', '');
 
                 try {
-                    await this.assetStore.addTexture(assetId, './assets/sprites/' + fileName);
+                    await this.assetStore.addTexture(assetId, 'assets/sprites/' + fileName);
                 } catch (error) {
                     try {
-                        await this.assetStore.addTexture(assetId, './assets/tilemaps/' + fileName);
+                        await this.assetStore.addTexture(assetId, 'assets/tilemaps/' + fileName);
                     } catch (error) {
                         showAlert(
                             'Could not load file with name ' +
