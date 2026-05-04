@@ -10,7 +10,7 @@
         "test:perf": "jest src/__tests__/Performance.test.ts",
         "lint": "eslint . --ext .js,.ts",
         "lint:fix": "eslint . --ext .js,.ts --fix",
-        "build:game": "parcel build game.html --public-url ./ && mv dist/game.html dist/index.html",
+        "build:game": "parcel build game.html --no-optimize --public-url ./ && mv dist/game.html dist/index.html",
         "build:editor": "parcel build editor.html",
         "benchmark": "rm -rf .benchmark-dist && tsc --outDir .benchmark-dist --rootDir . --module commonjs --target es2020 benchmark/index.ts && node .benchmark-dist/benchmark/index.js"
     },
