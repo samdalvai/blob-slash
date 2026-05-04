@@ -42,19 +42,15 @@ export default class LevelManager {
         return level;
     }
 
-    // TODO: textures can be loaded all together
     private async loadAssets(level: LevelMap) {
         console.log('Loading default texture');
         await this.assetStore.addTexture(DEFAULT_SPRITE, './assets/sprites/default.png');
 
         console.log('Loading assets');
-        for (const texture of level.textures) {
-            await this.assetStore.addTexture(texture.assetId, texture.filePath);
-        }
-
-        for (const sound of level.sounds) {
-            await this.assetStore.addSound(sound.assetId, sound.filePath);
-        }
+        await Promise.all([
+            ...level.textures.map(texture => this.assetStore.addTexture(texture.assetId, texture.filePath)),
+            ...level.sounds.map(sound => this.assetStore.addSound(sound.assetId, sound.filePath)),
+        ]);
     }
 
     private loadEntities(level: LevelMap) {
