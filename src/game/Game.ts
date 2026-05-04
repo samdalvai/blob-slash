@@ -57,15 +57,15 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        // await this.levelManager.addLevelToAssets('snapshot', '/assets/levels/snapshot.json');
+        // await this.levelManager.addLevelToAssets('snapshot', 'assets/levels/snapshot.json');
         // await this.levelManager.loadLevelFromAssets('snapshot');
 
-        await this.levelManager.addLevelToAssets('grass', '/assets/levels/grass.json');
+        await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
         await this.levelManager.loadLevelFromAssets('grass');
         // const defaultLevel = this.levelManager.getDefaultLevel('0');
         // await this.levelManager.loadLevelFromLevelMap(defaultLevel.level);
 
-        // this.assetStore.addTexture('slime', './assets/sprites/slime_big_full.png');
+        // this.assetStore.addTexture('slime', 'assets/sprites/slime_big_full.png');
 
         // const player = this.registry.createEntity();
         // player.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
@@ -75,7 +75,7 @@ export default class Game extends Engine {
         // player.addComponent(AnimationComponent, 2, 4);
         // player.tag('player');
 
-        // // await this.levelManager.addLevelToAssets('test', '/assets/levels/test.json');
+        // // await this.levelManager.addLevelToAssets('test', 'assets/levels/test.json');
         // // await this.levelManager.loadLevelFromAssets('test');
         Game.gameStatus = GameStatus.PLAYING;
     };

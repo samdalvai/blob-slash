@@ -44,7 +44,7 @@ export default class LevelManager {
 
     private async loadAssets(level: LevelMap) {
         console.log('Loading default texture');
-        await this.assetStore.addTexture(DEFAULT_SPRITE, './assets/sprites/default.png');
+        await this.assetStore.addTexture(DEFAULT_SPRITE, 'assets/sprites/default.png');
 
         console.log('Loading assets');
         await Promise.all([
