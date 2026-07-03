@@ -1,5 +1,4 @@
 import { Engine, GameStatus } from '../engine';
-import { AnimationComponent, PlayerControlComponent, RigidBodyComponent, SpriteComponent, TransformComponent } from './components';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
@@ -44,7 +43,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.EntityHighlightSystem);
         this.registry.addSystem(Systems.EntityEffectSystem);
         this.registry.addSystem(Systems.AnimationOnHitSystem);
-        // this.registry.addSystem(Systems.GameEndSystem);
+        this.registry.addSystem(Systems.GameEndSystem);
         this.registry.addSystem(Systems.DropItemSystem);
         this.registry.addSystem(Systems.PickItemSystem);
 
@@ -57,26 +56,9 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        // await this.levelManager.addLevelToAssets('snapshot', 'assets/levels/snapshot.json');
-        // await this.levelManager.loadLevelFromAssets('snapshot');
-
         await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
         await this.levelManager.loadLevelFromAssets('grass');
-        // const defaultLevel = this.levelManager.getDefaultLevel('0');
-        // await this.levelManager.loadLevelFromLevelMap(defaultLevel.level);
 
-        // this.assetStore.addTexture('slime', 'assets/sprites/slime_big_full.png');
-
-        // const player = this.registry.createEntity();
-        // player.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
-        // player.addComponent(SpriteComponent, 'slime', 32, 32, 3);
-        // player.addComponent(RigidBodyComponent);
-        // player.addComponent(PlayerControlComponent, 100);
-        // player.addComponent(AnimationComponent, 2, 4);
-        // player.tag('player');
-
-        // // await this.levelManager.addLevelToAssets('test', 'assets/levels/test.json');
-        // // await this.levelManager.loadLevelFromAssets('test');
         Game.gameStatus = GameStatus.PLAYING;
     };
 
