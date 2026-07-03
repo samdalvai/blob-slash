@@ -1,7 +1,16 @@
-import { Engine, Entity, System, EventBus, MouseButton, Rectangle, DEFAULT_SPRITE, rectanglesOverlap } from '../../engine';
+import {
+    DEFAULT_SPRITE,
+    Engine,
+    Entity,
+    EventBus,
+    MouseButton,
+    Rectangle,
+    System,
+    rectanglesOverlap,
+} from '../../engine';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
-import { MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';
+import { KeyPressedEvent, MouseMoveEvent, MousePressedEvent, MouseReleasedEvent } from '../../game/events';
 import Editor from '../Editor';
 import EntityEditor from '../entity-editor/EntityEditor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
@@ -26,6 +35,7 @@ export default class EntityDragSystem extends System {
             this.onMouseReleased(event, canvas, eventBus, commandPressed),
         );
         eventBus.subscribeToEvent(MouseMoveEvent, this, () => this.onMouseMove(entityEditor));
+        eventBus.subscribeToEvent(KeyPressedEvent, this, event => this.onKeyboardPressed(event, eventBus));
     }
 
     onMousePressed = (
@@ -273,6 +283,13 @@ export default class EntityDragSystem extends System {
         Editor.entityDragStart.x += diffX;
         Editor.entityDragStart.y += diffY;
     };
+
+    onKeyboardPressed(event: KeyPressedEvent, eventBus: EventBus): void {
+        if (event.keyCode === 'Escape') {
+            Editor.selectedEntities.length = 0;
+            eventBus.emitEvent(EntitySelectEvent, []);
+        }
+    }
 
     private updateEntityPosition = (
         entity: Entity,
