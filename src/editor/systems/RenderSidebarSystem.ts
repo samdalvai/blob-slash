@@ -25,7 +25,10 @@ import {
 } from '../persistence/persistence';
 
 export default class RenderSidebarSystem extends System {
+    private readonly entityListRenderBatchSize = 20;
     private entityEditor: EntityEditor;
+    private entityListRenderFrame: number | null = null;
+    private entityListRenderToken = 0;
 
     constructor(entityEditor: EntityEditor) {
         super();
@@ -57,14 +60,12 @@ export default class RenderSidebarSystem extends System {
         }
 
         if (event.entities.length === 0) {
+            this.cancelEntityListRender();
             this.renderNoEntitySelected(entityList);
             return;
         }
 
-        entityList.innerHTML = '';
-        for (const entity of event.entities) {
-            entityList.appendChild(this.entityEditor.getEntityListElement(entity));
-        }
+        this.renderSelectedEntities(entityList, event.entities);
     };
 
     onEntityDelete = (event: EntityDeleteEvent, leftSidebar: HTMLElement) => {
@@ -94,8 +95,6 @@ export default class RenderSidebarSystem extends System {
         }
 
         const entityCopy = event.entity.duplicate(gameComponentCatalog);
-
-        entityList.appendChild(this.entityEditor.getEntityListElement(entityCopy));
 
         eventBus.emitEvent(EntitySelectEvent, [entityCopy]);
         Editor.selectedEntities = [entityCopy];
@@ -145,7 +144,6 @@ export default class RenderSidebarSystem extends System {
             }
 
             copiedEntities.push(copiedEntity);
-            entityList.appendChild(this.entityEditor.getEntityListElement(copiedEntity));
         }
 
         if (copiedEntities.length === 0) {
@@ -163,6 +161,47 @@ export default class RenderSidebarSystem extends System {
         this.entityEditor.saveLevel();
     };
 
+    private cancelEntityListRender = () => {
+        this.entityListRenderToken++;
+
+        if (this.entityListRenderFrame !== null) {
+            cancelAnimationFrame(this.entityListRenderFrame);
+            this.entityListRenderFrame = null;
+        }
+    };
+
+    private renderSelectedEntities = (entityList: HTMLLIElement, entities: Entity[]) => {
+        this.cancelEntityListRender();
+        entityList.innerHTML = '';
+
+        let entityIndex = 0;
+        const renderToken = this.entityListRenderToken;
+
+        const renderNextBatch = () => {
+            if (renderToken !== this.entityListRenderToken) {
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            const batchEnd = Math.min(entityIndex + this.entityListRenderBatchSize, entities.length);
+
+            while (entityIndex < batchEnd) {
+                fragment.appendChild(this.entityEditor.getEntityListElement(entities[entityIndex]));
+                entityIndex++;
+            }
+
+            entityList.appendChild(fragment);
+
+            if (entityIndex < entities.length) {
+                this.entityListRenderFrame = requestAnimationFrame(renderNextBatch);
+            } else {
+                this.entityListRenderFrame = null;
+            }
+        };
+
+        renderNextBatch();
+    };
+
     onEntityKilled = (event: EntityKilledEvent, leftSidebar: HTMLElement) => {
         if (!leftSidebar) {
             throw new Error('Could not retrieve leftSidebar');
@@ -174,22 +213,28 @@ export default class RenderSidebarSystem extends System {
             throw new Error('Could not retrieve entity list');
         }
 
-        const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
+        const updatedSelectedEntities = [];
 
-        if (targetElement) {
-            const updatedSelectedEntities = [];
-
-            for (const entity of Editor.selectedEntities) {
-                if (event.entity.getId() !== entity.getId()) {
-                    updatedSelectedEntities.push(entity);
-                }
+        for (const entity of Editor.selectedEntities) {
+            if (event.entity.getId() !== entity.getId()) {
+                updatedSelectedEntities.push(entity);
             }
+        }
 
-            if (Editor.selectedEntities.length !== updatedSelectedEntities.length) {
-                Editor.selectedEntities = updatedSelectedEntities;
+        if (Editor.selectedEntities.length !== updatedSelectedEntities.length) {
+            Editor.selectedEntities = updatedSelectedEntities;
+
+            if (Editor.selectedEntities.length === 0) {
+                this.renderNoEntitySelected(entityList as HTMLLIElement);
+            } else {
+                this.renderSelectedEntities(entityList as HTMLLIElement, Editor.selectedEntities);
             }
+        } else {
+            const targetElement = entityList.querySelector(`#entity-${event.entity.getId()}`);
 
-            targetElement.remove();
+            if (targetElement) {
+                targetElement.remove();
+            }
         }
 
         this.entityEditor.saveLevel();
@@ -237,6 +282,7 @@ export default class RenderSidebarSystem extends System {
     };
 
     private renderNoEntitySelected = (entityList: HTMLLIElement) => {
+        this.cancelEntityListRender();
         entityList.innerHTML = '';
 
         const listElement = document.createElement('li');
