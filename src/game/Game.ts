@@ -1,4 +1,13 @@
-import { DEFAULT_SPRITE, Engine, GameStatus } from '../engine';
+import { Engine, GameStatus } from '../engine';
+import {
+    AnimationComponent,
+    CameraFollowComponent,
+    PlayerControlComponent,
+    RigidBodyComponent,
+    SpriteComponent,
+    SpriteStateComponent,
+    TransformComponent,
+} from './components';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
@@ -22,9 +31,9 @@ export default class Game extends Engine {
         // this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
 
         // Other entities related systems
-        // this.registry.addSystem(Systems.MovementSystem);
-        // this.registry.addSystem(Systems.CameraMovementSystem);
-        // this.registry.addSystem(Systems.AnimationSystem);
+        this.registry.addSystem(Systems.MovementSystem);
+        this.registry.addSystem(Systems.CameraMovementSystem);
+        this.registry.addSystem(Systems.AnimationSystem);
         // this.registry.addSystem(Systems.CollisionSystem);
         // this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
         // this.registry.addSystem(Systems.DamageSystem, this.eventBus);
@@ -34,12 +43,12 @@ export default class Game extends Engine {
         // this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
         // this.registry.addSystem(Systems.EntityFollowSystem);
         // this.registry.addSystem(Systems.PlayerDetectionSystem);
-        // this.registry.addSystem(Systems.SpriteStateSystem);
+        this.registry.addSystem(Systems.SpriteStateSystem);
         // this.registry.addSystem(Systems.ScriptingSystem);
         // this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
         // this.registry.addSystem(Systems.ParticleEmitSystem);
-        // this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
-        // this.registry.addSystem(Systems.EntityDestinationSystem);
+        this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
+        this.registry.addSystem(Systems.EntityDestinationSystem);
         // this.registry.addSystem(Systems.EntityHighlightSystem);
         // this.registry.addSystem(Systems.EntityEffectSystem);
         // this.registry.addSystem(Systems.AnimationOnHitSystem);
@@ -50,15 +59,32 @@ export default class Game extends Engine {
         // Debug systems
         // this.registry.addSystem(Systems.DebugColliderSystem);
         // this.registry.addSystem(Systems.RenderHealthBarSystem);
-        // this.registry.addSystem(Systems.DebugEntityDestinationSystem);
+        this.registry.addSystem(Systems.DebugEntityDestinationSystem);
         // this.registry.addSystem(Systems.DebugParticleSourceSystem);
-        // this.registry.addSystem(Systems.DebugInfoSystem);
+        this.registry.addSystem(Systems.DebugInfoSystem);
         // this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
         // this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
         // await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
         // await this.levelManager.loadLevelFromAssets('grass');
-        // await this.assetStore.addTexture(DEFAULT_SPRITE, 'assets/sprites/default.png');
+        await this.assetStore.addTexture('player', 'assets/sprites/player_full.png');
+        await this.assetStore.addTexture('cursor', 'assets/sprites/cursor.png');
+        await this.assetStore.addTexture('destination_circle', 'assets/sprites/destination_circle.png');
+
+        // Game.mapHeight = 1000;
+        // Game.mapWidth = 2000;
+        Engine.mapWidth = 1000;
+        Engine.mapHeight = 2000;
+
+        const player = this.registry.createEntity();
+        player.addComponent(SpriteComponent, 'player', 32, 32, 0, 0, 0);
+        player.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 });
+        player.addComponent(RigidBodyComponent, { x: 0, y: 0 });
+        player.addComponent(PlayerControlComponent, 100);
+        player.addComponent(AnimationComponent, 4, 10);
+        player.addComponent(SpriteStateComponent);
+        player.addComponent(CameraFollowComponent);
+        player.tag('player');
 
         Game.gameStatus = GameStatus.PLAYING;
     };
