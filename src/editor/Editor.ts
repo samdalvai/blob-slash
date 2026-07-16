@@ -249,12 +249,12 @@ export default class Editor extends Engine {
             }
         } else {
             console.log('No level available, loading default empty level');
-            const { levelId, level } = this.levelManager.getDefaultLevel('level-0');
-            saveLevelToLocalStorage(levelId, level);
-            await this.levelManager.loadLevelFromLevelMap(level);
+            const { levelId, levelMap } = this.levelManager.getDefaultLevel('level-0');
+            saveLevelToLocalStorage(levelId, levelMap);
+            await this.levelManager.loadLevelFromLevelMap(levelMap);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
-            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
+            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, levelMap);
         }
     };
 

@@ -466,8 +466,8 @@ export default class RenderSidebarSystem extends System {
                 await this.handleLevelSelect(levelKeys[0], levelManager, leftSidebar, rightSidebar);
             } else {
                 console.log('No level available, loading default empty level');
-                const { levelId, level } = levelManager.getDefaultLevel('level-0');
-                saveLevelToLocalStorage(levelId, level);
+                const { levelId, levelMap } = levelManager.getDefaultLevel('level-0');
+                saveLevelToLocalStorage(levelId, levelMap);
                 const option = document.createElement('option');
                 option.value = levelId;
                 option.id = levelId;

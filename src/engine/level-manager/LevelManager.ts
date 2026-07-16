@@ -71,7 +71,7 @@ export default class LevelManager {
     }
 
     public getDefaultLevel = (levelId: string) => {
-        const level: LevelMap = {
+        const levelMap: LevelMap = {
             textures: [],
             sounds: [],
             mapWidth: 64 * 10,
@@ -79,6 +79,6 @@ export default class LevelManager {
             entities: [],
         };
 
-        return { levelId, level };
+        return { levelId, levelMap };
     };
 }
