@@ -1,4 +1,4 @@
-import { Engine, GameStatus } from '../engine';
+import { DEFAULT_SPRITE, Engine, GameStatus } from '../engine';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
@@ -14,50 +14,51 @@ export default class Game extends Engine {
     setup = async () => {
         // Rendering systems
         this.registry.addSystem(Systems.RenderSystem);
-        this.registry.addSystem(Systems.RenderTextSystem);
-        this.registry.addSystem(Systems.RenderParticleSystem);
-        this.registry.addSystem(Systems.RenderLightingSystem);
-        this.registry.addSystem(Systems.RenderGUISystem);
+        // this.registry.addSystem(Systems.RenderTextSystem);
+        // this.registry.addSystem(Systems.RenderParticleSystem);
+        // this.registry.addSystem(Systems.RenderLightingSystem);
+        // this.registry.addSystem(Systems.RenderGUISystem);
         this.registry.addSystem(Systems.RenderCursorSystem);
-        this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
+        // this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
 
         // Other entities related systems
-        this.registry.addSystem(Systems.MovementSystem);
-        this.registry.addSystem(Systems.CameraMovementSystem);
-        this.registry.addSystem(Systems.AnimationSystem);
-        this.registry.addSystem(Systems.CollisionSystem);
-        this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
-        this.registry.addSystem(Systems.DamageSystem, this.eventBus);
-        this.registry.addSystem(Systems.LifetimeSystem);
-        this.registry.addSystem(Systems.CameraShakeSystem);
-        this.registry.addSystem(Systems.SoundSystem, this.assetStore);
-        this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
-        this.registry.addSystem(Systems.EntityFollowSystem);
-        this.registry.addSystem(Systems.PlayerDetectionSystem);
-        this.registry.addSystem(Systems.SpriteStateSystem);
-        this.registry.addSystem(Systems.ScriptingSystem);
-        this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
-        this.registry.addSystem(Systems.ParticleEmitSystem);
-        this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
-        this.registry.addSystem(Systems.EntityDestinationSystem);
-        this.registry.addSystem(Systems.EntityHighlightSystem);
-        this.registry.addSystem(Systems.EntityEffectSystem);
-        this.registry.addSystem(Systems.AnimationOnHitSystem);
-        this.registry.addSystem(Systems.GameEndSystem);
-        this.registry.addSystem(Systems.DropItemSystem);
-        this.registry.addSystem(Systems.PickItemSystem);
+        // this.registry.addSystem(Systems.MovementSystem);
+        // this.registry.addSystem(Systems.CameraMovementSystem);
+        // this.registry.addSystem(Systems.AnimationSystem);
+        // this.registry.addSystem(Systems.CollisionSystem);
+        // this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
+        // this.registry.addSystem(Systems.DamageSystem, this.eventBus);
+        // this.registry.addSystem(Systems.LifetimeSystem);
+        // this.registry.addSystem(Systems.CameraShakeSystem);
+        // this.registry.addSystem(Systems.SoundSystem, this.assetStore);
+        // this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
+        // this.registry.addSystem(Systems.EntityFollowSystem);
+        // this.registry.addSystem(Systems.PlayerDetectionSystem);
+        // this.registry.addSystem(Systems.SpriteStateSystem);
+        // this.registry.addSystem(Systems.ScriptingSystem);
+        // this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
+        // this.registry.addSystem(Systems.ParticleEmitSystem);
+        // this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
+        // this.registry.addSystem(Systems.EntityDestinationSystem);
+        // this.registry.addSystem(Systems.EntityHighlightSystem);
+        // this.registry.addSystem(Systems.EntityEffectSystem);
+        // this.registry.addSystem(Systems.AnimationOnHitSystem);
+        // this.registry.addSystem(Systems.GameEndSystem);
+        // this.registry.addSystem(Systems.DropItemSystem);
+        // this.registry.addSystem(Systems.PickItemSystem);
 
         // Debug systems
-        this.registry.addSystem(Systems.DebugColliderSystem);
-        this.registry.addSystem(Systems.RenderHealthBarSystem);
-        this.registry.addSystem(Systems.DebugEntityDestinationSystem);
-        this.registry.addSystem(Systems.DebugParticleSourceSystem);
-        this.registry.addSystem(Systems.DebugInfoSystem);
-        this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
-        this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
+        // this.registry.addSystem(Systems.DebugColliderSystem);
+        // this.registry.addSystem(Systems.RenderHealthBarSystem);
+        // this.registry.addSystem(Systems.DebugEntityDestinationSystem);
+        // this.registry.addSystem(Systems.DebugParticleSourceSystem);
+        // this.registry.addSystem(Systems.DebugInfoSystem);
+        // this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
+        // this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
-        await this.levelManager.loadLevelFromAssets('grass');
+        // await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
+        // await this.levelManager.loadLevelFromAssets('grass');
+        // await this.assetStore.addTexture(DEFAULT_SPRITE, 'assets/sprites/default.png');
 
         Game.gameStatus = GameStatus.PLAYING;
     };

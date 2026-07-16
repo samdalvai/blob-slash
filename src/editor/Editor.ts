@@ -114,7 +114,7 @@ export default class Editor extends Engine {
         ctx.imageSmoothingEnabled = false;
     };
 
-    initialize = () => {
+    initialize = async () => {
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const leftSidebar = document.getElementById('leftSidebar') as HTMLElement;
