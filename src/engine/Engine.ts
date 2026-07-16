@@ -53,37 +53,39 @@ export default abstract class Engine {
         this.isRunning = false;
         this.isDebug = false;
         this.loopStrategy = null;
-        
+
         this.currentFPS = 0;
         this.maxFPS = 0;
         this.frameDuration = 0;
         this.millisecondsLastFPSUpdate = 0;
-        
+
         Engine.gameStatus = GameStatus.IDLE;
         Engine.mousePositionScreen = { x: 0, y: 0 };
         Engine.mousePositionWorld = { x: 0, y: 0 };
     }
 
-    protected initialize = () => {
+    protected initialize = async () => {
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
-
+        
         if (!ctx) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
-
+        
         this.resize(canvas, this.camera);
         canvas.style.cursor = 'none';
-
+        
         this.canvas = canvas;
         this.ctx = ctx;
         this.isRunning = true;
-
+        
         window.addEventListener('resize', () => {
             if (this.canvas && this.camera) {
                 this.resize(this.canvas, this.camera);
             }
         });
+        
+        await this.assetStore.initializeDefaultTexture();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -147,7 +149,7 @@ export default abstract class Engine {
 
     public run = async () => {
         console.log('Initializing Engine');
-        this.initialize();
+        await this.initialize();
 
         console.log('Setting up systems');
         await this.setup();

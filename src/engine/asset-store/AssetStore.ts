@@ -18,6 +18,10 @@ export default class AssetStore {
         this.soundsFilePaths = [];
     }
 
+    async initializeDefaultTexture() {
+        await this.addTexture(DEFAULT_SPRITE, 'assets/sprites/default.png');
+    }
+
     addTexture(assetId: string, filePath: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const texture = new Image();

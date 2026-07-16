@@ -47,7 +47,6 @@ describe('Testing LevelManager', () => {
         await Promise.resolve();
 
         expect(loadOrder).toEqual([
-            `texture:${DEFAULT_SPRITE}`,
             'texture:texture-1',
             'texture:texture-2',
             'sound:sound-1',
