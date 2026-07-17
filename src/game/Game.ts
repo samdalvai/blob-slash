@@ -23,68 +23,66 @@ export default class Game extends Engine {
     setup = async () => {
         // Rendering systems
         this.registry.addSystem(Systems.RenderSystem);
-        // this.registry.addSystem(Systems.RenderTextSystem);
-        // this.registry.addSystem(Systems.RenderParticleSystem);
-        // this.registry.addSystem(Systems.RenderLightingSystem);
-        // this.registry.addSystem(Systems.RenderGUISystem);
+        this.registry.addSystem(Systems.RenderTextSystem);
+        this.registry.addSystem(Systems.RenderParticleSystem);
+        this.registry.addSystem(Systems.RenderLightingSystem);
+        this.registry.addSystem(Systems.RenderGUISystem);
         this.registry.addSystem(Systems.RenderCursorSystem);
-        // this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
+        this.registry.addSystem(Systems.RenderMenuSystem, this.registry, this.assetStore, this.levelManager);
 
         // Other entities related systems
         this.registry.addSystem(Systems.MovementSystem);
         this.registry.addSystem(Systems.CameraMovementSystem);
         this.registry.addSystem(Systems.AnimationSystem);
-        // this.registry.addSystem(Systems.CollisionSystem);
-        // this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
-        // this.registry.addSystem(Systems.DamageSystem, this.eventBus);
-        // this.registry.addSystem(Systems.LifetimeSystem);
-        // this.registry.addSystem(Systems.CameraShakeSystem);
-        // this.registry.addSystem(Systems.SoundSystem, this.assetStore);
-        // this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
-        // this.registry.addSystem(Systems.EntityFollowSystem);
-        // this.registry.addSystem(Systems.PlayerDetectionSystem);
+        this.registry.addSystem(Systems.CollisionSystem);
+        this.registry.addSystem(Systems.RangedAttackEmitSystem, this.registry);
+        this.registry.addSystem(Systems.DamageSystem, this.eventBus);
+        this.registry.addSystem(Systems.LifetimeSystem);
+        this.registry.addSystem(Systems.CameraShakeSystem);
+        this.registry.addSystem(Systems.SoundSystem, this.assetStore);
+        this.registry.addSystem(Systems.DebugPlayerFollowRadiusSystem);
+        this.registry.addSystem(Systems.EntityFollowSystem);
+        this.registry.addSystem(Systems.PlayerDetectionSystem);
         this.registry.addSystem(Systems.SpriteStateSystem);
-        // this.registry.addSystem(Systems.ScriptingSystem);
-        // this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
-        // this.registry.addSystem(Systems.ParticleEmitSystem);
+        this.registry.addSystem(Systems.ScriptingSystem);
+        this.registry.addSystem(Systems.DeadBodyOnDeathSystem);
+        this.registry.addSystem(Systems.ParticleEmitSystem);
         this.registry.addSystem(Systems.PlayerControlSystem, this.eventBus, this.registry);
         this.registry.addSystem(Systems.EntityDestinationSystem);
-        // this.registry.addSystem(Systems.EntityHighlightSystem);
-        // this.registry.addSystem(Systems.EntityEffectSystem);
-        // this.registry.addSystem(Systems.AnimationOnHitSystem);
-        // this.registry.addSystem(Systems.GameEndSystem);
-        // this.registry.addSystem(Systems.DropItemSystem);
-        // this.registry.addSystem(Systems.PickItemSystem);
+        this.registry.addSystem(Systems.EntityHighlightSystem);
+        this.registry.addSystem(Systems.EntityEffectSystem);
+        this.registry.addSystem(Systems.AnimationOnHitSystem);
+        this.registry.addSystem(Systems.GameEndSystem);
+        this.registry.addSystem(Systems.DropItemSystem);
+        this.registry.addSystem(Systems.PickItemSystem);
 
         // Debug systems
-        // this.registry.addSystem(Systems.DebugColliderSystem);
-        // this.registry.addSystem(Systems.RenderHealthBarSystem);
+        this.registry.addSystem(Systems.DebugColliderSystem);
+        this.registry.addSystem(Systems.RenderHealthBarSystem);
         this.registry.addSystem(Systems.DebugEntityDestinationSystem);
-        // this.registry.addSystem(Systems.DebugParticleSourceSystem);
+        this.registry.addSystem(Systems.DebugParticleSourceSystem);
         this.registry.addSystem(Systems.DebugInfoSystem);
-        // this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
-        // this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
+        this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
+        this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        // await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
-        // await this.levelManager.loadLevelFromAssets('grass');
-        await this.assetStore.addTexture('player', 'assets/sprites/player_full.png');
-        await this.assetStore.addTexture('cursor', 'assets/sprites/cursor.png');
-        await this.assetStore.addTexture('destination_circle', 'assets/sprites/destination_circle.png');
+        await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
+        await this.levelManager.loadLevelFromAssets('grass');
+        // await this.assetStore.addTexture('player', 'assets/sprites/player_full.png');
+        // await this.assetStore.addTexture('cursor', 'assets/sprites/cursor.png');
+        // await this.assetStore.addTexture('destination_circle', 'assets/sprites/destination_circle.png');
 
-        // Game.mapHeight = 1000;
-        // Game.mapWidth = 2000;
-        Engine.mapWidth = 1000;
-        Engine.mapHeight = 2000;
+        // Engine.mapWidth = 1000;
+        // Engine.mapHeight = 2000;
 
-        const player = this.registry.createEntity();
-        player.addComponent(SpriteComponent, 'player', 32, 32, 0, 0, 0);
-        player.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 });
-        player.addComponent(RigidBodyComponent, { x: 0, y: 0 });
-        player.addComponent(PlayerControlComponent, 100);
-        player.addComponent(AnimationComponent, 4, 10);
-        player.addComponent(SpriteStateComponent);
-        player.addComponent(CameraFollowComponent);
-        player.tag('player');
+        // const player = this.registry.createEntity();
+        // player.addComponent(SpriteComponent, 'player', 32, 32, 0, 0, 0);
+        // player.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 });
+        // player.addComponent(RigidBodyComponent, { x: 0, y: 0 });
+        // player.addComponent(PlayerControlComponent, 100);
+        // player.addComponent(AnimationComponent, 4, 10);
+        // player.addComponent(SpriteStateComponent);
+        // player.addComponent(CameraFollowComponent);
+        // player.tag('player');
 
         Game.gameStatus = GameStatus.PLAYING;
     };
