@@ -3,7 +3,6 @@ dist/*
 .parcel-cache/
 .DS_STORE
 .benchmark-dist/
-.coordinate-migration-dist/
 
 !dist/assets/
 .vercel

@@ -33,16 +33,4 @@ describe('Testing level utils related functions', () => {
         expect(isValidLevelMap(object)).toBe(false);
     });
 
-    test('Should return false if the coordinate-system version is not an integer', () => {
-        const levelMap = {
-            textures: [],
-            sounds: [],
-            mapWidth: 100,
-            mapHeight: 100,
-            entities: [],
-            coordinateSystemVersion: '2',
-        };
-
-        expect(isValidLevelMap(levelMap)).toBe(false);
-    });
 });

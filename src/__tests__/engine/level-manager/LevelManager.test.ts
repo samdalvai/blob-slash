@@ -6,8 +6,6 @@ import Registry from '../../../engine/ecs/Registry';
 import LevelManager from '../../../engine/level-manager/LevelManager';
 import { LevelMap } from '../../../engine/types/map';
 import { DEFAULT_SPRITE } from '../../../engine/utils/constants';
-import SpriteComponent from '../../../game/components/SpriteComponent';
-import TransformComponent from '../../../game/components/TransformComponent';
 
 describe('Testing LevelManager', () => {
     test('Should load level textures and sounds in parallel after the default texture', async () => {
@@ -32,7 +30,6 @@ describe('Testing LevelManager', () => {
         } as unknown as AssetStore;
         const levelManager = new LevelManager(registry, assetStore, createComponentCatalog([]));
         const level: LevelMap = {
-            coordinateSystemVersion: 2,
             textures: [
                 { assetId: 'texture-1', filePath: '/texture-1.png' },
                 { assetId: 'texture-2', filePath: '/texture-2.png' },
@@ -62,47 +59,5 @@ describe('Testing LevelManager', () => {
         }
 
         await expect(levelLoadPromise).resolves.toBe(level);
-    });
-
-    test('Should migrate a v1 level before deserializing its entities', async () => {
-        const registry = new Registry();
-        const assetStore = { clear: jest.fn() } as unknown as AssetStore;
-        const levelManager = new LevelManager(
-            registry,
-            assetStore,
-            createComponentCatalog([
-                { name: 'SpriteComponent', constructor: SpriteComponent },
-                { name: 'TransformComponent', constructor: TransformComponent },
-            ]),
-        );
-        const legacyLevel: LevelMap = {
-            textures: [],
-            sounds: [],
-            mapWidth: 100,
-            mapHeight: 100,
-            entities: [
-                {
-                    components: [
-                        {
-                            name: 'SpriteComponent',
-                            properties: { assetId: DEFAULT_SPRITE, width: 20, height: 10 },
-                        },
-                        {
-                            name: 'TransformComponent',
-                            properties: { position: { x: 10, y: 20 }, scale: { x: 1, y: 1 } },
-                        },
-                    ],
-                },
-            ],
-        };
-
-        const loadedLevel = await levelManager.loadLevelFromLevelMap(legacyLevel);
-        registry.update();
-
-        const transform = [...registry.getAllEntities()][0].getComponent(TransformComponent);
-        expect(loadedLevel.coordinateSystemVersion).toBe(2);
-        expect(transform?.position).toEqual({ x: 20, y: 75 });
-        expect(legacyLevel.coordinateSystemVersion).toBeUndefined();
-        expect(legacyLevel.entities[0].components[1].properties.position).toEqual({ x: 10, y: 20 });
     });
 });

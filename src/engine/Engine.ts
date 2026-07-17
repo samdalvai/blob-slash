@@ -4,14 +4,14 @@ import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
 import LevelManager from './level-manager/LevelManager';
 import LoopStrategy from './loop-strategy/LoopStrategy';
-import { Camera, GameStatus, Rectangle, Vector } from './types/utils';
+import { Camera, GameStatus, Vector } from './types/utils';
 
-export default abstract class Engine<TCamera extends Camera | Rectangle = Camera> {
+export default abstract class Engine {
     // Objects for rendering
     protected canvas: HTMLCanvasElement | null;
     protected ctx: CanvasRenderingContext2D | null;
     /** Standard-coordinate world camera. */
-    protected camera: TCamera;
+    protected camera: Camera;
 
     // Ecs related objects
     protected registry: Registry;
@@ -36,7 +36,7 @@ export default abstract class Engine<TCamera extends Camera | Rectangle = Camera
     static mousePositionScreen: Vector;
     /** World-space pointer position in the standard Y-up coordinate system. */
     static mousePositionWorld: Vector;
-    /** Map extents in world pixels; v2 maps use a bottom-left `(0, 0)` origin. */
+    /** Map extents in world pixels with a bottom-left `(0, 0)` origin. */
     static mapWidth: number;
     static mapHeight: number;
     static windowWidth: number;
@@ -93,17 +93,12 @@ export default abstract class Engine<TCamera extends Camera | Rectangle = Camera
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected resize = (canvas: HTMLCanvasElement, camera: TCamera, ...args: any[]) => {
+    protected resize = (canvas: HTMLCanvasElement, camera: Camera, ...args: any[]) => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        if (this.isWorldCamera(camera)) {
-            camera.viewportWidth = window.innerWidth;
-            camera.viewportHeight = window.innerHeight;
-        } else {
-            camera.width = window.innerWidth;
-            camera.height = window.innerHeight;
-        }
+        camera.viewportWidth = window.innerWidth;
+        camera.viewportHeight = window.innerHeight;
 
         Engine.windowWidth = window.innerWidth;
         Engine.windowHeight = window.innerHeight;
@@ -135,15 +130,13 @@ export default abstract class Engine<TCamera extends Camera | Rectangle = Camera
     protected abstract setup(): Promise<void>;
 
     /** Creates the camera representation used by this engine surface. */
-    protected abstract createCamera(): TCamera;
+    protected abstract createCamera(): Camera;
 
     protected abstract processInput(): void;
 
     protected abstract update(deltaTime: number): void;
 
     protected abstract render(): void;
-
-    private isWorldCamera = (camera: Camera | Rectangle): camera is Camera => 'center' in camera;
 
     public running = () => this.isRunning;
 

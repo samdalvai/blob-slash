@@ -76,13 +76,11 @@ UI remains in normal canvas coordinates with `(0, 0)` at the screen top-left.
 The world-render pass applies the equivalent canvas transform, then restores it
 before rendering UI, menus, and DOM-oriented debug information.
 
-### Save-file versioning
+### Persisted level format
 
-Add `coordinateSystemVersion` to `LevelMap`; new maps use `2`. Treat maps
-without it as legacy version `1`. Loading a version-1 map must convert it in
-memory before entity creation, while saving always writes version `2`. Include a
-one-time migration utility to rewrite checked-in level JSON files only after the
-in-memory conversion has been verified.
+All checked-in levels and entity maps use the standard centre-anchored Y-up
+format. `LevelMap` has no coordinate-version field and runtime loading does not
+support the former top-left/Y-down format.
 
 ## Implementation phases
 
@@ -192,34 +190,17 @@ behaviour to before the migration.
 **Exit criteria:** grid, border, selection, drag, snap, pan, zoom, inspector
 editing, copy/paste, and test mode agree exactly with the game world.
 
-### 6. Convert persisted levels safely
+### 6. Convert persisted levels once
 
-1. Implement a version-1-to-version-2 level conversion before deserialization.
-   For a legacy sprite transform with old top-left position `(oldX, oldY)` and
-   scaled sprite size `(w, h)`, write:
+1. Convert every checked-in level and entity map using its original map height.
+2. Convert each coordinate-bearing component according to the inventory from
+   phase 1, while preserving raw asset dimensions, scale, and map dimensions.
+3. Verify representative levels before replacing their source files.
+4. Remove all conversion utilities, fixtures, version fields, and runtime
+   compatibility branches once the converted files are checked in.
 
-   ```ts
-   newX = oldX + w / 2;
-   newY = mapHeight - (oldY + h / 2);
-   ```
-
-2. Convert every coordinate-bearing component according to the inventory from
-   phase 1. In particular, transform collider offsets from old top-left,
-   positive-down values to centre-relative, positive-up values; convert
-   destinations and absolute positions with the same map-height inversion; and
-   invert local Y offsets where their semantic direction is vertical.
-3. Preserve raw asset dimensions and scale. Do not mutate map dimensions.
-4. Make conversion idempotent: a version-2 level is never transformed again.
-   Reject unknown future versions with a clear error.
-5. Add serialization/deserialization tests proving that legacy input loads to
-   the expected v2 in-memory model and that a v2 save/load round trip is stable.
-6. After passing those tests and visually checking representative levels, run a
-   controlled one-time conversion of checked-in level files and set their
-   version to `2`. Keep backward reading support unless a separately approved
-   breaking-change policy removes it.
-
-**Exit criteria:** old levels open visually unchanged, new levels save as v2,
-and no level is inverted, shifted by half a sprite, or converted twice.
+**Exit criteria:** every persisted file uses the standard format and runtime
+loading has no legacy-coordinate compatibility path.
 
 ### 7. Verify, remove compatibility code, and document
 
@@ -231,10 +212,8 @@ and no level is inverted, shifted by half a sprite, or converted twice.
 3. Search for legacy patterns such as `position.y - camera.y`,
    `inputEvent.y + camera.y`, and top-left collider arithmetic. Replace every
    legitimate case with a named helper; document intentional screen-space cases.
-4. Remove v1-only runtime branches only when the project no longer needs to
-   load legacy files, in a separate explicit compatibility decision.
-5. Update contributor/editor documentation with the coordinate contract,
-   camera API, centre-anchor rule, and level format version.
+4. Update contributor/editor documentation with the coordinate contract,
+   camera API, and centre-anchor rule.
 
 ## Suggested delivery slices
 
@@ -244,7 +223,7 @@ Keep pull requests small and independently runnable:
 2. Game render pass and game input conversion.
 3. Gameplay transform and collision migration.
 4. Editor conversion.
-5. Level-versioning, migration utility, and converted fixtures.
+5. One-time persisted-level conversion.
 6. Cleanup, regression tests, and documentation.
 
 Do not start the later physics-engine integration in any of these slices. Its

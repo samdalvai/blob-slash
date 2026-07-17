@@ -17,7 +17,7 @@ export default class CameraMovementSystem extends System {
                 throw new Error('Could not find transform component of entity with id ' + entity.getId());
             }
 
-            // A v2 transform position is already the entity centre.
+            // Transform positions are entity centres in standard world space.
             camera.center = clampCameraCenter(
                 {
                     ...camera,

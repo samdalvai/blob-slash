@@ -12,9 +12,7 @@
         "lint:fix": "eslint . --ext .js,.ts --fix",
         "build:game": "parcel build game.html --no-optimize --public-url ./ && mv dist/game.html dist/index.html",
         "build:editor": "parcel build editor.html",
-        "benchmark": "rm -rf .benchmark-dist && tsc --outDir .benchmark-dist --rootDir . --module commonjs --target es2020 benchmark/index.ts && node .benchmark-dist/benchmark/index.js",
-        "migrate:levels": "tsc --outDir .coordinate-migration-dist --rootDir . --module commonjs --target es2020 scripts/migrate-levels.ts && node .coordinate-migration-dist/scripts/migrate-levels.js",
-        "migrate:entitymaps": "tsc --outDir .coordinate-migration-dist --rootDir . --module commonjs --target es2020 scripts/migrate-entitymaps.ts && node .coordinate-migration-dist/scripts/migrate-entitymaps.js"
+        "benchmark": "rm -rf .benchmark-dist && tsc --outDir .benchmark-dist --rootDir . --module commonjs --target es2020 benchmark/index.ts && node .benchmark-dist/benchmark/index.js"
     },
     "author": "Samuel Dalvai",
     "license": "MIT",
