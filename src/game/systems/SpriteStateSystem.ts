@@ -42,11 +42,11 @@ export default class SpriteStateSystem extends System {
     updateSpriteState = (sprite: SpriteComponent, rigidBody: RigidBodyComponent, isHurt: boolean) => {
         let directionOffset = 0;
 
-        if (rigidBody.direction.y < 0) {
+        if (rigidBody.direction.y > 0) {
             directionOffset = 0;
         } else if (rigidBody.direction.x > 0) {
             directionOffset = 1;
-        } else if (rigidBody.direction.y > 0) {
+        } else if (rigidBody.direction.y < 0) {
             directionOffset = 2;
         } else if (rigidBody.direction.x < 0) {
             directionOffset = 3;

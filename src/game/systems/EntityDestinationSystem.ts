@@ -1,6 +1,5 @@
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
-import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import { System, computeDirectionVector, computeUnitVector } from '../../engine';
 import DebugEntityDestinationSystem from './DebugEntityDestinationSystem';
@@ -10,7 +9,6 @@ export default class EntityDestinationSystem extends System {
         super();
         this.requireComponent(TransformComponent);
         this.requireComponent(RigidBodyComponent);
-        this.requireComponent(SpriteComponent);
         this.requireComponent(EntityDestinationComponent);
     }
 
@@ -18,19 +16,15 @@ export default class EntityDestinationSystem extends System {
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const rigidBody = entity.getComponent(RigidBodyComponent);
-            const sprite = entity.getComponent(SpriteComponent);
             const entityDestination = entity.getComponent(EntityDestinationComponent);
 
-            if (!transform || !sprite || !rigidBody || !entityDestination) {
+            if (!transform || !rigidBody || !entityDestination) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
             if (
-                Math.abs(
-                    entityDestination.destinationX - (transform.position.x + (sprite.width / 2) * transform.scale.x),
-                ) <= 5 &&
-                Math.abs(entityDestination.destinationY - (transform.position.y + sprite.height * transform.scale.y)) <=
-                    5
+                Math.abs(entityDestination.destinationX - transform.position.x) <= 5 &&
+                Math.abs(entityDestination.destinationY - transform.position.y) <= 5
             ) {
                 entity.removeComponent(EntityDestinationComponent);
                 entity.removeFromSystem(DebugEntityDestinationSystem);
@@ -40,8 +34,8 @@ export default class EntityDestinationSystem extends System {
             }
 
             const directionVector = computeDirectionVector(
-                transform.position.x + (sprite.width / 2) * transform.scale.x,
-                transform.position.y + sprite.height * transform.scale.y,
+                transform.position.x,
+                transform.position.y,
                 entityDestination.destinationX,
                 entityDestination.destinationY,
                 entityDestination.velocity,

@@ -9,7 +9,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Still entity facing up should show idle sprite facing up (1st row)', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: -1 });
+        const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
         expect(sprite.row).toBe(0);
@@ -27,7 +27,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Still entity facing down should show idle sprite facing down (3rd row)', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: 1 });
+        const rigidBody = new RigidBodyComponent({ x: 0, y: 0 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
         expect(sprite.row).toBe(2);
@@ -45,8 +45,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Moving entity facing up should show moving sprite facing up (5th row)', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
-        console.log('sprite: ', sprite);
+        const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
         expect(sprite.row).toBe(4);
@@ -64,7 +63,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Moving entity facing down should show moving sprite facing down (7th row)', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
+        const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, false);
         expect(sprite.row).toBe(6);
@@ -82,7 +81,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Hurt entity facing up should show moving sprite facing up (9th row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
+        const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.row).toBe(8);
@@ -112,7 +111,7 @@ describe('Testing SpriteState system related functions', () => {
 
     test('Hurt entity facing down should show moving sprite facing down (11th row), regardless of movement', () => {
         const sprite = new SpriteComponent('test', 32, 32);
-        const rigidBody = new RigidBodyComponent({ x: 0, y: 100 }, { x: 0, y: 1 });
+        const rigidBody = new RigidBodyComponent({ x: 0, y: -100 }, { x: 0, y: -1 });
 
         system.updateSpriteState(sprite, rigidBody, true);
         expect(sprite.row).toBe(10);

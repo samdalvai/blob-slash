@@ -95,10 +95,7 @@ export default class DamageSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + projectile.getId());
             }
 
-            this.eventBus.emitEvent(EntityHitEvent, entity, {
-                x: transform.position.x + (sprite.width / 2) * transform.scale.x,
-                y: transform.position.y + (sprite.height / 2) * transform.scale.y,
-            });
+            this.eventBus.emitEvent(EntityHitEvent, entity, { ...transform.position });
 
             this.eventBus.emitEvent(SoundEmitEvent, 'entity_hit', 0.05);
         }

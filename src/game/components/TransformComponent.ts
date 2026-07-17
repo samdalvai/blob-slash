@@ -1,19 +1,10 @@
 import { Component, Vector } from '../../engine';
 
 export default class TransformComponent extends Component {
-    /**
-     * LEGACY (coordinate-system version 1): top-left, Y-down world position.
-     *
-     * Migration target (version 2): centre position in a Y-up world. Do not add
-     * new code that depends on the legacy anchor or Y direction.
-     */
+    /** Centre position in the standard Y-up world coordinate system. */
     position: Vector;
     scale: Vector;
-    /**
-     * Rotation in degrees. Version 1 is interpreted by the Y-down canvas;
-     * version 2 will define positive rotation as counter-clockwise in world
-     * space.
-     */
+    /** Rotation in degrees; positive values are counter-clockwise in world space. */
     rotation: number;
     /** True for screen-space entities; these do not participate in the world camera. */
     isFixed: boolean;
