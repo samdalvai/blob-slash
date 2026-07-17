@@ -88,7 +88,7 @@ export default abstract class Engine<TCamera extends Camera | Rectangle = Camera
                 this.resize(this.canvas, this.camera);
             }
         });
-        
+
         await this.assetStore.initializeDefaultTexture();
     };
 

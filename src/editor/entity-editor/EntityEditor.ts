@@ -423,7 +423,20 @@ export default class EntityEditor {
             return arrayContainer;
         }
 
-        return this.createListItemWithInput(propertyName, propertyValue, component, entityId);
+        const propertyLabel =
+            component.constructor.name === 'TransformComponent' && propertyName === 'position'
+                ? 'position (centre, Y-up)'
+                : propertyName;
+
+        return this.createListItemWithInputRec(
+            propertyName,
+            propertyLabel,
+            propertyName,
+            propertyValue,
+            component,
+            entityId,
+            [],
+        );
     };
 
     private createSpriteSelector = (propertyName: string, component: Component, entityId: number): HTMLElement => {
