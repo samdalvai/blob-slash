@@ -17,7 +17,8 @@ top-left/Y-down.
 | `BoxColliderComponent` | `width`, `height`, `offset` | Extents are full sizes; offset is unscaled, local, centre-relative, and Y-up. | Gameplay + persisted data |
 | `EntityDestinationComponent` | `destinationX`, `destinationY` | Absolute world point in Y-up space. | Gameplay + persisted data |
 | `ParticleEmitComponent` | `offsetX`, `offsetY`, `particleVelocity` | Local offset and velocity use Y-up. | Gameplay + persisted data |
-| `ShadowComponent`, `HighlightComponent` | `offsetX`, `offsetY` | Local offsets are centre-relative and Y-up. | Renderer + persisted data |
+| `ShadowComponent` | `offsetX`, `offsetY` | `offsetX` is centre-relative; `offsetY` is a Y-up adjustment from the scaled sprite's bottom edge. | Renderer + persisted data |
+| `HighlightComponent` | `offsetX`, `offsetY` | Local offsets are centre-relative and Y-up. | Renderer + persisted data |
 | `TextLabelComponent` | `offset` | Local Y-up offset; render text upright in the world pass. | Renderer + persisted data |
 | `ScriptComponent` | `scripts[].movement` | Movement vectors use Y-up. | Gameplay + persisted data |
 | `SpriteComponent` | `width`, `height`, `flip`, sprite-sheet fields | Dimensions feed centre bounds; bitmap orientation is handled locally by the renderer. | Renderer |
