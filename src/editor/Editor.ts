@@ -280,7 +280,7 @@ export default class Editor extends Engine {
             this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, levelMap);
         }
 
-        await this.assetStore.initializeDefaultTexture();
+        await this.assetStore.initialize();
     };
 
     processInput = () => {
