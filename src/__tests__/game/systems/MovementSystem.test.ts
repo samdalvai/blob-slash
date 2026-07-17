@@ -105,4 +105,18 @@ describe('Testing Movement system related functions', () => {
         expect(entity.getComponent(RigidBodyComponent)).toBe(undefined);
         expect(registry.getSystem(MovementSystem)?.getSystemEntities().length).toBe(0);
     });
+
+    test('Player map padding uses bottom and top bounds in a Y-up world', () => {
+        const registry = new Registry();
+        const entity = registry.createEntity();
+        entity.tag('player');
+        entity.addComponent(TransformComponent, { x: 0, y: 1000 });
+        entity.addComponent(RigidBodyComponent, { x: 0, y: 0 });
+        registry.addSystem(MovementSystem);
+        registry.update();
+
+        registry.getSystem(MovementSystem)?.update(1);
+
+        expect(entity.getComponent(TransformComponent)?.position).toEqual({ x: 10, y: 990 });
+    });
 });

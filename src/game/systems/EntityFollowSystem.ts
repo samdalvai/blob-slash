@@ -60,14 +60,10 @@ export default class EntityFollowSystem extends System {
                 throw new Error('Could not find player transform and/or sprite component');
             }
 
-            const entityX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const entityY = transform.position.y + (sprite.height / 2) * transform.scale.y;
-
-            const followedEntityX =
-                followedEntityTransform.position.x + (followedEntitySprite.width / 2) * followedEntityTransform.scale.x;
-            const followedEntityY =
-                followedEntityTransform.position.y +
-                (followedEntitySprite.height / 2) * followedEntityTransform.scale.y;
+            const entityX = transform.position.x;
+            const entityY = transform.position.y;
+            const followedEntityX = followedEntityTransform.position.x;
+            const followedEntityY = followedEntityTransform.position.y;
 
             const distance = computeDistanceBetweenPoints(entityX, entityY, followedEntityX, followedEntityY);
             const directionVector = computeDirectionVector(

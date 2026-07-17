@@ -3,13 +3,7 @@ import { Component, Vector } from '../../engine';
 export default class BoxColliderComponent extends Component {
     width: number;
     height: number;
-    /**
-     * LEGACY (coordinate-system version 1): offset from the transform's
-     * top-left position, with positive Y downward.
-     *
-     * Migration target (version 2): offset from the transform centre to the
-     * collider centre, with positive Y upward.
-     */
+    /** Local offset from transform centre to collider centre in the Y-up world. */
     offset: Vector;
     lastCollision: number;
 

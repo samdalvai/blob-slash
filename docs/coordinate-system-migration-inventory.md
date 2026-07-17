@@ -3,8 +3,8 @@
 This inventory is the Phase 1 safety record for
 [`MIGRATION_STANDARD_COORDINATES.md`](../MIGRATION_STANDARD_COORDINATES.md).
 It records every persisted or runtime field that represents a position,
-direction, extent, or vertical offset. Runtime behaviour is still legacy
-coordinate-system version 1 until the later phases deliberately replace it.
+direction, extent, or vertical offset. Runtime game behaviour now uses version
+2; persisted levels remain version 1 until their dedicated migration phase.
 
 ## Coordinate versions
 

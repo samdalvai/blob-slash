@@ -6,6 +6,7 @@ import Registry from '../../../engine/ecs/Registry';
 import EventBus from '../../../engine/event-bus/EventBus';
 import CollisionEvent from '../../../game/events/CollisionEvent';
 import CollisionSystem from '../../../game/systems/CollisionSystem';
+import { Vector } from '../../../engine/types/utils';
 
 describe('Testing Collision system related functions', () => {
     test('Two entities having a box collider intersecting should collide with one another', () => {
@@ -70,5 +71,35 @@ describe('Testing Collision system related functions', () => {
         registry.getSystem(CollisionSystem)?.update(eventBus);
 
         expect(myClassInstance.value).toBe(0);
+    });
+
+    test('emits a Y-up normal from the second collider toward the first', () => {
+        const registry = new Registry();
+        const eventBus = new EventBus();
+
+        const entityA = registry.createEntity();
+        entityA.addComponent(TransformComponent, { x: 0, y: 0 });
+        entityA.addComponent(BoxColliderComponent, 10, 10);
+
+        const entityB = registry.createEntity();
+        entityB.addComponent(TransformComponent, { x: 0, y: 8 });
+        entityB.addComponent(BoxColliderComponent, 10, 10);
+
+        registry.addSystem(CollisionSystem);
+        registry.update();
+
+        class CollisionListener {
+            normal: Vector | undefined;
+
+            onCollision(event: CollisionEvent) {
+                this.normal = event.collisionNormal;
+            }
+        }
+
+        const listener = new CollisionListener();
+        eventBus.subscribeToEvent(CollisionEvent, listener, listener.onCollision);
+        registry.getSystem(CollisionSystem)?.update(eventBus);
+
+        expect(listener.normal).toEqual({ x: 0, y: -1 });
     });
 });
