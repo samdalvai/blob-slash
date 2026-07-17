@@ -377,7 +377,7 @@ export default class PlayerControlSystem extends System {
                 { x: scale, y: scale },
                 0,
             );
-            fireCircleFlames.addComponent(SpriteComponent, 'fire_circle', 128, 128, 2, 1, 0, Flip.NONE, 1);
+            fireCircleFlames.addComponent(SpriteComponent, 'fire_circle', 128, 128, 1, 1, 0, Flip.NONE, 1);
             fireCircleFlames.addComponent(AnimationComponent, 4, 10, true);
             fireCircleFlames.addComponent(LifetimeComponent, 5000);
             fireCircleFlames.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
