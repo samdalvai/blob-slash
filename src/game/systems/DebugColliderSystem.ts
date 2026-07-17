@@ -1,6 +1,6 @@
+import { Camera, getCameraBounds, getColliderBounds, System, worldBoundsOverlap } from '../../engine';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import TransformComponent from '../components/TransformComponent';
-import { System, Rectangle } from '../../engine';
 
 export default class DebugColliderSystem extends System {
     constructor() {
@@ -9,7 +9,9 @@ export default class DebugColliderSystem extends System {
         this.requireComponent(BoxColliderComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera) {
+        const cameraBounds = getCameraBounds(camera);
+
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const collider = entity.getComponent(BoxColliderComponent);
@@ -18,26 +20,23 @@ export default class DebugColliderSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Bypass rendering if entities are outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * collider.width < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * collider.height < camera.y ||
-                transform.position.y > camera.y + camera.height;
-
-            if (isOutsideCameraView) {
+            const colliderBounds = getColliderBounds(
+                transform.position,
+                { width: collider.width, height: collider.height },
+                collider.offset,
+                transform.scale,
+            );
+            if (!worldBoundsOverlap(colliderBounds, cameraBounds)) {
                 continue;
             }
 
-            const colliderRect: Rectangle = {
-                x: (transform.position.x + collider.offset.x - camera.x) * zoom,
-                y: (transform.position.y + collider.offset.y - camera.y) * zoom,
-                width: collider.width * transform.scale.x * zoom,
-                height: collider.height * transform.scale.y * zoom,
-            };
-
             ctx.strokeStyle = performance.now() - collider.lastCollision <= 100 ? 'orange' : 'red';
-            ctx.strokeRect(colliderRect.x, colliderRect.y, colliderRect.width, colliderRect.height);
+            ctx.strokeRect(
+                colliderBounds.left,
+                colliderBounds.bottom,
+                colliderBounds.right - colliderBounds.left,
+                colliderBounds.top - colliderBounds.bottom,
+            );
         }
     }
 }

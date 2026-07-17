@@ -1,5 +1,5 @@
+import { Camera, getCameraBounds, System, worldBoundsOverlap } from '../../engine';
 import EntityDestinationComponent from '../components/EntityDestinationComponent';
-import { System, Rectangle } from '../../engine';
 
 export default class DebugEntityDestinationSystem extends System {
     constructor() {
@@ -7,7 +7,9 @@ export default class DebugEntityDestinationSystem extends System {
         this.requireComponent(EntityDestinationComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera) {
+        const cameraBounds = getCameraBounds(camera);
+
         for (const entity of this.getSystemEntities()) {
             const destination = entity.getComponent(EntityDestinationComponent);
 
@@ -15,22 +17,18 @@ export default class DebugEntityDestinationSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Bypass rendering if entities are outside the camera view
-            const isOutsideCameraView =
-                destination.destinationX < camera.x ||
-                destination.destinationX > camera.x + camera.width ||
-                destination.destinationY < camera.y ||
-                destination.destinationY > camera.y + camera.height;
-
-            if (isOutsideCameraView) {
+            const bounds = {
+                left: destination.destinationX - 20,
+                right: destination.destinationX + 20,
+                bottom: destination.destinationY - 20,
+                top: destination.destinationY + 20,
+            };
+            if (!worldBoundsOverlap(bounds, cameraBounds)) {
                 continue;
             }
 
-            const circleX = destination.destinationX - camera.x;
-            const circleY = destination.destinationY - camera.y;
-
             ctx.beginPath();
-            ctx.arc(circleX, circleY, 20, 0, Math.PI * 2);
+            ctx.arc(destination.destinationX, destination.destinationY, 20, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }

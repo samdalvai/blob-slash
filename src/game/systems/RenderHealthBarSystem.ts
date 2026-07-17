@@ -1,7 +1,7 @@
+import { Camera, getCameraBounds, getSpriteBounds, System, worldBoundsOverlap } from '../../engine';
 import HealthComponent from '../components/HealthComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import { System, Rectangle } from '../../engine';
 
 export default class RenderHealthBarSystem extends System {
     constructor() {
@@ -11,7 +11,9 @@ export default class RenderHealthBarSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera) {
+        const cameraBounds = getCameraBounds(camera);
+
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const sprite = entity.getComponent(SpriteComponent);
@@ -21,53 +23,42 @@ export default class RenderHealthBarSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * sprite.width < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * sprite.height < camera.y ||
-                transform.position.y > camera.y + camera.height;
+            const spriteBounds = getSpriteBounds(
+                transform.position,
+                { width: sprite.width, height: sprite.height },
+                transform.scale,
+            );
 
             if (
-                isOutsideCameraView ||
+                !worldBoundsOverlap(spriteBounds, cameraBounds) ||
                 health.lastDamageTime === 0 ||
                 performance.now() - health.lastDamageTime >= 5000
             ) {
                 continue;
             }
 
-            let color = { r: 255, g: 255, b: 255 }; // white
-
+            let color = { r: 255, g: 255, b: 255 };
             if (health.healthPercentage <= 35) {
-                color = { r: 255, g: 0, b: 0 }; // red
+                color = { r: 255, g: 0, b: 0 };
             } else if (health.healthPercentage <= 75) {
-                color = { r: 255, g: 255, b: 0 }; // yellow
+                color = { r: 255, g: 255, b: 0 };
             }
-
-            ctx.fillStyle = `rgb(${color.r},${color.g},${color.b})`;
 
             const topPadding = 5;
             const healthBarHeight = 5;
+            const width = spriteBounds.right - spriteBounds.left;
+            const barBottom = spriteBounds.top + topPadding;
 
-            const healthBarRect: Rectangle = {
-                x: transform.position.x - camera.x,
-                y: transform.position.y - healthBarHeight - topPadding * transform.scale.y - camera.y,
-                width: (sprite.width * transform.scale.x * health.healthPercentage) / 100,
-                height: healthBarHeight,
-            };
-
-            ctx.fillRect(healthBarRect.x, healthBarRect.y, healthBarRect.width, healthBarRect.height);
+            ctx.fillStyle = `rgb(${color.r},${color.g},${color.b})`;
+            ctx.fillRect(spriteBounds.left, barBottom, (width * health.healthPercentage) / 100, healthBarHeight);
 
             ctx.save();
-            const text = health.healthPercentage + '%';
+            ctx.translate(transform.position.x, barBottom + healthBarHeight + topPadding);
+            ctx.scale(1, -1);
             ctx.font = '14px Arial';
-
-            // Render the text centered within the rectangle
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            const textX = healthBarRect.x + (sprite.width * transform.scale.x) / 2;
-            const textY = healthBarRect.y - topPadding * 2;
-
-            ctx.fillText(text, textX, textY);
+            ctx.fillText(health.healthPercentage + '%', 0, 0);
             ctx.restore();
         }
     }

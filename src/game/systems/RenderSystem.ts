@@ -1,4 +1,13 @@
-import { AssetStore, System, Flip, Rectangle } from '../../engine';
+import {
+    AssetStore,
+    Camera,
+    Flip,
+    getCameraBounds,
+    getSpriteBounds,
+    System,
+    WorldBounds,
+    worldBoundsOverlap,
+} from '../../engine';
 import Game from '../Game';
 import HighlightComponent from '../components/HighlightComponent';
 import ShadowComponent from '../components/ShadowComponent';
@@ -19,7 +28,10 @@ export default class RenderSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Rectangle, zoom = 1, isEditor = false) {
+    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, camera: Camera, isEditor = false) {
+        const cameraBounds = getCameraBounds(camera);
+        const mapBounds: WorldBounds = { left: 0, right: Game.mapWidth, bottom: 0, top: Game.mapHeight };
+
         for (const entity of this.getSystemEntities()) {
             const sprite = entity.getComponent(SpriteComponent);
             const transform = entity.getComponent(TransformComponent);
@@ -28,21 +40,17 @@ export default class RenderSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Check if the entity sprite is outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * sprite.width < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * sprite.height < camera.y ||
-                transform.position.y > camera.y + camera.height;
+            const spriteBounds = getSpriteBounds(
+                transform.position,
+                { width: sprite.width, height: sprite.height },
+                transform.scale,
+            );
 
-            const isOutsideOfMap = !isEditor &&( 
-                transform.position.x + transform.scale.x * sprite.width < 0 ||
-                transform.position.x > Game.mapWidth ||
-                transform.position.y + transform.scale.y * sprite.height < 0 ||
-                transform.position.y > Game.mapHeight);
-
-            // Cull sprites that are outside the camera view (and are not fixed)
-            if ((isOutsideCameraView || isOutsideOfMap) && !transform.isFixed) {
+            // Fixed entities are screen-space and are rendered independently of world culling.
+            if (
+                !transform.isFixed &&
+                (!worldBoundsOverlap(spriteBounds, cameraBounds) || (!isEditor && !worldBoundsOverlap(spriteBounds, mapBounds)))
+            ) {
                 continue;
             }
 
@@ -56,105 +64,106 @@ export default class RenderSystem extends System {
 
         this.renderQueue.sort((entityA, entityB) => {
             if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
-                return entityA.transform.position.y - entityB.transform.position.y;
+                // Draw lower entities last so they appear in front in a top-down Y-up world.
+                return entityB.transform.position.y - entityA.transform.position.y;
             }
 
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
         });
 
         for (const entity of this.renderQueue) {
-            const sprite = entity.sprite;
-            const transform = entity.transform;
-
-            if (entity.shadow) {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-
-                // Draw an ellipse as the shadow
-                ctx.beginPath();
-                ctx.ellipse(
-                    (transform.position.x + entity.shadow.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x) *
-                        zoom,
-                    (transform.position.y + entity.shadow.offsetY + sprite.height * transform.scale.y - camera.y) *
-                        zoom,
-                    (entity.shadow.width / 2) * zoom,
-                    (entity.shadow.height / 2) * zoom,
-                    0,
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.fill();
-            }
-
-            if (entity.highlight && entity.highlight.isHighlighted) {
-                ctx.strokeStyle = 'rgb(255, 0, 0)';
-
-                // Draw an ellipse as the highlight
-                ctx.beginPath();
-                ctx.ellipse(
-                    transform.position.x + entity.highlight.offsetX + (sprite.width * transform.scale.x) / 2 - camera.x,
-                    transform.position.y + entity.highlight.offsetY + sprite.height * transform.scale.y - camera.y,
-                    entity.highlight.width / 2,
-                    entity.highlight.height / 2,
-                    0,
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.stroke();
-            }
-
-            const dstRect: Rectangle = {
-                x: (transform.position.x - (transform.isFixed ? 0 : camera.x)) * zoom,
-                y: (transform.position.y - (transform.isFixed ? 0 : camera.y)) * zoom,
-                width: sprite.width * transform.scale.x * zoom,
-                height: sprite.height * transform.scale.y * zoom,
-            };
-
-            ctx.save();
-
-            // Calculate the center of the destination rectangle
-            const centerX = dstRect.x + dstRect.width / 2;
-            const centerY = dstRect.y + dstRect.height / 2;
-
-            // Move the origin of the canvas to the center of the sprite
-            ctx.translate(centerX, centerY);
-
-            // Apply flipping
-            switch (sprite.flip) {
-                case Flip.NONE:
-                    break;
-                case Flip.HORIZONTAL:
-                    ctx.scale(-1, 1);
-                    break;
-                case Flip.VERTICAL:
-                    ctx.scale(1, -1);
-                    break;
-            }
-
-            // Optionally, apply rotation (in radians)
-            if (transform.rotation) {
-                const rotationAngle = transform.rotation * (Math.PI / 180);
-                ctx.rotate(rotationAngle);
-            }
-
-            if (sprite.transparency !== 1) {
-                ctx.globalAlpha = sprite.transparency;
-            }
-
-            ctx.drawImage(
-                assetStore.getTexture(sprite.assetId),
-                sprite.width * sprite.column,
-                sprite.height * sprite.row,
-                sprite.width,
-                sprite.height,
-                -dstRect.width / 2, // Adjust to draw from the center
-                -dstRect.height / 2,
-                dstRect.width,
-                dstRect.height,
-            );
-
-            ctx.restore();
+            this.drawEntity(ctx, assetStore, entity);
         }
 
         this.renderQueue.length = 0;
+    }
+
+    private drawEntity(
+        ctx: CanvasRenderingContext2D,
+        assetStore: AssetStore,
+        entity: {
+            sprite: SpriteComponent;
+            transform: TransformComponent;
+            shadow?: ShadowComponent;
+            highlight?: HighlightComponent;
+        },
+    ) {
+        const { sprite, transform, shadow, highlight } = entity;
+        const width = sprite.width * transform.scale.x;
+        const height = sprite.height * transform.scale.y;
+
+        if (shadow) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+            ctx.beginPath();
+            ctx.ellipse(
+                transform.position.x + shadow.offsetX,
+                transform.position.y + shadow.offsetY,
+                shadow.width / 2,
+                shadow.height / 2,
+                0,
+                0,
+                2 * Math.PI,
+            );
+            ctx.fill();
+        }
+
+        if (highlight?.isHighlighted) {
+            ctx.strokeStyle = 'rgb(255, 0, 0)';
+            ctx.beginPath();
+            ctx.ellipse(
+                transform.position.x + highlight.offsetX,
+                transform.position.y + highlight.offsetY,
+                highlight.width / 2,
+                highlight.height / 2,
+                0,
+                0,
+                2 * Math.PI,
+            );
+            ctx.stroke();
+        }
+
+        ctx.save();
+
+        if (transform.isFixed) {
+            // Fixed transforms use screen coordinates and must not inherit the world transform.
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
+
+        ctx.translate(transform.position.x, transform.position.y);
+
+        if (transform.rotation) {
+            ctx.rotate((transform.rotation * Math.PI) / 180);
+        }
+
+        // The world pass flips Y; counter-flip bitmap pixels so sprites remain upright.
+        ctx.scale(1, -1);
+
+        switch (sprite.flip) {
+            case Flip.HORIZONTAL:
+                ctx.scale(-1, 1);
+                break;
+            case Flip.VERTICAL:
+                ctx.scale(1, -1);
+                break;
+            case Flip.NONE:
+                break;
+        }
+
+        if (sprite.transparency !== 1) {
+            ctx.globalAlpha = sprite.transparency;
+        }
+
+        ctx.drawImage(
+            assetStore.getTexture(sprite.assetId),
+            sprite.width * sprite.column,
+            sprite.height * sprite.row,
+            sprite.width,
+            sprite.height,
+            -width / 2,
+            -height / 2,
+            width,
+            height,
+        );
+        ctx.restore();
     }
 }
