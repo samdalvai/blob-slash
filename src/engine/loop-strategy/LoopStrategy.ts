@@ -1,9 +1,9 @@
 import Engine from '../Engine';
 
 export default class LoopStrategy {
-    protected engine: Engine<any>;
+    protected engine: Engine;
 
-    constructor(engine: Engine<any>) {
+    constructor(engine: Engine) {
         this.engine = engine;
     }
 
