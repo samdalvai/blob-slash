@@ -22,8 +22,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -53,8 +53,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -84,8 +84,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -115,8 +115,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -146,8 +146,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -177,8 +177,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
@@ -208,8 +208,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 16,
-            "y": -16
+            "x": 0,
+            "y": 0
           },
           "lastCollision": 0
         }
