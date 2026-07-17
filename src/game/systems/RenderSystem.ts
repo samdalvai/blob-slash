@@ -97,7 +97,8 @@ export default class RenderSystem extends System {
             ctx.beginPath();
             ctx.ellipse(
                 transform.position.x + shadow.offsetX,
-                transform.position.y + shadow.offsetY,
+                // Shadows are anchored at the sprite's bottom edge, not its centre.
+                transform.position.y - height / 2 + shadow.offsetY,
                 shadow.width / 2,
                 shadow.height / 2,
                 0,
