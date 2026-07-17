@@ -2,10 +2,10 @@ import {
     AssetStore,
     Camera,
     Flip,
-    getCameraBounds,
-    getSpriteBounds,
     System,
     WorldBounds,
+    getCameraBounds,
+    getSpriteBounds,
     worldBoundsOverlap,
 } from '../../engine';
 import Game from '../Game';
@@ -49,7 +49,8 @@ export default class RenderSystem extends System {
             // Fixed entities are screen-space and are rendered independently of world culling.
             if (
                 !transform.isFixed &&
-                (!worldBoundsOverlap(spriteBounds, cameraBounds) || (!isEditor && !worldBoundsOverlap(spriteBounds, mapBounds)))
+                (!worldBoundsOverlap(spriteBounds, cameraBounds) ||
+                    (!isEditor && !worldBoundsOverlap(spriteBounds, mapBounds)))
             ) {
                 continue;
             }
@@ -97,7 +98,7 @@ export default class RenderSystem extends System {
             ctx.beginPath();
             ctx.ellipse(
                 transform.position.x + shadow.offsetX,
-                // Shadows are anchored at the sprite's bottom edge, not its centre.
+                // Shadows are anchored at the sprite's bottom edge
                 transform.position.y - height / 2 + shadow.offsetY,
                 shadow.width / 2,
                 shadow.height / 2,
@@ -113,7 +114,8 @@ export default class RenderSystem extends System {
             ctx.beginPath();
             ctx.ellipse(
                 transform.position.x + highlight.offsetX,
-                transform.position.y + highlight.offsetY,
+                // Highlights are anchored at the sprite's bottom edge
+                transform.position.y - height / 2 + highlight.offsetY,
                 highlight.width / 2,
                 highlight.height / 2,
                 0,
