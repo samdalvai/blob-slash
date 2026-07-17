@@ -89,7 +89,7 @@ export default abstract class Engine {
             }
         });
 
-        await this.assetStore.initializeDefaultTexture();
+        await this.assetStore.initialize();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
