@@ -148,3 +148,16 @@ export const migrateLevelMapToCurrentCoordinates = (level: LevelMap): LevelMap =
         entities: level.entities.map(entity => convertEntity(entity, level.mapHeight)),
     };
 };
+
+/**
+ * Converts standalone legacy entity maps using the height of their source
+ * level. Entity-map files do not contain map metadata, so callers must supply
+ * that height explicitly.
+ */
+export const migrateEntityMapsToCurrentCoordinates = (entities: EntityMap[], sourceMapHeight: number): EntityMap[] => {
+    if (!Number.isFinite(sourceMapHeight) || sourceMapHeight < 0) {
+        throw new Error(`Invalid source map height: ${sourceMapHeight}`);
+    }
+
+    return entities.map(entity => convertEntity(entity, sourceMapHeight));
+};

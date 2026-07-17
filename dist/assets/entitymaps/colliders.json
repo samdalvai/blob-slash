@@ -6,7 +6,7 @@
         "properties": {
           "position": {
             "x": 1056,
-            "y": -704
+            "y": 2688
           },
           "scale": {
             "x": 2,
@@ -22,8 +22,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -37,7 +37,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -608
+            "y": 2592
           },
           "scale": {
             "x": 6,
@@ -53,8 +53,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -68,7 +68,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -84,8 +84,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -99,7 +99,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -512
+            "y": 2496
           },
           "scale": {
             "x": 8,
@@ -115,8 +115,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -130,7 +130,7 @@
         "properties": {
           "position": {
             "x": 992,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -146,8 +146,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -161,7 +161,7 @@
         "properties": {
           "position": {
             "x": 1088,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -177,8 +177,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
@@ -192,7 +192,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -704
+            "y": 2688
           },
           "scale": {
             "x": 4,
@@ -208,8 +208,8 @@
           "width": 32,
           "height": 32,
           "offset": {
-            "x": 0,
-            "y": 0
+            "x": 16,
+            "y": -16
           },
           "lastCollision": 0
         }
