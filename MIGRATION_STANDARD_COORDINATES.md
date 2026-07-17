@@ -33,12 +33,11 @@ bottom = position.y - h / 2;
 top    = position.y + h / 2;
 ```
 
-`BoxColliderComponent.offset` becomes a world-space offset from the transform
-centre to the collider centre. Its `width` and `height` stay full extents. Put
-shared `getSpriteBounds()` and `getColliderBounds()` helpers in the engine so no
-system reconstructs these bounds ad hoc. Decide and document whether collider
-offsets are multiplied by transform scale; the recommended invariant is that
-they are, so visual and collider scaling behave together.
+`BoxColliderComponent.offset` becomes an unscaled local offset from the
+transform centre to the collider centre. Its `width` and `height` stay full
+extents, and transform scale applies to both its extents and offset. Put shared
+`getSpriteBounds()` and `getColliderBounds()` helpers in the engine so no system
+reconstructs these bounds ad hoc.
 
 Positive rotation is counter-clockwise in world space. Keep the current public
 degree representation for this migration if avoiding an unrelated API/data

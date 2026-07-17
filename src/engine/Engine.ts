@@ -31,8 +31,14 @@ export default abstract class Engine {
     protected millisecondsLastFPSUpdate: number;
 
     // Global engine objects
+    /** Canvas-relative input position; the canvas origin is always top-left. */
     static mousePositionScreen: Vector;
+    /**
+     * World-space pointer position. It currently follows the legacy Y-down
+     * coordinate convention and will become Y-up during the migration.
+     */
     static mousePositionWorld: Vector;
+    /** Map extents in world pixels; v2 maps use a bottom-left `(0, 0)` origin. */
     static mapWidth: number;
     static mapHeight: number;
     static windowWidth: number;
