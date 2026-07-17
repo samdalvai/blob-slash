@@ -3,10 +3,10 @@ import {
     Engine,
     Entity,
     EventBus,
-    getSpriteBounds,
     MouseButton,
     System,
     WorldBounds,
+    getSpriteBounds,
     worldBoundsOverlap,
 } from '../../engine';
 import SpriteComponent from '../../game/components/SpriteComponent';
@@ -228,12 +228,10 @@ export default class EntityDragSystem extends System {
             // * translate all entities by that difference
 
             // TODO: can we improve this by selecting the entity nearest to the mouse position? See commit 989c5dd for example
-            const nearestGridX =
-                Math.floor(Engine.mousePositionWorld.x / Editor.editorSettings.gridSquareSide) *
-                Editor.editorSettings.gridSquareSide;
-            const nearestGridY =
-                Math.floor(Engine.mousePositionWorld.y / Editor.editorSettings.gridSquareSide) *
-                Editor.editorSettings.gridSquareSide;
+            const gridSize = Editor.editorSettings.gridSquareSide;
+            const gridHalfSize = gridSize / 2;
+            const nearestGridX = Math.floor(Engine.mousePositionWorld.x / gridSize) * gridSize + gridHalfSize;
+            const nearestGridY = Math.floor(Engine.mousePositionWorld.y / gridSize) * gridSize + gridHalfSize;
 
             let minTransformPositionX = Number.MAX_VALUE;
             let minTransformPositionY = Number.MAX_VALUE;
