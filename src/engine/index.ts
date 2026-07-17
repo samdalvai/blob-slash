@@ -19,6 +19,7 @@ export { default as FixedFPSLoopStrategy } from './loop-strategy/FixedFPSLoopStr
 export { default as LoopStrategy } from './loop-strategy/LoopStrategy';
 export { default as RAFLoopStrategy } from './loop-strategy/RAFLoopStrategy';
 export * from './serialization/deserialization';
+export * from './serialization/levelCoordinateMigration';
 export * from './serialization/serialization';
 export * from './types/control';
 export * from './types/map';

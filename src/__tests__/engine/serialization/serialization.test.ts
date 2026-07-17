@@ -345,6 +345,7 @@ describe('Testing serialization related functions', () => {
         entity.addComponent(TransformComponent, { x: 100, y: 100 }, { x: 1, y: 1 }, 0);
 
         const expected: LevelMap = {
+            coordinateSystemVersion: 2,
             mapWidth: 500,
             mapHeight: 500,
             entities: [
@@ -383,6 +384,7 @@ describe('Testing serialization related functions', () => {
         entity2.addComponent(TransformComponent, { x: 200, y: 200 }, { x: 1, y: 1 }, 0);
 
         const expected: LevelMap = {
+            coordinateSystemVersion: 2,
             mapWidth: 500,
             mapHeight: 500,
             entities: [
@@ -437,6 +439,7 @@ describe('Testing serialization related functions', () => {
         registry.update();
 
         const expected: LevelMap = {
+            coordinateSystemVersion: 2,
             mapWidth: 500,
             mapHeight: 500,
             entities: [

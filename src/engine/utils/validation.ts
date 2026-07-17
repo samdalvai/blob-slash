@@ -10,7 +10,8 @@ export const isValidLevelMap = (obj: any): obj is LevelMap => {
         typeof obj.mapWidth === 'number' &&
         obj.mapHeight !== undefined &&
         typeof obj.mapHeight === 'number' &&
-        obj.entities !== undefined
+        obj.entities !== undefined &&
+        (obj.coordinateSystemVersion === undefined || Number.isInteger(obj.coordinateSystemVersion))
     );
 };
 

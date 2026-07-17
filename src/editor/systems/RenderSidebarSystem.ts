@@ -426,6 +426,7 @@ export default class RenderSidebarSystem extends System {
             const nextLevelId = getNextLevelId(levelKeys);
 
             const newLevelMap: LevelMap = {
+                coordinateSystemVersion: 2,
                 textures: [],
                 sounds: [],
                 mapWidth: 64 * 10,
