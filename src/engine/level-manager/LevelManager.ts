@@ -3,6 +3,7 @@ import AssetStore from '../asset-store/AssetStore';
 import { ComponentCatalog } from '../ecs/ComponentCatalog';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
+import { migrateLevelMapToCurrentCoordinates } from '../serialization/levelCoordinateMigration';
 import { LevelMap } from '../types/map';
 
 export default class LevelManager {
@@ -31,14 +32,16 @@ export default class LevelManager {
     }
 
     public async loadLevelFromLevelMap(level: LevelMap) {
+        const migratedLevel = migrateLevelMapToCurrentCoordinates(level);
+
         this.assetStore.clear();
         this.registry.clear();
 
-        await this.loadAssets(level);
-        this.loadEntities(level);
-        this.setMapBoundaries(level);
+        await this.loadAssets(migratedLevel);
+        this.loadEntities(migratedLevel);
+        this.setMapBoundaries(migratedLevel);
 
-        return level;
+        return migratedLevel;
     }
 
     private async loadAssets(level: LevelMap) {
@@ -68,6 +71,7 @@ export default class LevelManager {
 
     public getDefaultLevel = (levelId: string) => {
         const levelMap: LevelMap = {
+            coordinateSystemVersion: 2,
             textures: [],
             sounds: [],
             mapWidth: 64 * 10,

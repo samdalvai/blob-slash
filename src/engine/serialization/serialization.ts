@@ -3,6 +3,7 @@ import AssetStore from '../asset-store/AssetStore';
 import Entity from '../ecs/Entity';
 import Registry from '../ecs/Registry';
 import { ComponentMap, EntityMap, LevelMap } from '../types/map';
+import { CURRENT_COORDINATE_SYSTEM_VERSION } from './levelCoordinateMigration';
 
 export const serializeEntity = (entity: Entity): EntityMap => {
     const components: ComponentMap[] = [];
@@ -43,6 +44,7 @@ export const serializeEntities = (entities: Entity[]): EntityMap[] => {
 export const serializeLevel = (registry: Registry, assetStore: AssetStore): LevelMap => {
     const entities = registry.getAllEntities();
     return {
+        coordinateSystemVersion: CURRENT_COORDINATE_SYSTEM_VERSION,
         textures: assetStore.getTexturesFilePaths(),
         sounds: assetStore.getSoundsFilePaths(),
         mapWidth: Engine.mapWidth,

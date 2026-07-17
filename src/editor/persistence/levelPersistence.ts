@@ -1,4 +1,12 @@
-import { AssetStore, Entity, Registry, serializeEntities, serializeLevel, LevelMap } from '../../engine';
+import {
+    AssetStore,
+    Entity,
+    migrateLevelMapToCurrentCoordinates,
+    Registry,
+    serializeEntities,
+    serializeLevel,
+    LevelMap,
+} from '../../engine';
 
 export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): void => {
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);
@@ -47,7 +55,7 @@ export const saveCurrentLevelToLocalStorage = (
 };
 
 export const saveLevelToLocalStorage = (levelId: string, levelMap: LevelMap) => {
-    const jsonString = JSON.stringify(levelMap, null, 2);
+    const jsonString = JSON.stringify(migrateLevelMapToCurrentCoordinates(levelMap), null, 2);
     localStorage.setItem(levelId, jsonString);
     console.log('Level snapshot saved to local storage');
 };
