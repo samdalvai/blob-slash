@@ -19,8 +19,8 @@
         "name": "TransformComponent",
         "properties": {
           "position": {
-            "x": 420,
-            "y": 189
+            "x": 436,
+            "y": 1779
           },
           "scale": {
             "x": 1,
@@ -39,7 +39,7 @@
           },
           "direction": {
             "x": 0,
-            "y": 1
+            "y": -1
           }
         }
       },
@@ -60,7 +60,7 @@
           "height": 20,
           "offset": {
             "x": 0,
-            "y": 5
+            "y": 1
           },
           "lastCollision": 91996.90000000002
         }
@@ -105,7 +105,7 @@
           "width": 40,
           "height": 20,
           "offsetX": 0,
-          "offsetY": -10
+          "offsetY": 10
         }
       },
       {
@@ -132,7 +132,7 @@
           "width": 30,
           "height": 10,
           "offsetX": 0,
-          "offsetY": -8
+          "offsetY": 8
         }
       },
       {

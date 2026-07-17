@@ -2,6 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 
 import {
     CURRENT_COORDINATE_SYSTEM_VERSION,
+    migrateEntityMapsToCurrentCoordinates,
     migrateLevelMapToCurrentCoordinates,
 } from '../../../engine/serialization/levelCoordinateMigration';
 import { legacyLevelMapFixture } from '../../../test-fixtures/legacyLevelMap';
@@ -74,6 +75,17 @@ describe('level coordinate migration', () => {
         const migrated = migrateLevelMapToCurrentCoordinates(legacyLevelMapFixture);
 
         expect(migrateLevelMapToCurrentCoordinates(migrated)).toBe(migrated);
+    });
+
+    test('converts standalone entity maps with an explicit source map height', () => {
+        const migratedEntities = migrateEntityMapsToCurrentCoordinates(legacyLevelMapFixture.entities, 480);
+        const transform = migratedEntities[0].components.find(component => component.name === 'TransformComponent');
+
+        expect(transform?.properties.position).toEqual({ x: 132, y: 384 });
+        expect(legacyLevelMapFixture.entities[0].components.find(component => component.name === 'TransformComponent')?.properties.position).toEqual({
+            x: 100,
+            y: 60,
+        });
     });
 
     test('rejects an unknown future coordinate-system version', () => {
