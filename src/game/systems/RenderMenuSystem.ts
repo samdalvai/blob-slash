@@ -1,4 +1,4 @@
-import { AssetStore, Registry, System, EventBus, LevelManager, GameStatus, Rectangle } from '../../engine';
+import { AssetStore, Engine, Registry, System, EventBus, LevelManager, GameStatus, Rectangle } from '../../engine';
 import Game from '../Game';
 import { MousePressedEvent } from '../events';
 
@@ -19,17 +19,16 @@ export default class RenderMenuSystem extends System {
     };
 
     async onMouseClick(event: MousePressedEvent) {
+        void event;
         const buttonX1 = Game.windowWidth / 2 - 125;
         const buttonX2 = buttonX1 + 250;
         const buttonY1 = Game.windowHeight / 2 - 50;
         const buttonY2 = buttonY1 + 100;
 
-        if (
-            event.coordinates.x >= buttonX1 &&
-            event.coordinates.x <= buttonX2 &&
-            event.coordinates.y >= buttonY1 &&
-            event.coordinates.y <= buttonY2
-        ) {
+        // Menu UI is screen-space while mouse events now carry world coordinates.
+        const pointer = Engine.mousePositionScreen;
+
+        if (pointer.x >= buttonX1 && pointer.x <= buttonX2 && pointer.y >= buttonY1 && pointer.y <= buttonY2) {
             await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
             await this.levelManager.loadLevelFromAssets('grass');
             Game.gameStatus = GameStatus.PLAYING;

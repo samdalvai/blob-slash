@@ -1,4 +1,4 @@
-import { System, Rectangle } from '../../engine';
+import { Camera, getCameraBounds, getSpriteBounds, System, worldBoundsOverlap } from '../../engine';
 import EntityFollowComponent from '../components/EntityFollowComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -11,7 +11,9 @@ export default class DebugPlayerFollowRadiusSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera) {
+        const cameraBounds = getCameraBounds(camera);
+
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const entityFollow = entity.getComponent(EntityFollowComponent);
@@ -21,27 +23,22 @@ export default class DebugPlayerFollowRadiusSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Bypass rendering if entities are outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y < camera.y ||
-                transform.position.y > camera.y + camera.height;
-
-            if (isOutsideCameraView) {
+            if (
+                !worldBoundsOverlap(
+                    getSpriteBounds(transform.position, { width: sprite.width, height: sprite.height }, transform.scale),
+                    cameraBounds,
+                )
+            ) {
                 continue;
             }
 
-            const circleX = (transform.position.x + (sprite.width / 2) * transform.scale.x - camera.x) * zoom;
-            const circleY = (transform.position.y + (sprite.height / 2) * transform.scale.y - camera.y) * zoom;
-
             ctx.beginPath();
-            ctx.arc(circleX, circleY, entityFollow.detectionRadius * zoom, 0, Math.PI * 2);
+            ctx.arc(transform.position.x, transform.position.y, entityFollow.detectionRadius, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.arc(circleX, circleY, entityFollow.minFollowDistance * zoom, 0, Math.PI * 2);
+            ctx.arc(transform.position.x, transform.position.y, entityFollow.minFollowDistance, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }

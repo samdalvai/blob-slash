@@ -1,4 +1,4 @@
-import { AssetStore, Registry, System, Rectangle, Engine } from '../../engine';
+import { AssetStore, Engine, Registry, System } from '../../engine';
 import HighlightComponent from '../components/HighlightComponent';
 import PlayerControlComponent from '../components/PlayerControlComponent';
 
@@ -7,16 +7,11 @@ export default class RenderCursorSystem extends System {
         super();
     }
 
-    update(
-        ctx: CanvasRenderingContext2D,
-        camera: Rectangle,
-        assetStore: AssetStore,
-        registry: Registry,
-    ) {
+    update(ctx: CanvasRenderingContext2D, assetStore: AssetStore, registry: Registry) {
         const player = registry.getEntityByTag('player');
 
         if (!player) {
-            this.renderDefaultCursor(ctx, camera, assetStore);
+            this.renderDefaultCursor(ctx, assetStore);
             return;
         }
 
@@ -27,7 +22,7 @@ export default class RenderCursorSystem extends System {
         }
 
         if (playerControl.keysPressed.includes('ShiftLeft')) {
-            this.renderAttackCursor(ctx, camera, assetStore);
+            this.renderAttackCursor(ctx, assetStore);
             return;
         }
 
@@ -49,16 +44,15 @@ export default class RenderCursorSystem extends System {
         }
 
         if (enemyHighlighted) {
-            this.renderAttackCursor(ctx, camera, assetStore);
+            this.renderAttackCursor(ctx, assetStore);
             return;
         }
 
-        this.renderDefaultCursor(ctx, camera, assetStore);
+        this.renderDefaultCursor(ctx, assetStore);
     }
 
     private renderAttackCursor = (
         ctx: CanvasRenderingContext2D,
-        camera: Rectangle,
         assetStore: AssetStore,
     ) => {
         ctx.drawImage(
@@ -76,7 +70,6 @@ export default class RenderCursorSystem extends System {
 
     private renderDefaultCursor = (
         ctx: CanvasRenderingContext2D,
-        camera: Rectangle,
         assetStore: AssetStore,
     ) => {
         ctx.drawImage(

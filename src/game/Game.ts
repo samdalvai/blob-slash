@@ -1,13 +1,4 @@
-import { Engine, GameStatus } from '../engine';
-import {
-    AnimationComponent,
-    CameraFollowComponent,
-    PlayerControlComponent,
-    RigidBodyComponent,
-    SpriteComponent,
-    SpriteStateComponent,
-    TransformComponent,
-} from './components';
+import { beginWorldRender, Camera, endWorldRender, Engine, GameStatus, screenToWorld } from '../engine';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
@@ -18,6 +9,14 @@ export default class Game extends Engine {
     constructor() {
         super();
         this.levelManager.setComponentCatalog(gameComponentCatalog);
+    }
+
+    protected createCamera(): Camera {
+        return {
+            center: { x: 0, y: 0 },
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+        };
     }
 
     setup = async () => {
@@ -118,40 +117,28 @@ export default class Game extends Engine {
                 return;
             }
 
+            Engine.mousePositionScreen = {
+                x: inputEvent.x,
+                y: inputEvent.y,
+            };
+
             switch (inputEvent.type) {
                 case 'mousemove':
-                    Engine.mousePositionScreen = {
-                        x: inputEvent.x,
-                        y: inputEvent.y,
-                    };
+                    Engine.mousePositionWorld = screenToWorld(Engine.mousePositionScreen, this.camera);
 
-                    Engine.mousePositionWorld = {
-                        x: inputEvent.x + this.camera.x,
-                        y: inputEvent.y + this.camera.y,
-                    };
-
-                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, {
-                        x: inputEvent.x + this.camera.x,
-                        y: inputEvent.y + this.camera.y,
-                    });
+                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, Engine.mousePositionWorld);
                     break;
                 case 'mousedown':
                     this.eventBus.emitEvent(
                         GameEvents.MousePressedEvent,
-                        {
-                            x: inputEvent.x + this.camera.x,
-                            y: inputEvent.y + this.camera.y,
-                        },
+                        screenToWorld({ x: inputEvent.x, y: inputEvent.y }, this.camera),
                         inputEvent.button,
                     );
                     break;
                 case 'mouseup':
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
-                        {
-                            x: inputEvent.x + this.camera.x,
-                            y: inputEvent.y + this.camera.y,
-                        },
+                        screenToWorld({ x: inputEvent.x, y: inputEvent.y }, this.camera),
                         inputEvent.button,
                     );
                     break;
@@ -213,11 +200,22 @@ export default class Game extends Engine {
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.registry.getSystem(Systems.CameraShakeSystem)?.update(this.ctx);
+
+        beginWorldRender(this.ctx, this.camera);
         this.registry.getSystem(Systems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera);
         this.registry.getSystem(Systems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        this.registry.getSystem(Systems.CameraShakeSystem)?.update(this.ctx);
-        this.registry.getSystem(Systems.RenderTextSystem)?.update(this.ctx, this.camera);
+        this.registry.getSystem(Systems.RenderTextSystem)?.update(this.ctx);
         this.registry.getSystem(Systems.RenderParticleSystem)?.update(this.ctx, this.camera);
+        if (this.isDebug) {
+            this.registry.getSystem(Systems.DebugColliderSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
+            this.registry.getSystem(Systems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+        }
+        endWorldRender(this.ctx);
+
         this.registry.getSystem(Systems.RenderLightingSystem)?.update(this.ctx, this.camera);
         this.registry.getSystem(Systems.RenderGUISystem)?.update(this.ctx, this.assetStore);
 
@@ -225,19 +223,12 @@ export default class Game extends Engine {
             this.registry.getSystem(RenderMenuSystem)?.update(this.ctx);
         }
 
-        this.registry
-            .getSystem(Systems.RenderCursorSystem)
-            ?.update(this.ctx, this.camera, this.assetStore, this.registry);
+        this.registry.getSystem(Systems.RenderCursorSystem)?.update(this.ctx, this.assetStore, this.registry);
 
         if (this.isDebug) {
             this.registry
                 .getSystem(Systems.DebugInfoSystem)
                 ?.update(this.ctx, this.currentFPS, this.maxFPS, this.frameDuration, this.registry, this.camera);
-            this.registry.getSystem(Systems.DebugColliderSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(Systems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(Systems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(Systems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
-            this.registry.getSystem(Systems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
             this.registry.getSystem(Systems.DebugCursorCoordinatesSystem)?.update(this.ctx);
         }
     };

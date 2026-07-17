@@ -4,13 +4,14 @@ import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
 import LevelManager from './level-manager/LevelManager';
 import LoopStrategy from './loop-strategy/LoopStrategy';
-import { GameStatus, Rectangle, Vector } from './types/utils';
+import { Camera, GameStatus, Rectangle, Vector } from './types/utils';
 
-export default abstract class Engine {
+export default abstract class Engine<TCamera extends Camera | Rectangle = Camera> {
     // Objects for rendering
     protected canvas: HTMLCanvasElement | null;
     protected ctx: CanvasRenderingContext2D | null;
-    protected camera: Rectangle;
+    /** Standard-coordinate world camera. */
+    protected camera: TCamera;
 
     // Ecs related objects
     protected registry: Registry;
@@ -48,7 +49,7 @@ export default abstract class Engine {
     constructor() {
         this.canvas = null;
         this.ctx = null;
-        this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+        this.camera = this.createCamera();
 
         this.registry = new Registry();
         this.assetStore = new AssetStore();
@@ -95,12 +96,17 @@ export default abstract class Engine {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected resize = (canvas: HTMLCanvasElement, camera: Rectangle, ...args: any[]) => {
+    protected resize = (canvas: HTMLCanvasElement, camera: TCamera, ...args: any[]) => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        camera.width = window.innerWidth;
-        camera.height = window.innerHeight;
+        if (this.isWorldCamera(camera)) {
+            camera.viewportWidth = window.innerWidth;
+            camera.viewportHeight = window.innerHeight;
+        } else {
+            camera.width = window.innerWidth;
+            camera.height = window.innerHeight;
+        }
 
         Engine.windowWidth = window.innerWidth;
         Engine.windowHeight = window.innerHeight;
@@ -131,11 +137,16 @@ export default abstract class Engine {
 
     protected abstract setup(): Promise<void>;
 
+    /** Creates the camera representation used by this engine surface. */
+    protected abstract createCamera(): TCamera;
+
     protected abstract processInput(): void;
 
     protected abstract update(deltaTime: number): void;
 
     protected abstract render(): void;
+
+    private isWorldCamera = (camera: Camera | Rectangle): camera is Camera => 'center' in camera;
 
     public running = () => this.isRunning;
 

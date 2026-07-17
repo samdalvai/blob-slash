@@ -1,7 +1,7 @@
+import { Camera, getCameraBounds, getSpriteBounds, System, worldBoundsOverlap } from '../../engine';
 import SlowTimeComponent from '../components/SlowTimeComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import { System, Rectangle } from '../../engine';
 
 export default class DebugSlowTimeRadiusSystem extends System {
     constructor() {
@@ -11,7 +11,9 @@ export default class DebugSlowTimeRadiusSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera) {
+        const cameraBounds = getCameraBounds(camera);
+
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const slowtime = entity.getComponent(SlowTimeComponent);
@@ -21,22 +23,17 @@ export default class DebugSlowTimeRadiusSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Bypass rendering if entities are outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y < camera.y ||
-                transform.position.y > camera.y + camera.height;
-
-            if (isOutsideCameraView) {
+            if (
+                !worldBoundsOverlap(
+                    getSpriteBounds(transform.position, { width: sprite.width, height: sprite.height }, transform.scale),
+                    cameraBounds,
+                )
+            ) {
                 continue;
             }
 
-            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x - camera.x;
-            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y - camera.y;
-
             ctx.beginPath();
-            ctx.arc(circleX, circleY, slowtime.radius, 0, Math.PI * 2);
+            ctx.arc(transform.position.x, transform.position.y, slowtime.radius, 0, Math.PI * 2);
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }
