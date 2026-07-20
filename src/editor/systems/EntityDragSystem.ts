@@ -5,6 +5,7 @@ import {
     EventBus,
     MouseButton,
     System,
+    Vector,
     WorldBounds,
     getSpriteBounds,
     worldBoundsOverlap,
@@ -17,6 +18,8 @@ import EntityEditor from '../entity-editor/EntityEditor';
 import EntitySelectEvent from '../events/EntitySelectEvent';
 
 export default class EntityDragSystem extends System {
+    private dragOffsetFromSelectionBounds: Vector | null = null;
+
     constructor() {
         super();
         this.requireComponent(TransformComponent);
@@ -54,6 +57,8 @@ export default class EntityDragSystem extends System {
         ) {
             return;
         }
+
+        this.dragOffsetFromSelectionBounds = null;
 
         const renderableEntities: {
             entity: Entity;
@@ -158,6 +163,8 @@ export default class EntityDragSystem extends System {
             return;
         }
 
+        this.dragOffsetFromSelectionBounds = null;
+
         if (!Editor.multipleSelectStart) {
             Editor.entityDragStart = null;
             Editor.isDragging = false;
@@ -224,13 +231,11 @@ export default class EntityDragSystem extends System {
         if (Editor.editorSettings.snapToGrid) {
             // Logic for snapping multiple entities to grid:
             // * take the lower-left bounds of the group
-            // * compute the difference needed for those bounds to snap to the grid cell under the mouse
+            // * preserve the initial mouse offset from those bounds
+            // * snap the intended bounds position to the nearest grid lines
             // * translate all entities by that difference
 
-            // TODO: can we improve this by selecting the entity nearest to the mouse position? See commit 989c5dd for example
             const gridSize = Editor.editorSettings.gridSquareSide;
-            const nearestGridX = Math.floor(Engine.mousePositionWorld.x / gridSize) * gridSize;
-            const nearestGridY = Math.floor(Engine.mousePositionWorld.y / gridSize) * gridSize;
 
             let selectionLeft = Number.MAX_VALUE;
             let selectionBottom = Number.MAX_VALUE;
@@ -264,8 +269,21 @@ export default class EntityDragSystem extends System {
                 selectionBottom = Math.min(selectionBottom, bounds.bottom);
             }
 
-            const diffX = nearestGridX - selectionLeft;
-            const diffY = nearestGridY - selectionBottom;
+            if (!this.dragOffsetFromSelectionBounds) {
+                this.dragOffsetFromSelectionBounds = {
+                    x: Editor.entityDragStart.x - selectionLeft,
+                    y: Editor.entityDragStart.y - selectionBottom,
+                };
+            }
+
+            const intendedSelectionLeft =
+                Engine.mousePositionWorld.x - this.dragOffsetFromSelectionBounds.x;
+            const intendedSelectionBottom =
+                Engine.mousePositionWorld.y - this.dragOffsetFromSelectionBounds.y;
+            const snappedSelectionLeft = Math.round(intendedSelectionLeft / gridSize) * gridSize;
+            const snappedSelectionBottom = Math.round(intendedSelectionBottom / gridSize) * gridSize;
+            const diffX = snappedSelectionLeft - selectionLeft;
+            const diffY = snappedSelectionBottom - selectionBottom;
 
             for (const entity of Editor.selectedEntities) {
                 const transform = entity.getComponent(TransformComponent);
@@ -305,6 +323,7 @@ export default class EntityDragSystem extends System {
 
     onKeyboardPressed(event: KeyPressedEvent, eventBus: EventBus): void {
         if (event.keyCode === 'Escape') {
+            this.dragOffsetFromSelectionBounds = null;
             Editor.selectedEntities.length = 0;
             eventBus.emitEvent(EntitySelectEvent, []);
         }
