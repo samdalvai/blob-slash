@@ -7,6 +7,8 @@ export default class PhysicsSystem extends System {
     private entityIdToBodyId: Map<number, number>;
     private bodyIdToEntityId: Map<number, number>;
 
+    private accumulator = 0;
+
     constructor() {
         super();
         super.requireComponent(RigidBodyComponent);
@@ -71,11 +73,11 @@ export default class PhysicsSystem extends System {
         }
 
         // Update physics
-        let accumulator = 0;
+        this.accumulator += deltaTime;
         this.world.update(deltaTime);
-        while (accumulator >= FIXED_DELTA_TIME) {
+        while (this.accumulator >= FIXED_DELTA_TIME) {
             this.world.update(deltaTime);
-            accumulator -= FIXED_DELTA_TIME;
+            this.accumulator -= FIXED_DELTA_TIME;
         }
 
         console.log(this.bodyIdToEntityId);
