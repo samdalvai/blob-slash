@@ -1,4 +1,4 @@
-import { beginWorldRender, Camera, endWorldRender, Engine, GameStatus, screenToWorld } from '../engine';
+import { Camera, Engine, GameStatus, beginWorldRender, endWorldRender, screenToWorld } from '../engine';
 import { gameComponentCatalog } from './components/componentCatalog';
 import * as GameEvents from './events';
 import * as Systems from './systems';
@@ -54,6 +54,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.GameEndSystem);
         this.registry.addSystem(Systems.DropItemSystem);
         this.registry.addSystem(Systems.PickItemSystem);
+        this.registry.addSystem(Systems.PhysicsSystem);
 
         // Debug systems
         this.registry.addSystem(Systems.DebugColliderSystem);
@@ -175,6 +176,7 @@ export default class Game extends Engine {
         this.registry.getSystem(Systems.PickItemSystem)?.subscribeToEvents(this.eventBus);
 
         // Invoke all the systems that need to update
+        this.registry.getSystem(Systems.PhysicsSystem)?.update(deltaTime);
         this.registry.getSystem(Systems.PlayerDetectionSystem)?.update(this.registry);
         this.registry.getSystem(Systems.ScriptingSystem)?.update();
         this.registry.getSystem(Systems.EntityFollowSystem)?.update();

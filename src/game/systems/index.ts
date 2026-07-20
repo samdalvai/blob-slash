@@ -36,3 +36,4 @@ export { default as GameEndSystem } from './GameEndSystem';
 export { default as RenderMenuSystem } from './RenderMenuSystem';
 export { default as DropItemSystem } from './DropItemSystem';
 export { default as PickItemSystem } from './PickItemSystem';
+export { default as PhysicsSystem } from './PhysicsSystem';

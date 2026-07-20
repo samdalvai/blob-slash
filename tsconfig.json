@@ -8,7 +8,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "gravity.js/src/**/*"
   ],
   "exclude": [
     "node_modules"
