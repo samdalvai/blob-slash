@@ -223,18 +223,17 @@ export default class EntityDragSystem extends System {
 
         if (Editor.editorSettings.snapToGrid) {
             // Logic for snapping multiple entities to grid:
-            // * take the lower-left centre position in the group
-            // * compute the difference needed for that entity to snap to the nearest square to the current mouse position
+            // * take the lower-left bounds of the group
+            // * compute the difference needed for those bounds to snap to the grid cell under the mouse
             // * translate all entities by that difference
 
             // TODO: can we improve this by selecting the entity nearest to the mouse position? See commit 989c5dd for example
             const gridSize = Editor.editorSettings.gridSquareSide;
-            const gridHalfSize = gridSize / 2;
-            const nearestGridX = Math.floor(Engine.mousePositionWorld.x / gridSize) * gridSize + gridHalfSize;
-            const nearestGridY = Math.floor(Engine.mousePositionWorld.y / gridSize) * gridSize + gridHalfSize;
+            const nearestGridX = Math.floor(Engine.mousePositionWorld.x / gridSize) * gridSize;
+            const nearestGridY = Math.floor(Engine.mousePositionWorld.y / gridSize) * gridSize;
 
-            let minTransformPositionX = Number.MAX_VALUE;
-            let minTransformPositionY = Number.MAX_VALUE;
+            let selectionLeft = Number.MAX_VALUE;
+            let selectionBottom = Number.MAX_VALUE;
 
             for (const entity of Editor.selectedEntities) {
                 const transform = entity.getComponent(TransformComponent);
@@ -242,17 +241,31 @@ export default class EntityDragSystem extends System {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }
 
-                if (minTransformPositionX > transform.position.x) {
-                    minTransformPositionX = transform.position.x;
+                let spriteWidth = 32;
+                let spriteHeight = 32;
+
+                if (entity.hasComponent(SpriteComponent)) {
+                    const sprite = entity.getComponent(SpriteComponent);
+                    if (!sprite) {
+                        throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
+                    }
+
+                    spriteWidth = sprite.width;
+                    spriteHeight = sprite.height;
                 }
 
-                if (minTransformPositionY > transform.position.y) {
-                    minTransformPositionY = transform.position.y;
-                }
+                const bounds = getSpriteBounds(
+                    transform.position,
+                    { width: spriteWidth, height: spriteHeight },
+                    transform.scale,
+                );
+
+                selectionLeft = Math.min(selectionLeft, bounds.left);
+                selectionBottom = Math.min(selectionBottom, bounds.bottom);
             }
 
-            const diffX = nearestGridX - minTransformPositionX;
-            const diffY = nearestGridY - minTransformPositionY;
+            const diffX = nearestGridX - selectionLeft;
+            const diffY = nearestGridY - selectionBottom;
 
             for (const entity of Editor.selectedEntities) {
                 const transform = entity.getComponent(TransformComponent);
