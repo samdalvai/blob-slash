@@ -1,4 +1,15 @@
-import { Engine, Entity, EntityMap, MouseButton, Rectangle, Vector, serializeEntity } from '../engine';
+import {
+    Camera,
+    Engine,
+    Entity,
+    EntityMap,
+    MouseButton,
+    Vector,
+    beginWorldRender,
+    endWorldRender,
+    screenToWorld,
+    serializeEntity,
+} from '../engine';
 import { gameComponentCatalog } from '../game/components/componentCatalog';
 import * as GameEvents from '../game/events';
 import * as GameSystems from '../game/systems';
@@ -84,9 +95,17 @@ export default class Editor extends Engine {
         this.isDebug = true;
     }
 
+    protected createCamera(): Camera {
+        return {
+            center: { x: 0, y: 0 },
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+        };
+    }
+
     resize = (
         canvas: HTMLCanvasElement,
-        camera: Rectangle,
+        camera: Camera,
         leftSidebar: HTMLElement,
         rightSidebar: HTMLElement,
         bottomBar: HTMLElement,
@@ -95,9 +114,8 @@ export default class Editor extends Engine {
             window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
         canvas.height = window.innerHeight - bottomBar.getBoundingClientRect().height;
 
-        camera.width =
-            window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
-        camera.height = window.innerHeight - bottomBar.getBoundingClientRect().height;
+        camera.viewportWidth = canvas.width / this.zoom;
+        camera.viewportHeight = canvas.height / this.zoom;
 
         Engine.windowWidth =
             window.innerWidth - leftSidebar.getBoundingClientRect().width - rightSidebar.getBoundingClientRect().width;
@@ -114,7 +132,7 @@ export default class Editor extends Engine {
         ctx.imageSmoothingEnabled = false;
     };
 
-    initialize = () => {
+    initialize = async () => {
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const leftSidebar = document.getElementById('leftSidebar') as HTMLElement;
@@ -148,6 +166,11 @@ export default class Editor extends Engine {
         this.bottomBar = bottomBar;
 
         this.resize(canvas, this.camera, this.leftSidebar, this.rightSidebar, this.bottomBar);
+        // Start with the world origin at the bottom-left of the editor viewport.
+        this.camera.center = {
+            x: this.camera.viewportWidth / 2,
+            y: this.camera.viewportHeight / 2,
+        };
         // canvas.style.cursor = 'none';
 
         this.isRunning = true;
@@ -249,13 +272,15 @@ export default class Editor extends Engine {
             }
         } else {
             console.log('No level available, loading default empty level');
-            const { levelId, level } = this.levelManager.getDefaultLevel('level-0');
-            saveLevelToLocalStorage(levelId, level);
-            await this.levelManager.loadLevelFromLevelMap(level);
+            const { levelId, levelMap } = this.levelManager.getDefaultLevel('level-0');
+            saveLevelToLocalStorage(levelId, levelMap);
+            await this.levelManager.loadLevelFromLevelMap(levelMap);
             Editor.editorSettings.selectedLevel = levelId;
             saveEditorSettingsToLocalStorage();
-            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, level);
+            this.versionManager.addLevelVersion(Editor.editorSettings.selectedLevel, levelMap);
         }
+
+        await this.assetStore.initialize();
     };
 
     processInput = () => {
@@ -388,79 +413,55 @@ export default class Editor extends Engine {
                 return;
             }
 
+            if (!this.leftSidebar) {
+                throw new Error('Failed to get leftSidebar element.');
+            }
+
+            const screenPosition = {
+                x: inputEvent.x - this.leftSidebar.getBoundingClientRect().width,
+                y: inputEvent.y,
+            };
+
             switch (inputEvent.type) {
                 case 'mousemove': {
-                    if (!this.leftSidebar) {
-                        throw new Error('Failed to get leftSidebar element.');
-                    }
-
-                    // Handles screen pan
+                    // Dragging the canvas follows the pointer in screen space.
                     if (this.mousePressed && this.commandPressed) {
                         const previousX = Engine.mousePositionScreen.x;
                         const previousY = Engine.mousePositionScreen.y;
+                        const diffX = (screenPosition.x - previousX) / this.zoom;
+                        const diffY = (screenPosition.y - previousY) / this.zoom;
 
-                        const diffX = (inputEvent.x - previousX) / this.zoom;
-                        const diffY = (inputEvent.y - previousY) / this.zoom;
-
-                        this.camera.x -= diffX;
-                        this.camera.y -= diffY;
+                        this.camera.center.x -= diffX;
+                        this.camera.center.y += diffY;
                     }
 
-                    Engine.mousePositionScreen = {
-                        x: inputEvent.x,
-                        y: inputEvent.y,
-                    };
-
-                    const mouseX =
-                        (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom + this.camera.x;
-                    const mouseY = inputEvent.y / this.zoom + this.camera.y;
-
-                    Engine.mousePositionWorld = {
-                        x: mouseX,
-                        y: mouseY,
-                    };
-
-                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, {
-                        x: mouseX,
-                        y: mouseY,
-                    });
+                    Engine.mousePositionScreen = screenPosition;
+                    Engine.mousePositionWorld = screenToWorld(screenPosition, this.camera, this.zoom);
+                    this.eventBus.emitEvent(GameEvents.MouseMoveEvent, Engine.mousePositionWorld);
                     break;
                 }
                 case 'mousedown':
-                    if (!this.leftSidebar) {
-                        throw new Error('Failed to get leftSidebar element.');
-                    }
-
                     if (!this.canvas) {
                         throw new Error('Failed to get canvas element.');
                     }
 
+                    Engine.mousePositionScreen = screenPosition;
+                    Engine.mousePositionWorld = screenToWorld(screenPosition, this.camera, this.zoom);
+
                     this.mousePressed = true;
 
                     if (this.testMode) {
-                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
-                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
-                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
-
                         if (
-                            inputEvent.x < leftSidebarWidth ||
-                            inputEvent.x > leftSidebarWidth + canvasWidth ||
-                            inputEvent.y > canvasHeight
+                            screenPosition.x < 0 ||
+                            screenPosition.x > this.canvas.width ||
+                            screenPosition.y < 0 ||
+                            screenPosition.y > this.canvas.height
                         ) {
                             return;
                         }
                     }
 
-                    this.eventBus.emitEvent(
-                        GameEvents.MousePressedEvent,
-                        {
-                            x:
-                                (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom +
-                                this.camera.x,
-                            y: inputEvent.y / this.zoom + this.camera.y,
-                        },
-                        inputEvent.button,
-                    );
+                    this.eventBus.emitEvent(GameEvents.MousePressedEvent, Engine.mousePositionWorld, inputEvent.button);
 
                     if (inputEvent.button === MouseButton.MIDDLE) {
                         this.commandPressed = true;
@@ -468,25 +469,21 @@ export default class Editor extends Engine {
 
                     break;
                 case 'mouseup':
-                    if (!this.leftSidebar) {
-                        throw new Error('Failed to get leftSidebar element.');
-                    }
-
                     if (!this.canvas) {
                         throw new Error('Failed to get canvas element.');
                     }
 
+                    Engine.mousePositionScreen = screenPosition;
+                    Engine.mousePositionWorld = screenToWorld(screenPosition, this.camera, this.zoom);
+
                     this.mousePressed = false;
 
                     if (this.testMode) {
-                        const leftSidebarWidth = this.leftSidebar.getBoundingClientRect().width;
-                        const canvasWidth = this.canvas?.getBoundingClientRect().width;
-                        const canvasHeight = this.canvas?.getBoundingClientRect().height;
-
                         if (
-                            inputEvent.x < leftSidebarWidth ||
-                            inputEvent.x > leftSidebarWidth + canvasWidth ||
-                            inputEvent.y > canvasHeight
+                            screenPosition.x < 0 ||
+                            screenPosition.x > this.canvas.width ||
+                            screenPosition.y < 0 ||
+                            screenPosition.y > this.canvas.height
                         ) {
                             return;
                         }
@@ -494,14 +491,7 @@ export default class Editor extends Engine {
 
                     this.eventBus.emitEvent(
                         GameEvents.MouseReleasedEvent,
-                        {
-                            x:
-                                (inputEvent.x - this.leftSidebar.getBoundingClientRect().width) / this.zoom +
-                                this.camera.x,
-                            y: inputEvent.y / this.zoom + this.camera.y,
-                        },
-                        // button 0 = left, button 1 = middle, button 2 = right
-                        // this is mapped directly to MouseButton enum
+                        Engine.mousePositionWorld,
                         inputEvent.button,
                     );
 
@@ -528,18 +518,15 @@ export default class Editor extends Engine {
             }
 
             if (
-                Engine.mousePositionScreen.x < this.leftSidebar.getBoundingClientRect().width ||
-                Engine.mousePositionScreen.x >
-                    this.leftSidebar.getBoundingClientRect().width + this.canvas.getBoundingClientRect().width
+                Engine.mousePositionScreen.x < 0 ||
+                Engine.mousePositionScreen.x > this.canvas.width ||
+                Engine.mousePositionScreen.y < 0 ||
+                Engine.mousePositionScreen.y > this.canvas.height
             ) {
                 return;
             }
 
-            const mouseXOnCanvas = Engine.mousePositionScreen.x - this.leftSidebar.getBoundingClientRect().width;
-            const mouseYOnCanvas = Engine.mousePositionScreen.y;
-
-            const mouseWorldXBefore = this.camera.x + mouseXOnCanvas / this.zoom;
-            const mouseWorldYBefore = this.camera.y + mouseYOnCanvas / this.zoom;
+            const mouseWorldBefore = screenToWorld(Engine.mousePositionScreen, this.camera, this.zoom);
 
             if (wheelEvent.deltaY < 0) {
                 this.zoom *= 1 + 0.1;
@@ -550,18 +537,15 @@ export default class Editor extends Engine {
                 this.eventBus.emitEvent(ScrollEvent, 'down');
             }
 
-            const mouseWorldXAfter = this.camera.x + mouseXOnCanvas / this.zoom;
-            const mouseWorldYAfter = this.camera.y + mouseYOnCanvas / this.zoom;
+            this.zoom = Math.max(0.05, this.zoom);
 
-            this.camera.x += mouseWorldXBefore - mouseWorldXAfter;
-            this.camera.y += mouseWorldYBefore - mouseWorldYAfter;
+            this.camera.viewportWidth = this.canvas.width / this.zoom;
+            this.camera.viewportHeight = this.canvas.height / this.zoom;
 
-            if (!this.canvas) {
-                throw new Error('Canvas is not defined');
-            }
-
-            this.camera.width = this.canvas.width / this.zoom;
-            this.camera.height = this.canvas.height / this.zoom;
+            const mouseWorldAfter = screenToWorld(Engine.mousePositionScreen, this.camera, this.zoom);
+            this.camera.center.x += mouseWorldBefore.x - mouseWorldAfter.x;
+            this.camera.center.y += mouseWorldBefore.y - mouseWorldAfter.y;
+            Engine.mousePositionWorld = mouseWorldBefore;
         }
     };
 
@@ -662,39 +646,58 @@ export default class Editor extends Engine {
         // Clear the whole canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Render Editor systems
+        this.isSystemActive('CameraShakeSystem') &&
+            this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
+
+        beginWorldRender(this.ctx, this.camera, this.zoom);
+
+        // Render editor-world systems
         !this.testMode &&
             this.registry.getSystem(EditorSystems.RenderGridSystem)?.update(this.ctx, this.camera, this.zoom);
 
-        // Render game related systems
+        // Render game-world systems
         this.isSystemActive('RenderSystem') &&
-            this.registry
-                .getSystem(GameSystems.RenderSystem)
-                ?.update(this.ctx, this.assetStore, this.camera, this.zoom, true);
+            this.registry.getSystem(GameSystems.RenderSystem)?.update(this.ctx, this.assetStore, this.camera, true);
         this.isSystemActive('RenderHealthBarSystem') &&
             this.registry.getSystem(GameSystems.RenderHealthBarSystem)?.update(this.ctx, this.camera);
-        this.isSystemActive('CameraShakeSystem') &&
-            this.registry.getSystem(GameSystems.CameraShakeSystem)?.update(this.ctx);
         this.isSystemActive('RenderTextSystem') &&
-            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx, this.camera, this.zoom);
+            this.registry.getSystem(GameSystems.RenderTextSystem)?.update(this.ctx);
         this.isSystemActive('RenderParticleSystem') &&
-            this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, this.zoom, true);
-        this.isSystemActive('RenderLightingSystem') &&
-            this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, this.zoom, true);
-        this.isSystemActive('RenderGUISystem') &&
-            this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
-        this.isSystemActive('RenderCursorSystem') &&
-            this.registry
-                .getSystem(GameSystems.RenderCursorSystem)
-                ?.update(this.ctx, this.camera, this.assetStore, this.registry);
+            this.registry.getSystem(GameSystems.RenderParticleSystem)?.update(this.ctx, this.camera, true);
 
-        // Render Editor systems
+        // Render editor-world overlays
         !this.testMode &&
             this.registry
                 .getSystem(EditorSystems.RenderInvisibleEntitiesSystem)
                 ?.update(this.ctx, this.camera, this.zoom);
 
-        // Render debug systems
+        this.isSystemActive('DebugColliderSystem') &&
+            this.registry.getSystem(GameSystems.DebugColliderSystem)?.update(this.ctx, this.camera);
+        this.isSystemActive('DebugPlayerFollowRadiusSystem') &&
+            this.registry.getSystem(GameSystems.DebugPlayerFollowRadiusSystem)?.update(this.ctx, this.camera);
+        this.isSystemActive('DebugParticleSourceSystem') &&
+            this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera);
+        this.isSystemActive('DebugEntityDestinationSystem') &&
+            this.registry.getSystem(GameSystems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
+        this.isSystemActive('DebugSlowTimeRadiusSystem') &&
+            this.registry.getSystem(GameSystems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
+
+        !this.testMode &&
+            this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.zoom);
+        !this.testMode &&
+            this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
+        !this.testMode && this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.zoom);
+
+        endWorldRender(this.ctx);
+
+        // Render screen-space systems
+        this.isSystemActive('RenderLightingSystem') &&
+            this.registry.getSystem(GameSystems.RenderLightingSystem)?.update(this.ctx, this.camera, true);
+        this.isSystemActive('RenderGUISystem') &&
+            this.registry.getSystem(GameSystems.RenderGUISystem)?.update(this.ctx, this.assetStore);
+        this.isSystemActive('RenderCursorSystem') &&
+            this.registry.getSystem(GameSystems.RenderCursorSystem)?.update(this.ctx, this.assetStore, this.registry);
+
         this.isSystemActive('DebugInfoSystem') &&
             this.registry
                 .getSystem(GameSystems.DebugInfoSystem)
@@ -708,30 +711,8 @@ export default class Editor extends Engine {
                     this.zoom,
                     this.testMode,
                 );
-        this.isSystemActive('DebugColliderSystem') &&
-            this.registry.getSystem(GameSystems.DebugColliderSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.isSystemActive('DebugPlayerFollowRadiusSystem') &&
-            this.registry
-                .getSystem(GameSystems.DebugPlayerFollowRadiusSystem)
-                ?.update(this.ctx, this.camera, this.zoom);
-        this.isSystemActive('DebugParticleSourceSystem') &&
-            this.registry.getSystem(GameSystems.DebugParticleSourceSystem)?.update(this.ctx, this.camera, this.zoom);
-        this.isSystemActive('DebugEntityDestinationSystem') &&
-            this.registry.getSystem(GameSystems.DebugEntityDestinationSystem)?.update(this.ctx, this.camera);
-        this.isSystemActive('DebugSlowTimeRadiusSystem') &&
-            this.registry.getSystem(GameSystems.DebugSlowTimeRadiusSystem)?.update(this.ctx, this.camera);
         this.isSystemActive('DebugCursorCoordinatesSystem') &&
-            this.registry
-                .getSystem(GameSystems.DebugCursorCoordinatesSystem)
-                ?.update(this.ctx, this.leftSidebar ? -1 * this.leftSidebar?.getBoundingClientRect().width : 0);
-
-        // Render Editor systems needing overlay
-        !this.testMode &&
-            this.registry.getSystem(EditorSystems.RenderMultipleSelectSystem)?.update(this.ctx, this.camera, this.zoom);
-        !this.testMode &&
-            this.registry.getSystem(EditorSystems.RenderSpriteBoxSystem)?.update(this.ctx, this.camera, this.zoom);
-        !this.testMode &&
-            this.registry.getSystem(EditorSystems.RenderGameBorderSystem)?.update(this.ctx, this.camera, this.zoom);
+            this.registry.getSystem(GameSystems.DebugCursorCoordinatesSystem)?.update(this.ctx);
 
         if (this.shouldSidebarUpdate && !this.testMode) {
             this.registry

@@ -1,17 +1,17 @@
-import { Engine, System, Rectangle } from '../../engine';
+import { Engine, System } from '../../engine';
 
 export default class RenderGameBorderSystem extends System {
-    constructor() {
-        super();
-    }
-
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) {
-        ctx.fillStyle = 'red';
-        ctx.font = '18px Arial';
-        ctx.fillText('Game border', (0 - camera.x) * zoom, (0 - camera.y) * zoom - 10);
-
+    update(ctx: CanvasRenderingContext2D, zoom: number) {
         ctx.strokeStyle = 'red';
-        ctx.lineWidth = 2;
-        ctx.strokeRect((0 - camera.x) * zoom, (0 - camera.y) * zoom, Engine.mapWidth * zoom, Engine.mapHeight * zoom);
+        ctx.lineWidth = 2 / zoom;
+        ctx.strokeRect(0, 0, Engine.mapWidth, Engine.mapHeight);
+
+        ctx.save();
+        ctx.translate(0, Engine.mapHeight + 10 / zoom);
+        ctx.scale(1, -1);
+        ctx.fillStyle = 'red';
+        ctx.font = `${18 / zoom}px Arial`;
+        ctx.fillText('Game border', 0, 0);
+        ctx.restore();
     }
 }

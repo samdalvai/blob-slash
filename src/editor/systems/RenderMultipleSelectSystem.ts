@@ -1,17 +1,19 @@
-import { System, Rectangle } from '../../engine';
+import { System } from '../../engine';
 import Editor from '../Editor';
 
 export default class RenderMultipleSelectSystem extends System {
-    update = (ctx: CanvasRenderingContext2D, camera: Rectangle, zoom: number) => {
-        if (Editor.multipleSelectStart) {
-            const posXStart = (Editor.multipleSelectStart.x - camera.x) * zoom;
-            const posYStart = (Editor.multipleSelectStart.y - camera.y) * zoom;
-            const posXEnd = (Editor.mousePositionWorld.x - camera.x) * zoom;
-            const posYEnd = (Editor.mousePositionWorld.y - camera.y) * zoom;
-
-            ctx.strokeStyle = 'red';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(posXStart, posYStart, posXEnd - posXStart, posYEnd - posYStart);
+    update = (ctx: CanvasRenderingContext2D, zoom: number) => {
+        if (!Editor.multipleSelectStart) {
+            return;
         }
+
+        const left = Math.min(Editor.multipleSelectStart.x, Editor.mousePositionWorld.x);
+        const right = Math.max(Editor.multipleSelectStart.x, Editor.mousePositionWorld.x);
+        const bottom = Math.min(Editor.multipleSelectStart.y, Editor.mousePositionWorld.y);
+        const top = Math.max(Editor.multipleSelectStart.y, Editor.mousePositionWorld.y);
+
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 2 / zoom;
+        ctx.strokeRect(left, bottom, right - left, top - bottom);
     };
 }

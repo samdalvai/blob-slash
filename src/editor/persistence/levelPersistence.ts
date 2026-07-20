@@ -1,4 +1,11 @@
-import { AssetStore, Entity, Registry, serializeEntities, serializeLevel, LevelMap } from '../../engine';
+import {
+    AssetStore,
+    Entity,
+    Registry,
+    serializeEntities,
+    serializeLevel,
+    LevelMap,
+} from '../../engine';
 
 export const saveLevelToJson = (registry: Registry, assetStore: AssetStore): void => {
     const jsonString = JSON.stringify(serializeLevel(registry, assetStore), null, 2);

@@ -36,16 +36,15 @@ export default class RangedAttackEmitSystem extends System {
         }
 
         const transform = player.getComponent(TransformComponent);
-        const sprite = player.getComponent(SpriteComponent);
         const projectileEmitter = player.getComponent(RangedAttackEmitterComponent);
 
-        if (!projectileEmitter || !transform || !sprite) {
+        if (!projectileEmitter || !transform) {
             throw new Error('Could not find some component(s) of entity with id ' + player.getId());
         }
 
         const directionVector = computeDirectionVector(
-            transform.position.x + (sprite.width / 2) * transform.scale.x,
-            transform.position.y + (sprite.height / 2) * transform.scale.y,
+            transform.position.x,
+            transform.position.y,
             event.coordinates.x,
             event.coordinates.y,
             projectileEmitter.projectileVelocity,
@@ -62,10 +61,9 @@ export default class RangedAttackEmitSystem extends System {
             }
 
             const transform = entity.getComponent(TransformComponent);
-            const sprite = entity.getComponent(SpriteComponent);
             const projectileEmitter = entity.getComponent(RangedAttackEmitterComponent);
 
-            if (!projectileEmitter || !transform || !sprite) {
+            if (!projectileEmitter || !transform) {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
@@ -80,19 +78,15 @@ export default class RangedAttackEmitSystem extends System {
 
                 if (followedEntity) {
                     const followedEntityTransform = followedEntity.getComponent(TransformComponent);
-                    const followedEntitySprite = followedEntity.getComponent(SpriteComponent);
-
-                    if (!followedEntityTransform || !followedEntitySprite) {
+                    if (!followedEntityTransform) {
                         throw new Error('Could not find player transform and/or sprite component');
                     }
 
                     const directionVector = computeDirectionVector(
-                        transform.position.x + (sprite.width / 2) * transform.scale.x,
-                        transform.position.y + (sprite.height / 2) * transform.scale.y,
-                        followedEntityTransform.position.x +
-                            (followedEntitySprite.width / 2) * followedEntityTransform.scale.x,
-                        followedEntityTransform.position.y +
-                            (followedEntitySprite.height / 2) * followedEntityTransform.scale.y,
+                        transform.position.x,
+                        transform.position.y,
+                        followedEntityTransform.position.x,
+                        followedEntityTransform.position.y,
                         projectileEmitter.projectileVelocity,
                     );
 
@@ -121,18 +115,7 @@ export default class RangedAttackEmitSystem extends System {
                 rigidBody.direction = computeUnitVector(projectileDirection.x, projectileDirection.y);
             }
 
-            const projectilePosition = { x: transform.position.x - 16, y: transform.position.y - 16 };
-
-            if (entity.hasComponent(SpriteComponent)) {
-                const sprite = entity.getComponent(SpriteComponent);
-
-                if (!sprite) {
-                    throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
-                }
-
-                projectilePosition.x += (sprite.width / 2) * transform.scale.x;
-                projectilePosition.y += (sprite.height / 2) * transform.scale.y;
-            }
+            const projectilePosition = { ...transform.position };
 
             // Add a new projectile entity to the registry
             const projectile = registry.createEntity();
@@ -140,14 +123,14 @@ export default class RangedAttackEmitSystem extends System {
             projectile.addComponent(TransformComponent, projectilePosition, { x: 1.0, y: 1.0 }, 0.0);
             projectile.addComponent(RigidBodyComponent, projectileDirection);
             projectile.addComponent(SpriteComponent, 'magic_sphere', 32, 32, 4);
-            projectile.addComponent(BoxColliderComponent, 8, 8, { x: 12, y: 12 });
+            projectile.addComponent(BoxColliderComponent, 8, 8);
             projectile.addComponent(
                 ProjectileComponent,
                 rangedAttackEmitter.isFriendly,
                 rangedAttackEmitter.hitPercentDamage,
             );
             projectile.addComponent(LifetimeComponent, rangedAttackEmitter.projectileDuration);
-            projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5, 16, 16);
+            projectile.addComponent(ParticleEmitComponent, 2, 300, 'rgba(255,255,255,0.5)', 100, 5);
             projectile.addComponent(ShadowComponent, 8, 4);
             projectile.addComponent(EntityEffectComponent);
 
@@ -167,7 +150,7 @@ export default class RangedAttackEmitSystem extends System {
                 cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
                 cooldownAnimation.addComponent(
                     TransformComponent,
-                    { x: 2 * 25 + 32 * 3 * 2, y: Engine.windowHeight - 64 - 25 },
+                    { x: 2 * 25 + 32 * 3 * 2 + 32, y: Engine.windowHeight - 64 - 25 + 32 },
                     { x: 2, y: 2 },
                     0,
                     true

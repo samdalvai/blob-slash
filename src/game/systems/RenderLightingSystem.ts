@@ -1,4 +1,4 @@
-import { Engine, System, Rectangle } from '../../engine';
+import { Camera, Engine, getCameraBounds, getSpriteBounds, System, worldBoundsOverlap, worldToScreen } from '../../engine';
 import LightEmitComponent from '../components/LightEmitComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
@@ -11,23 +11,25 @@ export default class RenderLightingSystem extends System {
         this.requireComponent(SpriteComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1, isEditor = false) {
+    /** Lighting is composited in screen space after the world pass. */
+    update(ctx: CanvasRenderingContext2D, camera: Camera, isEditor = false) {
         const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = camera.width * zoom;
-        tempCanvas.height = camera.height * zoom;
+        tempCanvas.width = camera.viewportWidth;
+        tempCanvas.height = camera.viewportHeight;
 
         const tempCtx = tempCanvas.getContext('2d');
-
         if (!tempCtx) {
             return;
         }
 
         tempCtx.fillStyle = 'rgba(0,0,0,0.5)';
-        tempCtx.fillRect(0, 0, camera.width * zoom, camera.height * zoom);
-
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
         tempCtx.globalCompositeOperation = 'destination-out';
         tempCtx.shadowColor = 'black';
         tempCtx.shadowBlur = 15;
+
+        const cameraBounds = getCameraBounds(camera);
+        const mapBounds = { left: 0, right: Engine.mapWidth, bottom: 0, top: Engine.mapHeight };
 
         for (const entity of this.getSystemEntities()) {
             const lightEmit = entity.getComponent(LightEmitComponent);
@@ -38,37 +40,21 @@ export default class RenderLightingSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Check if the entity sprite is outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * sprite.width < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * sprite.height < camera.y ||
-                transform.position.y > camera.y + camera.height;
-
-            const isOutsideOfMap =
-                !isEditor &&
-                (transform.position.x + transform.scale.x * sprite.width < 0 ||
-                    transform.position.x > Engine.mapWidth ||
-                    transform.position.y + transform.scale.y * sprite.height < 0 ||
-                    transform.position.y > Engine.mapHeight);
-
-            // Cull lighting emit circles that are outside the camera view (and are not fixed)
-            if (isOutsideCameraView || isOutsideOfMap) {
+            const spriteBounds = getSpriteBounds(
+                transform.position,
+                { width: sprite.width, height: sprite.height },
+                transform.scale,
+            );
+            if (!worldBoundsOverlap(spriteBounds, cameraBounds) || (!isEditor && !worldBoundsOverlap(spriteBounds, mapBounds))) {
                 continue;
             }
 
+            const screenPosition = worldToScreen(transform.position, camera);
             tempCtx.beginPath();
-            tempCtx.arc(
-                (transform.position.x - camera.x + (sprite.width / 2) * transform.scale.x) * zoom,
-                (transform.position.y - camera.y + (sprite.height / 2) * transform.scale.y) * zoom,
-                lightEmit.lightRadius * zoom,
-                0,
-                Math.PI * 2,
-            );
+            tempCtx.arc(screenPosition.x, screenPosition.y, lightEmit.lightRadius, 0, Math.PI * 2);
             tempCtx.fill();
         }
 
-        tempCtx.globalCompositeOperation = 'source-over';
         ctx.drawImage(tempCanvas, 0, 0);
     }
 }

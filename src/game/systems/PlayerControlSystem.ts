@@ -99,8 +99,8 @@ export default class PlayerControlSystem extends System {
                     break;
                 case MouseButton.RIGHT:
                     {
-                        const playerPositionX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-                        const playerPositionY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+                        const playerPositionX = transform.position.x;
+                        const playerPositionY = transform.position.y;
 
                         const directionVector = computeDirectionVector(playerPositionX, playerPositionY, x, y, 1);
 
@@ -121,16 +121,16 @@ export default class PlayerControlSystem extends System {
                             spriteRow = 3;
                         } else if (unitVector.y > 0) {
                             yOffset += 10;
-                            spriteRow = 2;
+                            spriteRow = 0;
                         } else if (unitVector.y < 0) {
                             yOffset -= 10;
-                            spriteRow = 0;
+                            spriteRow = 2;
                         }
 
                         const meleeAttack = this.registry.createEntity();
                         meleeAttack.addComponent(
                             TransformComponent,
-                            { x: playerPositionX - 32 + xOffset, y: playerPositionY - 32 + yOffset },
+                            { x: playerPositionX + xOffset, y: playerPositionY + yOffset },
                             { x: 1, y: 1 },
                             0,
                         );
@@ -139,13 +139,13 @@ export default class PlayerControlSystem extends System {
                         meleeAttack.addComponent(MeleeAttackComponent, true, 10);
                         meleeAttack.addComponent(LifetimeComponent, 400);
                         if (unitVector.x > 0) {
-                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 32, y: 0 });
+                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 16, y: 0 });
                         } else if (unitVector.x < 0) {
-                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: 0, y: 0 });
+                            meleeAttack.addComponent(BoxColliderComponent, 32, 64, { x: -16, y: 0 });
                         } else if (unitVector.y > 0) {
-                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: 32 });
+                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: 16 });
                         } else if (unitVector.y < 0) {
-                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: 0 });
+                            meleeAttack.addComponent(BoxColliderComponent, 64, 32, { x: 0, y: -16 });
                         }
                         meleeAttack.group('melee-attack');
 
@@ -173,7 +173,7 @@ export default class PlayerControlSystem extends System {
 
         const destinationAntimation = this.registry.createEntity();
         destinationAntimation.addComponent(SpriteComponent, 'destination_circle', 32, 32, 1);
-        destinationAntimation.addComponent(TransformComponent, { x: x - 16, y: y - 16 });
+        destinationAntimation.addComponent(TransformComponent, { x, y });
         destinationAntimation.addComponent(AnimationComponent, 8, 10);
         destinationAntimation.addComponent(LifetimeComponent, 1000);
         destinationAntimation.tag('player-destination');
@@ -243,7 +243,7 @@ export default class PlayerControlSystem extends System {
         const bubbleFloor = this.registry.createEntity();
         bubbleFloor.addComponent(
             TransformComponent,
-            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+            { ...mousePosition },
             { x: scale, y: scale },
         );
         bubbleFloor.addComponent(SpriteComponent, 'magic_bubble', 128, 128, 1, 1, 0, Flip.NONE, 0.5);
@@ -253,7 +253,7 @@ export default class PlayerControlSystem extends System {
         const bubbleTop = this.registry.createEntity();
         bubbleTop.addComponent(
             TransformComponent,
-            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+            { ...mousePosition },
             { x: scale, y: scale },
         );
         bubbleTop.addComponent(SpriteComponent, 'magic_bubble', 128, 128, 3, 2, 0, Flip.NONE, 0.3);
@@ -310,14 +310,7 @@ export default class PlayerControlSystem extends System {
         const teleportSpriteHeight = 64;
 
         const teleportStart = this.registry.createEntity();
-        teleportStart.addComponent(TransformComponent, {
-            x:
-                playerTransform.position.x +
-                (playerSprite.width * playerTransform.scale.x) / 2 -
-                teleportSpriteWidth +
-                16,
-            y: playerTransform.position.y + playerSprite.height * playerTransform.scale.y - teleportSpriteHeight + 10,
-        });
+        teleportStart.addComponent(TransformComponent, { ...playerTransform.position });
         teleportStart.addComponent(SpriteComponent, 'teleport', teleportSpriteWidth, teleportSpriteHeight, 3);
         teleportStart.addComponent(AnimationComponent, 4, 8, false);
         teleportStart.addComponent(LifetimeComponent, 500);
@@ -336,8 +329,7 @@ export default class PlayerControlSystem extends System {
         this.emitCooldownAnimation(playerControl.teleportCooldown, 1);
 
         setTimeout(() => {
-            playerTransform.position.x = mousePosition.x - (playerSprite.width * playerTransform.scale.x) / 2;
-            playerTransform.position.y = mousePosition.y - playerSprite.height * playerTransform.scale.y;
+            playerTransform.position = { ...mousePosition };
             playerTeleport.isTeleporting = false;
 
             player.addToSystem(RenderSystem);
@@ -345,10 +337,7 @@ export default class PlayerControlSystem extends System {
             player.addToSystem(MovementSystem);
 
             const teleportDestination = this.registry.createEntity();
-            teleportDestination.addComponent(TransformComponent, {
-                x: mousePosition.x - teleportSpriteWidth + 16,
-                y: mousePosition.y - teleportSpriteHeight + 10,
-            });
+            teleportDestination.addComponent(TransformComponent, { ...mousePosition });
             teleportDestination.addComponent(SpriteComponent, 'teleport', teleportSpriteWidth, teleportSpriteHeight, 3);
             teleportDestination.addComponent(AnimationComponent, 4, 8, false);
             teleportDestination.addComponent(LifetimeComponent, 500);
@@ -368,7 +357,7 @@ export default class PlayerControlSystem extends System {
         const fireCircleFloor = this.registry.createEntity();
         fireCircleFloor.addComponent(
             TransformComponent,
-            { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+            { ...mousePosition },
             { x: scale, y: scale },
             0,
         );
@@ -384,19 +373,19 @@ export default class PlayerControlSystem extends System {
             const fireCircleFlames = this.registry.createEntity();
             fireCircleFlames.addComponent(
                 TransformComponent,
-                { x: mousePosition.x - 64 * scale, y: mousePosition.y - 64 * scale },
+                { ...mousePosition },
                 { x: scale, y: scale },
                 0,
             );
-            fireCircleFlames.addComponent(SpriteComponent, 'fire_circle', 128, 128, 2, 1, 0, Flip.NONE, 1);
+            fireCircleFlames.addComponent(SpriteComponent, 'fire_circle', 128, 128, 1, 1, 0, Flip.NONE, 1);
             fireCircleFlames.addComponent(AnimationComponent, 4, 10, true);
             fireCircleFlames.addComponent(LifetimeComponent, 5000);
             fireCircleFlames.addComponent(DamageRadiusComponent, 60 * scale, 10, true);
 
             fireCircleFlames.addComponent(LightEmitComponent, 150);
-            fireCircleFlames.addComponent(ParticleEmitComponent, 3, 1000, 'rgba(255,0,0,1)', 50, 50, 64, 64, {
+            fireCircleFlames.addComponent(ParticleEmitComponent, 3, 1000, 'rgba(255,0,0,1)', 50, 50, 0, 0, {
                 x: 0,
-                y: -50,
+                y: 50,
             });
             fireCircleFlames.addComponent(EntityEffectComponent);
 
@@ -411,7 +400,7 @@ export default class PlayerControlSystem extends System {
         cooldownAnimation.addComponent(AnimationComponent, 8, framesPerSecond, false);
         cooldownAnimation.addComponent(
             TransformComponent,
-            { x: 25 + skillPosition * 64, y: Engine.windowHeight - 64 - 25 },
+            { x: 25 + skillPosition * 64 + 32, y: Engine.windowHeight - 64 - 25 + 32 },
             { x: 2, y: 2 },
             0,
             true,

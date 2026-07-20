@@ -40,7 +40,7 @@ export default class DeadBodyOnDeathSystem extends System {
 
                 if (rigidBody.direction.x > 0) {
                     spriteOffset = 1;
-                } else if (rigidBody.direction.y > 0) {
+                } else if (rigidBody.direction.y < 0) {
                     spriteOffset = 2;
                 } else if (rigidBody.direction.x < 0) {
                     spriteOffset = 3;

@@ -1,4 +1,4 @@
-import { Engine, Registry, System, Rectangle } from '../../engine';
+import { Camera, Engine, Registry, System } from '../../engine';
 
 export default class DebugInfoSystem extends System {
     constructor() {
@@ -11,7 +11,7 @@ export default class DebugInfoSystem extends System {
         maxFPS: number,
         frameDuration: number,
         registry: Registry,
-        camera: Rectangle,
+        camera: Camera,
         zoom?: number,
         testMode?: boolean,
     ) {
@@ -33,7 +33,7 @@ export default class DebugInfoSystem extends System {
             y + 75,
         );
         ctx.fillText(
-            `Camera: {x: ${Math.floor(camera.x)}, y: ${Math.floor(camera.y)}, w: ${Math.floor(camera.width)}, h: ${Math.floor(camera.height)}}`,
+            `Camera: {x: ${Math.floor(camera.center.x)}, y: ${Math.floor(camera.center.y)}, w: ${Math.floor(camera.viewportWidth)}, h: ${Math.floor(camera.viewportHeight)}}`,
             x,
             y + 100,
         );

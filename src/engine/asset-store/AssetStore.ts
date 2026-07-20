@@ -2,23 +2,42 @@ import { Asset } from '../types/map';
 import { DEFAULT_SPRITE } from '../utils/constants';
 
 export default class AssetStore {
+    private builtInTextures: Map<string, HTMLImageElement>;
     private textures: Map<string, HTMLImageElement>;
     private sounds: Map<string, HTMLAudioElement>;
     private jsons: Map<string, any>;
 
     private texturesFilePaths: Asset[];
     private soundsFilePaths: Asset[];
+    private builtInAssetsReady: Promise<void> | null;
 
     constructor() {
+        this.builtInTextures = new Map<string, HTMLImageElement>();
         this.textures = new Map<string, HTMLImageElement>();
         this.sounds = new Map<string, HTMLAudioElement>();
         this.jsons = new Map<string, any>();
 
         this.texturesFilePaths = [];
         this.soundsFilePaths = [];
+        this.builtInAssetsReady = null;
+
+        if (typeof Image !== 'undefined') {
+            void this.ensureBuiltInAssets().catch(error => {
+                console.error('Failed to initialize built-in assets', error);
+            });
+        }
+    }
+
+    /** Loads the immutable built-in assets required by every engine surface. */
+    async initialize() {
+        await this.ensureBuiltInAssets();
     }
 
     addTexture(assetId: string, filePath: string): Promise<void> {
+        if (assetId === DEFAULT_SPRITE) {
+            return this.ensureBuiltInAssets();
+        }
+
         return new Promise((resolve, reject) => {
             const texture = new Image();
             texture.src = filePath;
@@ -41,22 +60,22 @@ export default class AssetStore {
     }
 
     getTexture(assetId: string) {
-        const texture = this.textures.get(assetId);
+        const texture = this.textures.get(assetId) ?? this.builtInTextures.get(assetId);
 
         if (!texture) {
-            const defaultSpriteTexture = this.textures.get(DEFAULT_SPRITE);
-            if (!defaultSpriteTexture) {
-                throw new Error('Could not find default texture');
+            const defaultTexture = this.builtInTextures.get(DEFAULT_SPRITE);
+            if (!defaultTexture) {
+                throw new Error('Built-in assets are not initialized; await AssetStore.initialize() before rendering');
             }
 
-            return defaultSpriteTexture;
+            return defaultTexture;
         }
 
         return texture;
     }
 
     getAllTexturesIds() {
-        return Array.from(this.textures.keys());
+        return Array.from(new Set([...this.builtInTextures.keys(), ...this.textures.keys()]));
     }
 
     addSound(assetId: string, filePath: string): Promise<void> {
@@ -124,6 +143,7 @@ export default class AssetStore {
         return this.soundsFilePaths;
     }
 
+    /** Clears only level-scoped assets. Built-in fallbacks remain available. */
     clear() {
         this.textures.clear();
         this.sounds.clear();
@@ -131,5 +151,28 @@ export default class AssetStore {
 
         this.texturesFilePaths = [];
         this.soundsFilePaths = [];
+    }
+
+    private ensureBuiltInAssets(): Promise<void> {
+        if (this.builtInAssetsReady) {
+            return this.builtInAssetsReady;
+        }
+
+        this.builtInAssetsReady = new Promise((resolve, reject) => {
+            const defaultTexture = new Image();
+            defaultTexture.onload = () => {
+                console.log('Built-in default texture added to the AssetStore');
+                resolve();
+            };
+            defaultTexture.onerror = () => {
+                this.builtInTextures.delete(DEFAULT_SPRITE);
+                this.builtInAssetsReady = null;
+                reject(new Error('Failed to load built-in default texture'));
+            };
+            defaultTexture.src = 'assets/sprites/default.png';
+            this.builtInTextures.set(DEFAULT_SPRITE, defaultTexture);
+        });
+
+        return this.builtInAssetsReady;
     }
 }

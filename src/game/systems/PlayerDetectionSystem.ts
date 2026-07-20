@@ -49,9 +49,7 @@ export default class PlayerDetectionSystem extends System {
         }
 
         const playerTransform = player.getComponent(TransformComponent);
-        const playerSprite = player.getComponent(SpriteComponent);
-
-        if (!playerTransform || !playerSprite) {
+        if (!playerTransform) {
             throw new Error('Could not find player transform and/or sprite component');
         }
 
@@ -65,11 +63,10 @@ export default class PlayerDetectionSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const entityX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const entityY = transform.position.y + (sprite.height / 2) * transform.scale.y;
-
-            const playerX = playerTransform.position.x + (playerTransform.scale.x * playerSprite.width) / 2;
-            const playerY = playerTransform.position.y + (playerTransform.scale.y * playerSprite.height) / 2;
+            const entityX = transform.position.x;
+            const entityY = transform.position.y;
+            const playerX = playerTransform.position.x;
+            const playerY = playerTransform.position.y;
 
             const isPlayerInsideCircle = isPointInsideCircle(
                 playerX,

@@ -6,7 +6,7 @@
         "properties": {
           "position": {
             "x": 1056,
-            "y": -704
+            "y": 2688
           },
           "scale": {
             "x": 2,
@@ -37,7 +37,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -608
+            "y": 2592
           },
           "scale": {
             "x": 6,
@@ -68,7 +68,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -99,7 +99,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -512
+            "y": 2496
           },
           "scale": {
             "x": 8,
@@ -130,7 +130,7 @@
         "properties": {
           "position": {
             "x": 992,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -161,7 +161,7 @@
         "properties": {
           "position": {
             "x": 1088,
-            "y": -416
+            "y": 2400
           },
           "scale": {
             "x": 2,
@@ -192,7 +192,7 @@
         "properties": {
           "position": {
             "x": 896,
-            "y": -704
+            "y": 2688
           },
           "scale": {
             "x": 4,

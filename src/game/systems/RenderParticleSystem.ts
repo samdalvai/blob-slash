@@ -1,7 +1,8 @@
-import { System, Rectangle } from '../../engine';
+import { getCameraBounds, getSpriteBounds, System, WorldBounds, worldBoundsOverlap } from '../../engine';
 import Game from '../Game';
 import ParticleComponent from '../components/ParticleComponent';
 import TransformComponent from '../components/TransformComponent';
+import { Camera } from '../../engine';
 
 export default class RenderParticleSystem extends System {
     constructor() {
@@ -10,7 +11,10 @@ export default class RenderParticleSystem extends System {
         this.requireComponent(TransformComponent);
     }
 
-    update(ctx: CanvasRenderingContext2D, camera: Rectangle, zoom = 1, isEditor = false) {
+    update(ctx: CanvasRenderingContext2D, camera: Camera, isEditor = false) {
+        const cameraBounds = getCameraBounds(camera);
+        const mapBounds: WorldBounds = { left: 0, right: Game.mapWidth, bottom: 0, top: Game.mapHeight };
+
         for (const entity of this.getSystemEntities()) {
             const transform = entity.getComponent(TransformComponent);
             const particle = entity.getComponent(ParticleComponent);
@@ -19,30 +23,18 @@ export default class RenderParticleSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            // Bypass rendering if entities are outside the camera view
-            const isOutsideCameraView =
-                transform.position.x + transform.scale.x * particle.dimension < camera.x ||
-                transform.position.x > camera.x + camera.width ||
-                transform.position.y + transform.scale.y * particle.dimension < camera.y ||
-                transform.position.y > camera.y + camera.height;
+            const bounds = getSpriteBounds(
+                transform.position,
+                { width: particle.dimension, height: particle.dimension },
+                transform.scale,
+            );
 
-            const isOutsideOfMap = !isEditor && (
-                transform.position.x + transform.scale.x * particle.dimension < 0 ||
-                transform.position.x > Game.mapWidth ||
-                transform.position.y + transform.scale.y * particle.dimension < 0 ||
-                transform.position.y > Game.mapHeight);
-
-            if (isOutsideCameraView || isOutsideOfMap) {
+            if (!worldBoundsOverlap(bounds, cameraBounds) || (!isEditor && !worldBoundsOverlap(bounds, mapBounds))) {
                 continue;
             }
 
-            const positionX = (transform.position.x - camera.x) * zoom;
-            const positionY = (transform.position.y - camera.y) * zoom;
-
             ctx.fillStyle = particle.color;
-
-            ctx.beginPath();
-            ctx.fillRect(positionX, positionY, particle.dimension * zoom, particle.dimension * zoom);
+            ctx.fillRect(bounds.left, bounds.bottom, bounds.right - bounds.left, bounds.top - bounds.bottom);
         }
     }
 }

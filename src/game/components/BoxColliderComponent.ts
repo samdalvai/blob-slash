@@ -3,6 +3,7 @@ import { Component, Vector } from '../../engine';
 export default class BoxColliderComponent extends Component {
     width: number;
     height: number;
+    /** Local offset from transform centre to collider centre in the Y-up world. */
     offset: Vector;
     lastCollision: number;
 

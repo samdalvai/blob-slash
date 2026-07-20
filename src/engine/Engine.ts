@@ -4,13 +4,14 @@ import EventBus from './event-bus/EventBus';
 import InputManager from './input-manager/InputManager';
 import LevelManager from './level-manager/LevelManager';
 import LoopStrategy from './loop-strategy/LoopStrategy';
-import { GameStatus, Rectangle, Vector } from './types/utils';
+import { Camera, GameStatus, Vector } from './types/utils';
 
 export default abstract class Engine {
     // Objects for rendering
     protected canvas: HTMLCanvasElement | null;
     protected ctx: CanvasRenderingContext2D | null;
-    protected camera: Rectangle;
+    /** Standard-coordinate world camera. */
+    protected camera: Camera;
 
     // Ecs related objects
     protected registry: Registry;
@@ -31,8 +32,11 @@ export default abstract class Engine {
     protected millisecondsLastFPSUpdate: number;
 
     // Global engine objects
+    /** Canvas-relative input position; the canvas origin is always top-left. */
     static mousePositionScreen: Vector;
+    /** World-space pointer position in the standard Y-up coordinate system. */
     static mousePositionWorld: Vector;
+    /** Map extents in world pixels with a bottom-left `(0, 0)` origin. */
     static mapWidth: number;
     static mapHeight: number;
     static windowWidth: number;
@@ -42,7 +46,7 @@ export default abstract class Engine {
     constructor() {
         this.canvas = null;
         this.ctx = null;
-        this.camera = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+        this.camera = this.createCamera();
 
         this.registry = new Registry();
         this.assetStore = new AssetStore();
@@ -53,46 +57,48 @@ export default abstract class Engine {
         this.isRunning = false;
         this.isDebug = false;
         this.loopStrategy = null;
-        
+
         this.currentFPS = 0;
         this.maxFPS = 0;
         this.frameDuration = 0;
         this.millisecondsLastFPSUpdate = 0;
-        
+
         Engine.gameStatus = GameStatus.IDLE;
         Engine.mousePositionScreen = { x: 0, y: 0 };
         Engine.mousePositionWorld = { x: 0, y: 0 };
     }
 
-    protected initialize = () => {
+    protected initialize = async () => {
         const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d');
-
+        
         if (!ctx) {
             throw new Error('Failed to get 2D context for the canvas.');
         }
-
+        
         this.resize(canvas, this.camera);
         canvas.style.cursor = 'none';
-
+        
         this.canvas = canvas;
         this.ctx = ctx;
         this.isRunning = true;
-
+        
         window.addEventListener('resize', () => {
             if (this.canvas && this.camera) {
                 this.resize(this.canvas, this.camera);
             }
         });
+
+        await this.assetStore.initialize();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected resize = (canvas: HTMLCanvasElement, camera: Rectangle, ...args: any[]) => {
+    protected resize = (canvas: HTMLCanvasElement, camera: Camera, ...args: any[]) => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        camera.width = window.innerWidth;
-        camera.height = window.innerHeight;
+        camera.viewportWidth = window.innerWidth;
+        camera.viewportHeight = window.innerHeight;
 
         Engine.windowWidth = window.innerWidth;
         Engine.windowHeight = window.innerHeight;
@@ -123,6 +129,9 @@ export default abstract class Engine {
 
     protected abstract setup(): Promise<void>;
 
+    /** Creates the camera representation used by this engine surface. */
+    protected abstract createCamera(): Camera;
+
     protected abstract processInput(): void;
 
     protected abstract update(deltaTime: number): void;
@@ -147,7 +156,7 @@ export default abstract class Engine {
 
     public run = async () => {
         console.log('Initializing Engine');
-        this.initialize();
+        await this.initialize();
 
         console.log('Setting up systems');
         await this.setup();

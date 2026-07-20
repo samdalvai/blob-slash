@@ -1,7 +1,7 @@
 import HighlightComponent from '../components/HighlightComponent';
 import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
-import { System, Engine } from '../../engine';
+import { getSpriteBounds, System, Engine } from '../../engine';
 
 export default class EntityHighlightSystem extends System {
     constructor() {
@@ -24,13 +24,13 @@ export default class EntityHighlightSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const minX = transform.position.x;
-            const minY = transform.position.y;
+            const bounds = getSpriteBounds(
+                transform.position,
+                { width: sprite.width, height: sprite.height },
+                transform.scale,
+            );
 
-            const maxX = transform.position.x + sprite.width * transform.scale.x;
-            const maxY = transform.position.y + sprite.height * transform.scale.y;
-
-            if (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY) {
+            if (mouseX >= bounds.left && mouseX <= bounds.right && mouseY >= bounds.bottom && mouseY <= bounds.top) {
                 highlight.isHighlighted = true;
             } else {
                 highlight.isHighlighted = false;

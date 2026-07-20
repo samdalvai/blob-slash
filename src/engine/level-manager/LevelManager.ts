@@ -4,7 +4,6 @@ import { ComponentCatalog } from '../ecs/ComponentCatalog';
 import Registry from '../ecs/Registry';
 import { deserializeEntities } from '../serialization/deserialization';
 import { LevelMap } from '../types/map';
-import { DEFAULT_SPRITE } from '../utils/constants';
 
 export default class LevelManager {
     private registry: Registry;
@@ -43,9 +42,6 @@ export default class LevelManager {
     }
 
     private async loadAssets(level: LevelMap) {
-        console.log('Loading default texture');
-        await this.assetStore.addTexture(DEFAULT_SPRITE, 'assets/sprites/default.png');
-
         console.log('Loading assets');
         await Promise.all([
             ...level.textures.map(texture => this.assetStore.addTexture(texture.assetId, texture.filePath)),
@@ -71,7 +67,7 @@ export default class LevelManager {
     }
 
     public getDefaultLevel = (levelId: string) => {
-        const level: LevelMap = {
+        const levelMap: LevelMap = {
             textures: [],
             sounds: [],
             mapWidth: 64 * 10,
@@ -79,6 +75,6 @@ export default class LevelManager {
             entities: [],
         };
 
-        return { levelId, level };
+        return { levelId, levelMap };
     };
 }

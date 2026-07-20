@@ -27,8 +27,8 @@ export default class EntityEffectSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const entityX = transform.position.x + (transform.scale.x * sprite.width) / 2;
-            const entityY = transform.position.y + (transform.scale.y * sprite.height) / 2;
+            const entityX = transform.position.x;
+            const entityY = transform.position.y;
 
             /******************************/
             /** Handle slow time effects **/
@@ -139,8 +139,8 @@ export default class EntityEffectSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+            const circleX = transform.position.x;
+            const circleY = transform.position.y;
 
             slowTimeCircles.push({
                 x: circleX,
@@ -173,8 +173,8 @@ export default class EntityEffectSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
             }
 
-            const circleX = transform.position.x + (sprite.width / 2) * transform.scale.x;
-            const circleY = transform.position.y + (sprite.height / 2) * transform.scale.y;
+            const circleX = transform.position.x;
+            const circleY = transform.position.y;
 
             damareRadiusCircles.push({
                 x: circleX,

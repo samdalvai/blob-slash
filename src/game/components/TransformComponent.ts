@@ -1,10 +1,12 @@
 import { Component, Vector } from '../../engine';
 
 export default class TransformComponent extends Component {
+    /** Centre position in the standard Y-up world coordinate system. */
     position: Vector;
     scale: Vector;
-    // Rotation is expressed in degrees
+    /** Rotation in degrees; positive values are counter-clockwise in world space. */
     rotation: number;
+    /** True for screen-space entities; these do not participate in the world camera. */
     isFixed: boolean;
 
     constructor(

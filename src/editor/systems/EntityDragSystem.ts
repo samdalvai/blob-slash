@@ -4,9 +4,10 @@ import {
     Entity,
     EventBus,
     MouseButton,
-    Rectangle,
     System,
-    rectanglesOverlap,
+    WorldBounds,
+    getSpriteBounds,
+    worldBoundsOverlap,
 } from '../../engine';
 import SpriteComponent from '../../game/components/SpriteComponent';
 import TransformComponent from '../../game/components/TransformComponent';
@@ -45,9 +46,10 @@ export default class EntityDragSystem extends System {
         shiftPressed: boolean,
     ) => {
         if (
-            Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
-            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
-            Engine.mousePositionScreen.y > canvas.getBoundingClientRect().height ||
+            Engine.mousePositionScreen.x < 0 ||
+            Engine.mousePositionScreen.x > canvas.width ||
+            Engine.mousePositionScreen.y < 0 ||
+            Engine.mousePositionScreen.y > canvas.height ||
             event.button !== MouseButton.LEFT
         ) {
             return;
@@ -82,7 +84,7 @@ export default class EntityDragSystem extends System {
 
         renderableEntities.sort((entityA, entityB) => {
             if (entityA.sprite.zIndex === entityB.sprite.zIndex) {
-                return entityA.transform.position.y - entityB.transform.position.y;
+                return entityB.transform.position.y - entityA.transform.position.y;
             }
 
             return entityA.sprite.zIndex - entityB.sprite.zIndex;
@@ -95,11 +97,17 @@ export default class EntityDragSystem extends System {
                 const sprite = entity.sprite;
                 const transform = entity.transform;
 
+                const bounds = getSpriteBounds(
+                    transform.position,
+                    { width: sprite.width, height: sprite.height },
+                    transform.scale,
+                );
+
                 if (
-                    event.coordinates.x >= transform.position.x &&
-                    event.coordinates.x <= transform.position.x + sprite.width * transform.scale.x &&
-                    event.coordinates.y >= transform.position.y &&
-                    event.coordinates.y <= transform.position.y + sprite.height * transform.scale.y
+                    event.coordinates.x >= bounds.left &&
+                    event.coordinates.x <= bounds.right &&
+                    event.coordinates.y >= bounds.bottom &&
+                    event.coordinates.y <= bounds.top
                 ) {
                     if (Editor.selectedEntities.length === 0 || !this.isEntitySelected(entity.entity)) {
                         Editor.selectedEntities = [entity.entity];
@@ -140,9 +148,10 @@ export default class EntityDragSystem extends System {
         // TODO: if command remains pressed and we paste entities the entity is not pasted
         // check if command pressed is used to allow dragging map
         if (
-            Engine.mousePositionScreen.x < canvas.getBoundingClientRect().x ||
-            Engine.mousePositionScreen.x > canvas.getBoundingClientRect().x + canvas.getBoundingClientRect().width ||
-            Engine.mousePositionScreen.y > canvas.getBoundingClientRect().height ||
+            Engine.mousePositionScreen.x < 0 ||
+            Engine.mousePositionScreen.x > canvas.width ||
+            Engine.mousePositionScreen.y < 0 ||
+            Engine.mousePositionScreen.y > canvas.height ||
             event.button !== MouseButton.LEFT ||
             commandPressed
         ) {
@@ -175,26 +184,25 @@ export default class EntityDragSystem extends System {
                     spriteHeight = sprite.height;
                 }
 
-                const spriteRect: Rectangle = {
-                    x: transform.position.x,
-                    y: transform.position.y,
-                    width: spriteWidth * transform.scale.x,
-                    height: spriteHeight * transform.scale.y,
-                };
+                const spriteBounds = getSpriteBounds(
+                    transform.position,
+                    { width: spriteWidth, height: spriteHeight },
+                    transform.scale,
+                );
 
                 const selectionXStart = Editor.multipleSelectStart.x;
                 const selectionYStart = Editor.multipleSelectStart.y;
                 const selectionXEnd = Editor.mousePositionWorld.x;
                 const selectionYEnd = Editor.mousePositionWorld.y;
 
-                const rectSelection: Rectangle = {
-                    x: selectionXStart < selectionXEnd ? selectionXStart : selectionXEnd,
-                    y: selectionYStart < selectionYEnd ? selectionYStart : selectionYEnd,
-                    width: Math.abs(selectionXEnd - selectionXStart),
-                    height: Math.abs(selectionYEnd - selectionYStart),
+                const selectionBounds: WorldBounds = {
+                    left: Math.min(selectionXStart, selectionXEnd),
+                    right: Math.max(selectionXStart, selectionXEnd),
+                    bottom: Math.min(selectionYStart, selectionYEnd),
+                    top: Math.max(selectionYStart, selectionYEnd),
                 };
 
-                if (rectanglesOverlap(rectSelection, spriteRect)) {
+                if (worldBoundsOverlap(selectionBounds, spriteBounds)) {
                     overlappingEnties.push(entity);
                 }
             }
@@ -215,23 +223,21 @@ export default class EntityDragSystem extends System {
 
         if (Editor.editorSettings.snapToGrid) {
             // Logic for snapping multiple entities to grid:
-            // * take the entity that is on the leftmost upper corner of the group
+            // * take the lower-left centre position in the group
             // * compute the difference needed for that entity to snap to the nearest square to the current mouse position
             // * translate all entities by that difference
 
             // TODO: can we improve this by selecting the entity nearest to the mouse position? See commit 989c5dd for example
-            const nearestGridX =
-                Math.floor(Engine.mousePositionWorld.x / Editor.editorSettings.gridSquareSide) *
-                Editor.editorSettings.gridSquareSide;
-            const nearestGridY =
-                Math.floor(Engine.mousePositionWorld.y / Editor.editorSettings.gridSquareSide) *
-                Editor.editorSettings.gridSquareSide;
+            const gridSize = Editor.editorSettings.gridSquareSide;
+            const gridHalfSize = gridSize / 2;
+            const nearestGridX = Math.floor(Engine.mousePositionWorld.x / gridSize) * gridSize + gridHalfSize;
+            const nearestGridY = Math.floor(Engine.mousePositionWorld.y / gridSize) * gridSize + gridHalfSize;
 
             let minTransformPositionX = Number.MAX_VALUE;
             let minTransformPositionY = Number.MAX_VALUE;
 
             for (const entity of Editor.selectedEntities) {
-                const transform = Editor.selectedEntities[0].getComponent(TransformComponent);
+                const transform = entity.getComponent(TransformComponent);
                 if (!transform) {
                     throw new Error('Could not find some component(s) of entity with id ' + entity.getId());
                 }

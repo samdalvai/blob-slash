@@ -1,7 +1,8 @@
-import { Engine, Entity, System, EventBus, Vector } from '../../engine';
+import { Engine, Entity, EventBus, getColliderBounds, getSpriteBounds, System, Vector, WorldBounds } from '../../engine';
 import BoxColliderComponent from '../components/BoxColliderComponent';
 import EntityEffectComponent from '../components/EntityEffectComponent';
 import RigidBodyComponent from '../components/RigidBodyComponent';
+import SpriteComponent from '../components/SpriteComponent';
 import TransformComponent from '../components/TransformComponent';
 import CollisionEvent from '../events/CollisionEvent';
 
@@ -80,43 +81,35 @@ export default class MovementSystem extends System {
                 throw new Error('Could not find some component(s) of entity with id ' + obstacle.getId());
             }
 
-            // Entity is colliding downwards, shift up by the height of the player entityCollider
+            const obstacleBounds = getColliderBounds(
+                obstacleTransform.position,
+                { width: obstacleCollider.width, height: obstacleCollider.height },
+                obstacleCollider.offset,
+                obstacleTransform.scale,
+            );
+            const entityHalfWidth = (entityCollider.width * entityTransform.scale.x) / 2;
+            const entityHalfHeight = (entityCollider.height * entityTransform.scale.y) / 2;
+            const entityOffsetX = entityCollider.offset.x * entityTransform.scale.x;
+            const entityOffsetY = entityCollider.offset.y * entityTransform.scale.y;
+
+            // Normal points from obstacle to entity. Negative Y is below in a Y-up world.
             if (collisionNormal.y < 0) {
-                entityTransform.position.y =
-                    obstacleTransform.position.y -
-                    entityCollider.height * entityTransform.scale.y +
-                    obstacleCollider.offset.y -
-                    entityCollider.offset.y;
+                entityTransform.position.y = obstacleBounds.bottom - entityHalfHeight - entityOffsetY;
                 entityRigidBody.velocity.y = 0;
             }
 
-            // Entity is colliding upwards, shift down by the height of the ground entityCollider
             if (collisionNormal.y > 0) {
-                entityTransform.position.y =
-                    obstacleTransform.position.y +
-                    obstacleCollider.height * obstacleTransform.scale.y +
-                    obstacleCollider.offset.y -
-                    entityCollider.offset.y;
+                entityTransform.position.y = obstacleBounds.top + entityHalfHeight - entityOffsetY;
                 entityRigidBody.velocity.y = 0;
             }
 
-            // Entity is colliding on the right, shift left by width of player entityCollider
             if (collisionNormal.x < 0) {
-                entityTransform.position.x =
-                    obstacleTransform.position.x -
-                    entityCollider.width * entityTransform.scale.x +
-                    obstacleCollider.offset.x -
-                    entityCollider.offset.x;
+                entityTransform.position.x = obstacleBounds.left - entityHalfWidth - entityOffsetX;
                 entityRigidBody.velocity.x = 0;
             }
 
-            // Entity is colliding on the left, shift right by width of ground entityCollider
             if (collisionNormal.x > 0) {
-                entityTransform.position.x =
-                    obstacleTransform.position.x +
-                    obstacleCollider.width * obstacleTransform.scale.x +
-                    obstacleCollider.offset.x -
-                    entityCollider.offset.x;
+                entityTransform.position.x = obstacleBounds.right + entityHalfWidth - entityOffsetX;
                 entityRigidBody.velocity.x = 0;
             }
         }
@@ -149,30 +142,55 @@ export default class MovementSystem extends System {
             transform.position.x += rigidBody.velocity.x * deltaTime * slowedPercentage;
             transform.position.y += rigidBody.velocity.y * deltaTime * slowedPercentage;
 
+            const getEntityBounds = (): WorldBounds => {
+                if (entity.hasComponent(SpriteComponent)) {
+                    const sprite = entity.getComponent(SpriteComponent);
+                    if (!sprite) {
+                        throw new Error('Could not find sprite component of entity with id ' + entity.getId());
+                    }
+
+                    return getSpriteBounds(
+                        transform.position,
+                        { width: sprite.width, height: sprite.height },
+                        transform.scale,
+                    );
+                }
+
+                return {
+                    left: transform.position.x,
+                    right: transform.position.x,
+                    bottom: transform.position.y,
+                    top: transform.position.y,
+                };
+            };
+
             if (entity.hasTag('player')) {
                 const paddingLeft = 10;
                 const paddingTop = 10;
                 const paddingRight = 50;
                 const paddingBottom = 50;
-                transform.position.x = transform.position.x < paddingLeft ? paddingLeft : transform.position.x;
-                transform.position.x =
-                    transform.position.x > Engine.mapWidth - paddingRight
-                        ? Engine.mapWidth - paddingRight
-                        : transform.position.x;
-                transform.position.y = transform.position.y < paddingTop ? paddingTop : transform.position.y;
-                transform.position.y =
-                    transform.position.y > Engine.mapHeight - paddingBottom
-                        ? Engine.mapHeight - paddingBottom
-                        : transform.position.y;
+                let bounds = getEntityBounds();
+                if (bounds.left < paddingLeft) {
+                    transform.position.x += paddingLeft - bounds.left;
+                } else if (bounds.right > Engine.mapWidth - paddingRight) {
+                    transform.position.x -= bounds.right - (Engine.mapWidth - paddingRight);
+                }
+
+                bounds = getEntityBounds();
+                if (bounds.bottom < paddingBottom) {
+                    transform.position.y += paddingBottom - bounds.bottom;
+                } else if (bounds.top > Engine.mapHeight - paddingTop) {
+                    transform.position.y -= bounds.top - (Engine.mapHeight - paddingTop);
+                }
             }
 
             const cullingMargin = 100;
-
+            const bounds = getEntityBounds();
             const isEntityOutsideMap =
-                transform.position.x < -cullingMargin ||
-                transform.position.x > Engine.mapWidth + cullingMargin ||
-                transform.position.y < -cullingMargin ||
-                transform.position.y > Engine.mapHeight + cullingMargin;
+                bounds.right < -cullingMargin ||
+                bounds.left > Engine.mapWidth + cullingMargin ||
+                bounds.top < -cullingMargin ||
+                bounds.bottom > Engine.mapHeight + cullingMargin;
 
             // Kill all entities that move outside the map boundaries
             if (isEntityOutsideMap && !entity.hasTag('player')) {

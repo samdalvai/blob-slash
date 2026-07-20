@@ -25,6 +25,7 @@ export * from './types/map';
 export * from './types/utils';
 export * from './utils/circle';
 export * from './utils/constants';
+export * from './utils/coordinates';
 export * from './utils/rectangle';
 export * from './utils/time';
 export * from './utils/validation';
