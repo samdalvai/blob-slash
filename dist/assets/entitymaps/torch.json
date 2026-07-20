@@ -58,7 +58,7 @@
           "color": "rgba(255,0,0,1)",
           "emitFrequency": 200,
           "emitRadius": 5,
-          "offsetX": 16,
+          "offsetX": 0,
           "offsetY": 0,
           "particleVelocity": {
             "x": 0,

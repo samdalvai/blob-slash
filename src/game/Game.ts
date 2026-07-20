@@ -64,7 +64,7 @@ export default class Game extends Engine {
         this.registry.addSystem(Systems.DebugSlowTimeRadiusSystem);
         this.registry.addSystem(Systems.DebugCursorCoordinatesSystem);
 
-        await this.levelManager.addLevelToAssets('grass', 'assets/levels/grass.json');
+        await this.levelManager.addLevelToAssets('grass', 'assets/levels/snapshot.json');
         await this.levelManager.loadLevelFromAssets('grass');
         // await this.assetStore.addTexture('player', 'assets/sprites/player_full.png');
         // await this.assetStore.addTexture('cursor', 'assets/sprites/cursor.png');
