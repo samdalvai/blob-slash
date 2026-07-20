@@ -1,24 +1,86 @@
-import { BodiesFactory, FIXED_DELTA_TIME, RigidBody, SETTINGS, Vec2, World } from '../../../gravity.js/src';
-import { System } from '../../engine';
-import { BoxColliderComponent, RigidBodyComponent, TransformComponent } from '../components';
+import { BodiesFactory, FIXED_DELTA_TIME, Force, RigidBody, SETTINGS, Vec2, World } from '../../../gravity.js/src';
+import { EventBus, Registry, System } from '../../engine';
+import { BoxColliderComponent, PlayerControlComponent, RigidBodyComponent, TransformComponent } from '../components';
+import { KeyPressedEvent } from '../events';
 
 export default class PhysicsSystem extends System {
+    private registry: Registry;
     private world: World;
     private entityIdToBodyId: Map<number, number>;
     private bodyIdToEntityId: Map<number, number>;
 
     private accumulator = 0;
 
-    constructor() {
+    constructor(registry: Registry) {
         super();
         super.requireComponent(RigidBodyComponent);
         super.requireComponent(TransformComponent);
         super.requireComponent(BoxColliderComponent);
 
         this.world = new World(0);
+        this.registry = registry;
+
         this.entityIdToBodyId = new Map();
         this.bodyIdToEntityId = new Map();
     }
+
+    subscribeToEvents(eventBus: EventBus) {
+        eventBus.subscribeToEvent(KeyPressedEvent, this, this.onKeyPressed);
+    }
+
+    onKeyPressed = (event: KeyPressedEvent) => {
+        const player = this.registry.getEntityByTag('player');
+
+        if (!player) {
+            console.warn('Player entity not found');
+            return;
+        }
+
+        const playerControl = player.getComponent(PlayerControlComponent);
+
+        if (!playerControl) {
+            throw new Error('Could not find some component(s) of entity with id ' + player.getId());
+        }
+
+        const rigidBodies = this.world.getBodies();
+        const playerRigidBodyId = this.entityIdToBodyId.get(player.getId());
+
+        if (playerRigidBodyId === undefined) {
+            throw new Error('Player is not registered in physics system');
+        }
+
+        let playerRigidBody = null;
+
+        for (const body of rigidBodies) {
+            if (body.id === playerRigidBodyId) {
+                playerRigidBody = body;
+                break;
+            }
+        }
+
+        if (playerRigidBody === null) {
+            throw new Error('Player is not registered in physics system');
+        }
+
+        switch (event.keyCode) {
+            case 'ArrowLeft':
+                playerRigidBody.applyImpulseLinear(new Vec2(-50, 0));
+                console.log('Arrow left');
+                break;
+            case 'ArrowRight':
+                playerRigidBody.applyImpulseLinear(new Vec2(50, 0));
+                console.log('Arrow right');
+                break;
+            case 'ArrowDown':
+                playerRigidBody.applyImpulseLinear(new Vec2(0, -50));
+                console.log('Arrow down');
+                break;
+            case 'ArrowUp':
+                playerRigidBody.applyImpulseLinear(new Vec2(0, 50));
+                console.log('Arrow up');
+                break;
+        }
+    };
 
     update(deltaTime: number) {
         // Add entities added in engine but missing from physcis system
@@ -50,6 +112,7 @@ export default class PhysicsSystem extends System {
                     canRotate: false,
                     velocity: new Vec2(0, 0),
                 });
+
                 this.world.addBody(body);
 
                 this.bodyIdToEntityId.set(body.id, entityId);
@@ -62,6 +125,9 @@ export default class PhysicsSystem extends System {
             rigidBodiesById.set(body.id, body);
             const bodyId = body.id;
             const entityId = this.bodyIdToEntityId.get(bodyId);
+            
+            const dragForce = Force.resistance.generateDragForce(body, 0.01, SETTINGS.dt);
+            body.addForce(dragForce);
 
             if (entityId === undefined) {
                 throw new Error('Could not determine entity id associated to body with id ' + bodyId);
