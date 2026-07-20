@@ -23,15 +23,15 @@ export default class PhysicsSystem extends System {
     update(deltaTime: number) {
         // Add entities added in engine but missing from physcis system
         const rigidBodies = this.world.getBodies();
-        const rigidBodiesByIds: Map<number, RigidBody> = new Map();
+        const systemEntities = this.getSystemEntities();
+        const systemEntitiesIds = new Set<number>();
 
-        for (const body of rigidBodies) {
-            rigidBodiesByIds.set(body.id, body);
+        for (const entity of systemEntities) {
+            systemEntitiesIds.add(entity.getId());
         }
 
-        for (const entity of this.getSystemEntities()) {
+        for (const entity of systemEntities) {
             const entityId = entity.getId();
-            // entitiesIds.add(entityId);
             if (!this.entityIdToBodyId.has(entityId)) {
                 const transform = entity.getComponent(TransformComponent);
                 const rigidBody = entity.getComponent(RigidBodyComponent);
@@ -60,15 +60,16 @@ export default class PhysicsSystem extends System {
         // Remove entities present in physics system but removed from engine
         for (const body of rigidBodies) {
             const bodyId = body.id;
-            if (!this.bodyIdToEntityId.has(bodyId)) {
-                this.world.removeBody(body);
-                const oldEntityId = this.bodyIdToEntityId.get(bodyId);
+            const entityId = this.bodyIdToEntityId.get(bodyId);
 
-                if (oldEntityId === undefined) {
-                    throw new Error('Could not determine old entity id associated with body with id ' + bodyId);
-                }
+            if (entityId === undefined) {
+                throw new Error('Could not determine entity id associated to body with id ' + bodyId);
+            }
+
+            if (!systemEntitiesIds.has(entityId)) {
+                this.world.removeBody(body);
                 this.bodyIdToEntityId.delete(bodyId);
-                this.entityIdToBodyId.delete(oldEntityId);
+                this.entityIdToBodyId.delete(entityId);
             }
         }
 
@@ -79,10 +80,6 @@ export default class PhysicsSystem extends System {
             this.world.update(deltaTime);
             this.accumulator -= FIXED_DELTA_TIME;
         }
-
-        console.log(this.bodyIdToEntityId);
-        console.log(this.entityIdToBodyId);
-        console.log('num entities: ', this.getSystemEntities().length);
 
         for (const entity of this.getSystemEntities()) {
             const entityId = entity.getId();
