@@ -333,10 +333,7 @@ export default class Editor extends Engine {
                     }
 
                     if (inputEvent.code === 'Delete' && Editor.selectedEntities.length > 0) {
-                        if (
-                            this.leftSidebar &&
-                            Editor.mousePositionScreen.x > this.leftSidebar?.getBoundingClientRect().width
-                        ) {
+                        if (this.leftSidebar && Editor.mousePositionScreen.x > 0) {
                             for (const entity of Editor.selectedEntities) {
                                 this.eventBus.emitEvent(EntityDeleteEvent, entity);
                             }
