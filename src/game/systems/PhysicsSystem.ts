@@ -23,14 +23,14 @@ export default class PhysicsSystem extends System {
     update(deltaTime: number) {
         // Add entities added in engine but missing from physcis system
         const rigidBodies = this.world.getBodies();
+        const rigidBodiesById = new Map<number, RigidBody>();
+
         const systemEntities = this.getSystemEntities();
         const systemEntitiesIds = new Set<number>();
 
         for (const entity of systemEntities) {
             systemEntitiesIds.add(entity.getId());
-        }
 
-        for (const entity of systemEntities) {
             const entityId = entity.getId();
             if (!this.entityIdToBodyId.has(entityId)) {
                 const transform = entity.getComponent(TransformComponent);
@@ -48,7 +48,7 @@ export default class PhysicsSystem extends System {
                     y: transform.position.y + collider.offset.y,
                     mass: 1,
                     canRotate: false,
-                    velocity: new Vec2(100, 100),
+                    velocity: new Vec2(0, 0),
                 });
                 this.world.addBody(body);
 
@@ -59,6 +59,7 @@ export default class PhysicsSystem extends System {
 
         // Remove entities present in physics system but removed from engine
         for (const body of rigidBodies) {
+            rigidBodiesById.set(body.id, body);
             const bodyId = body.id;
             const entityId = this.bodyIdToEntityId.get(bodyId);
 
@@ -97,7 +98,19 @@ export default class PhysicsSystem extends System {
                 throw new Error('Could not determine body id associated with entity with id ' + entityId);
             }
 
-            // TODO: update components based on physics
+            const body = rigidBodiesById.get(bodyId);
+
+            if (body === undefined) {
+                throw new Error('Could not retrieve body with id ' + bodyId);
+            }
+
+            const position = body.position;
+            const velocity = body.velocity;
+
+            transform.position.x = position.x;
+            transform.position.y = position.y;
+            rigidBody.velocity.x = velocity.x;
+            rigidBody.velocity.y = velocity.y;
         }
     }
 }
