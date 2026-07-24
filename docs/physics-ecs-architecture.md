@@ -79,6 +79,7 @@ Its current public API is still demo-oriented rather than integration-oriented:
 - Static and dynamic bodies exist through mass, but a true kinematic body type does not.
 - A collision category named `SENSOR` is only a filter category; there is no non-resolving sensor/trigger shape behavior.
 - Substep settings exist, but `World.update()` does not itself perform the configured number of substeps.
+- **Resolved:** Physics engine as package, instead of importing from `../../../gravity.js/src` build library and import using public API
 
 Those are API and lifecycle refinements, not reasons to replace the solver.
 
