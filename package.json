@@ -2,20 +2,34 @@
     "name": "ecslime-engine",
     "version": "1.0.0",
     "description": "A JavaScript game engine for the browser. Built around an Entity Component System (ECS) architecture.",
+    "private": true,
+    "workspaces": [
+        "gravity.js"
+    ],
     "scripts": {
+        "prestart": "npm run build:gravity",
         "start": "parcel game.html",
+        "prestart:editor": "npm run build:gravity",
         "start:editor": "parcel editor.html",
         "clean": "rm -rf .parcel-cache & find dist -maxdepth 1 -type f -exec rm {} +",
+        "pretest": "npm run build:gravity",
         "test": "jest src/__tests__/**/*",
         "test:perf": "jest src/__tests__/Performance.test.ts",
         "lint": "eslint . --ext .js,.ts",
         "lint:fix": "eslint . --ext .js,.ts --fix",
+        "prebuild:game": "npm run build:gravity",
         "build:game": "parcel build game.html --no-optimize --public-url ./ && mv dist/game.html dist/index.html",
+        "prebuild:editor": "npm run build:gravity",
         "build:editor": "parcel build editor.html",
+        "build:gravity": "npm run build:package --workspace gravity.js",
+        "typecheck": "npm run build:gravity && tsc --noEmit",
         "benchmark": "rm -rf .benchmark-dist && tsc --outDir .benchmark-dist --rootDir . --module commonjs --target es2020 benchmark/index.ts && node .benchmark-dist/benchmark/index.js"
     },
     "author": "Samuel Dalvai",
     "license": "MIT",
+    "dependencies": {
+        "gravity.js": "1.0.0"
+    },
     "devDependencies": {
         "@babel/core": "^7.26.0",
         "@babel/preset-env": "^7.26.0",

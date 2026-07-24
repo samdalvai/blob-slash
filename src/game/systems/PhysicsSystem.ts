@@ -1,4 +1,4 @@
-import { BodiesFactory, FIXED_DELTA_TIME, Force, RigidBody, SETTINGS, Vec2, World } from '../../../gravity.js/src';
+import { BodiesFactory, FIXED_DELTA_TIME, Force, RigidBody, SETTINGS, Vec2, World } from 'gravity.js';
 import { EventBus, Registry, System } from '../../engine';
 import { BoxColliderComponent, PlayerControlComponent, RigidBodyComponent, TransformComponent } from '../components';
 import { KeyPressedEvent } from '../events';

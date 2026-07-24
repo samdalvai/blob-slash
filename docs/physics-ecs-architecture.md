@@ -72,7 +72,7 @@ Gravity.js already has the parts worth protecting as a standalone domain:
 Its current public API is still demo-oriented rather than integration-oriented:
 
 - **Resolved:** `World.getBodies()` now returns a detached, read-only snapshot, so callers cannot mutate world membership through the returned collection. Individual `RigidBody` objects are still mutable until the proposed handle/command API is introduced.
-- `World.addBody()` silently does nothing at `MAX_BODIES`.
+- **Resolved:** `World.addBody()` silently does nothing at `MAX_BODIES`.
 - Bodies are referenced as mutable objects with process-global incrementing IDs.
 - `SETTINGS` is a mutable module singleton rather than per-world configuration.
 - Contact callbacks execute from inside constraint solving.
